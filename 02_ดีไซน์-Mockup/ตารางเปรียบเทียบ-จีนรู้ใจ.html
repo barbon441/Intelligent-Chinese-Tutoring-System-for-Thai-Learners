@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ตารางเปรียบเทียบ — จีนรู้ใจ (ฉบับตรวจสอบแล้ว)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+SC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --ink:#1f2a3a;--muted:#6b7785;--line:#e6e9ef;
+ --primary:#2f5d8c;--primary-soft:#e7eef6;
+ --accent:#e26d9b;--accent-soft:#fbe9f1;
+ --jade:#2faf7a;--gold:#c9962e;--gray:#c2c8d2;
+}
+html,body{height:100%}
+body{
+ font-family:"IBM Plex Sans Thai",sans-serif;color:var(--ink);
+ background:
+   radial-gradient(1100px 560px at 6% -12%,#e6eef7,transparent),
+   radial-gradient(1000px 520px at 112% 8%,#fbe6ef,transparent),
+   #eef1f6;
+ display:flex;align-items:center;justify-content:center;
+ padding:40px;min-height:100vh;
+}
+.card{
+ width:1200px;background:#fff;border-radius:30px;
+ box-shadow:0 30px 70px rgba(31,42,58,.16);
+ padding:42px 50px 36px;position:relative;overflow:hidden;
+}
+.card::before{content:"🪷";position:absolute;right:-10px;bottom:-26px;font-size:160px;opacity:.06;transform:rotate(-8deg)}
+.head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:6px}
+.title{font-size:38px;font-weight:700;color:var(--primary);line-height:1.1}
+.title .cn{font-family:"Noto Sans SC",serif;color:var(--accent);font-weight:500;font-size:28px;margin-left:8px}
+.sub{color:var(--muted);font-size:16px;margin-top:8px;max-width:760px}
+.legend{display:flex;gap:15px;font-size:14px;color:var(--muted);align-items:center;white-space:nowrap}
+.legend b{font-weight:700}
+.yes{color:var(--jade)}.no{color:var(--gray)}.partial{color:var(--gold)}
+table{width:100%;border-collapse:separate;border-spacing:0;margin-top:20px}
+th,td{padding:12px 12px;text-align:center;font-size:17px}
+thead th{font-size:18px;font-weight:700;color:var(--ink);border-bottom:2px solid var(--line)}
+thead th.dim{text-align:left;color:var(--muted);font-weight:600}
+tbody td{border-bottom:1px solid var(--line)}
+td.dim{text-align:left;font-weight:600;font-size:16px}
+td.dim .tag{display:inline-block;font-size:11px;color:#fff;background:var(--accent);border-radius:6px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+.mark{font-size:21px;font-weight:700}
+.mark.y{color:var(--jade)}
+.mark.n{color:var(--gray)}
+.mark.p{color:var(--gold);font-size:14px;font-weight:600}
+.ourcol{background:linear-gradient(180deg,var(--accent-soft),#fff 90%)}
+thead th.ourhead{color:#fff;background:var(--primary);border-radius:14px 14px 0 0;border-bottom:2px solid var(--primary)}
+thead th.ourhead .cn{font-family:"Noto Sans SC",serif;font-weight:500;font-size:13px;display:block;opacity:.85}
+tbody tr.star td.dim{color:var(--accent)}
+tbody tr.star{background:#fdf3f8}
+tbody tr.star td.ourcol{background:linear-gradient(180deg,#f9dcea,#fdeef5)}
+.foot{display:flex;align-items:center;gap:12px;color:var(--ink);font-size:17px;font-weight:600;margin-top:22px}
+.foot .pill{background:var(--primary);color:#fff;border-radius:99px;padding:7px 16px;font-size:15px;white-space:nowrap}
+.note{color:var(--muted);font-size:13px;margin-top:8px}
+</style>
+</head>
+<body>
+ <div class="card">
+   <div class="head">
+     <div>
+       <div class="title">เปรียบเทียบกับแอปเรียนจีน <span class="cn">中文知心</span></div>
+       <div class="sub">แอปใหญ่เก่งเรื่องทั่วไป — แต่ไม่มีใคร “วินิจฉัยจุดผิดตามภาษาแม่ไทย”</div>
+     </div>
+     <div class="legend">
+       <span><b class="yes">✓</b> มี</span>
+       <span><b class="partial">◐</b> บางส่วน</span>
+       <span><b class="no">✗</b> ไม่มี</span>
+     </div>
+   </div>
+
+   <table>
+     <thead>
+       <tr>
+         <th class="dim">ความสามารถ</th>
+         <th>Duolingo</th>
+         <th>HelloChinese</th>
+         <th>Pleco</th>
+         <th class="ourhead">จีนรู้ใจ<span class="cn">ของเรา</span></th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr>
+         <td class="dim">ฟีดแบ็กการออกเสียง (วรรณยุกต์)</td>
+         <td><span class="mark n">✗</span></td>
+         <td><span class="mark y">✓</span></td>
+         <td><span class="mark n">✗</span></td>
+         <td class="ourcol"><span class="mark y">✓</span></td>
+       </tr>
+       <tr>
+         <td class="dim">ทบทวนอัจฉริยะ (จำ–ลืม)</td>
+         <td><span class="mark y">✓</span></td>
+         <td><span class="mark y">✓</span></td>
+         <td><span class="mark y">✓</span></td>
+         <td class="ourcol"><span class="mark y">✓</span></td>
+       </tr>
+       <tr>
+         <td class="dim">รองรับภาษาไทย</td>
+         <td><span class="mark y">✓</span></td>
+         <td><span class="mark y">✓</span></td>
+         <td><span class="mark n">✗</span></td>
+         <td class="ourcol"><span class="mark y">✓</span></td>
+       </tr>
+       <tr>
+         <td class="dim">ฟรี + ใช้งานออฟไลน์ได้</td>
+         <td><span class="mark p">บางส่วน</span></td>
+         <td><span class="mark y">✓</span></td>
+         <td><span class="mark p">บางส่วน</span></td>
+         <td class="ourcol"><span class="mark y">✓</span></td>
+       </tr>
+       <tr>
+         <td class="dim">ปรับบทเรียนตามผู้เรียน (adaptive)</td>
+         <td><span class="mark p">บางส่วน</span></td>
+         <td><span class="mark p">บางส่วน</span></td>
+         <td><span class="mark n">✗</span></td>
+         <td class="ourcol"><span class="mark y">✓</span></td>
+       </tr>
+       <tr class="star">
+         <td class="dim">วินิจฉัยจุดผิดตามภาษาแม่ไทย (Thai-L1)<span class="tag">จุดต่าง</span></td>
+         <td><span class="mark n">✗</span></td>
+         <td><span class="mark n">✗</span></td>
+         <td><span class="mark n">✗</span></td>
+         <td class="ourcol"><span class="mark y">✓</span></td>
+       </tr>
+       <tr class="star">
+         <td class="dim">วัดความแม่นรายทักษะ + เจาะแก้ (Knowledge Tracing)<span class="tag">จุดต่าง</span></td>
+         <td><span class="mark n">✗</span></td>
+         <td><span class="mark n">✗</span></td>
+         <td><span class="mark n">✗</span></td>
+         <td class="ourcol"><span class="mark y">✓</span></td>
+       </tr>
+     </tbody>
+   </table>
+
+   <div class="foot">
+     <span class="pill">จุดต่างที่แท้จริง</span>
+     <span>แอปใหญ่ทำเรื่องทั่วไปได้ครบ — แต่ <b style="color:var(--accent)">“วินิจฉัยจุดผิดตามภาษาแม่ไทย (Thai-L1) + Knowledge Tracing”</b> คือสิ่งที่ไม่มีคู่แข่งรายใดทำ</span>
+   </div>
+   <div class="note">* ตรวจสอบฟีเจอร์แอป ณ ปี 2026 จากแหล่งทางการ (App Store, เว็บไซต์ผู้พัฒนา, รีวิว) — Duolingo / HelloChinese / Pleco เป็นเครื่องหมายการค้าของเจ้าของแอป</div>
+ </div>
+</body>
+</html>

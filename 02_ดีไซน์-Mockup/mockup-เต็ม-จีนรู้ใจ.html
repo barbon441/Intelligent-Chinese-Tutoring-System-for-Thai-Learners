@@ -1,0 +1,442 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>จีนรู้ใจ — Mockup เต็ม</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --bg:#eef1f6;--card:#fff;--ink:#1f2a3a;--muted:#717c8a;--line:#e7ebf2;
+ --primary:#2f5d8c;--primary-soft:#e6eef7;--accent:#e26d9b;--accent-soft:#fbe9f1;
+ --jade:#2faf7a;--jade-soft:#e3f5ed;--gold:#c9962e;--danger:#d96a6a;
+ --radius:18px;--shadow:0 8px 22px rgba(31,42,58,.09);
+}
+body{font-family:"IBM Plex Sans Thai","Noto Sans Thai",sans-serif;color:var(--ink);
+ background:radial-gradient(1200px 600px at 8% -12%,#e8f0f8,transparent),
+ radial-gradient(1000px 520px at 112% 6%,#fbeaf1,transparent),#eef1f6;
+ padding:34px 18px 70px;-webkit-font-smoothing:antialiased}
+.page-head{max-width:1100px;margin:0 auto 30px;text-align:center}
+.brand{font-size:38px;font-weight:700;color:var(--primary)}
+.brand span{font-family:"Noto Sans SC",serif;color:var(--accent);font-weight:500;margin-left:10px}
+.tagline{color:var(--muted);margin-top:8px;font-size:15px}
+.legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.gallery{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:34px;justify-content:center;align-items:flex-start}
+.phone-wrap{display:flex;flex-direction:column;align-items:center;gap:12px}
+.phone{width:344px;background:#fff;border-radius:42px;padding:11px;box-shadow:0 24px 54px rgba(31,42,58,.20);border:1px solid #e2e6ee;position:relative}
+.phone::before{content:"";position:absolute;top:21px;left:50%;transform:translateX(-50%);width:120px;height:7px;background:#dfe4ec;border-radius:99px;z-index:6}
+.screen{height:706px;display:flex;flex-direction:column;background:var(--bg);border-radius:32px;overflow:hidden}
+.body::-webkit-scrollbar{width:0}
+figcaption{font-weight:600;color:var(--primary);font-size:14px}
+.appbar{display:flex;align-items:center;gap:10px;padding:18px 16px 12px;background:#fff;border-bottom:1px solid var(--line)}
+.appbar .title{flex:1;font-weight:700;font-size:16px;text-align:center}
+.icon-btn{width:34px;height:34px;border:none;background:var(--primary-soft);color:var(--primary);border-radius:50%;font-size:16px;cursor:pointer;flex:0 0 auto}
+.icon-btn.ghost{background:transparent}
+.body{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:13px}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:15px}
+.card.soft-blue{background:var(--primary-soft);box-shadow:none}
+.card.soft-pink{background:var(--accent-soft);box-shadow:none}
+.card.soft-jade{background:var(--jade-soft);box-shadow:none}
+.card.soft-gold{background:#f7efda;box-shadow:none}
+.sec-title{font-weight:700;font-size:14px;margin:2px 0}
+.muted{color:var(--muted);font-size:14px;line-height:1.55}
+.small{font-size:12px;color:var(--muted)}.big{font-size:18px;font-weight:700}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:99px;font-size:12px;font-weight:600;background:#eef1f6;color:var(--muted)}
+.pill.blue{background:var(--primary-soft);color:var(--primary)}
+.pill.pink{background:var(--accent-soft);color:#c14d7c}
+.pill.jade{background:var(--jade-soft);color:#1f8a5f}
+.pill.gold{background:#f6edd6;color:#9a7113}
+.pill.danger{background:#fbe5e5;color:#bd4b4b}
+.pill.ghost{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.btn{border:none;border-radius:12px;padding:11px 16px;font-family:inherit;font-weight:600;font-size:14px;cursor:pointer;background:#e9edf3;color:var(--ink)}
+.btn.primary{background:var(--primary);color:#fff}
+.btn.accent{background:var(--accent);color:#fff}
+.btn.jade{background:var(--jade);color:#fff}
+.btn.ghost{background:transparent;border:1.5px solid var(--primary);color:var(--primary)}
+.btn.block{width:100%;display:block}
+.btn.sm{padding:7px 12px;font-size:13px;border-radius:9px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bar{height:9px;background:#e7ebf2;border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--primary);border-radius:99px}
+.bar>i.pink{background:var(--accent)}.bar>i.jade{background:var(--jade)}.bar>i.gold{background:var(--gold)}.bar>i.danger{background:var(--danger)}
+.stats{display:flex;gap:10px}
+.stat{flex:1;background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:12px;text-align:center}
+.stat .num{font-size:22px;font-weight:700;color:var(--primary)}
+.stat .lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.hanzi{font-family:"Noto Sans SC",serif;font-size:62px;font-weight:700;text-align:center;line-height:1.12}
+.pinyin{text-align:center;font-size:20px;margin-top:4px;font-weight:600;color:var(--muted)}
+.gloss{text-align:center;font-size:16px;margin-top:3px}
+.t1{color:#d23b3b}.t2{color:#1f8a5f}.t3{color:#2f5d8c}.t4{color:#7a3bbd}.t5{color:#9aa3ad}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.tile{font-family:"Noto Sans SC",serif;font-size:22px;font-weight:600;background:#fff;border:1.5px solid var(--primary-soft);box-shadow:var(--shadow);border-radius:12px;padding:8px 14px}
+.chat{display:flex;flex-direction:column;gap:10px}
+.bubble{max-width:82%;padding:10px 13px;border-radius:16px;font-size:14px;line-height:1.5}
+.bubble.ai{align-self:flex-start;background:#fff;box-shadow:var(--shadow);border-bottom-left-radius:5px}
+.bubble.me{align-self:flex-end;background:var(--primary);color:#fff;border-bottom-right-radius:5px}
+.bubble .py{display:block;font-size:12px;opacity:.72;margin-top:3px}
+.chat-input{display:flex;align-items:center;gap:10px;background:#fff;border-radius:99px;padding:9px 13px;box-shadow:var(--shadow)}
+.chat-input .ph{flex:1;color:var(--muted);font-size:13px}
+.chat-input .send{color:var(--primary);font-weight:700}
+.note{font-size:13px;color:var(--muted);padding:10px 12px;border-left:3px solid var(--primary);background:#fff;border-radius:8px;line-height:1.5}
+.note.pink{border-color:var(--accent)}.note.jade{border-color:var(--jade)}
+.list{display:flex;flex-direction:column;gap:8px}
+.lrow{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:11px 13px}
+.lrow .cn{font-family:"Noto Sans SC",serif;font-weight:600}
+.score{width:86px;height:86px;border-radius:50%;border:7px solid var(--primary-soft);border-top-color:var(--primary);border-right-color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:var(--primary);margin:0 auto}
+.score small{font-size:13px}
+.toggle{display:inline-block;min-width:46px;text-align:center;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:600;background:#e7ebf2;color:var(--muted)}
+.toggle.on{background:var(--jade);color:#fff}
+.badges{display:flex;gap:10px;flex-wrap:wrap}
+.badge{flex:1;min-width:78px;text-align:center;background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:12px 8px;font-size:22px}
+.badge span{display:block;font-size:11px;color:var(--muted);margin-top:4px}
+.divider{height:1px;background:var(--line);margin:3px 0}
+.chart{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:12px}
+.chart svg{width:100%;height:auto;display:block}
+.bnav{display:flex;background:#fff;border-top:1px solid var(--line)}
+.bnav .item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:11px 0;font-size:18px;color:var(--muted);text-decoration:none}
+.bnav .item span{font-size:10px}
+.bnav .item.active{color:var(--primary)}
+.hero{width:122px;height:122px;border-radius:50%;margin:14px auto;display:flex;align-items:center;justify-content:center;font-size:60px;background:radial-gradient(circle at 32% 30%,var(--accent-soft),var(--primary-soft))}
+</style></head><body><header class="page-head"><div class="brand">🪷 จีนรู้ใจ <span>中文知心</span></div><div class="tagline">ระบบติวเตอร์ภาษาจีนอัจฉริยะสำหรับคนไทย — Mockup ครบทุกหน้าจอ (10 หน้า)</div><div class="legend"><span class="pill blue">PWA · ออฟไลน์ได้</span><span class="pill jade">Knowledge Tracing (pyBKT)</span><span class="pill gold">Spaced Repetition (FSRS)</span><span class="pill pink">วินิจฉัย Thai-L1</span><span class="pill blue">AI คู่สนทนา</span></div></header><main class="gallery"><figure class="phone-wrap"><div class="phone"><div class="screen"><div class="appbar"><span class="icon-btn ghost"></span><div class="title">ยินดีต้อนรับ</div><span class="icon-btn ghost"></span></div>
+<div class="body">
+  <div class="hero">
+    <div class="big">🪷</div>
+    <div class="big">จีนรู้ใจ</div>
+    <div class="cn">中文知心</div>
+    <p class="muted">ติวเตอร์จีนที่รู้ใจคนไทย</p>
+  </div>
+
+  <div class="row" style="justify-content:center">
+    <span class="pill jade">รู้จุดอ่อนคุณ</span>
+    <span class="pill blue">ทวนตอนใกล้ลืม</span>
+    <span class="pill gold">ใช้ออฟไลน์ได้</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="card soft-blue">
+    <div class="sec-title">เลือกระดับเริ่มต้น</div>
+    <p class="muted">เริ่มจากพื้นฐานก่อนค่อย ๆ ไต่ระดับ</p>
+    <div class="row" style="justify-content:flex-start">
+      <span class="pill blue">HSK 1</span>
+      <span class="pill ghost">HSK 2</span>
+    </div>
+    <div class="note jade">เริ่ม HSK 1: คำพื้นฐาน 150 คำ เช่น <span class="cn">你好</span> · <span class="cn">谢谢</span></div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div class="small">เรียนรู้แบบรู้ใจ</div><span class="pill jade">AI</span></div>
+    <div class="hanzi">谢谢</div>
+    <div class="pinyin"><span class="t4">xiè</span> <span class="t5">xie</span></div>
+    <div class="gloss">ขอบคุณ</div>
+  </div>
+
+  <button class="btn primary block">เริ่มเรียนเลย</button>
+  <button class="btn ghost block">ฉันมีบัญชีอยู่แล้ว</button>
+
+  <p class="muted" style="text-align:center"><span class="small">สวัสดีครับบอล พร้อมเริ่มการเดินทางภาษาจีนแล้วหรือยัง</span></p>
+</div></div></div><figcaption>1 · เริ่มต้น / ออนบอร์ด</figcaption></figure><figure class="phone-wrap"><div class="phone"><div class="screen"><div class="appbar"><span class="icon-btn ghost"></span><div class="title">สวัสดี, บอล 👋</div><button class="icon-btn">⋯</button></div>
+<div class="body">
+  <div class="card soft-gold">
+    <div class="row"><div class="big">🔥 เรียนต่อเนื่อง 7 วัน</div><span class="pill gold">เก่งมาก!</span></div>
+    <p class="muted">ทำต่อให้ครบ 8 วันเพื่อปลดล็อกเหรียญใหม่</p>
+    <div class="bar"><i class="gold" style="width:88%"></i></div>
+  </div>
+
+  <div class="sec-title">แผนวันนี้</div>
+  <div class="stats">
+    <div class="stat"><div class="num">12</div><div class="lbl">ครบกำหนดทวน</div></div>
+    <div class="stat"><div class="num">5</div><div class="lbl">คำใหม่</div></div>
+    <div class="stat"><div class="num">~15</div><div class="lbl">นาที</div></div>
+  </div>
+
+  <div class="sec-title">ความแม่นรายทักษะ</div>
+  <div class="card">
+    <div class="row"><div>คำศัพท์</div><div><span class="pill jade">78%</span></div></div>
+    <div class="bar"><i class="jade" style="width:78%"></i></div>
+    <div class="divider"></div>
+    <div class="row"><div>พินอิน</div><div><span class="pill jade">81%</span></div></div>
+    <div class="bar"><i class="jade" style="width:81%"></i></div>
+    <div class="divider"></div>
+    <div class="row"><div>การฟัง</div><div><span class="pill blue">70%</span></div></div>
+    <div class="bar"><i style="width:70%"></i></div>
+    <div class="divider"></div>
+    <div class="row"><div>ไวยากรณ์</div><div><span class="pill gold">64%</span></div></div>
+    <div class="bar"><i class="gold" style="width:64%"></i></div>
+    <div class="divider"></div>
+    <div class="row"><div>วรรณยุกต์</div><div><span class="pill danger">52%</span></div></div>
+    <div class="bar"><i class="danger" style="width:52%"></i></div>
+  </div>
+
+  <div class="card soft-pink">
+    <div class="sec-title">จุดที่ต้องเน้น</div>
+    <p>เสียงวรรณยุกต์ <span class="cn">2↔3</span> ของคุณยังสับสน — เช่น <span class="cn">很</span> hěn (เสียง 3) กับ <span class="cn">人</span> rén (เสียง 2)</p>
+    <button class="btn accent sm">ฝึกแก้เลย</button>
+  </div>
+
+  <div class="row">
+    <button class="btn primary">เริ่มทวน 12 ใบ</button>
+    <button class="btn ghost">เรียนคำใหม่</button>
+  </div>
+</div>
+<div class="bnav"><a class="item active">🏠<span>หน้าหลัก</span></a><a class="item">🔁<span>ทบทวน</span></a><a class="item">📚<span>คลังคำ</span></a><a class="item">🙂<span>โปรไฟล์</span></a></div></div></div><figcaption>2 · หน้าหลัก · วิเคราะห์คุณ</figcaption></figure><figure class="phone-wrap"><div class="phone"><div class="screen"><div class="appbar"><button class="icon-btn">‹</button><div class="title">บัตรคำ</div><span class="pill blue">8 / 12</span></div>
+<div class="body">
+  <div class="card">
+    <div class="hanzi">谢谢</div>
+    <div class="pinyin"><span class="t4">xiè</span> <span class="t5">xie</span></div>
+    <div class="row" style="justify-content:center"><button class="btn ghost sm">🔊 ฟังเสียง</button></div>
+    <div class="gloss">ขอบคุณ</div>
+  </div>
+
+  <div class="card soft-blue">
+    <div class="sec-title">ตัวอย่างประโยค</div>
+    <div class="cn">谢谢你的帮助</div>
+    <p class="muted">ขอบคุณสำหรับความช่วยเหลือ</p>
+  </div>
+
+  <div class="note pink">คำนี้คุณเคยพลาดวรรณยุกต์ — ลองออกเสียงให้ชัด</div>
+
+  <div class="sec-title">จำได้แค่ไหน?</div>
+  <div class="row">
+    <button class="btn accent sm">ลืม</button>
+    <button class="btn sm">ยาก</button>
+    <button class="btn primary sm">ดี</button>
+    <button class="btn jade sm">ง่าย</button>
+  </div>
+  <div class="row">
+    <span class="small">&lt;10 นาที</span>
+    <span class="small">อีก 1 วัน</span>
+    <span class="small">อีก 3 วัน</span>
+    <span class="small">อีก 6 วัน</span>
+  </div>
+</div></div></div><figcaption>3 · บัตรคำ</figcaption></figure><figure class="phone-wrap"><div class="phone"><div class="screen"><div class="appbar"><span class="icon-btn ghost"></span><div class="title">ทบทวนวันนี้</div><button class="icon-btn">⋯</button></div>
+<div class="body">
+  <div class="stats">
+    <div class="stat"><div class="num">12</div><div class="lbl">ครบกำหนด</div></div>
+    <div class="stat"><div class="num">4</div><div class="lbl">ใกล้ลืม</div></div>
+    <div class="stat"><div class="num">5</div><div class="lbl">เรียนใหม่</div></div>
+  </div>
+
+  <div class="card soft-blue">
+    <div class="sec-title">พยากรณ์การจำ (retention)</div>
+    <p class="muted">% การจำตามเวลา</p>
+    <div class="chart">
+      <svg viewBox="0 0 300 130">
+        <path d="M10 22 C 70 30, 110 55, 150 78 S 240 108, 290 116" stroke="#2f5d8c" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="10" cy="22" r="3.5" fill="#2f5d8c"/>
+        <circle cx="90" cy="40" r="3.5" fill="#2f5d8c"/>
+        <circle cx="150" cy="78" r="3.5" fill="#2f5d8c"/>
+        <circle cx="290" cy="116" r="3.5" fill="#2f5d8c"/>
+        <text x="14" y="16" font-size="9" fill="#2f5d8c">100%</text>
+        <text x="92" y="34" font-size="9" fill="#2f5d8c">90%</text>
+        <text x="118" y="74" font-size="9" fill="#2f5d8c">72%</text>
+        <text x="252" y="112" font-size="9" fill="#2f5d8c">48%</text>
+      </svg>
+    </div>
+    <div class="row"><div class="small">วันนี้</div><div class="small">อีก 14 วัน</div></div>
+  </div>
+
+  <div class="sec-title">คำที่จะทบทวน</div>
+  <div class="list">
+    <div class="lrow"><div><span class="cn">老师</span> lǎoshī · ครู</div><span class="pill pink">วันนี้</span></div>
+    <div class="lrow"><div><span class="cn">朋友</span> péngyou · เพื่อน</div><span class="pill pink">วันนี้</span></div>
+    <div class="lrow"><div><span class="cn">药</span> yào · ยา</div><span class="pill blue">พรุ่งนี้</span></div>
+    <div class="lrow"><div><span class="cn">学校</span> xuéxiào · โรงเรียน</div><span class="pill ghost">อีก 3 วัน</span></div>
+  </div>
+
+  <div class="note jade">ทบทวนตรงเวลาช่วยให้จำได้นานขึ้น ระบบ FSRS จัดคิวให้บอลอัตโนมัติ</div>
+
+  <button class="btn primary block">เริ่มทบทวน 12 ใบ</button>
+</div>
+<div class="bnav"><a class="item">🏠<span>หน้าหลัก</span></a><a class="item active">🔁<span>ทบทวน</span></a><a class="item">📚<span>คลังคำ</span></a><a class="item">🙂<span>โปรไฟล์</span></a></div></div></div><figcaption>4 · ทบทวน (เว้นช่วง FSRS)</figcaption></figure><figure class="phone-wrap"><div class="phone"><div class="screen"><div class="appbar"><button class="icon-btn">‹</button><div class="title">วิเคราะห์จุดผิดของคุณ</div><span class="icon-btn ghost"></span></div>
+<div class="body">
+  <p class="muted">ระบบพบรูปแบบความผิดที่พบบ่อยในคนไทย 3 จุด จากการตอบล่าสุดของคุณ</p>
+
+  <div class="card soft-pink">
+    <div class="row">
+      <div>🔴 วรรณยุกต์เสียง 2 ↔ 3 สับสน</div>
+      <span class="pill danger">52%</span>
+    </div>
+    <p class="muted">คุณมักออก máng (เสียง2) เป็น mǎng (เสียง3)</p>
+    <div class="bar"><i class="danger" style="width:52%"></i></div>
+    <button class="btn accent sm">ฝึกแก้จุดนี้</button>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div>🟠 เสียงม้วนลิ้น zh / ch / sh</div>
+      <span class="pill gold">61%</span>
+    </div>
+    <p class="muted">ออก <span class="cn">知</span> zhī เป็น jī (เสียง j แบบไทย)</p>
+    <div class="bar"><i class="gold" style="width:61%"></i></div>
+    <button class="btn sm">ฝึกแก้จุดนี้</button>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div>🟡 ไวยากรณ์: ถ่ายโอนจากภาษาไทย</div>
+      <span class="pill blue">70%</span>
+    </div>
+    <p class="muted">วางคำบอกเวลา/คำขยายผิดตำแหน่ง เช่น ✗ <span class="cn">我吃饭了在家</span> ✓ <span class="cn">我在家吃饭了</span></p>
+    <div class="bar"><i style="width:70%"></i></div>
+    <button class="btn sm">ฝึกแก้จุดนี้</button>
+  </div>
+
+  <div class="note jade">ข้อมูลนี้อัปเดตอัตโนมัติจากแบบจำลองผู้เรียน (Knowledge Tracing)</div>
+</div></div></div><figcaption>5 · วินิจฉัยจุดผิด (Thai-L1)</figcaption></figure><figure class="phone-wrap"><div class="phone"><div class="screen"><div class="appbar"><button class="icon-btn">‹</button><div class="title">แต่งประโยค</div><span class="icon-btn ghost"></span></div>
+<div class="body">
+
+  <div class="card soft-blue">
+    <div class="sec-title">เรียงคำให้เป็นประโยค</div>
+    <p class="muted">ความหมาย: ฉันชอบกินข้าว</p>
+    <div class="tiles">
+      <span class="tile">喜欢</span>
+      <span class="tile">我</span>
+      <span class="tile">米饭</span>
+      <span class="tile">吃</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">คำตอบที่กำลังเรียง</div>
+    <div class="row" style="justify-content:center">
+      <div>
+        <div style="text-align:center"><span class="cn big">我 喜欢 吃 米饭</span></div>
+        <div class="pinyin" style="text-align:center">
+          <span class="t3">wǒ</span> <span class="t3">xǐ</span><span class="t5">huan</span> <span class="t1">chī</span> <span class="t3">mǐ</span><span class="t4">fàn</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card soft-jade">
+    <div class="row"><div>✓ ถูกต้อง!</div><span class="pill jade">+10 คะแนน</span></div>
+    <p class="muted">ลำดับคำ ประธาน-กริยา-กรรม (S-V-O) ถูกแล้ว 👏</p>
+  </div>
+
+  <div class="note pink">ภาษาไทยพูด "กินข้าว" แต่จีนใช้ 吃饭 — ระวังอย่าสลับคำ</div>
+
+  <button class="btn primary block">ประโยคต่อไป</button>
+
+  <div class="row" style="justify-content:center">
+    <span class="pill ghost small">🤖 AI ปรับความยากให้เหมาะกับคุณ</span>
+  </div>
+
+</div></div></div><figcaption>6 · แต่งประโยค</figcaption></figure><figure class="phone-wrap"><div class="phone"><div class="screen"><div class="appbar"><button class="icon-btn">‹</button><div class="title">ติวเตอร์ AI 🤖</div><span class="icon-btn ghost"></span></div>
+<div class="body">
+  <div class="note jade">💡 AI รู้ว่าคุณอ่อนวรรณยุกต์ จึงเน้นให้คุณฝึกออกเสียงให้ถูก</div>
+  <div class="chat">
+    <div class="bubble ai">你好！今天想练习什么？<span class="py">สวัสดี! วันนี้อยากฝึกอะไรดี</span></div>
+    <div class="bubble me">我想点菜<span class="py">ฉันอยากสั่งอาหาร</span></div>
+    <div class="bubble ai">好的！你想吃什么菜？<span class="py">ได้เลย! อยากกินอะไรดี</span></div>
+    <div class="bubble me">我要这个 cài (เสียงเพี้ยน)</div>
+    <div class="bubble ai">差一点点～ 是 <span class="cn">菜</span> cài (เสียง4 ตกลง) 🎯 ลองพูดอีกครั้งให้เสียงตกชัด ๆ <span class="py">เกือบถูกแล้ว! 菜 เป็นเสียง 4</span></div>
+  </div>
+  <div class="chat-input"><span>🎤</span><div class="ph">พิมพ์ข้อความ…</div><span class="send">➤</span></div>
+</div></div></div><figcaption>7 · AI คู่สนทนา</figcaption></figure><figure class="phone-wrap"><div class="phone"><div class="screen"><div class="appbar"><button class="icon-btn">‹</button><div class="title">ออกเสียงคำนี้</div><span class="icon-btn ghost"></span></div>
+<div class="body">
+
+  <div class="card soft-blue">
+    <div class="hanzi">妈</div>
+    <div class="pinyin"><span class="t1">mā</span></div>
+    <div class="gloss">แม่ (เสียง 1 — สูงคงที่)</div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">เทียบเส้นเสียง (pitch)</div>
+    <div class="chart">
+      <svg viewBox="0 0 300 140">
+        <line x1="20" y1="30" x2="280" y2="30" stroke="#dfe6ee" stroke-width="1"></line>
+        <line x1="20" y1="70" x2="280" y2="70" stroke="#dfe6ee" stroke-width="1"></line>
+        <line x1="20" y1="110" x2="280" y2="110" stroke="#dfe6ee" stroke-width="1"></line>
+        <path d="M30 34 C 90 32, 210 32, 270 34" stroke="#2f5d8c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M30 40 C 100 48, 130 100, 150 102 C 175 104, 220 60, 270 44" stroke="#e26d9b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+    <div class="row">
+      <div><span class="pill blue">— ต้นแบบ</span></div>
+      <div><span class="pill pink">— ของคุณ</span></div>
+    </div>
+  </div>
+
+  <div class="row" style="justify-content:center">
+    <div class="score">72<small>%</small></div>
+  </div>
+
+  <div class="card soft-pink">
+    <div class="sec-title">ฟีดแบ็ก</div>
+    <p class="muted">เสียงคุณตกลงตรงกลาง (คล้ายเสียง 3) — ลองเลี้ยงเสียงให้สูงคงที่ตลอดคำ</p>
+  </div>
+
+  <button class="btn accent block">🎤 แตะเพื่ออัดใหม่</button>
+
+  <div class="note pink">ระบบเทียบ 'รูปเส้นเสียง' ไม่ได้ตัดสินถูก-ผิดเป๊ะ เพื่อช่วยฝึกวรรณยุกต์</div>
+
+</div></div></div><figcaption>8 · วิเคราะห์การออกเสียง</figcaption></figure><figure class="phone-wrap"><div class="phone"><div class="screen"><div class="appbar"><span class="icon-btn ghost"></span><div class="title">คลังคำ · HSK 1</div><button class="icon-btn">⋯</button></div>
+<div class="body">
+  <div class="card soft-blue">
+    <div class="row"><div>เรียนแล้ว</div><div class="big">128 / 150 คำ</div></div>
+    <div class="bar"><i class="jade" style="width:85%"></i></div>
+    <p class="muted">เก่งมากบอล! เหลืออีก 22 คำก็ครบทั้งหมด</p>
+  </div>
+
+  <div class="tiles">
+    <span class="pill blue">ทั้งหมด</span>
+    <span class="pill jade">แม่นแล้ว</span>
+    <span class="pill gold">กำลังเรียน</span>
+    <span class="pill danger">อ่อน</span>
+  </div>
+
+  <div class="sec-title">รายการคำศัพท์</div>
+  <div class="list">
+    <div class="lrow"><div><span class="cn">你好</span> nǐ hǎo · สวัสดี</div><span class="pill jade">95%</span></div>
+    <div class="lrow"><div><span class="cn">谢谢</span> xièxie · ขอบคุณ</div><span class="pill jade">88%</span></div>
+    <div class="lrow"><div><span class="cn">老师</span> lǎoshī · ครู</div><span class="pill danger">35%</span></div>
+    <div class="lrow"><div><span class="cn">学生</span> xuéshēng · นักเรียน</div><span class="pill gold">62%</span></div>
+    <div class="lrow"><div><span class="cn">朋友</span> péngyou · เพื่อน</div><span class="pill jade">90%</span></div>
+    <div class="lrow"><div><span class="cn">喜欢</span> xǐhuan · ชอบ</div><span class="pill gold">58%</span></div>
+    <div class="lrow"><div><span class="cn">中国</span> Zhōngguó · จีน</div><span class="pill jade">92%</span></div>
+  </div>
+
+  <div class="note jade">คำที่ขึ้น <span class="pill danger sm">อ่อน</span> จะถูกหยิบมาทบทวนก่อนตามระบบ FSRS</div>
+</div>
+<div class="bnav"><a class="item">🏠<span>หน้าหลัก</span></a><a class="item">🔁<span>ทบทวน</span></a><a class="item active">📚<span>คลังคำ</span></a><a class="item">🙂<span>โปรไฟล์</span></a></div></div></div><figcaption>9 · คลังคำศัพท์</figcaption></figure><figure class="phone-wrap"><div class="phone"><div class="screen"><div class="appbar"><span class="icon-btn ghost"></span><div class="title">โปรไฟล์</div><button class="icon-btn">⋯</button></div>
+<div class="body">
+  <div class="card soft-blue">
+    <div class="row">
+      <div class="score" style="width:auto">🙂</div>
+      <div style="flex:1">
+        <div class="big">บอล</div>
+        <div class="small muted">HSK 1 · เรียนต่อเนื่อง 7 วัน 🔥</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="num">128</div><div class="lbl">คำที่จำได้</div></div>
+    <div class="stat"><div class="num">7</div><div class="lbl">วันติด</div></div>
+    <div class="stat"><div class="num">92%</div><div class="lbl">ความแม่น</div></div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">เส้นกราฟการเรียนรู้</div>
+    <div class="chart">
+      <svg viewBox="0 0 300 120">
+        <polyline points="10,100 50,92 90,80 130,72 170,58 210,46 250,34 290,22" fill="none" stroke="#2f5d8c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="290" cy="22" r="4" fill="#2f5d8c"/>
+      </svg>
+    </div>
+    <span class="small muted">ความแม่นเฉลี่ยเพิ่มขึ้นต่อเนื่อง</span>
+  </div>
+
+  <div class="sec-title">ความสำเร็จ</div>
+  <div class="badges">
+    <div class="badge">🏅<span>7 วันติด</span></div>
+    <div class="badge">🎯<span>100 คำแรก</span></div>
+    <div class="badge">🗣️<span>นักสนทนา</span></div>
+    <div class="badge">🔊<span>จอมวรรณยุกต์</span></div>
+  </div>
+
+  <div class="sec-title">การตั้งค่า</div>
+  <div class="list">
+    <div class="lrow"><div>เป้าหมายรายวัน</div><span class="pill ghost">20 คำ</span></div>
+    <div class="lrow"><div>การแจ้งเตือน</div><span class="toggle on">เปิด</span></div>
+    <div class="lrow"><div>โหมดออฟไลน์</div><span class="toggle on">เปิด</span></div>
+    <div class="lrow"><div>ภาษา</div><span class="pill ghost">ไทย</span></div>
+  </div>
+</div>
+<div class="bnav"><a class="item">🏠<span>หน้าหลัก</span></a><a class="item">🔁<span>ทบทวน</span></a><a class="item">📚<span>คลังคำ</span></a><a class="item active">🙂<span>โปรไฟล์</span></a></div></div></div><figcaption>10 · โปรไฟล์ · ความก้าวหน้า</figcaption></figure></main><footer style="text-align:center;color:#717c8a;margin-top:40px;font-size:13px">จีนรู้ใจ · ระบบติวเตอร์ภาษาจีนอัจฉริยะสำหรับคนไทย · Mockup สำหรับนำเสนอ</footer></body></html>
