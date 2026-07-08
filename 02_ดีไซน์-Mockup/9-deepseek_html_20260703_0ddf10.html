@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เรียนจีน - Duolingo Style</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* ===== CSS ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        :root { --primary: #58CC02; --primary-dark: #58A700; --secondary: #FF9600; --danger: #FF4B4B; --bg: #F0F2F5; --card-bg: #FFFFFF; --text: #222222; --text-light: #777777; --shadow: 0 4px 12px rgba(0,0,0,0.1); --radius: 16px; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+        .navbar { background: var(--card-bg); padding: 0.8rem 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+        .navbar .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
+        .navbar .logo i { font-size: 1.8rem; }
+        .navbar .nav-links { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+        .navbar .nav-links button { background: none; border: none; padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.95rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 0.4rem; color: var(--text); }
+        .navbar .nav-links button:hover { background: var(--bg); }
+        .navbar .nav-links button.active { background: var(--primary); color: white; }
+        .navbar .lang-toggle { background: var(--bg); border-radius: 20px; padding: 0.2rem 0.6rem; font-size: 0.9rem; border: 1px solid #ddd; cursor: pointer; }
+        .container { max-width: 900px; margin: 1.5rem auto; padding: 0 1rem; flex: 1; }
+        .page { display: none; animation: fadeUp 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .card { background: var(--card-bg); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); }
+        .card h2 { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+        .progress-bar { width: 100%; height: 10px; background: #E0E0E0; border-radius: 10px; overflow: hidden; margin: 0.5rem 0; }
+        .progress-bar .fill { height: 100%; background: var(--primary); border-radius: 10px; transition: width 0.5s; }
+        .btn { display: inline-block; padding: 0.7rem 1.5rem; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.2s; color: white; background: var(--primary); box-shadow: 0 4px 0 var(--primary-dark); transform: translateY(0); }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--primary-dark); }
+        .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--primary-dark); }
+        .btn-secondary { background: var(--secondary); box-shadow: 0 4px 0 #CC7A00; }
+        .btn-secondary:hover { box-shadow: 0 6px 0 #CC7A00; }
+        .btn-danger { background: var(--danger); box-shadow: 0 4px 0 #CC0000; }
+        .btn-outline { background: transparent; color: var(--text); box-shadow: none; border: 2px solid #ddd; }
+        .btn-outline:hover { background: var(--bg); transform: none; box-shadow: none; }
+        .btn-sm { padding: 0.4rem 1rem; font-size: 0.9rem; }
+        .btn-speak { background: #E8F5E9; color: #2E7D32; border: 2px solid #A5D6A7; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 0.9rem; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0; }
+        .btn-speak:hover { background: #C8E6C9; transform: scale(1.1); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .btn-speak-sm { width: 28px; height: 28px; font-size: 0.8rem; }
+        .btn-mic { background: #FFE4E4; color: #D93025; border: none; border-radius: 50%; width: 44px; height: 44px; cursor: pointer; font-size: 1.3rem; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; }
+        .btn-mic:hover { background: #FFC7C7; transform: scale(1.05); }
+        .btn-mic.recording { background: #D93025; color: white; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(217,48,37,0.4); } 70% { box-shadow: 0 0 0 10px rgba(217,48,37,0); } 100% { box-shadow: 0 0 0 0 rgba(217,48,37,0); } }
+        .zh-text { display: inline-flex; flex-direction: column; align-items: center; line-height: 1.2; }
+        .zh-text .zh-char { font-size: 1.1rem; font-weight: 500; }
+        .zh-text .zh-pinyin { font-size: 0.65rem; color: #999; letter-spacing: 0.5px; }
+        .zh-text-inline { display: inline-flex; align-items: center; gap: 0.3rem; }
+        .zh-text-inline .zh-char { font-size: 1rem; }
+        .zh-text-inline .zh-pinyin { font-size: 0.6rem; color: #999; }
+        .tier-badge { display: inline-block; background: var(--primary); color: white; padding: 0.2rem 1rem; border-radius: 20px; font-weight: 600; font-size: 0.9rem; }
+        .unit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin-top: 0.5rem; }
+        .unit-card { background: var(--bg); border-radius: var(--radius); padding: 1rem; text-align: center; cursor: pointer; transition: 0.2s; border: 2px solid transparent; }
+        .unit-card:hover { border-color: var(--primary); transform: scale(1.02); }
+        .unit-card .unit-icon { font-size: 2rem; margin-bottom: 0.3rem; }
+        .unit-card .unit-title { font-weight: 600; }
+        .unit-card .unit-desc { font-size: 0.8rem; color: var(--text-light); }
+        .placement-progress { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .placement-progress .counter { font-weight: 600; color: var(--text-light); white-space: nowrap; }
+        .placement-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; gap: 0.5rem; flex-wrap: wrap; }
+        .placement-nav .btn { min-width: 100px; }
+        .question-box { padding: 0.5rem 0; }
+        .question-box .q-text { font-size: 1.2rem; font-weight: 500; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+        .question-box .options { display: flex; flex-direction: column; gap: 0.6rem; }
+        .question-box .options label { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; border-radius: 12px; background: var(--bg); cursor: pointer; transition: 0.2s; border: 2px solid transparent; font-size: 1rem; flex-wrap: wrap; }
+        .question-box .options label:hover { background: #E0E0E0; }
+        .question-box .options label.selected-option { border-color: var(--primary); background: #E8F5E9; }
+        .question-box .options input[type="radio"] { accent-color: var(--primary); width: 18px; height: 18px; }
+        .vocab-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.8rem; margin: 1rem 0; }
+        .vocab-item { background: var(--bg); padding: 0.6rem 1rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .vocab-item .left { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+        .vocab-item .zh { font-size: 1.2rem; font-weight: 600; }
+        .vocab-item .pinyin { color: var(--text-light); font-size: 0.9rem; }
+        .exercise { margin-top: 1.5rem; padding-top: 1rem; border-top: 2px dashed #ddd; }
+        .exercise .ex-question { font-weight: 600; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+        .ex-options { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .ex-options button { padding: 0.4rem 1.2rem; border: 2px solid #ddd; border-radius: 20px; background: white; cursor: pointer; transition: 0.2s; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 0.3rem; }
+        .ex-options button:hover { border-color: var(--primary); background: #f0fdf0; }
+        .ex-options button.selected { border-color: var(--primary); background: var(--primary); color: white; }
+        .ex-options button.correct { border-color: var(--primary); background: var(--primary); color: white; }
+        .ex-options button.wrong { border-color: var(--danger); background: var(--danger); color: white; }
+        .order-area { display: flex; flex-direction: column; gap: 1rem; margin: 0.5rem 0; }
+        .order-pool, .order-line { display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 0.8rem; min-height: 60px; background: #FAFAFA; border-radius: 12px; border: 2px dashed #DDD; align-items: center; transition: 0.2s; }
+        .order-line { background: #F0F7FF; border-color: var(--primary); border-style: solid; }
+        .order-word { padding: 0.3rem 0.8rem; background: white; border: 2px solid #CCC; border-radius: 20px; cursor: pointer; font-size: 1rem; font-weight: 500; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: inline-flex; align-items: center; gap: 0.2rem; }
+        .order-word:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .order-word.in-pool { border-color: #888; background: #FFFFFF; }
+        .order-word.in-line { border-color: var(--primary); background: #E8F5E9; }
+        .order-word.in-line:hover { background: #FFCDD2; border-color: var(--danger); }
+        .speech-area { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin: 0.5rem 0; padding: 0.8rem; background: #FFF8E1; border-radius: 12px; }
+        .speech-target { font-size: 1.5rem; font-weight: 600; color: #333; }
+        .speech-result { margin-top: 0.5rem; font-size: 1rem; padding: 0.4rem 0.8rem; border-radius: 8px; background: white; display: inline-block; }
+        .profile-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; text-align: center; }
+        .stat-item { background: var(--bg); padding: 0.8rem; border-radius: var(--radius); }
+        .stat-item .number { font-size: 2rem; font-weight: 700; color: var(--primary); }
+        .dashboard-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; }
+        .summary-card { background: var(--bg); padding: 1rem; border-radius: var(--radius); text-align: center; }
+        .summary-card .num { font-size: 2rem; font-weight: 700; color: var(--primary); }
+        .summary-card .label { font-size: 0.9rem; color: var(--text-light); }
+        .chart-container { position: relative; height: 250px; width: 100%; margin-top: 0.5rem; }
+        .chart-container canvas { max-height: 250px; }
+        @media (max-width: 600px) { .navbar { flex-direction: column; gap: 0.5rem; align-items: stretch; } .navbar .nav-links { justify-content: center; } .navbar .logo { justify-content: center; } .unit-grid { grid-template-columns: 1fr 1fr; } .vocab-list { grid-template-columns: 1fr; } .profile-stats { grid-template-columns: 1fr 1fr; } .placement-nav { flex-direction: column; align-items: stretch; } .placement-nav .btn { width: 100%; } .dashboard-summary { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 400px) { .unit-grid { grid-template-columns: 1fr; } .btn { width: 100%; text-align: center; } }
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 1rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .flex { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+        .hidden { display: none; }
+        .text-success { color: #2E7D32; }
+        .text-danger { color: #C62828; }
+        .text-warning { color: #E65100; }
+        .result-box { text-align: center; padding: 1rem; }
+        .result-box .score { font-size: 3rem; font-weight: 700; color: var(--primary); }
+        .small-text { font-size: 0.8rem; color: var(--text-light); }
+        .badge-hsk { display: inline-block; padding: 0.2rem 0.8rem; border-radius: 20px; font-weight: 600; font-size: 0.85rem; }
+        .badge-hsk.hsk1 { background: #E8F5E9; color: #2E7D32; }
+        .badge-hsk.hsk2 { background: #E3F2FD; color: #0D47A1; }
+        .badge-hsk.hsk0 { background: #F5F5F5; color: #777; }
+        .unit-card.completed { border-color: var(--primary); background: #E8F5E9; }
+        .btn-dashboard { background: #4A90D9; box-shadow: 0 4px 0 #2E5A8A; }
+        .btn-dashboard:hover { box-shadow: 0 6px 0 #2E5A8A; }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="logo"><i class="fas fa-language"></i> <span data-i18n="app_name">เรียนจีน</span></div>
+        <div class="nav-links">
+            <button class="active" data-page="dashboard" onclick="showPage('dashboard')"><i class="fas fa-home"></i> <span data-i18n="nav_dashboard">หน้าแรก</span></button>
+            <button data-page="placement" onclick="showPage('placement')"><i class="fas fa-tasks"></i> <span data-i18n="nav_placement">ทดสอบระดับ</span></button>
+            <button data-page="profile" onclick="showPage('profile')"><i class="fas fa-user"></i> <span data-i18n="nav_profile">โปรไฟล์</span></button>
+            <button class="lang-toggle" onclick="toggleLanguage()"><i class="fas fa-globe"></i> <span id="langLabel">ไทย</span></button>
+        </div>
+    </nav>
+
+    <!-- ===== CONTAINER ===== -->
+    <div class="container">
+
+        <!-- ===== PAGE: DASHBOARD ===== -->
+        <div id="page-dashboard" class="page active">
+            <div class="card">
+                <h2><i class="fas fa-chart-line"></i> <span data-i18n="dashboard_title">ภาพรวมความคืบหน้า</span></h2>
+                <div class="dashboard-summary">
+                    <div class="summary-card"><div class="num" id="dashTier">HSK 0</div><div class="label">ระดับ</div></div>
+                    <div class="summary-card"><div class="num" id="dashXp">0</div><div class="label">XP</div></div>
+                    <div class="summary-card"><div class="num" id="dashUnits">0/5</div><div class="label">หน่วยที่เรียน</div></div>
+                    <div class="summary-card"><div class="num" id="dashVocab">0/30</div><div class="label">คำศัพท์ที่เรียน</div></div>
+                    <div class="summary-card"><div class="num" id="dashStreak">0</div><div class="label">วันติดต่อกัน</div></div>
+                </div>
+                <div class="progress-bar"><div class="fill" id="progressFill" style="width:0%;"></div></div>
+                <div class="flex mt-1">
+                    <button class="btn" onclick="startPlacementTest()"><i class="fas fa-play"></i> <span data-i18n="btn_start_placement">เริ่มทดสอบระดับ</span></button>
+                    <button class="btn btn-secondary" onclick="showPage('placement')"><i class="fas fa-list"></i> <span data-i18n="btn_view_tests">ดูแบบทดสอบ</span></button>
+                </div>
+            </div>
+
+            <!-- กราฟแสดงผล -->
+            <div class="card" id="chartCard">
+                <h2><i class="fas fa-chart-bar"></i> <span data-i18n="chart_title">ผลการทดสอบรายทักษะ</span></h2>
+                <div id="chartPlaceholder" style="text-align:center; padding:1.5rem; color:#999;">
+                    <i class="fas fa-info-circle" style="font-size:2rem; display:block; margin-bottom:0.5rem;"></i>
+                    ยังไม่มีผลการทดสอบ<br>กรุณาทำแบบทดสอบระดับก่อน
+                </div>
+                <div class="chart-container" id="chartContainer" style="display:none;">
+                    <canvas id="skillChart"></canvas>
+                </div>
+                <div class="flex mt-1" style="justify-content:center; gap:1.5rem; flex-wrap:wrap;">
+                    <span><span class="badge-hsk hsk1">HSK 1</span> <span class="small-text">≥ 12/25</span></span>
+                    <span><span class="badge-hsk hsk2">HSK 2</span> <span class="small-text">≥ 18/25</span></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-book"></i> <span data-i18n="units_title">บทเรียนของคุณ (ทุกหน่วยเปิดให้เรียน)</span></h2>
+                <div id="unitGrid" class="unit-grid"></div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE: PLACEMENT ===== -->
+        <div id="page-placement" class="page">
+            <div class="card">
+                <h2><i class="fas fa-clipboard-list"></i> <span data-i18n="placement_title">แบบทดสอบจัดระดับ (HSK 1-2)</span></h2>
+                <p data-i18n="placement_desc">ทำข้อสอบ 25 ข้อ (ฟัง 10, พูด 10, ไวยากรณ์ 5) ทีละข้อ เพื่อประเมินระดับของคุณ</p>
+                <div id="placementResult" class="hidden result-box"></div>
+                <div id="placementContainer">
+                    <div class="placement-progress">
+                        <span class="counter" id="placementCounter">ข้อ 1 / 25</span>
+                        <div class="progress-bar" style="flex:1;"><div class="fill" id="placementProgressFill" style="width:4%;"></div></div>
+                    </div>
+                    <div id="placementQuestionBox" class="question-box"></div>
+                    <div class="placement-nav">
+                        <button class="btn btn-outline btn-sm" id="prevPlacementBtn"><i class="fas fa-arrow-left"></i> <span data-i18n="btn_prev">ก่อนหน้า</span></button>
+                        <button class="btn btn-sm" id="nextPlacementBtn"><span data-i18n="btn_next_question">ถัดไป</span> <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE: LESSON ===== -->
+        <div id="page-lesson" class="page">
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                    <h2 id="lessonTitle"><i class="fas fa-graduation-cap"></i> บทเรียน</h2>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn btn-sm btn-dashboard" onclick="showPage('dashboard')"><i class="fas fa-home"></i> <span data-i18n="btn_back">กลับ Dashboard</span></button>
+                        <button class="btn btn-sm btn-outline" onclick="showPage('dashboard')"><i class="fas fa-arrow-left"></i> <span>กลับ</span></button>
+                    </div>
+                </div>
+                <div id="lessonContent"></div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE: PROFILE ===== -->
+        <div id="page-profile" class="page">
+            <div class="card">
+                <h2><i class="fas fa-user-circle"></i> <span data-i18n="profile_title">โปรไฟล์</span></h2>
+                <div class="profile-stats">
+                    <div class="stat-item"><div class="number" id="profileXp">0</div><div data-i18n="profile_xp">XP</div></div>
+                    <div class="stat-item"><div class="number" id="profileUnits">0</div><div data-i18n="profile_units">หน่วยที่เรียน</div></div>
+                    <div class="stat-item"><div class="number" id="profileLevel">HSK 0</div><div data-i18n="profile_level">ระดับ</div></div>
+                    <div class="stat-item"><div class="number" id="profileStreak">0</div><div data-i18n="profile_streak">วันติดต่อกัน</div></div>
+                </div>
+                <div class="mt-1">
+                    <button class="btn btn-danger btn-sm" onclick="resetProgress()"><i class="fas fa-trash"></i> <span data-i18n="btn_reset">รีเซ็ตความคืบหน้า</span></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================================ -->
+    <script>
+        // ============================================================
+        //  0. SAFE STORAGE
+        // ============================================================
+        const safeStorage = {
+            _memory: {},
+            getItem(key) {
+                try { return localStorage.getItem(key); } catch (e) { return this._memory[key] || null; }
+            },
+            setItem(key, value) {
+                try { localStorage.setItem(key, value);
+                    this._memory[key] = value; } catch (e) { this._memory[key] = value;
+                    console.warn('⚠️ localStorage ใช้ไม่ได้ เก็บใน memory ชั่วคราว'); }
+            },
+            removeItem(key) {
+                try { localStorage.removeItem(key); } catch (e) {}
+                delete this._memory[key];
+            }
+        };
+
+        // ============================================================
+        //  1. DATA - 5 UNITS
+        // ============================================================
+        const vocabData = [
+            { id: 1, th: 'สวัสดี', zh: '你好', pinyin: 'nǐ hǎo', hsk: 1, unit: 1 },
+            { id: 2, th: 'ฉัน', zh: '我', pinyin: 'wǒ', hsk: 1, unit: 1 },
+            { id: 3, th: 'เป็น', zh: '是', pinyin: 'shì', hsk: 1, unit: 1 },
+            { id: 4, th: 'นักเรียน', zh: '学生', pinyin: 'xuéshēng', hsk: 1, unit: 1 },
+            { id: 5, th: 'ครู', zh: '老师', pinyin: 'lǎoshī', hsk: 1, unit: 1 },
+            { id: 6, th: 'ดี', zh: '好', pinyin: 'hǎo', hsk: 1, unit: 1 },
+            { id: 7, th: 'แม่', zh: '妈妈', pinyin: 'māma', hsk: 1, unit: 2 },
+            { id: 8, th: 'พ่อ', zh: '爸爸', pinyin: 'bàba', hsk: 1, unit: 2 },
+            { id: 9, th: 'พี่ชาย', zh: '哥哥', pinyin: 'gēge', hsk: 1, unit: 2 },
+            { id: 10, th: 'พี่สาว', zh: '姐姐', pinyin: 'jiějie', hsk: 1, unit: 2 },
+            { id: 11, th: 'น้องชาย', zh: '弟弟', pinyin: 'dìdi', hsk: 1, unit: 2 },
+            { id: 12, th: 'น้องสาว', zh: '妹妹', pinyin: 'mèimei', hsk: 1, unit: 2 },
+            { id: 13, th: 'กิน', zh: '吃', pinyin: 'chī', hsk: 2, unit: 3 },
+            { id: 14, th: 'ดื่ม', zh: '喝', pinyin: 'hē', hsk: 2, unit: 3 },
+            { id: 15, th: 'ข้าว', zh: '饭', pinyin: 'fàn', hsk: 2, unit: 3 },
+            { id: 16, th: 'น้ำ', zh: '水', pinyin: 'shuǐ', hsk: 2, unit: 3 },
+            { id: 17, th: 'ชา', zh: '茶', pinyin: 'chá', hsk: 2, unit: 3 },
+            { id: 18, th: 'ผลไม้', zh: '水果', pinyin: 'shuǐguǒ', hsk: 2, unit: 3 },
+            { id: 19, th: 'วันนี้', zh: '今天', pinyin: 'jīntiān', hsk: 2, unit: 4 },
+            { id: 20, th: 'พรุ่งนี้', zh: '明天', pinyin: 'míngtiān', hsk: 2, unit: 4 },
+            { id: 21, th: 'เมื่อวาน', zh: '昨天', pinyin: 'zuótiān', hsk: 2, unit: 4 },
+            { id: 22, th: 'ตอนนี้', zh: '现在', pinyin: 'xiànzài', hsk: 2, unit: 4 },
+            { id: 23, th: 'กี่โมง', zh: '几点', pinyin: 'jǐ diǎn', hsk: 2, unit: 4 },
+            { id: 24, th: 'เวลา', zh: '时间', pinyin: 'shíjiān', hsk: 2, unit: 4 },
+            { id: 25, th: 'ไป', zh: '去', pinyin: 'qù', hsk: 2, unit: 5 },
+            { id: 26, th: 'ที่ไหน', zh: '哪里', pinyin: 'nǎlǐ', hsk: 2, unit: 5 },
+            { id: 27, th: 'โรงเรียน', zh: '学校', pinyin: 'xuéxiào', hsk: 2, unit: 5 },
+            { id: 28, th: 'โรงพยาบาล', zh: '医院', pinyin: 'yīyuàn', hsk: 2, unit: 5 },
+            { id: 29, th: 'ร้านอาหาร', zh: '饭店', pinyin: 'fàndiàn', hsk: 2, unit: 5 },
+            { id: 30, th: 'สนามบิน', zh: '机场', pinyin: 'jīchǎng', hsk: 2, unit: 5 },
+        ];
+
+        const units = [
+            { id: 1, name: 'รู้จักภาษาจีน', name_zh: '认识中文', icon: '🔤', hsk: 1, vocabIds: [1, 2, 3, 4, 5, 6] },
+            { id: 2, name: 'ครอบครัวและตัวฉัน', name_zh: '家庭和我', icon: '👨‍👩‍👧‍👦', hsk: 1, vocabIds: [7, 8, 9, 10, 11, 12] },
+            { id: 3, name: 'อาหารและการกิน', name_zh: '饮食', icon: '🍜', hsk: 2, vocabIds: [13, 14, 15, 16, 17, 18] },
+            { id: 4, name: 'เวลาและชีวิตประจำวัน', name_zh: '时间与日常生活', icon: '⏰', hsk: 2, vocabIds: [19, 20, 21, 22, 23, 24] },
+            { id: 5, name: 'การเดินทางและสถานที่', name_zh: '旅行与地点', icon: '✈️', hsk: 2, vocabIds: [25, 26, 27, 28, 29, 30] },
+        ];
+
+        // ============================================================
+        //  2. GENERATE UNIT QUESTIONS (25 ข้อต่อหน่วย)
+        // ============================================================
+        function generateUnitQuestions(unitId) {
+            const unitVocab = vocabData.filter(v => v.unit === unitId);
+            const questions = [];
+
+            // Listening 10
+            const listeningPool = unitVocab.slice(0, 10);
+            listeningPool.forEach((v, i) => {
+                const wrongOptions = vocabData.filter(x => x.id !== v.id && x.unit === unitId)
+                    .slice(0, 3)
+                    .map(x => x.th);
+                while (wrongOptions.length < 3) wrongOptions.push('ตัวเลือกอื่น');
+                const options = [v.th, ...wrongOptions].sort(() => Math.random() - 0.5);
+                questions.push({
+                    type: 'listening',
+                    question: `ฟังเสียง "${v.zh}" หมายถึงอะไร?`,
+                    options: options,
+                    correct: options.indexOf(v.th),
+                    audioText: v.zh
+                });
+            });
+
+            // Speaking 10
+            const speakingPool = unitVocab.slice(0, 10);
+            speakingPool.forEach(v => {
+                questions.push({
+                    type: 'speech',
+                    question: `ลองพูดว่า "${v.zh}"`,
+                    target: v.zh,
+                    correct: 0
+                });
+            });
+
+            // Grammar 5
+            const grammarTemplates = [
+                { q: `ประโยค "我 ___ 学生" ควรเติมคำใด?`, opts: ['是', '不', '很', '也'], correct: 0, display: '我 ___ 学生' },
+                { q: `"你" คือคำสรรพนามใด?`, opts: ['ฉัน', 'คุณ', 'เขา', 'เรา'], correct: 1, display: '你' },
+                { q: `"我" แปลว่าอะไร?`, opts: ['ฉัน', 'คุณ', 'เขา', 'เรา'], correct: 0, display: '我' },
+                { q: `ประโยค "妈妈 好" หมายถึง?`, opts: ['แม่ดี', 'แม่สวย', 'แม่เก่ง', 'แม่ใจดี'], correct: 0, display: '妈妈 好' },
+                { q: `"是" ในประโยค "我是学生" ทำหน้าที่?`, opts: ['เป็น/คือ', 'ไม่', 'ดี', 'ก็'], correct: 0, display: '是' },
+            ];
+            const selectedGrammar = grammarTemplates.slice(0, 5);
+            selectedGrammar.forEach(g => {
+                questions.push({
+                    type: 'grammar',
+                    question: g.q,
+                    options: g.opts,
+                    correct: g.correct,
+                    displayText: g.display
+                });
+            });
+
+            return questions;
+        }
+
+        const unitQuestions = {};
+        units.forEach(u => {
+            unitQuestions[u.id] = generateUnitQuestions(u.id);
+        });
+
+        // ============================================================
+        //  3. PLACEMENT QUESTIONS (25 ข้อ)
+        // ============================================================
+        const placementQuestions = [
+            // Listening 10
+            { type: 'listening', question: 'ฟังเสียง "nǐ hǎo" หมายถึงอะไร?', options: ['สวัสดี', 'ขอบคุณ', 'ลาก่อน', 'ขอโทษ'],
+                correct: 0, audioText: '你好' },
+            { type: 'listening', question: 'ฟังเสียง "xièxiè" แปลว่าอะไร?', options: ['สวัสดี', 'ขอบคุณ', 'ลาก่อน', 'ขอโทษ'],
+                correct: 1, audioText: '谢谢' },
+            { type: 'listening', question: 'ฟังเสียง "lǎoshī" หมายถึง?', options: ['นักเรียน', 'ครู', 'หมอ', 'ตำรวจ'],
+                correct: 1, audioText: '老师' },
+            { type: 'listening', question: 'ฟังเสียง "xuésheng" หมายถึง?', options: ['นักเรียน', 'ครู', 'หมอ', 'ตำรวจ'],
+                correct: 0, audioText: '学生' },
+            { type: 'listening', question: 'ฟังเสียง "māma" คือใคร?', options: ['พ่อ', 'แม่', 'พี่ชาย', 'น้องสาว'], correct: 1,
+                audioText: '妈妈' },
+            { type: 'listening', question: 'ฟังเสียง "bàba" คือใคร?', options: ['พ่อ', 'แม่', 'พี่ชาย', 'น้องสาว'], correct: 0,
+                audioText: '爸爸' },
+            { type: 'listening', question: 'ฟังเสียง "shuǐ" แปลว่าอะไร?', options: ['ข้าว', 'น้ำ', 'ชา', 'ไฟ'], correct: 1,
+                audioText: '水' },
+            { type: 'listening', question: 'ฟังเสียง "chá" แปลว่าอะไร?', options: ['ข้าว', 'น้ำ', 'ชา', 'ไฟ'], correct: 2,
+                audioText: '茶' },
+            { type: 'listening', question: 'ฟังเสียง "jīntiān" หมายถึง?', options: ['เมื่อวาน', 'วันนี้', 'พรุ่งนี้', 'เมื่อกี้'],
+                correct: 1, audioText: '今天' },
+            { type: 'listening', question: 'ฟังเสียง "míngtiān" หมายถึง?', options: ['เมื่อวาน', 'วันนี้', 'พรุ่งนี้', 'เมื่อกี้'],
+                correct: 2, audioText: '明天' },
+            // Speaking 10
+            { type: 'speech', question: 'ลองพูดว่า "你好"', target: '你好', correct: 0 },
+            { type: 'speech', question: 'ลองพูดว่า "谢谢"', target: '谢谢', correct: 0 },
+            { type: 'speech', question: 'ลองพูดว่า "老师"', target: '老师', correct: 0 },
+            { type: 'speech', question: 'ลองพูดว่า "学生"', target: '学生', correct: 0 },
+            { type: 'speech', question: 'ลองพูดว่า "妈妈"', target: '妈妈', correct: 0 },
+            { type: 'speech', question: 'ลองพูดว่า "爸爸"', target: '爸爸', correct: 0 },
+            { type: 'speech', question: 'ลองพูดว่า "水"', target: '水', correct: 0 },
+            { type: 'speech', question: 'ลองพูดว่า "茶"', target: '茶', correct: 0 },
+            { type: 'speech', question: 'ลองพูดว่า "今天"', target: '今天', correct: 0 },
+            { type: 'speech', question: 'ลองพูดว่า "明天"', target: '明天', correct: 0 },
+            // Grammar 5
+            { type: 'grammar', question: 'ประโยค "我 ___ 学生" ควรเติมคำใด?', options: ['是', '不', '很', '也'], correct: 0,
+                displayText: '我 ___ 学生' },
+            { type: 'grammar', question: '"你" คือคำสรรพนามใด?', options: ['ฉัน', 'คุณ', 'เขา', 'เรา'], correct: 1,
+                displayText: '你' },
+            { type: 'grammar', question: '"我" แปลว่าอะไร?', options: ['ฉัน', 'คุณ', 'เขา', 'เรา'], correct: 0,
+                displayText: '我' },
+            { type: 'grammar', question: 'ประโยค "妈妈 好" หมายถึง?', options: ['แม่ดี', 'แม่สวย', 'แม่เก่ง', 'แม่ใจดี'],
+                correct: 0, displayText: '妈妈 好' },
+            { type: 'grammar', question: '"是" ในประโยค "我是学生" ทำหน้าที่?', options: ['เป็น/คือ', 'ไม่', 'ดี', 'ก็'],
+                correct: 0, displayText: '是' },
+        ];
+
+        // ============================================================
+        //  4. I18N
+        // ============================================================
+        const translations = {
+            th: {
+                app_name: 'เรียนจีน',
+                nav_dashboard: 'หน้าแรก',
+                nav_placement: 'ทดสอบระดับ',
+                nav_profile: 'โปรไฟล์',
+                dashboard_title: 'ภาพรวมความคืบหน้า',
+                btn_start_placement: 'เริ่มทดสอบระดับ',
+                btn_view_tests: 'ดูแบบทดสอบ',
+                units_title: 'บทเรียนของคุณ (ทุกหน่วยเปิดให้เรียน)',
+                placement_title: 'แบบทดสอบจัดระดับ (HSK 1-2)',
+                placement_desc: 'ทำข้อสอบ 25 ข้อ (ฟัง 10, พูด 10, ไวยากรณ์ 5) ทีละข้อ เพื่อประเมินระดับของคุณ',
+                btn_submit: 'ส่งคำตอบ',
+                btn_back: 'กลับ Dashboard',
+                btn_prev: 'ก่อนหน้า',
+                btn_next_question: 'ถัดไป',
+                profile_title: 'โปรไฟล์',
+                profile_xp: 'XP',
+                profile_units: 'หน่วยที่เรียน',
+                profile_level: 'ระดับ',
+                profile_streak: 'วันติดต่อกัน',
+                btn_reset: 'รีเซ็ตความคืบหน้า',
+                result_title: 'ผลการทดสอบ',
+                result_recommend: 'ระดับที่แนะนำ',
+                lesson_vocab: 'คำศัพท์ในบทเรียน',
+                lesson_exercise: 'แบบฝึกหัด',
+                btn_check: 'ตรวจคำตอบ',
+                btn_next: 'บทถัดไป',
+                order_hint: 'คลิกคำด้านบนเพื่อเรียง  คลิกคำด้านล่างเพื่อนำกลับ',
+                speech_hint: 'กดปุ่มไมค์แล้วพูดตาม',
+                correct: 'ถูกต้อง!',
+                wrong: 'ผิด ลองใหม่อีกครั้ง',
+                listening_hint: 'กดฟังเสียง',
+                chart_title: 'ผลการทดสอบรายทักษะ',
+                no_result: 'ยังไม่มีผลการทดสอบ กรุณาทำแบบทดสอบระดับก่อน',
+            },
+            zh: {
+                app_name: '学中文',
+                nav_dashboard: '首页',
+                nav_placement: '水平测试',
+                nav_profile: '个人资料',
+                dashboard_title: '进度概览',
+                btn_start_placement: '开始水平测试',
+                btn_view_tests: '查看测试',
+                units_title: '您的课程（所有单元开放学习）',
+                placement_title: '分级测试 (HSK 1-2)',
+                placement_desc: '做25道题（听力10，口语10，语法5）逐题评估您的水平',
+                btn_submit: '提交答案',
+                btn_back: '返回主页',
+                btn_prev: '上一题',
+                btn_next_question: '下一题',
+                profile_title: '个人资料',
+                profile_xp: '经验值',
+                profile_units: '已学单元',
+                profile_level: '级别',
+                profile_streak: '连续学习天数',
+                btn_reset: '重置进度',
+                result_title: '测试结果',
+                result_recommend: '推荐级别',
+                lesson_vocab: '本课词汇',
+                lesson_exercise: '练习',
+                btn_check: '检查答案',
+                btn_next: '下一课',
+                order_hint: '点击上方词语排序，点击下方词语撤回',
+                speech_hint: '点击麦克风并跟读',
+                correct: '正确！',
+                wrong: '错误，请再试一次',
+                listening_hint: '点击听声音',
+                chart_title: '技能测试结果',
+                no_result: '暂无测试结果，请先完成水平测试',
+            }
+        };
+
+        let currentLang = 'th';
+
+        function t(key) { return translations[currentLang][key] || key; }
+
+        function updateUI() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.textContent = t(key);
+            });
+            document.getElementById('langLabel').textContent = currentLang === 'th' ? 'ไทย' : '中文';
+            renderDashboard();
+            renderPlacementQuestion();
+            const lessonPage = document.getElementById('page-lesson');
+            if (lessonPage.classList.contains('active')) {
+                const unitId = lessonPage.dataset.unitId;
+                if (unitId) renderLesson(parseInt(unitId));
+            }
+            renderProfile();
+        }
+
+        function toggleLanguage() { currentLang = (currentLang === 'th') ? 'zh' : 'th';
+            updateUI();
+            saveState(); }
+
+        // ============================================================
+        //  5. STATE
+        // ============================================================
+        let state = {
+            user: { name: 'ผู้เรียน', tier: 0, xp: 0, completedUnits: [], streak: 0, lastLogin: null },
+            placementDone: false,
+            placementScore: 0,
+            placementAnswers: [],
+            skillScores: { listening: 0, speaking: 0, grammar: 0 },
+            exerciseAnswers: {},
+            orderStates: {},
+        };
+        let currentPlacementIndex = 0;
+        let placementEventHandlers = { prev: null, next: null };
+        let chartInstance = null;
+
+        function loadState() {
+            const saved = safeStorage.getItem('duolingo_th_state');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    state = parsed;
+                    if (parsed.lang) currentLang = parsed.lang;
+                    if (!state.placementAnswers) state.placementAnswers = [];
+                    if (!state.skillScores) state.skillScores = { listening: 0, speaking: 0, grammar: 0 };
+                    if (!state.exerciseAnswers) state.exerciseAnswers = {};
+                    if (!state.orderStates) state.orderStates = {};
+                } catch (e) { console.warn('โหลดข้อมูลไม่สำเร็จ ใช้ค่าเริ่มต้น', e); }
+            }
+            if (!state.user) state.user = { name: 'ผู้เรียน', tier: 0, xp: 0, completedUnits: [], streak: 0,
+                lastLogin: null };
+            if (!state.user.completedUnits) state.user.completedUnits = [];
+            if (state.placementAnswers.length === 0 && placementQuestions.length > 0) {
+                state.placementAnswers = new Array(placementQuestions.length).fill(null);
+            } else if (state.placementAnswers.length !== placementQuestions.length) {
+                const newArr = new Array(placementQuestions.length).fill(null);
+                for (let i = 0; i < Math.min(state.placementAnswers.length, placementQuestions.length); i++) {
+                    newArr[i] = state.placementAnswers[i];
+                }
+                state.placementAnswers = newArr;
+            }
+            initGlobalSpeechRecognition();
+            updateUI();
+        }
+
+        function saveState() {
+            state.lang = currentLang;
+            safeStorage.setItem('duolingo_th_state', JSON.stringify(state));
+        }
+
+        // ============================================================
+        //  6. SPEECH RECOGNITION
+        // ============================================================
+        let recognition = null;
+
+        function initGlobalSpeechRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                console.warn('เบราว์เซอร์ไม่รองรับ Speech Recognition');
+                return;
+            }
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'zh-CN';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+            console.log('✅ Speech Recognition instance created');
+        }
+
+        function startSpeechExercise(targetText, resultElementId, callback) {
+            if (!recognition) {
+                alert('เบราว์เซอร์ของคุณไม่รองรับการแปลงเสียงเป็นข้อความ');
+                return;
+            }
+            const resultEl = document.getElementById(resultElementId);
+            if (!resultEl) return;
+
+            if (recognition.running) {
+                recognition.stop();
+                setTimeout(() => {
+                    startSpeechExercise(targetText, resultElementId, callback);
+                }, 300);
+                return;
+            }
+
+            resultEl.innerHTML = '🎤 กำลังฟัง... พูดเลย!';
+            resultEl.className = 'speech-result text-warning';
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript.trim();
+                resultEl.innerHTML = `คุณพูด: "${transcript}"`;
+                const cleanTarget = targetText.replace(/[，。！？、\s]/g, '');
+                const cleanSpoken = transcript.replace(/[，。！？、\s]/g, '');
+                const isCorrect = (cleanSpoken === cleanTarget);
+                if (isCorrect) {
+                    resultEl.innerHTML += ` ✅ ${t('correct')}`;
+                    resultEl.className = 'speech-result text-success';
+                } else {
+                    resultEl.innerHTML += ` ❌ ${t('wrong')}`;
+                    resultEl.className = 'speech-result text-danger';
+                }
+                if (callback) callback(isCorrect);
+            };
+
+            recognition.onerror = (event) => {
+                if (event.error === 'not-allowed') {
+                    resultEl.innerHTML = '❌ ไม่อนุญาตให้ใช้ไมโครโฟน กรุณาอนุญาตในเบราว์เซอร์';
+                } else {
+                    resultEl.innerHTML = `❌ เกิดข้อผิดพลาด: ${event.error}`;
+                }
+                resultEl.className = 'speech-result text-danger';
+                if (callback) callback(false);
+            };
+
+            recognition.onend = () => {
+                if (resultEl.innerHTML.includes('กำลังฟัง')) {
+                    resultEl.innerHTML = '⏳ ไม่ได้ยินเสียง ลองอีกครั้ง';
+                    resultEl.className = 'speech-result text-warning';
+                    if (callback) callback(false);
+                }
+                recognition.onresult = null;
+                recognition.onerror = null;
+                recognition.onend = null;
+            };
+
+            try {
+                recognition.start();
+            } catch (e) {
+                console.warn('Speech recognition start error:', e);
+                resultEl.innerHTML = '❌ ไม่สามารถเริ่มการฟังได้';
+                resultEl.className = 'speech-result text-danger';
+                if (callback) callback(false);
+            }
+        }
+
+        // ============================================================
+        //  7. TTS
+        // ============================================================
+        function speakText(text, lang = 'zh-CN') {
+            if (!text) return;
+            if (!window.speechSynthesis) {
+                alert('เบราว์เซอร์ของคุณไม่รองรับการอ่านออกเสียง');
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang;
+            utterance.rate = 0.85;
+            utterance.pitch = 1;
+            const voices = window.speechSynthesis.getVoices();
+            const zhVoice = voices.find(v => v.lang.includes('zh'));
+            if (zhVoice) utterance.voice = zhVoice;
+            window.speechSynthesis.speak(utterance);
+        }
+        if (window.speechSynthesis) {
+            window.speechSynthesis.getVoices();
+            window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+        }
+
+        // ============================================================
+        //  8. Utility
+        // ============================================================
+        function getPinyinForText(text) {
+            const found = vocabData.find(v => v.zh === text);
+            if (found) return found.pinyin;
+            return '';
+        }
+
+        function speakableChinese(text, className = '') {
+            const clean = text.trim();
+            const pinyin = getPinyinForText(clean);
+            let html = `<span class="zh-text-inline ${className}">`;
+            html += `<span class="zh-char">${clean}</span>`;
+            if (pinyin) html += `<span class="zh-pinyin">${pinyin}</span>`;
+            html += `</span>`;
+            html += `<button class="btn-speak btn-speak-sm" onclick="speakText('${clean}')" title="ฟังเสียง"><i class="fas fa-volume-up"></i></button>`;
+            return html;
+        }
+
+        // ============================================================
+        //  9. NAVIGATION
+        // ============================================================
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const page = document.getElementById('page-' + pageId);
+            if (page) page.classList.add('active');
+            document.querySelectorAll('.nav-links button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.page === pageId);
+            });
+            if (pageId === 'lesson') {
+                const unitId = page.dataset.unitId || 1;
+                renderLesson(parseInt(unitId));
+            } else if (pageId === 'dashboard') renderDashboard();
+            else if (pageId === 'placement') renderPlacementQuestion();
+            else if (pageId === 'profile') renderProfile();
+            saveState();
+        }
+
+        // ============================================================
+        //  10. DASHBOARD + CHART (แก้ไขแล้ว)
+        // ============================================================
+        function renderDashboard() {
+            const user = state.user;
+            const totalUnits = units.length;
+            const completed = user.completedUnits.length;
+            const progress = totalUnits > 0 ? Math.round((completed / totalUnits) * 100) : 0;
+
+            // คำนวณคำศัพท์ที่เรียนจากทุกหน่วยที่เรียนจบ (รวม Unit 1)
+            let learnedVocabIds = new Set();
+            if (user.completedUnits && user.completedUnits.length > 0) {
+                user.completedUnits.forEach(unitId => {
+                    const u = units.find(unit => unit.id === unitId);
+                    if (u && u.vocabIds) {
+                        u.vocabIds.forEach(id => learnedVocabIds.add(id));
+                    }
+                });
+            }
+            const totalVocab = vocabData.length;
+            const learnedVocabCount = learnedVocabIds.size;
+
+            let tierDisplay = 'HSK 0';
+            let tierClass = 'hsk0';
+            if (user.tier === 1) { tierDisplay = 'HSK 1';
+                tierClass = 'hsk1'; } else if (user.tier === 2) { tierDisplay = 'HSK 2';
+                tierClass = 'hsk2'; }
+
+            document.getElementById('dashTier').innerHTML = `<span class="badge-hsk ${tierClass}">${tierDisplay}</span>`;
+            document.getElementById('dashXp').textContent = user.xp;
+            document.getElementById('dashUnits').textContent = completed + '/' + totalUnits;
+            document.getElementById('dashVocab').textContent = learnedVocabCount + '/' + totalVocab;
+            document.getElementById('dashStreak').textContent = user.streak || 0;
+            document.getElementById('progressFill').style.width = progress + '%';
+
+            // แสดงกราฟถ้ามีผลการทดสอบ
+            const placeholder = document.getElementById('chartPlaceholder');
+            const chartContainer = document.getElementById('chartContainer');
+            // ตรวจสอบว่ามีการทำ Placement Test หรือมีคะแนน (เผื่อไว้)
+            const hasResult = state.placementDone || 
+                              (state.skillScores && (state.skillScores.listening > 0 || state.skillScores.speaking > 0 || state.skillScores.grammar > 0));
+            if (hasResult) {
+                placeholder.style.display = 'none';
+                chartContainer.style.display = 'block';
+                renderChart();
+            } else {
+                placeholder.style.display = 'block';
+                chartContainer.style.display = 'none';
+            }
+
+            // แสดงทุกหน่วย (ไม่มีการล็อก)
+            const grid = document.getElementById('unitGrid');
+            grid.innerHTML = '';
+            units.forEach(unit => {
+                const isCompleted = state.user.completedUnits.includes(unit.id);
+                const card = document.createElement('div');
+                card.className = 'unit-card' + (isCompleted ? ' completed' : '');
+                card.innerHTML = `
+                <div class="unit-icon">${unit.icon}</div>
+                <div class="unit-title">${currentLang === 'th' ? unit.name : unit.name_zh}</div>
+                <div class="unit-desc">${isCompleted ? '✅ เรียนแล้ว' : '📖 พร้อมเรียน'}</div>
+            `;
+                card.onclick = () => startLesson(unit.id);
+                grid.appendChild(card);
+            });
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('skillChart').getContext('2d');
+            if (chartInstance) {
+                chartInstance.destroy();
+                chartInstance = null;
+            }
+
+            const labels = ['การฟัง', 'การพูด', 'ไวยากรณ์'];
+            const maxScores = [10, 10, 5];
+            const userScores = [
+                state.skillScores.listening || 0,
+                state.skillScores.speaking || 0,
+                state.skillScores.grammar || 0
+            ];
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'คะแนนของคุณ',
+                        data: userScores,
+                        backgroundColor: ['#58CC02', '#FF9600', '#4A90D9'],
+                        borderColor: ['#58A700', '#CC7A00', '#2E5A8A'],
+                        borderWidth: 2,
+                        borderRadius: 6,
+                        barPercentage: 0.6,
+                    }, {
+                        label: 'คะแนนเต็ม',
+                        data: maxScores,
+                        backgroundColor: ['rgba(200,200,200,0.3)'],
+                        borderColor: ['rgba(200,200,200,0.5)'],
+                        borderWidth: 1,
+                        borderRadius: 6,
+                        barPercentage: 0.6,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: { font: { size: 12 } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + ' คะแนน';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 12,
+                            ticks: { stepSize: 2 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ============================================================
+        //  11. PLACEMENT (ปรับให้บันทึกและแสดงผล)
+        // ============================================================
+        function startPlacementTest() {
+            state.placementDone = false;
+            state.placementScore = 0;
+            state.placementAnswers = new Array(placementQuestions.length).fill(null);
+            state.skillScores = { listening: 0, speaking: 0, grammar: 0 };
+            currentPlacementIndex = 0;
+            showPage('placement');
+            renderPlacementQuestion();
+            saveState();
+        }
+
+        function renderPlacementQuestion() {
+            const container = document.getElementById('placementContainer');
+            const resultDiv = document.getElementById('placementResult');
+
+            if (state.placementDone) {
+                container.innerHTML = '';
+                resultDiv.classList.remove('hidden');
+                resultDiv.innerHTML = `
+                <div class="score">${state.placementScore} / ${placementQuestions.length}</div>
+                <p><strong>${t('result_recommend')}:</strong> ${state.user.tier === 0 ? 'เริ่มต้น (HSK 0)' : 'HSK ' + state.user.tier}</p>
+                <p class="small-text">ฟัง: ${state.skillScores.listening}/10  |  พูด: ${state.skillScores.speaking}/10  |  ไวยากรณ์: ${state.skillScores.grammar}/5</p>
+                <button class="btn btn-secondary" onclick="resetPlacement()">${t('btn_start_placement')}</button>
+            `;
+                renderDashboard(); // อัปเดต Dashboard ให้แสดงกราฟ
+                return;
+            }
+
+            resultDiv.classList.add('hidden');
+            const total = placementQuestions.length;
+            const idx = currentPlacementIndex;
+            const q = placementQuestions[idx];
+            if (!q) return;
+
+            document.getElementById('placementCounter').textContent = `ข้อ ${idx+1} / ${total}`;
+            document.getElementById('placementProgressFill').style.width = ((idx + 1) / total * 100) + '%';
+
+            const box = document.getElementById('placementQuestionBox');
+            let html = `<div class="question-box">`;
+            html += `<div class="q-text">`;
+            html += `<span>${idx+1}. ${q.question}</span>`;
+            let chineseText = q.displayText || q.audioText || q.target || '';
+            if (chineseText) {
+                html += ` ` + speakableChinese(chineseText);
+            }
+            html += `</div>`;
+
+            if (q.type === 'speech') {
+                html += `<div class="speech-area">`;
+                html += `<span class="speech-target">🎯 ${q.target}</span>`;
+                const pinyinTarget = getPinyinForText(q.target);
+                if (pinyinTarget) html += ` <small style="font-size:0.8rem;color:#999;">${pinyinTarget}</small>`;
+                html += ` <button class="btn-speak btn-speak-sm" onclick="speakText('${q.target}')" title="ฟังเป้าหมาย"><i class="fas fa-volume-up"></i></button>`;
+                html +=
+                    `<button class="btn-mic" id="micPlacement${idx}" onclick="startSpeechExercise('${q.target}', 'speechResultPlacement${idx}', function(correct){ if(correct) state.placementAnswers[${idx}]=1; else state.placementAnswers[${idx}]=0; saveState(); })" title="${t('speech_hint')}"><i class="fas fa-microphone"></i></button>`;
+                html += `<div id="speechResultPlacement${idx}" class="speech-result">${t('speech_hint')}</div>`;
+                html += `</div>`;
+                html += `<div id="exFeedback${idx}" style="margin-top:0.5rem;"></div>`;
+            } else {
+                html += `<div class="options">`;
+                q.options.forEach((opt, oi) => {
+                    const checked = (state.placementAnswers[idx] === oi) ? 'checked' : '';
+                    const isChinese = /[\u4e00-\u9fff]/.test(opt);
+                    let optDisplay = opt;
+                    if (isChinese) {
+                        optDisplay = speakableChinese(opt);
+                    }
+                    html += `
+                    <label class="${checked ? 'selected-option' : ''}">
+                        <input type="radio" name="placement_q" value="${oi}" ${checked} onchange="selectPlacementOption(${idx}, ${oi})">
+                        ${optDisplay}
+                    </label>
+                `;
+                });
+                html += `</div>`;
+                html += `<div id="exFeedback${idx}" style="margin-top:0.5rem;"></div>`;
+            }
+
+            html += `</div>`;
+            box.innerHTML = html;
+
+            const prevBtn = document.getElementById('prevPlacementBtn');
+            const nextBtn = document.getElementById('nextPlacementBtn');
+
+            if (placementEventHandlers.prev) {
+                prevBtn.removeEventListener('click', placementEventHandlers.prev);
+                placementEventHandlers.prev = null;
+            }
+            if (placementEventHandlers.next) {
+                nextBtn.removeEventListener('click', placementEventHandlers.next);
+                placementEventHandlers.next = null;
+            }
+
+            if (idx === 0) {
+                prevBtn.disabled = true;
+                prevBtn.style.opacity = '0.5';
+                prevBtn.style.cursor = 'not-allowed';
+            } else {
+                prevBtn.disabled = false;
+                prevBtn.style.opacity = '1';
+                prevBtn.style.cursor = 'pointer';
+                const handler = function() { prevPlacementQuestion(); };
+                prevBtn.addEventListener('click', handler);
+                placementEventHandlers.prev = handler;
+            }
+
+            if (idx === total - 1) {
+                nextBtn.innerHTML = `<span data-i18n="btn_submit">ส่งคำตอบ</span> <i class="fas fa-check"></i>`;
+                const handler = function() { submitPlacementTest(); };
+                nextBtn.addEventListener('click', handler);
+                placementEventHandlers.next = handler;
+                const span = nextBtn.querySelector('span');
+                if (span && span.dataset.i18n) {
+                    span.textContent = t('btn_submit');
+                }
+            } else {
+                nextBtn.innerHTML = `<span data-i18n="btn_next_question">ถัดไป</span> <i class="fas fa-arrow-right"></i>`;
+                const handler = function() { nextPlacementQuestion(); };
+                nextBtn.addEventListener('click', handler);
+                placementEventHandlers.next = handler;
+                const span = nextBtn.querySelector('span');
+                if (span && span.dataset.i18n) {
+                    span.textContent = t('btn_next_question');
+                }
+            }
+
+            const prevSpan = prevBtn.querySelector('span');
+            if (prevSpan && prevSpan.dataset.i18n) {
+                prevSpan.textContent = t('btn_prev');
+            }
+        }
+
+        function selectPlacementOption(idx, val) {
+            state.placementAnswers[idx] = val;
+            const labels = document.querySelectorAll('#placementQuestionBox .options label');
+            labels.forEach((label, i) => {
+                const radio = label.querySelector('input[type="radio"]');
+                if (radio && parseInt(radio.value) === val) {
+                    label.classList.add('selected-option');
+                    radio.checked = true;
+                } else {
+                    label.classList.remove('selected-option');
+                }
+            });
+            saveState();
+        }
+
+        function nextPlacementQuestion() {
+            if (currentPlacementIndex < placementQuestions.length - 1) {
+                currentPlacementIndex++;
+                renderPlacementQuestion();
+            }
+        }
+
+        function prevPlacementQuestion() {
+            if (currentPlacementIndex > 0) {
+                currentPlacementIndex--;
+                renderPlacementQuestion();
+            }
+        }
+
+        function submitPlacementTest() {
+            console.log('✅ เรียก submitPlacementTest');
+            let hasUnanswered = false;
+            for (let i = 0; i < placementQuestions.length; i++) {
+                if (placementQuestions[i].type === 'speech' && state.placementAnswers[i] === null) {
+                    hasUnanswered = true;
+                    break;
+                }
+                if (placementQuestions[i].type !== 'speech' && state.placementAnswers[i] === null) {
+                    hasUnanswered = true;
+                    break;
+                }
+            }
+            if (hasUnanswered) {
+                if (!confirm('คุณยังไม่ได้ตอบบางข้อ (รวมการพูด) ต้องการส่งคำตอบหรือไม่?')) return;
+            }
+
+            let score = 0;
+            let total = placementQuestions.length;
+            let listeningScore = 0,
+                speakingScore = 0,
+                grammarScore = 0;
+
+            for (let i = 0; i < total; i++) {
+                const q = placementQuestions[i];
+                let isCorrect = false;
+                if (q.type === 'speech') {
+                    isCorrect = (state.placementAnswers[i] === 1);
+                    if (isCorrect) speakingScore++;
+                } else {
+                    isCorrect = (state.placementAnswers[i] === q.correct);
+                    if (isCorrect) {
+                        if (q.type === 'listening') listeningScore++;
+                        else if (q.type === 'grammar') grammarScore++;
+                    }
+                }
+                if (isCorrect) score++;
+            }
+
+            state.placementScore = score;
+            state.placementDone = true;
+            state.skillScores = { listening: listeningScore, speaking: speakingScore, grammar: grammarScore };
+
+            if (score >= 18) state.user.tier = 2;
+            else if (score >= 12) state.user.tier = 1;
+            else state.user.tier = 0;
+            state.user.xp += 10;
+            saveState();
+
+            alert(`คุณทำได้ ${score} / ${total} คะแนน\nฟัง: ${listeningScore}/10 | พูด: ${speakingScore}/10 | ไวยากรณ์: ${grammarScore}/5\nระดับที่แนะนำ: ${state.user.tier === 0 ? 'เริ่มต้น (HSK 0)' : 'HSK ' + state.user.tier}`);
+            renderPlacementQuestion();
+            renderDashboard(); // อัปเดต Dashboard ทันที
+        }
+
+        function resetPlacement() {
+            state.placementDone = false;
+            state.placementScore = 0;
+            state.user.tier = 0;
+            state.placementAnswers = new Array(placementQuestions.length).fill(null);
+            state.skillScores = { listening: 0, speaking: 0, grammar: 0 };
+            currentPlacementIndex = 0;
+            saveState();
+            renderPlacementQuestion();
+            renderDashboard();
+        }
+
+        // ============================================================
+        //  12. LESSON
+        // ============================================================
+        function startLesson(unitId) {
+            const unit = units.find(u => u.id === unitId);
+            if (!unit) return;
+            state.exerciseAnswers = {};
+            state.orderStates = {};
+            const page = document.getElementById('page-lesson');
+            page.dataset.unitId = unitId;
+            showPage('lesson');
+            renderLesson(unitId);
+        }
+
+        function renderLesson(unitId) {
+            const unit = units.find(u => u.id === unitId);
+            if (!unit) return;
+            const title = document.getElementById('lessonTitle');
+            title.innerHTML = `<i class="fas fa-graduation-cap"></i> ${currentLang === 'th' ? unit.name : unit.name_zh}`;
+
+            const content = document.getElementById('lessonContent');
+            const vocabList = vocabData.filter(v => unit.vocabIds.includes(v.id));
+            const qs = unitQuestions[unitId] || [];
+
+            let html = `<div class="lesson-content">`;
+            // คำศัพท์
+            html +=
+                `<h3>${t('lesson_vocab')} <button class="btn-speak" onclick="speakText('${vocabList.map(v=>v.zh).join(' ')}')" title="อ่านทั้งหมด"><i class="fas fa-volume-up"></i></button></h3>`;
+            html += `<div class="vocab-list">`;
+            vocabList.forEach(v => {
+                html += `
+                <div class="vocab-item">
+                    <div class="left">
+                        <span class="zh">${v.zh}</span>
+                        <span class="pinyin">${v.pinyin}</span>
+                        <span>${v.th}</span>
+                    </div>
+                    <button class="btn-speak" onclick="speakText('${v.zh}')" title="อ่านออกเสียง"><i class="fas fa-volume-up"></i></button>
+                </div>
+            `;
+            });
+            html += `</div>`;
+
+            // แบบฝึกหัด 25 ข้อ
+            if (qs.length > 0) {
+                html += `<h3>${t('lesson_exercise')} (${qs.length} ข้อ)</h3>`;
+                qs.forEach((ex, idx) => {
+                    if (ex.type === 'order') {
+                        if (!state.orderStates[idx]) {
+                            state.orderStates[idx] = { pool: [...ex.words], line: [] };
+                        }
+                    }
+                    html += renderExerciseItem(ex, idx, qs.length);
+                });
+            } else {
+                html += `<p>ไม่มีแบบฝึกหัดสำหรับหน่วยนี้</p>`;
+            }
+
+            // แบบฝึกหัดเรียงลำดับคำ (Order) พิเศษ
+            const orderExercises = [
+                { words: ['我', '是', '学生'], correct: ['我', '是', '学生'] },
+                { words: ['妈妈', '好'], correct: ['妈妈', '好'] },
+                { words: ['今天', '是', '几号'], correct: ['今天', '是', '几号'] },
+                { words: ['我', '吃', '饭'], correct: ['我', '吃', '饭'] },
+                { words: ['你', '好'], correct: ['你', '好'] },
+            ];
+            const orderSample = orderExercises.slice(0, 3);
+            if (orderSample.length > 0) {
+                html += `<h3>แบบฝึกหัดเรียงลำดับคำ</h3>`;
+                orderSample.forEach((ord, idx) => {
+                    const exIdx = qs.length + idx;
+                    if (!state.orderStates[exIdx]) {
+                        state.orderStates[exIdx] = { pool: [...ord.words], line: [] };
+                    }
+                    html += renderExerciseItem({
+                        type: 'order',
+                        question: 'เรียงลำดับคำให้เป็นประโยคที่ถูกต้อง',
+                        words: ord.words,
+                        correct: ord.correct
+                    }, exIdx, qs.length);
+                });
+            }
+
+            html += `
+            <div class="flex mt-1" style="justify-content:space-between;">
+                <button class="btn btn-sm" onclick="checkUnitExercises(${unitId})">${t('btn_check')}</button>
+                <button class="btn btn-sm btn-secondary" onclick="markUnitComplete(${unitId})">${t('btn_next')} →</button>
+            </div>
+        `;
+            content.innerHTML = html;
+        }
+
+        function renderExerciseItem(ex, idx, baseLength) {
+            let html = `<div class="exercise" data-exidx="${idx}">`;
+            html += `<div class="ex-question">ข้อ ${idx+1}: ${ex.question}`;
+            const chineseInQuestion = ex.question.match(/["「]([^"」]+)["」]/);
+            if (chineseInQuestion) {
+                const chineseText = chineseInQuestion[1];
+                html +=
+                    ` <button class="btn-speak btn-speak-sm" onclick="speakText('${chineseText}')" title="ฟังคำถาม"><i class="fas fa-volume-up"></i></button>`;
+            }
+            html += `</div>`;
+
+            if (ex.type === 'listening' || ex.type === 'grammar' || ex.type === 'choice') {
+                const options = ex.options || [];
+                html += `<div class="ex-options">`;
+                options.forEach((opt, oi) => {
+                    const isChinese = /[\u4e00-\u9fff]/.test(opt);
+                    let optDisplay = opt;
+                    if (isChinese) {
+                        optDisplay = speakableChinese(opt);
+                    }
+                    const selected = (state.exerciseAnswers[idx] === oi) ? 'selected' : '';
+                    html +=
+                        `<button class="ex-opt ${selected}" data-optidx="${oi}" onclick="selectChoiceOption(${idx}, ${oi})">${optDisplay}</button>`;
+                });
+                html += `</div>`;
+                html += `<div id="exFeedback${idx}" style="margin-top:0.5rem;"></div>`;
+            } else if (ex.type === 'speech') {
+                html += `<div class="speech-area">`;
+                html += `<span class="speech-target">🎯 ${ex.target}</span>`;
+                const pinyinTarget = getPinyinForText(ex.target);
+                if (pinyinTarget) html += ` <small style="font-size:0.8rem;color:#999;">${pinyinTarget}</small>`;
+                html +=
+                    ` <button class="btn-speak btn-speak-sm" onclick="speakText('${ex.target}')" title="ฟังเป้าหมาย"><i class="fas fa-volume-up"></i></button>`;
+                html +=
+                    `<button class="btn-mic" id="micBtn${idx}" onclick="startSpeechExercise('${ex.target}', 'speechResult${idx}', function(correct){ if(correct) { state.user.xp += 2; saveState(); renderDashboard(); } })" title="${t('speech_hint')}"><i class="fas fa-microphone"></i></button>`;
+                html += `<div id="speechResult${idx}" class="speech-result">${t('speech_hint')}</div>`;
+                html += `</div>`;
+                html += `<div id="exFeedback${idx}" style="margin-top:0.5rem;"></div>`;
+            } else if (ex.type === 'order') {
+                html += `<div class="order-area">`;
+                html += `<div class="order-pool" id="orderPool${idx}">`;
+                const pool = state.orderStates[idx].pool;
+                if (pool.length === 0) html += `<span style="color:#999;">(คลังว่าง)</span>`;
+                else {
+                    pool.forEach((word, wi) => {
+                        const pinyin = getPinyinForText(word);
+                        html +=
+                            `<span class="order-word in-pool" data-word="${word}" data-widx="${wi}" onclick="moveOrderWord(${idx}, 'pool', ${wi})">`;
+                        html += `${word}`;
+                        if (pinyin) html += ` <small style="font-size:0.6rem;color:#999;">${pinyin}</small>`;
+                        html +=
+                            ` <button class="btn-speak btn-speak-sm" onclick="event.stopPropagation(); speakText('${word}')" style="width:20px;height:20px;font-size:0.6rem;"><i class="fas fa-volume-up"></i></button>`;
+                        html += `</span>`;
+                    });
+                }
+                html += `</div>`;
+                html += `<div class="order-line" id="orderLine${idx}">`;
+                const line = state.orderStates[idx].line;
+                if (line.length === 0) html += `<span style="color:#999;">(คลิกคำด้านบนเพื่อเรียง)</span>`;
+                else {
+                    line.forEach((word, wi) => {
+                        const pinyin = getPinyinForText(word);
+                        html +=
+                            `<span class="order-word in-line" data-word="${word}" data-widx="${wi}" onclick="moveOrderWord(${idx}, 'line', ${wi})">`;
+                        html += `${word}`;
+                        if (pinyin) html += ` <small style="font-size:0.6rem;color:#999;">${pinyin}</small>`;
+                        html +=
+                            ` <button class="btn-speak btn-speak-sm" onclick="event.stopPropagation(); speakText('${word}')" style="width:20px;height:20px;font-size:0.6rem;"><i class="fas fa-volume-up"></i></button>`;
+                        html += `</span>`;
+                    });
+                }
+                html += `</div>`;
+                html += `<small>${t('order_hint')}</small></div>`;
+                html += `<div id="exFeedback${idx}" style="margin-top:0.5rem;"></div>`;
+            }
+            html += `</div>`;
+            return html;
+        }
+
+        function selectChoiceOption(exIdx, optIdx) {
+            state.exerciseAnswers[exIdx] = optIdx;
+            const container = document.querySelector(`.exercise[data-exidx="${exIdx}"]`);
+            if (!container) return;
+            container.querySelectorAll('.ex-opt').forEach(btn => {
+                btn.classList.remove('selected');
+                if (parseInt(btn.dataset.optidx) === optIdx) btn.classList.add('selected');
+            });
+            saveState();
+        }
+
+        function moveOrderWord(exIdx, from, wordIndex) {
+            const stateObj = state.orderStates[exIdx];
+            if (!stateObj) return;
+            let word;
+            if (from === 'pool') {
+                if (wordIndex < 0 || wordIndex >= stateObj.pool.length) return;
+                word = stateObj.pool.splice(wordIndex, 1)[0];
+                stateObj.line.push(word);
+            } else if (from === 'line') {
+                if (wordIndex < 0 || wordIndex >= stateObj.line.length) return;
+                word = stateObj.line.splice(wordIndex, 1)[0];
+                stateObj.pool.push(word);
+            }
+            state.exerciseAnswers[exIdx] = [...stateObj.line];
+            const unitId = parseInt(document.getElementById('page-lesson').dataset.unitId);
+            renderLesson(unitId);
+            const container = document.getElementById('lessonContent');
+            const targetEx = container.querySelector(`.exercise[data-exidx="${exIdx}"]`);
+            if (targetEx) targetEx.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            saveState();
+        }
+
+        function checkUnitExercises(unitId) {
+            const qs = unitQuestions[unitId] || [];
+            let totalCorrect = 0;
+            let totalChecked = 0;
+
+            qs.forEach((ex, idx) => {
+                if (ex.type === 'speech') return;
+                totalChecked++;
+                const feedback = document.getElementById(`exFeedback${idx}`);
+                if (!feedback) return;
+                let isCorrect = false;
+                let message = '';
+                const selected = state.exerciseAnswers[idx];
+
+                if (ex.type === 'listening' || ex.type === 'grammar' || ex.type === 'choice') {
+                    if (selected === undefined) {
+                        message = '⚠️ ยังไม่ได้เลือกคำตอบ';
+                    } else if (selected === ex.correct) {
+                        isCorrect = true;
+                        message = '✅ ' + t('correct');
+                    } else {
+                        message = `❌ ${t('wrong')} คำตอบที่ถูกคือ "${ex.options[ex.correct]}"`;
+                    }
+                } else if (ex.type === 'order') {
+                    const userOrder = state.exerciseAnswers[idx] || [];
+                    if (userOrder.length === 0) {
+                        message = '⚠️ ยังไม่ได้เรียงคำ';
+                    } else if (userOrder.length === ex.correct.length && userOrder.every((val, i) => val === ex.correct[i])) {
+                        isCorrect = true;
+                        message = '✅ ' + t('correct');
+                    } else {
+                        message = `❌ ${t('wrong')} ลำดับที่ถูกคือ "${ex.correct.join(' ')}"`;
+                    }
+                }
+                feedback.innerHTML = message;
+                if (isCorrect) totalCorrect++;
+            });
+
+            const content = document.getElementById('lessonContent');
+            let summary = content.querySelector('.exercise-summary');
+            if (!summary) {
+                summary = document.createElement('div');
+                summary.className = 'exercise-summary';
+                summary.style.marginTop = '1rem';
+                summary.style.padding = '0.5rem';
+                summary.style.background = '#E8F5E9';
+                summary.style.borderRadius = '8px';
+                content.appendChild(summary);
+            }
+            summary.innerHTML = `<strong>คุณตอบถูก ${totalCorrect} จาก ${totalChecked} ข้อ (ไม่นับแบบฝึกพูด)</strong>`;
+            if (totalCorrect === totalChecked && totalChecked > 0) {
+                state.user.xp += 5;
+                saveState();
+                summary.innerHTML += ` 🎉 +5 XP`;
+                renderDashboard();
+            }
+        }
+
+        function markUnitComplete(unitId) {
+            if (!state.user.completedUnits.includes(unitId)) {
+                state.user.completedUnits.push(unitId);
+                state.user.xp += 10;
+                saveState();
+                const nextUnit = units.find(u => u.id === unitId + 1);
+                if (nextUnit) {
+                    alert(`🎉 เรียนจบ ${currentLang === 'th' ? units.find(u=>u.id===unitId).name : units.find(u=>u.id===unitId).name_zh} แล้ว! ไปยังบทถัดไป`);
+                    startLesson(nextUnit.id);
+                } else {
+                    alert('🎉 คุณเรียนครบทุกหน่วยแล้ว!');
+                    showPage('dashboard');
+                }
+            } else {
+                showPage('dashboard');
+            }
+            renderDashboard();
+        }
+
+        // ============================================================
+        //  13. PROFILE
+        // ============================================================
+        function renderProfile() {
+            const user = state.user;
+            document.getElementById('profileXp').textContent = user.xp;
+            document.getElementById('profileUnits').textContent = user.completedUnits.length;
+            document.getElementById('profileLevel').textContent = user.tier === 0 ? 'HSK 0' : 'HSK ' + user.tier;
+            document.getElementById('profileStreak').textContent = user.streak || 0;
+        }
+
+        function resetProgress() {
+            if (confirm('คุณต้องการรีเซ็ตความคืบหน้าทั้งหมดใช่หรือไม่?')) {
+                state.user.completedUnits = [];
+                state.user.xp = 0;
+                state.user.tier = 0;
+                state.placementDone = false;
+                state.placementScore = 0;
+                state.placementAnswers = new Array(placementQuestions.length).fill(null);
+                state.skillScores = { listening: 0, speaking: 0, grammar: 0 };
+                state.exerciseAnswers = {};
+                state.orderStates = {};
+                currentPlacementIndex = 0;
+                saveState();
+                updateUI();
+                showPage('dashboard');
+            }
+        }
+
+        // ============================================================
+        //  14. INIT
+        // ============================================================
+        loadState();
+        console.log('🎉 แอปเรียนจีนพร้อมใช้งาน! (แก้ไขกราฟและ Unit 1 แล้ว)');
+    </script>
+</body>
+</html>
