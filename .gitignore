@@ -36,3 +36,5 @@ desktop.ini
 .vscode/
 .idea/
 .cache/
+# Obsidian workspace (การตั้งค่าส่วนตัว ไม่ต้อง sync)
+.obsidian/
