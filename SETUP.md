@@ -20,7 +20,7 @@
 - ใน `apps/web/.env.local`: `NEXT_PUBLIC_API_URL=http://localhost:8000`
 
 ### 💻 เครื่องช้า (หฤทัย) — รันแค่เว็บ ชี้ API ไปคลาวด์
-- รันแค่: `cd apps/web && npm run dev` (ไม่ต้องรัน API!)
+- รันแค่เว็บ: พิมพ์ `npm run dev` ที่**รากโปรเจกต์**ได้เลย ไม่ต้อง cd (ไม่ต้องรัน API!)
 - ใน `apps/web/.env.local` เปลี่ยนเป็น:
   ```
   NEXT_PUBLIC_API_URL=https://intelligent-chinese-tutoring-system-for.onrender.com
