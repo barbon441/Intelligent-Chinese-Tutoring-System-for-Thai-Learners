@@ -104,8 +104,8 @@ export default function Flashcards() {
       >
         {!flipped ? (
           <>
-            <div className="text-7xl font-bold">{word.hanzi}</div>
-            <div className="mt-3 text-2xl text-slate-500">{word.pinyin}</div>
+            <div className="text-8xl font-bold text-slate-900">{word.hanzi}</div>
+            <div className="mt-4 text-2xl text-slate-500">{word.pinyin}</div>
             <div className="mt-6 text-xs text-slate-400">แตะเพื่อดูคำแปล</div>
           </>
         ) : (
@@ -118,15 +118,32 @@ export default function Flashcards() {
       </button>
 
       {/* ปุ่มเสียง + เลื่อน */}
-      <div className="flex w-full items-center justify-between">
-        <button onClick={() => go(-1)} disabled={idx === 0}
-          className="rounded-xl bg-white px-5 py-3 shadow disabled:opacity-40">← ก่อนหน้า</button>
-        <button onClick={play}
-          className="rounded-full bg-sky-700 px-6 py-3 text-white shadow hover:bg-sky-800">🔊 ฟัง</button>
-        <button onClick={() => go(1)} disabled={idx === words.length - 1}
-          className="rounded-xl bg-white px-5 py-3 shadow disabled:opacity-40">ถัดไป →</button>
+      <div className="flex w-full items-center justify-between gap-3">
+        <button
+          onClick={() => go(-1)}
+          disabled={idx === 0}
+          aria-label="คำก่อนหน้า"
+          className="rounded-xl bg-slate-100 px-5 py-3 font-medium text-slate-600 transition hover:bg-slate-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 disabled:pointer-events-none disabled:opacity-40"
+        >
+          ← ก่อนหน้า
+        </button>
+        <button
+          onClick={play}
+          aria-label="ฟังเสียงอ่าน"
+          className="flex items-center gap-2 rounded-full bg-sky-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-sky-600/30 transition hover:bg-sky-700 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
+        >
+          🔊 ฟัง
+        </button>
+        <button
+          onClick={() => go(1)}
+          disabled={idx === words.length - 1}
+          aria-label="คำถัดไป"
+          className="rounded-xl bg-slate-100 px-5 py-3 font-medium text-slate-600 transition hover:bg-slate-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 disabled:pointer-events-none disabled:opacity-40"
+        >
+          ถัดไป →
+        </button>
       </div>
-      <div className="text-sm text-slate-400">{idx + 1} / {words.length}</div>
+      {reviewMode && <div className="text-sm text-slate-400">{idx + 1} / {words.length}</div>}
 
       {/* โหมดตรวจ (สำหรับหฤทัย) — เปิดด้วย ?review=1 เท่านั้น */}
       {reviewMode && (
