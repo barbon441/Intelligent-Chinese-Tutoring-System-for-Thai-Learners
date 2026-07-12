@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 const NAV = [
   { href: "/", label: "หน้าแรก", icon: "🏠", ready: true },
   { href: "/flashcards", label: "บัตรคำ", icon: "🃏", ready: true },
-  { href: "/practice", label: "ฝึก", icon: "📝", ready: false },
-  { href: "/progress", label: "ผล", icon: "📊", ready: false },
-  { href: "/profile", label: "โปรไฟล์", icon: "👤", ready: false },
+  { href: "/practice", label: "ฝึก", icon: "📝", ready: true },
+  { href: "/progress", label: "ผล", icon: "📊", ready: true },
+  { href: "/profile", label: "โปรไฟล์", icon: "👤", ready: true },
 ];
 
 export default function AppShell({ children }: { children: React.ReactNode }) {

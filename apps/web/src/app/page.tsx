@@ -53,10 +53,10 @@ export default function Home() {
         <h2 className="mb-2 text-sm font-semibold text-slate-500">โมดูลการเรียน</h2>
         <div className="flex flex-col gap-3">
           <ModuleCard href="/flashcards" icon="🃏" title="บัตรคำศัพท์" desc="เรียน 300 คำ HSK 1 พร้อมเสียง" ready />
+          <ModuleCard href="/practice" icon="📝" title="ฝึกทำข้อสอบ" desc="ข้อสอบฟัง-อ่านแบบ HSK ตรวจให้ทันที" ready />
+          <ModuleCard href="/progress" icon="📊" title="ผลการเรียน" desc="ดูความคืบหน้า + ความแม่นยำ" ready />
           <ModuleCard icon="🔁" title="ทบทวนอัจฉริยะ (FSRS)" desc="ทวนคำตอนกำลังจะลืมพอดี" />
-          <ModuleCard icon="🎧" title="ฝึกการฟัง" desc="ข้อสอบฟัง + แยกเสียงวรรณยุกต์" />
-          <ModuleCard icon="📖" title="ฝึกการอ่าน" desc="ข้อสอบอ่านแบบ HSK" />
-          <ModuleCard icon="📝" title="ข้อสอบเสมือนจริง" desc="Mock Exam จับเวลา วัดความพร้อมสอบ" />
+          <ModuleCard icon="🧪" title="ข้อสอบเสมือนจริง" desc="Mock Exam จับเวลา วัดความพร้อมสอบ" />
         </div>
       </section>
 
