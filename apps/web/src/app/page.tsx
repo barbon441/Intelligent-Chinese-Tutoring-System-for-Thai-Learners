@@ -47,8 +47,15 @@ export default function Home() {
         </button>
       </div>
 
+      <a
+        href="/flashcards"
+        className="rounded-xl bg-pink-500 px-6 py-3 font-medium text-white shadow-lg transition hover:bg-pink-600"
+      >
+        🃏 เปิดบัตรคำ HSK 1 (300 คำ)
+      </a>
+
       <p className="text-xs text-slate-400">
-        M1 scaffold · โมดูลถัดไป: คลังคำศัพท์ + บัตรคำ (ดู docs/08_สเปค-พัฒนา/PRD.md)
+        M3 · คลังคำศัพท์ + บัตรคำ (ดู docs/08_สเปค-พัฒนา/PRD.md)
       </p>
     </main>
   );
