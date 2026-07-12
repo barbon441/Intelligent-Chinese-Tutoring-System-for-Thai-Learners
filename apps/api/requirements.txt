@@ -1,10 +1,7 @@
-# จีนรู้ใจ API — dependencies (scaffold M1)
+# จีนรู้ใจ API — dependencies ของเซิร์ฟเวอร์ (ใช้ตอน deploy บน HF Spaces)
 fastapi>=0.115
 uvicorn[standard]>=0.30
+psycopg[binary]>=3.2
 
-# จะเพิ่มใน M2+ ตาม ARCHITECTURE.md:
-# pyBKT          (Knowledge Tracing)
-# fsrs           (py-fsrs — spaced repetition)
-# jieba pypinyin (NLP จีน)
-# supabase       (DB client)
-# edge-tts       (pre-generate เสียง — ใช้ใน scripts/)
+# หมายเหตุ: edge-tts, pypinyin ใช้ในสคริปต์ (scripts/) รันในเครื่องเท่านั้น
+# ไม่ต้องอยู่ใน image ของ API · จะเพิ่ม pyBKT/fsrs/jieba ตอนทำ M4-M6

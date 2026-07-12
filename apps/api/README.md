@@ -1,4 +1,16 @@
-﻿# apps/api — จีนรู้ใจ Backend (FastAPI)
+---
+title: จีนรู้ใจ API
+emoji: 🐉
+colorFrom: blue
+colorTo: pink
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
+# apps/api — จีนรู้ใจ Backend (FastAPI)
+
+> frontmatter ข้างบนเป็น config ของ Hugging Face Space (Docker SDK) — HF อ่านตอน deploy
 
 ## รันในเครื่อง
 ```
@@ -11,4 +23,7 @@ uvicorn app.main:app --reload --port 8000
 เปิด http://localhost:8000/docs (Swagger) · /health (เช็กสถานะ)
 
 ## Deploy: Hugging Face Spaces (Docker SDK)
-ใช้ Dockerfile นี้ตรง ๆ — พอร์ต 7860 · ตั้ง secrets ในหน้า Settings ของ Space
+- ใช้ Dockerfile นี้ตรง ๆ — พอร์ต 7860
+- ตั้ง secrets ในหน้า Settings → Variables and secrets ของ Space:
+  `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_DB_URL`
+- ห้าม commit `.env` — ค่าจริงอยู่ใน HF secrets เท่านั้น
