@@ -176,11 +176,16 @@
 3. Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., & Rohrer, D. (2006). Distributed practice in verbal recall tasks: A review and quantitative synthesis. *Psychological Bulletin*, 132(3), 354–380.
 4. Roediger, H. L., & Karpicke, J. D. (2006). Test-enhanced learning: Taking memory tests improves long-term retention. *Psychological Science*, 17(3), 249–255.
 5. Badrinath, A., Wang, F., & Pardos, Z. (2021). pyBKT: An Accessible Python Library of Bayesian Knowledge Tracing Models. *Proceedings of the 14th International Conference on Educational Data Mining (EDM)*. (arXiv:2105.00385)
-6. Open Spaced Repetition. (2024). Free Spaced Repetition Scheduler (FSRS). [https://github.com/open-spaced-repetition](https://github.com/open-spaced-repetition)
-7. กระทรวงศึกษาธิการแห่งสาธารณรัฐประชาชนจีน. (2021). มาตรฐานระดับความสามารถภาษาจีนสำหรับการศึกษาภาษาจีนนานาชาติ (国际中文教育中文水平等级标准 / GF0025-2021).
-8. Rungruang, A., & Mu, Y. (2017). Mandarin Chinese Tonal Acquisition by Thai Speakers. *Asian Social Science*, 13(5). (การรับรู้วรรณยุกต์และความสับสนเสียง 2/3 ของผู้เรียนชาวไทย)
-9. งานวิเคราะห์ข้อผิดพลาดด้านการออกเสียงพยัญชนะและลำดับคำของผู้เรียนชาวไทย (Contrastive Analysis of Thai–Mandarin / L1 transfer)
-10. Wang, Y., Spence, M. M., Jongman, A., & Sereno, J. A. (1999). Training American listeners to perceive Mandarin tones. *Journal of the Acoustical Society of America*, 106(6). (High-Variability Phonetic Training)
+6. Ye, J., Su, J., & Cao, Y. (2022). A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling. *Proceedings of the 28th ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD '22)*, 4381–4390. (งานวิจัยฐานของอัลกอริทึม FSRS — ทดสอบบนข้อมูลผู้เรียน 220 ล้านรายการ)
+7. Open Spaced Repetition. (2024). Free Spaced Repetition Scheduler (FSRS). [https://github.com/open-spaced-repetition](https://github.com/open-spaced-repetition) (ไลบรารีที่ใช้พัฒนา: ts-fsrs, py-fsrs)
+8. Settles, B., & Meeder, B. (2016). A Trainable Spaced Repetition Model for Language Learning. *Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (ACL)*, 1848–1858. (โมเดล Half-Life Regression และชุดข้อมูลของ Duolingo ที่ใช้เป็น benchmark)
+9. กระทรวงศึกษาธิการแห่งสาธารณรัฐประชาชนจีน. (2021). มาตรฐานระดับความสามารถภาษาจีนสำหรับการศึกษาภาษาจีนนานาชาติ (国际中文教育中文水平等级标准 / GF0025-2021).
+10. Rungruang, A., & Mu, Y. (2017). Mandarin Chinese Tonal Acquisition by Thai Speakers. *Asian Social Science*, 13(5). (การรับรู้วรรณยุกต์และความสับสนเสียง 2/3 ของผู้เรียนชาวไทย)
+11. Cai, Y.-W., & Lee, H. Y.-H. (2015). A Contrastive Analysis of Mandarin Chinese and Thai: Suggestions for Second Language Pronunciation. *Theory and Practice in Language Studies*, 5(4), 719–728. (การวิเคราะห์เปรียบเทียบระบบเสียงไทย–จีน)
+12. ตุลยนุสรญ์ สุภาษา และ ฉี เสวียหง. (2560). การศึกษาปัญหาการออกเสียงภาษาจีนของนักศึกษาสาขาวิชาภาษาจีนธุรกิจ วิทยาลัยนานาชาติ มหาวิทยาลัยราชภัฏเชียงใหม่. *วารสารบัณฑิตวิจัย*, 8(1). (ข้อผิดพลาดพยัญชนะม้วนลิ้น zh/ch/sh ของผู้เรียนไทย)
+13. พิชัย แก้วบุตร และ ธีรพงศ์ แก้วมณี. (2562). ปัญหาและแนวทางการแก้ไขข้อผิดพลาดการออกเสียงภาษาจีนของนักเรียนไทย: กรณีศึกษาการแข่งขันทักษะภาษาจีนของโรงเรียนสังกัด สพฐ. *วารสารเทคโนโลยีภาคใต้*, 12(1), 50–62. (ข้อมูลภาคสนามข้อผิดพลาดการออกเสียงของนักเรียนไทย 250 คน)
+14. นพพล จันทร์กระจ่าง. (2565). การศึกษาวิเคราะห์ข้อผิดพลาดและปัญหาการสอนไวยากรณ์ภาษาจีน หน่วยคำเสริมกริยา ของนักเรียนชั้นมัธยมศึกษาปีที่ 6 แผนกศิลป์-ภาษาจีน. *Suan Sunandha Asian Social Science*, 13(1), 64–77. (ข้อผิดพลาดไวยากรณ์จากการถ่ายโอนภาษาไทย)
+15. Wang, Y., Spence, M. M., Jongman, A., & Sereno, J. A. (1999). Training American listeners to perceive Mandarin tones. *Journal of the Acoustical Society of America*, 106(6). (High-Variability Phonetic Training)
 
 ---
 
