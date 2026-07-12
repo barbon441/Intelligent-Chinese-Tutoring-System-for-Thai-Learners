@@ -38,3 +38,6 @@ desktop.ini
 .cache/
 # Obsidian workspace (การตั้งค่าส่วนตัว ไม่ต้อง sync)
 .obsidian/
+
+# cache ของ dataset ต้นทาง (โหลดใหม่ได้ด้วย scripts/build_wordlist.py)
+data/wordlist/.cache-*.json
