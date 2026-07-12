@@ -11,6 +11,12 @@ export default function Flashcards() {
   const [flipped, setFlipped] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [reviewMode, setReviewMode] = useState(false);
+
+  // โหมดตรวจ (สำหรับหฤทัย) เปิดด้วย ?review=1 — ผู้เรียนทั่วไปเห็นบัตรคำสะอาด ๆ
+  useEffect(() => {
+    setReviewMode(new URLSearchParams(window.location.search).get("review") === "1");
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -81,10 +87,13 @@ export default function Flashcards() {
       <div className="w-full">
         <div className="flex items-center justify-between text-sm text-slate-500">
           <span>บัตรคำ HSK 1</span>
-          <span>ตรวจแล้ว {reviewedCount}/{words.length}</span>
+          <span>{reviewMode ? `ตรวจแล้ว ${reviewedCount}/${words.length}` : `${idx + 1}/${words.length}`}</span>
         </div>
         <div className="mt-2 h-2 w-full rounded-full bg-slate-200">
-          <div className="h-2 rounded-full bg-pink-400" style={{ width: `${(reviewedCount / words.length) * 100}%` }} />
+          <div
+            className="h-2 rounded-full bg-pink-400"
+            style={{ width: `${((reviewMode ? reviewedCount : idx + 1) / words.length) * 100}%` }}
+          />
         </div>
       </div>
 
@@ -119,26 +128,28 @@ export default function Flashcards() {
       </div>
       <div className="text-sm text-slate-400">{idx + 1} / {words.length}</div>
 
-      {/* โหมดตรวจ (สำหรับหฤทัย) */}
-      <div className="mt-2 w-full rounded-2xl border border-dashed border-slate-300 bg-white/60 p-4">
-        <div className="text-sm font-medium text-slate-600">
-          ตรวจคำแปล {word.th_reviewed ? "✅ ตรวจแล้ว" : "⏳ ยังไม่ตรวจ"}
+      {/* โหมดตรวจ (สำหรับหฤทัย) — เปิดด้วย ?review=1 เท่านั้น */}
+      {reviewMode && (
+        <div className="mt-2 w-full rounded-2xl border border-dashed border-slate-300 bg-white/60 p-4">
+          <div className="text-sm font-medium text-slate-600">
+            ตรวจคำแปล {word.th_reviewed ? "✅ ตรวจแล้ว" : "⏳ ยังไม่ตรวจ"}
+          </div>
+          <div className="mt-2 flex gap-2">
+            <button onClick={() => saveReview(word.meaning_th)}
+              className="flex-1 rounded-xl bg-emerald-600 px-3 py-2 text-sm text-white hover:bg-emerald-700">
+              ✓ คำแปลถูก
+            </button>
+            <button
+              onClick={() => {
+                const v = prompt("แก้คำแปลไทย:", word.meaning_th);
+                if (v !== null && v.trim()) saveReview(v.trim());
+              }}
+              className="flex-1 rounded-xl bg-amber-500 px-3 py-2 text-sm text-white hover:bg-amber-600">
+              ✏️ แก้คำแปล
+            </button>
+          </div>
         </div>
-        <div className="mt-2 flex gap-2">
-          <button onClick={() => saveReview(word.meaning_th)}
-            className="flex-1 rounded-xl bg-emerald-600 px-3 py-2 text-sm text-white hover:bg-emerald-700">
-            ✓ คำแปลถูก
-          </button>
-          <button
-            onClick={() => {
-              const v = prompt("แก้คำแปลไทย:", word.meaning_th);
-              if (v !== null && v.trim()) saveReview(v.trim());
-            }}
-            className="flex-1 rounded-xl bg-amber-500 px-3 py-2 text-sm text-white hover:bg-amber-600">
-            ✏️ แก้คำแปล
-          </button>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
