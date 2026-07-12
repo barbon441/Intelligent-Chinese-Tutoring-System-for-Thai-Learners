@@ -18,7 +18,7 @@
 | 8 | 包子 | bāo zi | ซาลาเปา | bao (steamed stuffed bun) |
 | 9 | 杯子 | bēi zi | แก้ว, ถ้วย | cup; glass |
 | 10 | 本 | běn | เล่ม (ลักษณนามหนังสือ) | root; stem |
-| 11 | 边 | biān | ข้าง, ด้าน | side; edge |
+| 11 | 边 | biān | ข้าง, ด้าน | side; edge | **เพิ่มคำว่า ขอบ **
 | 12 | 病 | bìng | ป่วย / โรค | illness; disease |
 | 13 | 不 | bù | ไม่ | no; not so; (bound form) not; un- |
 | 14 | 不客气 | bù kè qi | ไม่ต้องเกรงใจ, ด้วยความยินดี | you're welcome; don't mention it |
@@ -62,7 +62,7 @@
 | 52 | 房间 | fáng jiān | ห้อง | room |
 | 53 | 非常 | fēi cháng | มาก, อย่างยิ่ง | very; really; unusual; extraordinary |
 | 54 | 飞机 | fēi jī | เครื่องบิน | airplane |
-| 55 | 分 | fēn | นาที (บอกเวลา) / แบ่ง, แยก | to divide; to separate; to distribute; to allocate |
+| 55 |  分| fēn | นาที (บอกเวลา) / แบ่ง, แยก | to divide; to separate; to distribute; to allocate |
 | 56 | 分钟 | fēn zhōng | นาที | minute |
 | 57 | 高兴 | gāo xìng | ดีใจ, มีความสุข | happy; glad |
 | 58 | 歌 | gē | เพลง | song; to sing |
@@ -94,7 +94,7 @@
 | 84 | 鸡蛋 | jī dàn | ไข่ไก่ | (chicken) egg; hen's egg |
 | 85 | 几 | jī | กี่ (ถามจำนวนน้อย) | small table |
 | 86 | 家 | jiā | บ้าน / ครอบครัว | used in 家伙 and 家俱 |
-| 87 | 家人 | jiā rén | คนในครอบครัว | family member; (old) servant |
+| 87 | 家人 | jiā rén | คนในครอบครัว | family member; (old) servant |**ครอบครัว ด้วยไหมน่ะ**
 | 88 | 见 | jiàn | พบ, เจอ / เห็น | to see; to meet |
 | 89 | 件 | jiàn | ตัว, เรื่อง (ลักษณนามเสื้อผ้า/เหตุการณ์) | item; component |
 | 90 | 饺子 | jiǎo zi | เกี๊ยวจีน | dumpling; pot-sticker |
