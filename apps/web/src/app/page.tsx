@@ -3,15 +3,17 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { buildQueue } from "@/lib/fsrs";
 
 export default function Home() {
   const [stats, setStats] = useState<{ total: number; withAudio: number; reviewed: number } | null>(null);
+  const [dueCount, setDueCount] = useState<number | null>(null);
 
   useEffect(() => {
     (async () => {
       const { data } = await supabase
         .from("words")
-        .select("audio_path, th_reviewed")
+        .select("id, audio_path, th_reviewed")
         .eq("hsk_level", 1);
       if (data) {
         setStats({
@@ -19,6 +21,8 @@ export default function Home() {
           withAudio: data.filter((w) => w.audio_path).length,
           reviewed: data.filter((w) => w.th_reviewed).length,
         });
+        const { due, fresh } = buildQueue(data.map((w) => w.id));
+        setDueCount(due.length + fresh.length);
       }
     })();
   }, []);
@@ -30,12 +34,23 @@ export default function Home() {
         <div className="font-[family-name:var(--font-sc)] text-3xl">你好！</div>
         <h1 className="mt-1 text-xl font-semibold">พร้อมติว HSK 1 กันหรือยัง</h1>
         <p className="mt-1 text-sm text-sky-100">เรียนคำศัพท์ · ฝึกฟัง-อ่าน · วัดความพร้อมสอบ</p>
-        <Link
-          href="/flashcards"
-          className="mt-4 inline-block rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-sky-800 shadow"
-        >
-          เริ่มเรียนบัตรคำ →
-        </Link>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link
+            href="/review"
+            className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-sky-800 shadow"
+          >
+            🔁 ทวนวันนี้
+            {dueCount !== null && (
+              <span className="rounded-full bg-pink-500 px-2 py-0.5 text-xs text-white">{dueCount}</span>
+            )}
+          </Link>
+          <Link
+            href="/flashcards"
+            className="inline-block rounded-xl bg-sky-500/40 px-5 py-2.5 text-sm font-semibold text-white shadow ring-1 ring-white/30"
+          >
+            เรียนบัตรคำ →
+          </Link>
+        </div>
       </section>
 
       {/* การ์ดความคืบหน้าคลังคำ */}
@@ -53,10 +68,10 @@ export default function Home() {
         <h2 className="mb-2 text-sm font-semibold text-slate-500">โมดูลการเรียน</h2>
         <div className="flex flex-col gap-3">
           <ModuleCard href="/flashcards" icon="🃏" title="บัตรคำศัพท์" desc="เรียน 300 คำ HSK 1 พร้อมเสียง" ready />
-          <ModuleCard icon="🔁" title="ทบทวนอัจฉริยะ (FSRS)" desc="ทวนคำตอนกำลังจะลืมพอดี" />
-          <ModuleCard icon="🎧" title="ฝึกการฟัง" desc="ข้อสอบฟัง + แยกเสียงวรรณยุกต์" />
-          <ModuleCard icon="📖" title="ฝึกการอ่าน" desc="ข้อสอบอ่านแบบ HSK" />
-          <ModuleCard icon="📝" title="ข้อสอบเสมือนจริง" desc="Mock Exam จับเวลา วัดความพร้อมสอบ" />
+          <ModuleCard href="/practice" icon="📝" title="ฝึกทำข้อสอบ" desc="ข้อสอบฟัง-อ่านแบบ HSK ตรวจให้ทันที" ready />
+          <ModuleCard href="/progress" icon="📊" title="ผลการเรียน" desc="ดูความคืบหน้า + ความแม่นยำ" ready />
+          <ModuleCard href="/review" icon="🔁" title="ทบทวนอัจฉริยะ (FSRS)" desc="ทวนคำตอนกำลังจะลืมพอดี" ready />
+          <ModuleCard icon="🧪" title="ข้อสอบเสมือนจริง" desc="Mock Exam จับเวลา วัดความพร้อมสอบ" />
         </div>
       </section>
 
