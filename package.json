@@ -1,0 +1,7 @@
+{
+  "name": "jeen-roo-jai",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix apps/web"
+  }
+}
