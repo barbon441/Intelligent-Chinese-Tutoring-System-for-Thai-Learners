@@ -105,10 +105,10 @@
 | เสียงอ่าน | **edge-tts** | ฟรี ไม่ต้อง key แต่ต้องเน็ต → **pre-generate + cache** สำหรับออฟไลน์ |
 | DB + Auth | **Supabase (PostgreSQL)** | ฟรี 500MB + Auth 50k MAU · หลับหลัง 7 วันไม่มี query → cron ping ก่อนเดโม |
 | LLM (ส่วนเสริมเท่านั้น) | Gemini Flash ฟรี ~1,500 req/วัน | เรียกจาก server, key ใน env — **ไม่ใช้ตรวจข้อสอบ** (ตรวจด้วย rule) |
-| โฮสต์ฟรี | **Vercel/Cloudflare Pages** (เว็บ) + **Hugging Face Spaces** (backend ML, RAM 16GB, หลับ 48 ชม.) | ❌ อย่าใช้ Render free (512MB) / Fly.io / Railway / Koyeb (เลิกฟรีแล้ว) |
+| โฮสต์ฟรี | **Vercel/Cloudflare Pages** (เว็บ) + **Render free web service** (backend FastAPI, 512MB, หลับ 15 นาที ปลุก ~30-50 วิ) | ⚠️ **Hugging Face Docker Space กลายเป็นของเสียเงินแล้ว (ก.ค. 2026)** — เปลี่ยนมาใช้ Render · API เราเบา (pyBKT เทรน offline) 512MB จึงพอ · Fly.io/Railway/Koyeb เลิกฟรี |
 
 ```
-Next.js PWA (Vercel/CF Pages) → FastAPI (HF Spaces) → Supabase
+Next.js PWA (Vercel/CF Pages) → FastAPI (Render) → Supabase
    ออฟไลน์: Dexie/IndexedDB       pyBKT·FSRS·jieba      Postgres+Auth
 ```
 
