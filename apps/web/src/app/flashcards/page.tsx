@@ -77,8 +77,8 @@ export default function Flashcards() {
   if (!word) return <Center>ไม่พบคำศัพท์</Center>;
 
   return (
-    <main className="flex min-h-screen flex-col items-center gap-6 bg-gradient-to-b from-sky-50 to-pink-50 p-6 text-slate-800">
-      <div className="w-full max-w-md">
+    <div className="flex flex-col items-center gap-6 p-5">
+      <div className="w-full">
         <div className="flex items-center justify-between text-sm text-slate-500">
           <span>บัตรคำ HSK 1</span>
           <span>ตรวจแล้ว {reviewedCount}/{words.length}</span>
@@ -91,7 +91,7 @@ export default function Flashcards() {
       {/* บัตรคำ — คลิกเพื่อพลิก */}
       <button
         onClick={() => setFlipped((f) => !f)}
-        className="flex aspect-[3/2] w-full max-w-md flex-col items-center justify-center rounded-3xl bg-white shadow-xl transition active:scale-[0.99]"
+        className="flex aspect-[3/2] w-full flex-col items-center justify-center rounded-3xl border border-slate-100 bg-white shadow-xl transition active:scale-[0.99]"
       >
         {!flipped ? (
           <>
@@ -109,7 +109,7 @@ export default function Flashcards() {
       </button>
 
       {/* ปุ่มเสียง + เลื่อน */}
-      <div className="flex w-full max-w-md items-center justify-between">
+      <div className="flex w-full items-center justify-between">
         <button onClick={() => go(-1)} disabled={idx === 0}
           className="rounded-xl bg-white px-5 py-3 shadow disabled:opacity-40">← ก่อนหน้า</button>
         <button onClick={play}
@@ -120,7 +120,7 @@ export default function Flashcards() {
       <div className="text-sm text-slate-400">{idx + 1} / {words.length}</div>
 
       {/* โหมดตรวจ (สำหรับหฤทัย) */}
-      <div className="mt-2 w-full max-w-md rounded-2xl border border-dashed border-slate-300 bg-white/60 p-4">
+      <div className="mt-2 w-full rounded-2xl border border-dashed border-slate-300 bg-white/60 p-4">
         <div className="text-sm font-medium text-slate-600">
           ตรวจคำแปล {word.th_reviewed ? "✅ ตรวจแล้ว" : "⏳ ยังไม่ตรวจ"}
         </div>
@@ -139,10 +139,10 @@ export default function Flashcards() {
           </button>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
 
 function Center({ children }: { children: React.ReactNode }) {
-  return <main className="flex min-h-screen items-center justify-center text-slate-600">{children}</main>;
+  return <div className="flex min-h-[60vh] items-center justify-center text-slate-600">{children}</div>;
 }
