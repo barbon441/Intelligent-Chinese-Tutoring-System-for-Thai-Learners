@@ -27,15 +27,18 @@
   ```
 - → เบากว่ามาก + ฟีเจอร์ครบ (API อยู่บนคลาวด์)
 
-### 📱 แค่อยากดู/ใช้แอป (ไม่แก้โค้ด)
-- รอเรา deploy เว็บ → เปิด URL ในเบราว์เซอร์ได้เลย ไม่ต้องรันอะไร
+### 📱 แค่อยากดู/ใช้แอป (ไม่แก้โค้ด) — เครื่องช้าก็ได้!
+- เปิด URL นี้ในเบราว์เซอร์ได้เลย ไม่ต้องรัน/ติดตั้งอะไร:
+  **https://intelligent-chinese-tutoring-system.vercel.app**
 
-## 🌐 บริการที่ deploy แล้ว
+## 🌐 บริการที่ deploy แล้ว (ทั้งระบบ live บนคลาวด์)
 | ส่วน | ที่ไหน | URL |
 |---|---|---|
+| **เว็บ (Next.js)** | **Vercel** | **https://intelligent-chinese-tutoring-system.vercel.app** ⭐ |
 | API (FastAPI) | Render (ฟรี) | https://intelligent-chinese-tutoring-system-for.onrender.com |
-| DB + Storage | Supabase | (ในโปรเจกต์ icts-thai) |
-| เว็บ (Next.js) | ยังไม่ deploy (รันในเครื่อง) | — |
+| DB + Storage | Supabase | (โปรเจกต์ icts-thai) |
+
+> 💡 push โค้ด → ทั้ง Vercel (เว็บ) และ Render (API) auto-deploy เอง
 
 > ⚠️ API บน Render ฟรี **หลับหลัง 15 นาทีไม่มีคนใช้** → เรียกครั้งแรกช้า ~30-50 วิ (ปลุกเซิร์ฟเวอร์) แล้วค่อยเร็ว
 > ⚠️ push โค้ดฝั่ง `apps/api/` → Render auto-deploy เอง (~3-5 นาที)
