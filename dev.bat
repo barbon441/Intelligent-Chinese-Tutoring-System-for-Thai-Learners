@@ -12,11 +12,18 @@ start "จีนรู้ใจ-API" cmd /k "cd /d %~dp0apps\api && .venv\Script
 echo [2/3] เปิดเว็บ (Next.js) ...
 start "จีนรู้ใจ-WEB" cmd /k "cd /d %~dp0apps\web && npm run dev"
 
-echo [3/3] รอเว็บพร้อม แล้วเปิดเบราว์เซอร์ ...
-timeout /t 18 /nobreak >nul
+echo [3/3] รอเว็บพร้อม (เช็กพอร์ต 3000 ทุก 3 วิ) ...
+:waitloop
+timeout /t 3 /nobreak >nul
+powershell -NoProfile -Command "if (Test-NetConnection -ComputerName localhost -Port 3000 -InformationLevel Quiet -WarningAction SilentlyContinue) { exit 0 } else { exit 1 }"
+if errorlevel 1 (
+  echo    ยังไม่พร้อม รออีกนิด...
+  goto waitloop
+)
+
+echo    เว็บพร้อมแล้ว! เปิดเบราว์เซอร์ ...
 start http://localhost:3000
 
 echo.
-echo เปิดแล้ว! ถ้าเบราว์เซอร์ยังว่าง รออีก 10 วิ แล้วรีเฟรช (F5)
-echo ปิดงาน = ปิดหน้าต่าง API + WEB ที่เด้งขึ้นมา
+echo เปิดเรียบร้อย! ปิดงาน = ปิดหน้าต่าง API + WEB ที่เด้งขึ้นมา
 pause
