@@ -41,3 +41,6 @@ desktop.ini
 
 # cache ของ dataset ต้นทาง (โหลดใหม่ได้ด้วย scripts/build_wordlist.py)
 data/wordlist/.cache-*.json
+
+# ไฟล์เสียง local (source of truth = Supabase Storage · สร้างใหม่ด้วย scripts/generate_audio.py)
+data/audio/
