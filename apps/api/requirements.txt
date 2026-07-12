@@ -1,0 +1,10 @@
+# จีนรู้ใจ API — dependencies (scaffold M1)
+fastapi>=0.115
+uvicorn[standard]>=0.30
+
+# จะเพิ่มใน M2+ ตาม ARCHITECTURE.md:
+# pyBKT          (Knowledge Tracing)
+# fsrs           (py-fsrs — spaced repetition)
+# jieba pypinyin (NLP จีน)
+# supabase       (DB client)
+# edge-tts       (pre-generate เสียง — ใช้ใน scripts/)
