@@ -47,3 +47,17 @@ data/wordlist/.cache-*.json
 
 # ไฟล์เสียง local (source of truth = Supabase Storage · สร้างใหม่ด้วย scripts/generate_audio.py)
 data/audio/
+
+# ===== Third-party AI skills (ส่วนตัวรายเครื่อง — ไม่ใช่โค้ดโปรเจกต์) =====
+# ติดตั้งด้วย: npx skills@latest add JuliusBrussee/skills · symlink เป็น absolute path จึงพังข้ามเครื่อง
+# ใครอยากใช้ให้รันติดตั้งเองในเครื่องตัวเอง · เก็บ .claude/skills/hsk-item (ของโปรเจกต์เรา) ไว้ตามเดิม
+.agents/
+skills-lock.json
+.claude/skills/caveman
+.claude/skills/context-canary
+.claude/skills/fuck-slop
+.claude/skills/grill-me
+.claude/skills/interface-kit
+.claude/skills/junior-to-senior
+.claude/skills/last-20-percent
+.claude/skills/loop-factory
