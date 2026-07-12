@@ -150,13 +150,13 @@ export default function Practice() {
         <div className="flex w-full gap-3">
           <button
             onClick={() => start(mode)}
-            className="flex-1 rounded-xl bg-sky-700 px-4 py-3 text-white shadow hover:bg-sky-800"
+            className="flex-1 rounded-xl bg-sky-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-sky-800 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
           >
             🔁 ฝึกอีกรอบ
           </button>
           <button
             onClick={() => setMode(null)}
-            className="flex-1 rounded-xl bg-white px-4 py-3 text-slate-600 shadow hover:bg-slate-50"
+            className="flex-1 rounded-xl bg-slate-100 px-4 py-3 font-medium text-slate-600 transition hover:bg-slate-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
           >
             เปลี่ยนโหมด
           </button>

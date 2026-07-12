@@ -120,13 +120,13 @@ export default function Review() {
         <div className="flex w-full gap-3">
           <Link
             href="/"
-            className="flex-1 rounded-xl bg-white px-4 py-3 text-center text-slate-600 shadow hover:bg-slate-50"
+            className="flex-1 rounded-xl bg-slate-100 px-4 py-3 text-center font-medium text-slate-600 transition hover:bg-slate-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
           >
             กลับหน้าแรก
           </Link>
           <Link
             href="/flashcards"
-            className="flex-1 rounded-xl bg-sky-700 px-4 py-3 text-center text-white shadow hover:bg-sky-800"
+            className="flex-1 rounded-xl bg-sky-700 px-4 py-3 text-center font-semibold text-white shadow transition hover:bg-sky-800 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
           >
             เรียนคำใหม่ →
           </Link>
