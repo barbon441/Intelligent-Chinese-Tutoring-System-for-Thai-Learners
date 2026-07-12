@@ -2,7 +2,7 @@
 // พอเราทำ Auth + Knowledge Tracing (M4+) ค่อยย้ายไปเก็บบน Supabase per-user
 // รูปแบบข้อมูลตั้งใจให้ตรงกับสิ่งที่ BKT/FSRS ต้องใช้ (ข้อ → ถูก/ผิด → เวลา) ไว้ต่อยอดได้
 
-export type QuizMode = "read" | "listen";
+export type QuizMode = "read" | "listen" | "order";
 
 export type Round = {
   ts: number; // เวลาที่จบรอบ (epoch ms)

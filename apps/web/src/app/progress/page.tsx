@@ -80,11 +80,11 @@ export default function Progress() {
                   className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-white p-3"
                 >
                   <div className="grid h-9 w-9 place-items-center rounded-lg bg-sky-50 text-lg">
-                    {r.mode === "read" ? "📖" : "🎧"}
+                    {r.mode === "read" ? "📖" : r.mode === "listen" ? "🎧" : "🧩"}
                   </div>
                   <div className="flex-1">
                     <div className="text-sm text-slate-600">
-                      {r.mode === "read" ? "ฝึกการอ่าน" : "ฝึกการฟัง"}
+                      {r.mode === "read" ? "ฝึกการอ่าน" : r.mode === "listen" ? "ฝึกการฟัง" : "เรียงประโยค"}
                     </div>
                     <div className="text-[11px] text-slate-400">{fmt(r.ts)}</div>
                   </div>

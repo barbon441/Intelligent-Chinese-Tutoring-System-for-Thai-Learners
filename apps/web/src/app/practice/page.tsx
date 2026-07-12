@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { supabase, audioUrl, type Word } from "@/lib/supabase";
 import { saveRound, type QuizMode } from "@/lib/progress";
+import { SENTENCES } from "@/data/sentences";
+import SentenceOrder from "./SentenceOrder";
 
 const N_QUESTIONS = 10;
 
@@ -46,7 +48,7 @@ export default function Practice() {
   }, [words]);
 
   const start = useCallback(
-    (m: QuizMode) => {
+    (m: "read" | "listen") => {
       const pool = pools[m];
       setMode(m);
       setQuestions(buildQuiz(pool, m, N_QUESTIONS));
@@ -93,6 +95,9 @@ export default function Practice() {
   if (loading) return <Center>กำลังโหลดคลังคำ...</Center>;
   if (error) return <Center>❌ {error}</Center>;
 
+  // ---------- โหมดเรียงประโยค (ใช้คนละ engine กับ MCQ) ----------
+  if (mode === "order") return <SentenceOrder onExit={() => setMode(null)} />;
+
   // ---------- หน้าเลือกโหมด ----------
   if (!mode) {
     return (
@@ -117,6 +122,14 @@ export default function Practice() {
           desc="ฟังเสียงอ่าน → เลือกตัวอักษรจีนที่ถูก"
           count={pools.listen.length}
           onStart={() => start("listen")}
+        />
+        <ModeCard
+          icon="🧩"
+          title="เรียงประโยค"
+          desc="แตะคำมาเรียงให้เป็นประโยคที่ถูก (ดักจุดผิดลำดับคำแบบคนไทย)"
+          count={SENTENCES.length}
+          unit="ประโยค"
+          onStart={() => setMode("order")}
         />
 
         <p className="rounded-2xl bg-slate-50 p-4 text-xs leading-relaxed text-slate-500">
@@ -294,12 +307,14 @@ function ModeCard({
   desc,
   count,
   onStart,
+  unit = "คำ",
 }: {
   icon: string;
   title: string;
   desc: string;
   count: number;
   onStart: () => void;
+  unit?: string;
 }) {
   const enough = count >= 4;
   return (
@@ -315,7 +330,7 @@ function ModeCard({
         <div className="font-medium text-slate-700">{title}</div>
         <div className="text-xs text-slate-400">{desc}</div>
         <div className="mt-1 text-[11px] text-slate-400">
-          {enough ? `คลังพร้อม ${count} คำ` : "คำในคลังยังไม่พอ"}
+          {enough ? `คลังพร้อม ${count} ${unit}` : `${unit}ในคลังยังไม่พอ`}
         </div>
       </div>
       <span className="text-sky-400">▶</span>
