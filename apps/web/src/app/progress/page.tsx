@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { loadRounds, summarize, clearRounds, type Round } from "@/lib/progress";
+import { Icon } from "@/components/Icon";
 
 export default function Progress() {
   const [wordStats, setWordStats] = useState<{ total: number; withAudio: number; reviewed: number } | null>(null);
@@ -79,8 +80,8 @@ export default function Progress() {
                   key={rounds.length - i}
                   className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-white p-3"
                 >
-                  <div className="grid h-9 w-9 place-items-center rounded-lg bg-sky-50 text-lg">
-                    {r.mode === "read" ? "📖" : r.mode === "listen" ? "🎧" : "🧩"}
+                  <div className="grid h-9 w-9 place-items-center rounded-lg bg-ink-50 text-ink-700">
+                    <Icon name={r.mode === "read" ? "book" : r.mode === "listen" ? "headphone" : "puzzle"} className="h-5 w-5" />
                   </div>
                   <div className="flex-1">
                     <div className="text-sm text-slate-600">

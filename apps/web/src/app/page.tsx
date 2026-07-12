@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { buildQueue } from "@/lib/fsrs";
+import { Icon, type IconName } from "@/components/Icon";
 
 export default function Home() {
   const [stats, setStats] = useState<{ total: number; withAudio: number; reviewed: number } | null>(null);
@@ -29,37 +30,45 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-5 p-5">
-      {/* การ์ดต้อนรับ */}
-      <section className="rounded-3xl bg-gradient-to-br from-sky-600 to-sky-800 p-6 text-white shadow-lg">
-        <div className="font-[family-name:var(--font-sc)] text-3xl">你好！</div>
-        <h1 className="mt-1 text-xl font-semibold">พร้อมติว HSK 1 กันหรือยัง</h1>
-        <p className="mt-1 text-sm text-sky-100">เรียนคำศัพท์ · ฝึกฟัง-อ่าน · วัดความพร้อมสอบ</p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <Link
-            href="/review"
-            className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-sky-800 shadow"
-          >
-            🔁 ทวนวันนี้
-            {dueCount !== null && (
-              <span className="rounded-full bg-pink-500 px-2 py-0.5 text-xs text-white">{dueCount}</span>
-            )}
-          </Link>
-          <Link
-            href="/flashcards"
-            className="inline-block rounded-xl bg-sky-500/40 px-5 py-2.5 text-sm font-semibold text-white shadow ring-1 ring-white/30"
-          >
-            เรียนบัตรคำ →
-          </Link>
+      {/* Hero: หมึก + ตราชาด + ลายน้ำอักษร */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-ink-900 via-ink-700 to-ink-500 p-6 text-white shadow-lg">
+        <span className="pointer-events-none absolute -bottom-8 -right-2 select-none font-[family-name:var(--font-sc)] text-[9rem] leading-none text-white/10">
+          知
+        </span>
+        <span className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-md border border-white/60 bg-seal font-[family-name:var(--font-sc)] text-sm font-bold shadow">
+          心
+        </span>
+        <div className="relative">
+          <div className="font-[family-name:var(--font-sc)] text-3xl">你好！</div>
+          <h1 className="mt-1 font-[family-name:var(--font-display)] text-xl font-bold">พร้อมติว HSK 1 กันหรือยัง</h1>
+          <p className="mt-1 text-sm text-ink-100">เรียนคำศัพท์ · ฝึกฟัง-อ่าน · วัดความพร้อมสอบ</p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link
+              href="/review"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-ink-900 shadow"
+            >
+              <Icon name="refresh" className="h-4 w-4" /> ทวนวันนี้
+              {dueCount !== null && (
+                <span className="rounded-full bg-seal px-2 py-0.5 text-xs font-bold text-white">{dueCount}</span>
+              )}
+            </Link>
+            <Link
+              href="/flashcards"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-white/15 px-5 py-2.5 text-sm font-semibold text-white ring-1 ring-white/30 transition hover:bg-white/25"
+            >
+              เรียนบัตรคำ <Icon name="arrowRight" className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* การ์ดความคืบหน้าคลังคำ */}
+      {/* สถิติคลังคำ */}
       <section>
         <h2 className="mb-2 text-sm font-semibold text-slate-500">คลังคำศัพท์ HSK 1</h2>
         <div className="grid grid-cols-3 gap-3">
-          <Stat label="คำศัพท์" value={stats ? `${stats.total}` : "…"} sub="คำ" tone="sky" />
-          <Stat label="มีเสียงอ่าน" value={stats ? `${stats.withAudio}` : "…"} sub={`/${stats?.total ?? "…"}`} tone="emerald" />
-          <Stat label="ตรวจแล้ว" value={stats ? `${stats.reviewed}` : "…"} sub={`/${stats?.total ?? "…"}`} tone="pink" />
+          <Stat icon="cards" tone="ink" label="คำศัพท์" value={stats ? `${stats.total}` : "…"} sub="คำ" />
+          <Stat icon="speaker" tone="correct" label="มีเสียงอ่าน" value={stats ? `${stats.withAudio}` : "…"} sub={`/${stats?.total ?? "…"}`} />
+          <Stat icon="check" tone="seal" label="ตรวจแล้ว" value={stats ? `${stats.reviewed}` : "…"} sub={`/${stats?.total ?? "…"}`} />
         </div>
       </section>
 
@@ -67,49 +76,66 @@ export default function Home() {
       <section>
         <h2 className="mb-2 text-sm font-semibold text-slate-500">โมดูลการเรียน</h2>
         <div className="flex flex-col gap-3">
-          <ModuleCard href="/flashcards" icon="🃏" title="บัตรคำศัพท์" desc="เรียน 300 คำ HSK 1 พร้อมเสียง" ready />
-          <ModuleCard href="/practice" icon="📝" title="ฝึกทำข้อสอบ" desc="ข้อสอบฟัง-อ่านแบบ HSK ตรวจให้ทันที" ready />
-          <ModuleCard href="/progress" icon="📊" title="ผลการเรียน" desc="ดูความคืบหน้า + ความแม่นยำ" ready />
-          <ModuleCard href="/review" icon="🔁" title="ทบทวนอัจฉริยะ (FSRS)" desc="ทวนคำตอนกำลังจะลืมพอดี" ready />
-          <ModuleCard icon="🧪" title="ข้อสอบเสมือนจริง" desc="Mock Exam จับเวลา วัดความพร้อมสอบ" />
+          <ModuleCard href="/flashcards" icon="cards" title="บัตรคำศัพท์" desc="เรียน 300 คำ HSK 1 พร้อมเสียง" ready />
+          <ModuleCard href="/practice" icon="pencil" title="ฝึกทำข้อสอบ" desc="ฟัง-อ่าน-เรียงประโยค แบบ HSK ตรวจให้ทันที" ready />
+          <ModuleCard href="/progress" icon="chart" title="ผลการเรียน" desc="ดูความคืบหน้า + ความแม่นยำ" ready />
+          <ModuleCard href="/review" icon="refresh" title="ทบทวนอัจฉริยะ (FSRS)" desc="ทวนคำตอนกำลังจะลืมพอดี" ready />
+          <ModuleCard icon="flask" title="ข้อสอบเสมือนจริง" desc="Mock Exam จับเวลา วัดความพร้อมสอบ" />
         </div>
       </section>
 
-      <p className="pb-2 text-center text-[11px] text-slate-300">
-        เวอร์ชันพัฒนา · โมดูลที่ยังไม่เปิดจะทยอยเพิ่ม
-      </p>
+      <p className="pb-2 text-center text-[11px] text-slate-300">เวอร์ชันพัฒนา · โมดูลที่ยังไม่เปิดจะทยอยเพิ่ม</p>
     </div>
   );
 }
 
-function Stat({ label, value, sub, tone }: { label: string; value: string; sub: string; tone: string }) {
-  const tones: Record<string, string> = {
-    sky: "text-sky-700", emerald: "text-emerald-600", pink: "text-pink-600",
-  };
+const TONES: Record<string, { text: string; chip: string }> = {
+  ink: { text: "text-ink-700", chip: "bg-ink-50" },
+  correct: { text: "text-correct", chip: "bg-emerald-50" },
+  seal: { text: "text-seal", chip: "bg-seal-soft" },
+};
+
+function Stat({ icon, tone, label, value, sub }: { icon: IconName; tone: string; label: string; value: string; sub: string }) {
+  const t = TONES[tone];
   return (
     <div className="rounded-2xl bg-slate-50 p-3 text-center">
-      <div className={`text-2xl font-bold ${tones[tone]}`}>{value}</div>
+      <div className={`mx-auto mb-1.5 grid h-7 w-7 place-items-center rounded-lg ${t.chip}`}>
+        <Icon name={icon} className={`h-4 w-4 ${t.text}`} />
+      </div>
+      <div className={`font-[family-name:var(--font-display)] text-2xl font-extrabold ${t.text}`}>{value}</div>
       <div className="text-[11px] text-slate-400">{sub}</div>
-      <div className="mt-1 text-xs text-slate-500">{label}</div>
+      <div className="mt-0.5 text-xs text-slate-500">{label}</div>
     </div>
   );
 }
 
 function ModuleCard({
-  href, icon, title, desc, ready = false,
-}: { href?: string; icon: string; title: string; desc: string; ready?: boolean }) {
+  href,
+  icon,
+  title,
+  desc,
+  ready = false,
+}: {
+  href?: string;
+  icon: IconName;
+  title: string;
+  desc: string;
+  ready?: boolean;
+}) {
   const inner = (
     <div
       className={`flex items-center gap-3 rounded-2xl border p-4 transition ${
-        ready ? "border-slate-100 bg-white hover:border-sky-200 hover:shadow-sm" : "border-slate-100 bg-slate-50 opacity-70"
+        ready ? "border-slate-100 bg-white hover:border-ink-300 hover:shadow-sm" : "border-slate-100 bg-slate-50 opacity-70"
       }`}
     >
-      <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-sky-50 text-2xl">{icon}</div>
+      <div className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${ready ? "bg-ink-50 text-ink-700" : "bg-slate-100 text-slate-400"}`}>
+        <Icon name={icon} className="h-6 w-6" />
+      </div>
       <div className="flex-1">
         <div className="font-medium text-slate-700">{title}</div>
         <div className="text-xs text-slate-400">{desc}</div>
       </div>
-      <div className="text-sm text-slate-300">{ready ? "→" : "เร็ว ๆ นี้"}</div>
+      {ready ? <Icon name="arrowRight" className="h-4 w-4 text-slate-300" /> : <span className="text-[11px] text-slate-300">เร็ว ๆ นี้</span>}
     </div>
   );
   return ready && href ? <Link href={href}>{inner}</Link> : inner;

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans_Thai, Noto_Sans_SC } from "next/font/google";
+import { IBM_Plex_Sans_Thai, Noto_Sans_SC, Mali } from "next/font/google";
 import "./globals.css";
 import AppShell from "@/components/AppShell";
 
@@ -15,6 +15,13 @@ const sc = Noto_Sans_SC({
   weight: ["400", "500", "700"],
 });
 
+// ฟอนต์ display ปลายมน (หัวข้อ/ตัวเลข) — รองรับไทย+ละติน
+const display = Mali({
+  variable: "--font-display",
+  subsets: ["thai", "latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
   title: "จีนรู้ใจ 中文知心 — ติวเตอร์ HSK สำหรับคนไทย",
   description: "ติวเตอร์เตรียมสอบ HSK 1–2 อัจฉริยะสำหรับคนไทย",
@@ -24,7 +31,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="th" className={`${thai.variable} ${sc.variable} h-full antialiased`}>
+    <html lang="th" className={`${thai.variable} ${sc.variable} ${display.variable} h-full antialiased`}>
       <body className="min-h-full bg-slate-50 font-[family-name:var(--font-thai)] text-slate-800">
         <AppShell>{children}</AppShell>
       </body>

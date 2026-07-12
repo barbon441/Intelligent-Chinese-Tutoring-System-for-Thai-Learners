@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { supabase, audioUrl, type Word } from "@/lib/supabase";
 import { buildQueue, review, preview, Rating, type Grade } from "@/lib/fsrs";
+import { Icon } from "@/components/Icon";
+import { Pinyin } from "@/components/Pinyin";
 
 export default function Review() {
   const [words, setWords] = useState<Word[]>([]);
@@ -69,7 +71,9 @@ export default function Review() {
   if (queue.length === 0) {
     return (
       <div className="flex flex-col items-center gap-5 p-5">
-        <div className="mt-10 text-6xl">🎉</div>
+        <div className="mt-10 grid h-20 w-20 place-items-center rounded-full bg-seal-soft text-seal">
+          <Icon name="sparkles" className="h-10 w-10" />
+        </div>
         <h1 className="text-xl font-semibold text-slate-700">ทวนครบแล้ววันนี้!</h1>
         <p className="text-center text-sm text-slate-400">
           ยังไม่มีคำที่ถึงกำหนดทวน กลับมาใหม่พรุ่งนี้ หรือไปเรียนคำใหม่ก่อน
@@ -85,7 +89,9 @@ export default function Review() {
   if (!started) {
     return (
       <div className="flex flex-col items-center gap-5 p-5">
-        <div className="mt-8 text-5xl">🔁</div>
+        <div className="mt-8 grid h-16 w-16 place-items-center rounded-2xl bg-ink-50 text-ink-700">
+          <Icon name="refresh" className="h-8 w-8" />
+        </div>
         <h1 className="text-xl font-semibold text-slate-700">ทบทวนอัจฉริยะ</h1>
         <p className="text-center text-sm text-slate-400">
           ระบบเลือกคำที่ “กำลังจะลืมพอดี” มาให้ทวน (FSRS) — ทวนตอนนี้จำได้นานที่สุด
@@ -114,7 +120,9 @@ export default function Review() {
   if (!card) {
     return (
       <div className="flex flex-col items-center gap-5 p-5">
-        <div className="mt-10 text-6xl">✅</div>
+        <div className="mt-10 grid h-20 w-20 place-items-center rounded-full bg-emerald-50 text-correct">
+          <Icon name="check" className="h-10 w-10" strokeWidth={2.4} />
+        </div>
         <h1 className="text-xl font-semibold text-slate-700">ทวนจบรอบแล้ว!</h1>
         <p className="text-center text-sm text-slate-400">ทวนไป {reviewed} คำ · เก็บกำหนดครั้งถัดไปให้เรียบร้อย</p>
         <div className="flex w-full gap-3">
@@ -167,17 +175,22 @@ export default function Review() {
           </>
         ) : (
           <>
-            <div className="text-4xl font-semibold text-pink-600">{card.meaning_th || "—"}</div>
-            <div className="mt-3 text-2xl text-slate-500">
-              {card.hanzi} · {card.pinyin}
+            <div className="text-4xl font-semibold text-seal">{card.meaning_th || "—"}</div>
+            <div className="mt-3 flex items-center gap-2 text-2xl text-slate-500">
+              <span className="font-[family-name:var(--font-sc)]">{card.hanzi}</span>
+              <span>·</span>
+              <Pinyin text={card.pinyin} className="font-medium" />
             </div>
             <div className="mt-2 text-sm text-slate-400">{(card.meaning_en ?? []).slice(0, 2).join("; ")}</div>
           </>
         )}
       </button>
 
-      <button onClick={play} className="rounded-full bg-sky-700 px-6 py-2.5 text-white shadow hover:bg-sky-800">
-        🔊 ฟัง
+      <button
+        onClick={play}
+        className="inline-flex items-center gap-2 rounded-full bg-ink-700 px-6 py-2.5 font-medium text-white shadow transition hover:bg-ink-900 active:scale-95"
+      >
+        <Icon name="speaker" className="h-5 w-5" /> ฟัง
       </button>
 
       {/* ปุ่มให้คะแนน (โผล่หลังพลิก) */}

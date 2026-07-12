@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { loadRounds, summarize } from "@/lib/progress";
+import { Icon, type IconName } from "@/components/Icon";
 
 export default function Profile() {
   const [acc, setAcc] = useState<number | null>(null);
@@ -18,7 +19,7 @@ export default function Profile() {
     <div className="flex flex-col gap-5 p-5">
       {/* หัวโปรไฟล์ */}
       <section className="flex flex-col items-center gap-2 pt-4">
-        <div className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-br from-sky-500 to-sky-700 text-4xl text-white shadow-lg">
+        <div className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-br from-ink-700 to-ink-900 font-[family-name:var(--font-sc)] text-4xl text-white shadow-lg">
           学
         </div>
         <div className="text-lg font-semibold text-slate-700">ผู้เรียน HSK 1</div>
@@ -40,10 +41,10 @@ export default function Profile() {
       {/* เป้าหมายการเรียน */}
       <section className="rounded-2xl border border-slate-100 bg-white p-4">
         <h2 className="text-sm font-semibold text-slate-600">เส้นทางสู่ HSK 1</h2>
-        <ul className="mt-3 flex flex-col gap-2 text-sm text-slate-500">
-          <li>📚 คำศัพท์ที่ต้องรู้: 300 คำ</li>
-          <li>📝 ข้อสอบ: ฟัง + อ่าน (HSK 1–2 ยังไม่สอบพูด)</li>
-          <li>🎯 เกณฑ์ผ่าน: 120 จาก 200 คะแนน</li>
+        <ul className="mt-3 flex flex-col gap-2.5 text-sm text-slate-500">
+          <GoalItem icon="book" text="คำศัพท์ที่ต้องรู้: 300 คำ" />
+          <GoalItem icon="headphone" text="ข้อสอบ: ฟัง + อ่าน (HSK 1–2 ยังไม่สอบพูด)" />
+          <GoalItem icon="target" text="เกณฑ์ผ่าน: 120 จาก 200 คะแนน" />
         </ul>
         <Link
           href="/practice"
@@ -71,5 +72,16 @@ export default function Profile() {
         เวอร์ชันพัฒนา · ระบบล็อกอิน/โปรไฟล์รายบุคคลจะเพิ่มในเฟสถัดไป
       </p>
     </div>
+  );
+}
+
+function GoalItem({ icon, text }: { icon: IconName; text: string }) {
+  return (
+    <li className="flex items-center gap-2.5">
+      <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-ink-50 text-ink-700">
+        <Icon name={icon} className="h-4 w-4" />
+      </span>
+      {text}
+    </li>
   );
 }

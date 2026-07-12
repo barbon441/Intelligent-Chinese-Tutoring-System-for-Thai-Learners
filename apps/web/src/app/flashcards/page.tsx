@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { supabase, audioUrl, type Word } from "@/lib/supabase";
+import { Icon } from "@/components/Icon";
+import { Pinyin } from "@/components/Pinyin";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
@@ -105,14 +107,18 @@ export default function Flashcards() {
         {!flipped ? (
           <>
             <div className="text-8xl font-bold text-slate-900">{word.hanzi}</div>
-            <div className="mt-4 text-2xl text-slate-500">{word.pinyin}</div>
+            <Pinyin text={word.pinyin} className="mt-4 text-2xl font-medium" />
             <div className="mt-6 text-xs text-slate-400">แตะเพื่อดูคำแปล</div>
           </>
         ) : (
           <>
-            <div className="text-4xl font-semibold text-pink-600">{word.meaning_th || "—"}</div>
+            <div className="text-4xl font-semibold text-seal">{word.meaning_th || "—"}</div>
             <div className="mt-3 text-sm text-slate-400">{(word.meaning_en ?? []).slice(0, 2).join("; ")}</div>
-            <div className="mt-2 text-2xl text-slate-500">{word.hanzi} · {word.pinyin}</div>
+            <div className="mt-2 flex items-center gap-2 text-2xl text-slate-500">
+              <span className="font-[family-name:var(--font-sc)]">{word.hanzi}</span>
+              <span>·</span>
+              <Pinyin text={word.pinyin} className="font-medium" />
+            </div>
           </>
         )}
       </button>
@@ -123,24 +129,24 @@ export default function Flashcards() {
           onClick={() => go(-1)}
           disabled={idx === 0}
           aria-label="คำก่อนหน้า"
-          className="rounded-xl bg-slate-100 px-5 py-3 font-medium text-slate-600 transition hover:bg-slate-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 disabled:pointer-events-none disabled:opacity-40"
+          className="inline-flex items-center gap-1 rounded-xl bg-slate-100 px-5 py-3 font-medium text-slate-600 transition hover:bg-slate-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 disabled:pointer-events-none disabled:opacity-40"
         >
-          ← ก่อนหน้า
+          <Icon name="arrowLeft" className="h-4 w-4" /> ก่อนหน้า
         </button>
         <button
           onClick={play}
           aria-label="ฟังเสียงอ่าน"
-          className="flex items-center gap-2 rounded-full bg-sky-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-sky-600/30 transition hover:bg-sky-700 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
+          className="flex items-center gap-2 rounded-full bg-ink-700 px-7 py-3.5 font-semibold text-white shadow-lg shadow-ink-900/30 transition hover:bg-ink-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300 focus-visible:ring-offset-2"
         >
-          🔊 ฟัง
+          <Icon name="speaker" className="h-5 w-5" /> ฟัง
         </button>
         <button
           onClick={() => go(1)}
           disabled={idx === words.length - 1}
           aria-label="คำถัดไป"
-          className="rounded-xl bg-slate-100 px-5 py-3 font-medium text-slate-600 transition hover:bg-slate-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 disabled:pointer-events-none disabled:opacity-40"
+          className="inline-flex items-center gap-1 rounded-xl bg-slate-100 px-5 py-3 font-medium text-slate-600 transition hover:bg-slate-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 disabled:pointer-events-none disabled:opacity-40"
         >
-          ถัดไป →
+          ถัดไป <Icon name="arrowRight" className="h-4 w-4" />
         </button>
       </div>
       {reviewMode && <div className="text-sm text-slate-400">{idx + 1} / {words.length}</div>}
@@ -148,21 +154,28 @@ export default function Flashcards() {
       {/* โหมดตรวจ (สำหรับหฤทัย) — เปิดด้วย ?review=1 เท่านั้น */}
       {reviewMode && (
         <div className="mt-2 w-full rounded-2xl border border-dashed border-slate-300 bg-white/60 p-4">
-          <div className="text-sm font-medium text-slate-600">
-            ตรวจคำแปล {word.th_reviewed ? "✅ ตรวจแล้ว" : "⏳ ยังไม่ตรวจ"}
+          <div className="flex items-center gap-1.5 text-sm font-medium text-slate-600">
+            ตรวจคำแปล
+            {word.th_reviewed ? (
+              <span className="inline-flex items-center gap-1 text-correct">
+                <Icon name="check" className="h-4 w-4" strokeWidth={2.4} /> ตรวจแล้ว
+              </span>
+            ) : (
+              <span className="text-slate-400">ยังไม่ตรวจ</span>
+            )}
           </div>
           <div className="mt-2 flex gap-2">
             <button onClick={() => saveReview(word.meaning_th)}
-              className="flex-1 rounded-xl bg-emerald-600 px-3 py-2 text-sm text-white hover:bg-emerald-700">
-              ✓ คำแปลถูก
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-emerald-600 px-3 py-2 text-sm text-white transition hover:bg-emerald-700 active:scale-95">
+              <Icon name="check" className="h-4 w-4" strokeWidth={2.4} /> คำแปลถูก
             </button>
             <button
               onClick={() => {
                 const v = prompt("แก้คำแปลไทย:", word.meaning_th);
                 if (v !== null && v.trim()) saveReview(v.trim());
               }}
-              className="flex-1 rounded-xl bg-amber-500 px-3 py-2 text-sm text-white hover:bg-amber-600">
-              ✏️ แก้คำแปล
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-amber-500 px-3 py-2 text-sm text-white transition hover:bg-amber-600 active:scale-95">
+              <Icon name="pencil" className="h-4 w-4" /> แก้คำแปล
             </button>
           </div>
         </div>

@@ -3,6 +3,8 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import { SENTENCES, type SentenceItem } from "@/data/sentences";
 import { saveRound } from "@/lib/progress";
+import { Icon } from "@/components/Icon";
+import { Pinyin } from "@/components/Pinyin";
 
 const N_PER_ROUND = 5;
 
@@ -92,21 +94,23 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
     const pass = pct >= 60;
     return (
       <div className="flex flex-col items-center gap-6 p-5">
-        <div className="mt-6 text-6xl">{pass ? "🎉" : "💪"}</div>
-        <h1 className="text-xl font-semibold text-slate-700">{pass ? "เยี่ยมมาก!" : "ฝึกอีกนิด!"}</h1>
-        <div className="w-full rounded-3xl bg-gradient-to-br from-sky-600 to-sky-800 p-6 text-center text-white shadow-lg">
-          <div className="text-5xl font-bold">
+        <div className={`mt-6 grid h-20 w-20 place-items-center rounded-full ${pass ? "bg-seal-soft text-seal" : "bg-ink-50 text-ink-500"}`}>
+          <Icon name={pass ? "sparkles" : "target"} className="h-10 w-10" />
+        </div>
+        <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-slate-700">{pass ? "เยี่ยมมาก!" : "ฝึกอีกนิด!"}</h1>
+        <div className="w-full rounded-3xl bg-gradient-to-br from-ink-900 via-ink-700 to-ink-500 p-6 text-center text-white shadow-lg">
+          <div className="font-[family-name:var(--font-display)] text-5xl font-extrabold">
             {correctCount}
-            <span className="text-2xl font-normal text-sky-200"> / {round.length}</span>
+            <span className="text-2xl font-normal text-ink-100"> / {round.length}</span>
           </div>
-          <div className="mt-1 text-sky-100">เรียงถูก {pct}%</div>
+          <div className="mt-1 text-ink-100">เรียงถูก {pct}%</div>
         </div>
         <div className="flex w-full gap-3">
           <button
             onClick={restart}
-            className="flex-1 rounded-xl bg-sky-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-sky-800 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
+            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300 focus-visible:ring-offset-2"
           >
-            🔁 กลับเมนูฝึก
+            <Icon name="refresh" className="h-5 w-5" /> กลับเมนูฝึก
           </button>
         </div>
       </div>
@@ -177,12 +181,15 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
       {/* เฉลยหลังตรวจ */}
       {checked && (
         <div className={`rounded-2xl p-4 ${isCorrect ? "bg-emerald-50" : "bg-rose-50"}`}>
-          <div className={`text-sm font-semibold ${isCorrect ? "text-emerald-700" : "text-rose-700"}`}>
-            {isCorrect ? "✓ ถูกต้อง!" : "✗ ยังไม่ถูก — ที่ถูกคือ:"}
+          <div className={`flex items-center gap-1.5 text-sm font-semibold ${isCorrect ? "text-correct" : "text-seal"}`}>
+            <Icon name={isCorrect ? "check" : "x"} className="h-4 w-4" strokeWidth={2.4} />
+            {isCorrect ? "ถูกต้อง!" : "ยังไม่ถูก — ที่ถูกคือ:"}
           </div>
           <div className="mt-2 text-2xl font-[family-name:var(--font-sc)] text-slate-800">{s.tokens.join(" ")}</div>
-          <div className="text-sm text-slate-500">{s.pinyin}</div>
-          <div className="mt-2 rounded-lg bg-white/70 p-2 text-xs text-slate-500">💡 {s.focus_th}</div>
+          <Pinyin text={s.pinyin} className="text-sm" />
+          <div className="mt-2 flex items-start gap-1.5 rounded-lg bg-white/70 p-2 text-xs text-slate-500">
+            <Icon name="bulb" className="mt-0.5 h-4 w-4 shrink-0 text-xp" /> {s.focus_th}
+          </div>
         </div>
       )}
 

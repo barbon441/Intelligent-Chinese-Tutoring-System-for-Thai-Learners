@@ -6,6 +6,8 @@ import { supabase, audioUrl, type Word } from "@/lib/supabase";
 import { saveRound, type QuizMode } from "@/lib/progress";
 import { SENTENCES } from "@/data/sentences";
 import SentenceOrder from "./SentenceOrder";
+import { Icon, type IconName } from "@/components/Icon";
+import { Pinyin } from "@/components/Pinyin";
 
 const N_QUESTIONS = 10;
 
@@ -110,21 +112,21 @@ export default function Practice() {
         </header>
 
         <ModeCard
-          icon="📖"
+          icon="book"
           title="ฝึกการอ่าน"
           desc="เห็นตัวอักษรจีน + พินอิน → เลือกคำแปลไทยที่ถูก"
           count={pools.read.length}
           onStart={() => start("read")}
         />
         <ModeCard
-          icon="🎧"
+          icon="headphone"
           title="ฝึกการฟัง"
           desc="ฟังเสียงอ่าน → เลือกตัวอักษรจีนที่ถูก"
           count={pools.listen.length}
           onStart={() => start("listen")}
         />
         <ModeCard
-          icon="🧩"
+          icon="puzzle"
           title="เรียงประโยค"
           desc="แตะคำมาเรียงให้เป็นประโยคที่ถูก (ดักจุดผิดลำดับคำแบบคนไทย)"
           count={SENTENCES.length}
@@ -132,13 +134,16 @@ export default function Practice() {
           onStart={() => setMode("order")}
         />
 
-        <p className="rounded-2xl bg-slate-50 p-4 text-xs leading-relaxed text-slate-500">
-          💡 ข้อสอบสุ่มจากคลังคำ HSK 1 ที่เรามี ตรวจด้วยกติกา (rule-based) ไม่ใช้ AI เดา —
-          ตรงกับรูปแบบการวัดผลจริงของ HSK · ผลการฝึกจะไปแสดงในหน้า{" "}
-          <Link href="/progress" className="text-sky-600 underline">
-            ผล
-          </Link>
-        </p>
+        <div className="flex gap-2 rounded-2xl bg-slate-50 p-4 text-xs leading-relaxed text-slate-500">
+          <Icon name="bulb" className="mt-0.5 h-4 w-4 shrink-0 text-xp" />
+          <p>
+            ข้อสอบสุ่มจากคลังคำ HSK 1 ที่เรามี ตรวจด้วยกติกา (rule-based) ไม่ใช้ AI เดา —
+            ตรงกับรูปแบบการวัดผลจริงของ HSK · ผลการฝึกจะไปแสดงในหน้า{" "}
+            <Link href="/progress" className="text-ink-500 underline">
+              ผล
+            </Link>
+          </p>
+        </div>
       </div>
     );
   }
@@ -149,23 +154,25 @@ export default function Practice() {
     const pass = pct >= 60;
     return (
       <div className="flex flex-col items-center gap-6 p-5">
-        <div className="mt-6 text-6xl">{pass ? "🎉" : "💪"}</div>
-        <h1 className="text-xl font-semibold text-slate-700">
+        <div className={`mt-6 grid h-20 w-20 place-items-center rounded-full ${pass ? "bg-seal-soft text-seal" : "bg-ink-50 text-ink-500"}`}>
+          <Icon name={pass ? "sparkles" : "target"} className="h-10 w-10" />
+        </div>
+        <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-slate-700">
           {pass ? "เยี่ยมมาก!" : "สู้ ๆ ทวนอีกนิด!"}
         </h1>
-        <div className="w-full rounded-3xl bg-gradient-to-br from-sky-600 to-sky-800 p-6 text-center text-white shadow-lg">
-          <div className="text-5xl font-bold">
+        <div className="w-full rounded-3xl bg-gradient-to-br from-ink-900 via-ink-700 to-ink-500 p-6 text-center text-white shadow-lg">
+          <div className="font-[family-name:var(--font-display)] text-5xl font-extrabold">
             {correctCount}
-            <span className="text-2xl font-normal text-sky-200"> / {questions.length}</span>
+            <span className="text-2xl font-normal text-ink-100"> / {questions.length}</span>
           </div>
-          <div className="mt-1 text-sky-100">ความแม่นยำ {pct}%</div>
+          <div className="mt-1 text-ink-100">ความแม่นยำ {pct}%</div>
         </div>
         <div className="flex w-full gap-3">
           <button
             onClick={() => start(mode)}
-            className="flex-1 rounded-xl bg-sky-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-sky-800 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
+            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300 focus-visible:ring-offset-2"
           >
-            🔁 ฝึกอีกรอบ
+            <Icon name="refresh" className="h-5 w-5" /> ฝึกอีกรอบ
           </button>
           <button
             onClick={() => setMode(null)}
@@ -207,19 +214,20 @@ export default function Practice() {
       <div className="flex min-h-[38vh] flex-col items-center justify-center rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
         {mode === "read" ? (
           <>
-            <div className="text-7xl font-bold">{q.word.hanzi}</div>
-            <div className="mt-3 text-2xl text-slate-500">{q.word.pinyin}</div>
+            <div className="text-7xl font-bold text-slate-900">{q.word.hanzi}</div>
+            <Pinyin text={q.word.pinyin} className="mt-3 text-2xl font-medium" />
           </>
         ) : (
           <>
             <button
               onClick={play}
-              className="grid h-24 w-24 place-items-center rounded-full bg-sky-700 text-4xl text-white shadow hover:bg-sky-800"
+              aria-label="ฟังเสียง"
+              className="grid h-24 w-24 place-items-center rounded-full bg-ink-700 text-white shadow-lg shadow-ink-900/30 transition hover:bg-ink-900 active:scale-95"
             >
-              🔊
+              <Icon name="speaker" className="h-10 w-10" />
             </button>
             <div className="mt-3 text-sm text-slate-400">
-              {answered ? `${q.word.pinyin}` : "แตะเพื่อฟังอีกครั้ง"}
+              {answered ? <Pinyin text={q.word.pinyin} /> : "แตะเพื่อฟังอีกครั้ง"}
             </div>
           </>
         )}
@@ -246,8 +254,8 @@ export default function Practice() {
               <span className={mode === "listen" ? "text-2xl font-semibold" : "text-base"}>
                 {c.label}
               </span>
-              {answered && isCorrect && <span>✓</span>}
-              {answered && isPicked && !isCorrect && <span>✗</span>}
+              {answered && isCorrect && <Icon name="check" className="h-5 w-5 text-correct" strokeWidth={2.4} />}
+              {answered && isPicked && !isCorrect && <Icon name="x" className="h-5 w-5 text-seal" strokeWidth={2.4} />}
             </button>
           );
         })}
@@ -309,7 +317,7 @@ function ModeCard({
   onStart,
   unit = "คำ",
 }: {
-  icon: string;
+  icon: IconName;
   title: string;
   desc: string;
   count: number;
@@ -323,8 +331,8 @@ function ModeCard({
       disabled={!enough}
       className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 text-left shadow-sm transition hover:border-sky-200 hover:shadow disabled:opacity-50"
     >
-      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-sky-50 text-2xl">
-        {icon}
+      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-ink-50">
+        <Icon name={icon} className="h-6 w-6 text-ink-700" />
       </div>
       <div className="flex-1">
         <div className="font-medium text-slate-700">{title}</div>
@@ -333,7 +341,7 @@ function ModeCard({
           {enough ? `คลังพร้อม ${count} ${unit}` : `${unit}ในคลังยังไม่พอ`}
         </div>
       </div>
-      <span className="text-sky-400">▶</span>
+      <Icon name="play" className="h-4 w-4 text-ink-300" />
     </button>
   );
 }
