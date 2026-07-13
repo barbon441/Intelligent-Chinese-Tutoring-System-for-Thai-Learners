@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { Fragment, useMemo, useRef, useState } from "react";
 import { SENTENCES, type SentenceItem } from "@/data/sentences";
 import { saveRound } from "@/lib/progress";
 import { Icon } from "@/components/Icon";
@@ -9,6 +9,20 @@ import { Pinyin } from "@/components/Pinyin";
 const N_PER_ROUND = 5;
 
 type Tile = { key: number; text: string };
+type From = "pool" | "answer";
+
+// สถานะการลาก (Pointer Events — ใช้ได้ทั้งนิ้วมือถือ + เมาส์ ต่างจาก HTML5 drag ที่ touch ใช้ไม่ได้)
+type Drag = {
+  tile: Tile;
+  from: From;
+  x: number;
+  y: number;
+  startX: number;
+  startY: number;
+  w: number;
+  h: number;
+  active: boolean; // ขยับเกิน threshold แล้ว = เป็นการลาก (ไม่ใช่แตะ)
+};
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -39,27 +53,125 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
   const [done, setDone] = useState(false);
   const savedRef = useRef(false);
 
+  // ---- drag state ----
+  const [drag, setDrag] = useState<Drag | null>(null);
+  const [dropIdx, setDropIdx] = useState<number | null>(null);
+  const dragRef = useRef<Drag | null>(null);
+  const dragEndAt = useRef(0); // กัน click ที่ยิงตามหลัง drag
+  const answerRef = useRef<HTMLDivElement>(null);
+
   const s = round[qi];
   const isCorrect = checked && answer.map((t) => t.text).join("") === s.tokens.join("");
   const allPlaced = answer.length === s.tokens.length;
 
-  const pick = useCallback(
-    (tile: Tile) => {
-      if (checked) return;
-      setPool((p) => p.filter((t) => t.key !== tile.key));
-      setAnswer((a) => [...a, tile]);
-    },
-    [checked]
-  );
+  function pick(tile: Tile) {
+    if (checked) return;
+    setPool((p) => p.filter((t) => t.key !== tile.key));
+    setAnswer((a) => (a.some((t) => t.key === tile.key) ? a : [...a, tile]));
+  }
 
-  const unpick = useCallback(
-    (tile: Tile) => {
-      if (checked) return;
-      setAnswer((a) => a.filter((t) => t.key !== tile.key));
-      setPool((p) => [...p, tile]);
-    },
-    [checked]
-  );
+  function unpick(tile: Tile) {
+    if (checked) return;
+    setAnswer((a) => a.filter((t) => t.key !== tile.key));
+    setPool((p) => (p.some((t) => t.key === tile.key) ? p : [...p, tile]));
+  }
+
+  // วาง tile ลงแถวคำตอบที่ตำแหน่ง idx (จาก pool หรือย้ายภายใน answer)
+  function placeAt(tile: Tile, from: From, idx: number) {
+    if (checked) return;
+    if (from === "pool") {
+      setPool((p) => p.filter((t) => t.key !== tile.key));
+      setAnswer((a) => {
+        if (a.some((t) => t.key === tile.key)) return a;
+        const arr = [...a];
+        arr.splice(Math.min(idx, arr.length), 0, tile);
+        return arr;
+      });
+    } else {
+      setAnswer((a) => {
+        const cur = a.findIndex((t) => t.key === tile.key);
+        if (cur < 0) return a;
+        const arr = a.filter((t) => t.key !== tile.key);
+        const target = cur < idx ? idx - 1 : idx; // ชดเชยช่องที่หายไปเมื่อย้ายไปข้างหน้า
+        arr.splice(Math.max(0, Math.min(target, arr.length)), 0, tile);
+        return arr;
+      });
+    }
+  }
+
+  // หา "ตำแหน่งแทรก" ในแถวคำตอบจากพิกัดพอยน์เตอร์ (รองรับหลายบรรทัดเพราะ flex-wrap)
+  function computeDropIndex(x: number, y: number): number | null {
+    const el = answerRef.current;
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    const pad = 28; // hitbox ใจดีหน่อย ลากหลุดนิดหน่อยยังนับ
+    if (x < r.left - pad || x > r.right + pad || y < r.top - pad || y > r.bottom + pad) return null;
+    const tiles = Array.from(el.querySelectorAll<HTMLElement>("[data-akey]"));
+    for (let i = 0; i < tiles.length; i++) {
+      const tr = tiles[i].getBoundingClientRect();
+      if (y < tr.top - 4) return i; // อยู่บรรทัดเหนือไทล์นี้
+      if (y <= tr.bottom + 4 && x < tr.left + tr.width / 2) return i; // บรรทัดเดียวกัน ก่อนกึ่งกลาง
+    }
+    return tiles.length;
+  }
+
+  function setDragBoth(d: Drag | null) {
+    dragRef.current = d;
+    setDrag(d);
+  }
+
+  // handlers ใช้ร่วมกันทั้งไทล์ใน pool และใน answer
+  function tileHandlers(tile: Tile, from: From) {
+    return {
+      onPointerDown: (e: React.PointerEvent<HTMLButtonElement>) => {
+        if (checked) return;
+        const r = e.currentTarget.getBoundingClientRect();
+        e.currentTarget.setPointerCapture(e.pointerId);
+        setDragBoth({
+          tile,
+          from,
+          x: e.clientX,
+          y: e.clientY,
+          startX: e.clientX,
+          startY: e.clientY,
+          w: r.width,
+          h: r.height,
+          active: false,
+        });
+      },
+      onPointerMove: (e: React.PointerEvent<HTMLButtonElement>) => {
+        const d = dragRef.current;
+        if (!d || d.tile.key !== tile.key || d.from !== from) return;
+        const active = d.active || Math.hypot(e.clientX - d.startX, e.clientY - d.startY) > 8;
+        const nd = { ...d, x: e.clientX, y: e.clientY, active };
+        setDragBoth(nd);
+        setDropIdx(active ? computeDropIndex(e.clientX, e.clientY) : null);
+      },
+      onPointerUp: (e: React.PointerEvent<HTMLButtonElement>) => {
+        const d = dragRef.current;
+        if (!d) return;
+        if (d.active) {
+          dragEndAt.current = performance.now();
+          const idx = computeDropIndex(e.clientX, e.clientY);
+          if (idx !== null) placeAt(d.tile, d.from, idx);
+          else if (d.from === "answer") unpick(d.tile); // ลากออกนอกแถวคำตอบ = เอาคืนคลัง
+          // ลากจาก pool แล้วปล่อยนอกเป้า = เด้งกลับ (ไม่ทำอะไร)
+        }
+        setDragBoth(null);
+        setDropIdx(null);
+      },
+      onPointerCancel: () => {
+        setDragBoth(null);
+        setDropIdx(null);
+      },
+      onClick: () => {
+        // แตะ (ไม่ลาก) = พฤติกรรมเดิม · กัน click ที่ browser ยิงตามหลังการลาก
+        if (performance.now() - dragEndAt.current < 350) return;
+        if (from === "pool") pick(tile);
+        else unpick(tile);
+      },
+    };
+  }
 
   function check() {
     setChecked(true);
@@ -84,10 +196,6 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
     setChecked(false);
   }
 
-  function restart() {
-    onExit(); // กลับเมนู แล้วผู้ใช้กดเข้าใหม่ = สุ่มชุดใหม่
-  }
-
   // ---------- สรุปผล ----------
   if (done) {
     const pct = Math.round((correctCount / round.length) * 100);
@@ -107,7 +215,7 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
         </div>
         <div className="flex w-full gap-3">
           <button
-            onClick={restart}
+            onClick={onExit}
             className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300 focus-visible:ring-offset-2"
           >
             <Icon name="refresh" className="h-5 w-5" /> กลับเมนูฝึก
@@ -123,15 +231,15 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
       {/* หัว + progress */}
       <div>
         <div className="flex items-center justify-between text-sm text-slate-500">
-          <button onClick={onExit} className="text-slate-400">
-            ← ออก
+          <button onClick={onExit} className="inline-flex items-center gap-1 text-slate-400">
+            <Icon name="arrowLeft" className="h-4 w-4" /> ออก
           </button>
           <span>
             ข้อ {qi + 1}/{round.length} · ถูก {correctCount}
           </span>
         </div>
         <div className="mt-2 h-2 w-full rounded-full bg-slate-200">
-          <div className="h-2 rounded-full bg-sky-500 transition-all" style={{ width: `${(qi / round.length) * 100}%` }} />
+          <div className="h-2 rounded-full bg-ink-500 transition-all" style={{ width: `${(qi / round.length) * 100}%` }} />
         </div>
       </div>
 
@@ -141,46 +249,80 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
         <div className="mt-1 text-lg font-semibold text-slate-700">“{s.meaning_th}”</div>
       </div>
 
-      {/* แถวคำตอบ (แตะคำในนี้เพื่อเอาออก) */}
-      <div className="flex min-h-[64px] flex-wrap items-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 p-3">
-        {answer.length === 0 && <span className="text-sm text-slate-300">แตะคำด้านล่างมาเรียงตรงนี้</span>}
-        {answer.map((tile) => {
+      {/* แถวคำตอบ (แตะ/ลากออก · ลากมาวาง/สลับตำแหน่งได้) */}
+      <div
+        ref={answerRef}
+        data-answer
+        className={`flex min-h-[64px] flex-wrap items-center gap-2 rounded-2xl border-2 border-dashed p-3 transition-colors ${
+          drag?.active && dropIdx !== null ? "border-ink-500 bg-ink-50" : "border-slate-300 bg-slate-50"
+        }`}
+      >
+        {answer.length === 0 && !drag?.active && (
+          <span className="text-sm text-slate-300">แตะหรือลากคำด้านล่างมาเรียงตรงนี้</span>
+        )}
+        {answer.map((tile, i) => {
+          const beingDragged = drag?.active && drag.tile.key === tile.key && drag.from === "answer";
           const cls = checked
             ? isCorrect
               ? "border-emerald-400 bg-emerald-50 text-emerald-800"
-              : "border-rose-300 bg-rose-50 text-rose-700"
-            : "border-sky-200 bg-white text-slate-800";
+              : "border-seal/40 bg-seal-soft text-seal"
+            : "border-ink-100 bg-white text-slate-800";
+          return (
+            <Fragment key={tile.key}>
+              {drag?.active && dropIdx === i && <span className="h-10 w-1 shrink-0 rounded-full bg-ink-500" />}
+              <button
+                data-akey={tile.key}
+                disabled={checked}
+                draggable={false}
+                {...tileHandlers(tile, "answer")}
+                className={`touch-none select-none rounded-xl border px-3 py-2 text-xl font-[family-name:var(--font-sc)] shadow-sm transition active:scale-95 ${cls} ${
+                  beingDragged ? "opacity-30" : ""
+                }`}
+              >
+                {tile.text}
+              </button>
+            </Fragment>
+          );
+        })}
+        {drag?.active && dropIdx === answer.length && <span className="h-10 w-1 shrink-0 rounded-full bg-ink-500" />}
+      </div>
+
+      {/* คลังคำ (สับ) */}
+      <div data-pool className="flex flex-wrap items-center justify-center gap-2 rounded-2xl bg-white p-3">
+        {pool.map((tile) => {
+          const beingDragged = drag?.active && drag.tile.key === tile.key && drag.from === "pool";
           return (
             <button
               key={tile.key}
-              onClick={() => unpick(tile)}
               disabled={checked}
-              className={`rounded-xl border px-3 py-2 text-xl font-[family-name:var(--font-sc)] shadow-sm transition active:scale-95 ${cls}`}
+              draggable={false}
+              {...tileHandlers(tile, "pool")}
+              className={`touch-none select-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-xl font-[family-name:var(--font-sc)] text-slate-800 shadow-sm transition hover:border-ink-300 active:scale-95 disabled:opacity-40 ${
+                beingDragged ? "opacity-30" : ""
+              }`}
             >
               {tile.text}
             </button>
           );
         })}
-      </div>
-
-      {/* คลังคำ (สับ) */}
-      <div className="flex flex-wrap items-center justify-center gap-2 rounded-2xl bg-white p-3">
-        {pool.map((tile) => (
-          <button
-            key={tile.key}
-            onClick={() => pick(tile)}
-            disabled={checked}
-            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xl font-[family-name:var(--font-sc)] text-slate-800 shadow-sm transition hover:border-sky-300 active:scale-95 disabled:opacity-40"
-          >
-            {tile.text}
-          </button>
-        ))}
         {pool.length === 0 && !checked && <span className="py-2 text-sm text-slate-300">วางครบแล้ว กด “ตรวจ”</span>}
       </div>
 
+      {/* ghost ลอยตามนิ้ว/เมาส์ตอนลาก */}
+      {drag?.active && (
+        <div
+          className="pointer-events-none fixed z-50"
+          style={{ left: drag.x - drag.w / 2, top: drag.y - drag.h / 2, width: drag.w }}
+        >
+          <div className="scale-105 rounded-xl border border-ink-300 bg-white px-3 py-2 text-center text-xl font-[family-name:var(--font-sc)] text-slate-800 shadow-xl">
+            {drag.tile.text}
+          </div>
+        </div>
+      )}
+
       {/* เฉลยหลังตรวจ */}
       {checked && (
-        <div className={`rounded-2xl p-4 ${isCorrect ? "bg-emerald-50" : "bg-rose-50"}`}>
+        <div className={`rounded-2xl p-4 ${isCorrect ? "bg-emerald-50" : "bg-seal-soft"}`}>
           <div className={`flex items-center gap-1.5 text-sm font-semibold ${isCorrect ? "text-correct" : "text-seal"}`}>
             <Icon name={isCorrect ? "check" : "x"} className="h-4 w-4" strokeWidth={2.4} />
             {isCorrect ? "ถูกต้อง!" : "ยังไม่ถูก — ที่ถูกคือ:"}
@@ -198,14 +340,14 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
         <button
           onClick={check}
           disabled={!allPlaced}
-          className="rounded-xl bg-sky-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-sky-800 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
+          className="rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
         >
           ตรวจ
         </button>
       ) : (
         <button
           onClick={next}
-          className="rounded-xl bg-sky-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-sky-800 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
+          className="rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300 focus-visible:ring-offset-2"
         >
           {qi + 1 >= round.length ? "ดูผล →" : "ข้อถัดไป →"}
         </button>
