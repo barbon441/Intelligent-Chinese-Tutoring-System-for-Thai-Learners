@@ -65,6 +65,10 @@ updated: 2026-07-22
 | โครงงาน | ผู้เรียนเก่งขึ้นจริงไหม | pre-test vs post-test (gain score) กับผู้ใช้จริงผ่านครูสอนจีน (~5 โมดูล/10 วัน) |
 
 ## 4. Tech Stack (ท่องให้คล่อง — โดนถามแน่)
+
+> 💬 **บทท่องตอบ "เขียนภาษาอะไร":** "เขียนด้วย TypeScript ครับ ซึ่งคือ JavaScript ที่เพิ่มระบบตรวจชนิดข้อมูล ช่วยกันบั๊กตอนเขียน — ตอน build ถูกแปลงเป็น JavaScript รันในเบราว์เซอร์ ใช้ผ่านเฟรมเวิร์ก Next.js ซึ่งสร้างบน React ครับ"
+> (TS = JS + type checker · สิ่งที่รันจริงคือ JS — อาจารย์เข้าใจแบบนั้นถูกแล้ว แค่เราต้องอธิบายความสัมพันธ์ให้ได้)
+
 - **Frontend:** Next.js (React) + TypeScript + Tailwind CSS · PWA (ติดตั้งบนมือถือได้ ใช้ผ่านเบราว์เซอร์ได้)
 - **Backend:** FastAPI (Python) — คำนวณ BKT posterior, endpoint จัดการข้อมูล
 - **Database:** Supabase (PostgreSQL + Auth + Storage เก็บไฟล์เสียง)
