@@ -13,6 +13,18 @@ export const STATUS_META: Record<ItemStatus, { label: string; cls: string }> = {
   opt: { label: "Optional", cls: "bg-seal-soft text-seal border-seal/30" },
 };
 
+// คิวงานถัดไป (เรียงตามลำดับที่ควรทำ — คิดจาก dependency) แสดงเป็นการ์ด "ทำต่อไป" บนหน้า /roadmap
+export const NEXT_UP: { itemId: string; why: string }[] = [
+  { itemId: "m1-2", why: "ด่านแรกของทุกอย่าง — หน้าเลือกหมวด/ควิซท้ายหมวดรอข้อมูลนี้" },
+  { itemId: "m2-7", why: "quick win โค้ดน้อย ได้ฟีเจอร์ที่ผู้เรียนต้องการมากสุดฝั่งฟัง" },
+  { itemId: "m1-3", why: "โครง content×ทักษะ ที่อาจารย์รอเห็น — เริ่มได้ทันทีที่จัดหมวดเสร็จ" },
+  { itemId: "m0-2", why: "จุดขาย Thai-L1 ชิ้นแรกที่จับต้องได้ (ทำขนานกับหน้าเลือกหมวดได้)" },
+  { itemId: "m7-1", why: "ประตูของ log รายคน + Admin (requirement อาจารย์)" },
+  { itemId: "m3-2", why: "จุดเริ่มเก็บข้อมูลจริงสำหรับเทรน BKT" },
+  { itemId: "m5-5", why: "ต่อจาก Auth — เก็บแผนเรียนรายคน" },
+  { itemId: "m7-2", why: "ใช้ Auth + ปูทาง item bank สำหรับ Mock Exam" },
+];
+
 export type RoadmapModule = {
   id: string;
   icon: IconName;

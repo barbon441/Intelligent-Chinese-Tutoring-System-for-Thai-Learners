@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { Icon } from "@/components/Icon";
-import { ROADMAP, STATUS_META } from "@/data/roadmap";
+import { ROADMAP, STATUS_META, NEXT_UP } from "@/data/roadmap";
 
 // ตาราง checklist เต็มจอ (แยกจากตัวแอป — ไม่จำกัดความกว้างมือถือ)
 // สถานะติ๊กเก็บใน Supabase (roadmap_state) แชร์ทั้งทีม · โครงรายการ: src/data/roadmap.ts
@@ -97,6 +97,39 @@ export default function Roadmap() {
             </div>
           </div>
         </section>
+
+        {/* คิวงานถัดไป — เรียงตามลำดับที่ควรทำ (ข้ามรายการที่ติ๊กเสร็จแล้วอัตโนมัติ) */}
+        {(() => {
+          const lookup = new Map(
+            ROADMAP.flatMap((m) => m.items.map((it) => [it.id, { item: it, module: m }] as const))
+          );
+          const queue = NEXT_UP.map((n) => ({ ...n, hit: lookup.get(n.itemId) }))
+            .filter((n) => n.hit && !isDone(n.hit.item.id, n.hit.item.status))
+            .slice(0, 5);
+          if (loading || queue.length === 0) return null;
+          return (
+            <section className="mb-6 rounded-2xl border border-amber-200 bg-amber-50/60 p-5">
+              <h2 className="flex items-center gap-2 font-[family-name:var(--font-display)] text-base font-bold text-slate-700">
+                <Icon name="flame" className="h-5 w-5 text-streak" /> ทำต่อไป (เรียงตามลำดับ)
+              </h2>
+              <ol className="mt-3 flex flex-col gap-2">
+                {queue.map((n, i) => (
+                  <li key={n.itemId} className="flex items-start gap-3 rounded-xl bg-white p-3 shadow-sm">
+                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-ink-700 font-[family-name:var(--font-display)] text-xs font-bold text-white">
+                      {i + 1}
+                    </span>
+                    <div className="flex-1">
+                      <div className="text-sm font-medium text-slate-700">{n.hit!.item.label}</div>
+                      <div className="mt-0.5 text-xs text-slate-400">
+                        <span className="font-medium text-ink-500">{n.hit!.module.title}</span> · {n.why}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          );
+        })()}
 
         {/* ตารางเช็กลิสต์ */}
         <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
