@@ -6,12 +6,15 @@ import { supabase } from "@/lib/supabase";
 import { Icon } from "@/components/Icon";
 import { ROADMAP, STATUS_META, NEXT_UP } from "@/data/roadmap";
 
-// ตาราง checklist เต็มจอ (แยกจากตัวแอป — ไม่จำกัดความกว้างมือถือ)
-// สถานะติ๊กเก็บใน Supabase (roadmap_state) แชร์ทั้งทีม · โครงรายการ: src/data/roadmap.ts
+// เมนู checklist 2 ชั้น: โมดูล (พับ/กาง) → ฟังก์ชัน (ติ๊กได้ · เก็บใน Supabase แชร์ทีม) → งานย่อย (กดดู)
 export default function Roadmap() {
   const [overrides, setOverrides] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState(true);
   const [saveError, setSaveError] = useState(false);
+  const [openModules, setOpenModules] = useState<Set<string>>(
+    () => new Set(ROADMAP.filter((m) => m.items.some((i) => i.status === "doing")).map((m) => m.id))
+  );
+  const [openItems, setOpenItems] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     (async () => {
@@ -44,86 +47,73 @@ export default function Roadmap() {
     }
   }
 
+  const flip = (set: Set<string>, id: string) => {
+    const n = new Set(set);
+    if (n.has(id)) n.delete(id);
+    else n.add(id);
+    return n;
+  };
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* แถบบน */}
       <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+        <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-3">
           <div className="flex items-baseline gap-2">
             <span className="font-[family-name:var(--font-display)] text-lg font-bold text-ink-900">จีนรู้ใจ</span>
             <span className="font-[family-name:var(--font-sc)] text-sm text-seal">中文知心</span>
-            <span className="ml-2 hidden text-sm text-slate-400 sm:inline">· ตารางเช็กลิสต์พัฒนาระบบ</span>
+            <span className="ml-2 hidden text-sm text-slate-400 sm:inline">· เมนูฟังก์ชันทั้งหมด + ติ๊กความคืบหน้า</span>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="hidden text-xs text-slate-400 sm:inline">ติ๊กแล้วบันทึกออนไลน์ — ทีมเห็นเหมือนกัน</span>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-ink-700 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-ink-900"
-            >
-              เปิดแอป <Icon name="arrowRight" className="h-3.5 w-3.5" />
-            </Link>
-          </div>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-ink-700 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-ink-900"
+          >
+            เปิดแอป <Icon name="arrowRight" className="h-3.5 w-3.5" />
+          </Link>
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-6 py-6">
+      <main className="mx-auto max-w-4xl px-6 py-6">
         {saveError && (
-          <div className="mb-4 rounded-xl bg-seal-soft p-3 text-sm text-seal">
-            บันทึกไม่สำเร็จ ลองใหม่อีกครั้ง (ตรวจอินเทอร์เน็ต)
-          </div>
+          <div className="mb-4 rounded-xl bg-seal-soft p-3 text-sm text-seal">บันทึกไม่สำเร็จ ลองใหม่อีกครั้ง (ตรวจอินเทอร์เน็ต)</div>
         )}
 
         {/* สรุปรวม */}
-        <section className="mb-6 flex flex-col gap-4 rounded-2xl bg-gradient-to-r from-ink-900 via-ink-700 to-ink-500 p-6 text-white shadow-lg sm:flex-row sm:items-center">
-          <div className="flex-1">
-            <div className="text-sm text-ink-100">ความคืบหน้ารวมทั้งระบบ</div>
-            <div className="mt-1 font-[family-name:var(--font-display)] text-4xl font-extrabold">
+        <section className="mb-5 rounded-2xl bg-gradient-to-r from-ink-900 via-ink-700 to-ink-500 p-5 text-white shadow-lg">
+          <div className="flex items-baseline justify-between">
+            <span className="text-sm text-ink-100">ความคืบหน้ารวมทั้งระบบ</span>
+            <span className="font-[family-name:var(--font-display)] text-3xl font-extrabold">
               {loading ? "…" : doneCount}
-              <span className="text-xl font-normal text-ink-100"> / {total} ฟังก์ชัน ({loading ? "-" : pct}%)</span>
-            </div>
+              <span className="text-lg font-normal text-ink-100"> / {total} ({loading ? "-" : pct}%)</span>
+            </span>
           </div>
-          <div className="flex-1">
-            <div className="h-3 w-full rounded-full bg-white/20">
-              <div className="h-3 rounded-full bg-white transition-all" style={{ width: `${loading ? 0 : pct}%` }} />
-            </div>
-            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink-100">
-              {Object.entries(STATUS_META)
-                .filter(([k]) => k !== "done")
-                .map(([k, v]) => (
-                  <span key={k}>
-                    {v.label}: {allItems.filter((i) => i.status === k && !isDone(i.id, i.status)).length}
-                  </span>
-                ))}
-            </div>
+          <div className="mt-3 h-2.5 w-full rounded-full bg-white/20">
+            <div className="h-2.5 rounded-full bg-white transition-all" style={{ width: `${loading ? 0 : pct}%` }} />
           </div>
         </section>
 
-        {/* คิวงานถัดไป — เรียงตามลำดับที่ควรทำ (ข้ามรายการที่ติ๊กเสร็จแล้วอัตโนมัติ) */}
+        {/* คิวทำต่อไป */}
         {(() => {
-          const lookup = new Map(
-            ROADMAP.flatMap((m) => m.items.map((it) => [it.id, { item: it, module: m }] as const))
-          );
+          const lookup = new Map(ROADMAP.flatMap((m) => m.items.map((it) => [it.id, { item: it, module: m }] as const)));
           const queue = NEXT_UP.map((n) => ({ ...n, hit: lookup.get(n.itemId) }))
             .filter((n) => n.hit && !isDone(n.hit.item.id, n.hit.item.status))
             .slice(0, 5);
           if (loading || queue.length === 0) return null;
           return (
-            <section className="mb-6 rounded-2xl border border-amber-200 bg-amber-50/60 p-5">
+            <section className="mb-5 rounded-2xl border border-amber-200 bg-amber-50/60 p-4">
               <h2 className="flex items-center gap-2 font-[family-name:var(--font-display)] text-base font-bold text-slate-700">
                 <Icon name="flame" className="h-5 w-5 text-streak" /> ทำต่อไป (เรียงตามลำดับ)
               </h2>
-              <ol className="mt-3 flex flex-col gap-2">
+              <ol className="mt-2.5 flex flex-col gap-1.5">
                 {queue.map((n, i) => (
-                  <li key={n.itemId} className="flex items-start gap-3 rounded-xl bg-white p-3 shadow-sm">
-                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-ink-700 font-[family-name:var(--font-display)] text-xs font-bold text-white">
+                  <li key={n.itemId} className="flex items-start gap-2.5 rounded-lg bg-white px-3 py-2 text-sm shadow-sm">
+                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-ink-700 font-[family-name:var(--font-display)] text-[11px] font-bold text-white">
                       {i + 1}
                     </span>
-                    <div className="flex-1">
-                      <div className="text-sm font-medium text-slate-700">{n.hit!.item.label}</div>
-                      <div className="mt-0.5 text-xs text-slate-400">
-                        <span className="font-medium text-ink-500">{n.hit!.module.title}</span> · {n.why}
-                      </div>
-                    </div>
+                    <span className="flex-1">
+                      <span className="font-medium text-slate-700">{n.hit!.item.label}</span>
+                      <span className="text-slate-400"> · {n.hit!.module.title.replace(/·.*$/, "").trim()}</span>
+                    </span>
                   </li>
                 ))}
               </ol>
@@ -131,76 +121,101 @@ export default function Roadmap() {
           );
         })()}
 
-        {/* ตารางเช็กลิสต์ */}
-        <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
-          <table className="w-full min-w-[720px] border-collapse text-sm">
-            <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-400">
-                <th className="w-16 px-4 py-3 text-center">สถานะ</th>
-                <th className="px-4 py-3">ฟังก์ชัน</th>
-                <th className="w-32 px-4 py-3">กำหนดการ</th>
-              </tr>
-            </thead>
-            {ROADMAP.map((m) => {
-              const mDone = m.items.filter((i) => isDone(i.id, i.status)).length;
-              return (
-                <tbody key={m.id}>
-                  {/* แถวหัวโมดูล */}
-                  <tr className="border-y border-slate-200 bg-ink-50/60">
-                    <td colSpan={3} className="px-4 py-2.5">
-                      <div className="flex items-center gap-2.5">
-                        <Icon name={m.icon} className="h-5 w-5 text-ink-700" />
-                        <span className="font-semibold text-ink-900">{m.title}</span>
-                        <span className="text-xs text-slate-400">— {m.desc}</span>
-                        <span className="ml-auto rounded-full bg-white px-2.5 py-0.5 font-[family-name:var(--font-display)] text-xs font-bold text-slate-500 shadow-sm">
-                          {mDone}/{m.items.length}
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                  {/* แถวฟังก์ชัน */}
-                  {m.items.map((it) => {
-                    const done = isDone(it.id, it.status);
-                    const meta = STATUS_META[it.status];
-                    return (
-                      <tr
-                        key={it.id}
-                        onClick={() => !loading && toggle(it.id, it.status)}
-                        className="cursor-pointer border-b border-slate-100 transition last:border-0 hover:bg-slate-50"
-                      >
-                        <td className="px-4 py-2.5 text-center align-middle">
-                          <span
-                            className={`inline-grid h-6 w-6 place-items-center rounded-md border-2 align-middle transition ${
-                              done ? "border-correct bg-correct text-white" : "border-slate-300 bg-white text-transparent"
-                            }`}
+        {/* เมนูโมดูล (พับ/กาง) */}
+        <div className="flex flex-col gap-3">
+          {ROADMAP.map((m) => {
+            const mDone = m.items.filter((i) => isDone(i.id, i.status)).length;
+            const open = openModules.has(m.id);
+            return (
+              <section key={m.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                {/* หัวโมดูล — กดเพื่อเปิด/ปิด */}
+                <button
+                  onClick={() => setOpenModules((s) => flip(s, m.id))}
+                  className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition hover:bg-slate-50"
+                >
+                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ink-50 text-ink-700">
+                    <Icon name={m.icon} className="h-5 w-5" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-semibold text-slate-700">{m.title}</div>
+                    <div className="text-xs text-slate-400">{m.desc}</div>
+                  </div>
+                  {/* แถบความคืบหน้าเล็กของโมดูล */}
+                  <div className="hidden w-24 sm:block">
+                    <div className="h-1.5 w-full rounded-full bg-slate-100">
+                      <div className="h-1.5 rounded-full bg-correct transition-all" style={{ width: `${(mDone / m.items.length) * 100}%` }} />
+                    </div>
+                  </div>
+                  <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-1 font-[family-name:var(--font-display)] text-xs font-bold text-slate-500">
+                    {mDone}/{m.items.length}
+                  </span>
+                  <Icon name="arrowRight" className={`h-4 w-4 shrink-0 text-slate-300 transition-transform ${open ? "rotate-90" : ""}`} />
+                </button>
+
+                {/* ฟังก์ชันข้างใน */}
+                {open && (
+                  <ul className="border-t border-slate-100">
+                    {m.items.map((it) => {
+                      const done = isDone(it.id, it.status);
+                      const meta = STATUS_META[it.status];
+                      const showDetails = openItems.has(it.id);
+                      return (
+                        <li key={it.id} className="border-b border-slate-50 last:border-0">
+                          <div
+                            onClick={() => it.details?.length && setOpenItems((s) => flip(s, it.id))}
+                            className={`flex w-full items-start gap-3 px-4 py-3 text-left transition hover:bg-slate-50 ${it.details?.length ? "cursor-pointer" : ""}`}
                           >
-                            <Icon name="check" className="h-4 w-4" strokeWidth={3} />
-                          </span>
-                        </td>
-                        <td className={`px-4 py-2.5 leading-snug ${done ? "text-slate-400 line-through decoration-slate-300" : "text-slate-700"}`}>
-                          {it.label}
-                        </td>
-                        <td className="px-4 py-2.5">
-                          {it.status !== "done" ? (
-                            <span className={`inline-block rounded-md border px-2 py-0.5 text-[11px] font-medium ${meta.cls}`}>
-                              {meta.label}
-                            </span>
-                          ) : (
-                            <span className="text-[11px] text-slate-300">—</span>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              );
-            })}
-          </table>
+                            {/* ติ๊ก */}
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (!loading) toggle(it.id, it.status);
+                              }}
+                              aria-label="ติ๊กว่าทำแล้ว"
+                              className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-md border-2 transition active:scale-90 ${
+                                done ? "border-correct bg-correct text-white" : "border-slate-300 bg-white text-transparent hover:border-correct/60"
+                              }`}
+                            >
+                              <Icon name="check" className="h-4 w-4" strokeWidth={3} />
+                            </button>
+                            <div className="flex-1">
+                              <span className={`text-sm leading-snug ${done ? "text-slate-400 line-through decoration-slate-300" : "text-slate-700"}`}>
+                                {it.label}
+                              </span>
+                              {/* งานย่อย */}
+                              {showDetails && it.details && (
+                                <ul className="mt-2 flex flex-col gap-1 rounded-lg bg-slate-50 p-3">
+                                  {it.details.map((d, i) => (
+                                    <li key={i} className="flex items-start gap-2 text-xs leading-relaxed text-slate-500">
+                                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-ink-300" />
+                                      {d}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                            {it.status !== "done" && (
+                              <span className={`mt-0.5 shrink-0 rounded-md border px-1.5 py-0.5 text-[10px] font-medium ${meta.cls}`}>{meta.label}</span>
+                            )}
+                            {it.details?.length ? (
+                              <Icon
+                                name="arrowRight"
+                                className={`mt-1 h-3.5 w-3.5 shrink-0 text-slate-300 transition-transform ${showDetails ? "rotate-90" : ""}`}
+                              />
+                            ) : null}
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </section>
+            );
+          })}
         </div>
 
-        <p className="mt-4 text-center text-xs leading-relaxed text-slate-400">
-          คลิกแถวเพื่อติ๊ก/เลิกติ๊ก · สถานะเก็บใน Supabase แชร์ทั้งทีม · โครงรายการแก้ใน{" "}
-          <code className="rounded bg-slate-100 px-1">src/data/roadmap.ts</code>
+        <p className="mt-5 text-center text-xs leading-relaxed text-slate-400">
+          กดหัวโมดูลเพื่อกาง · กดชื่อฟังก์ชันเพื่อดูงานย่อย · กดช่องสี่เหลี่ยมเพื่อติ๊ก (บันทึกออนไลน์ ทีมเห็นเหมือนกัน)
           <br />⚠️ ยังไม่ล็อกสิทธิ์การติ๊ก — จะจำกัดเฉพาะ Admin เมื่อระบบสมาชิกเสร็จ (ส.ค.)
         </p>
       </main>
