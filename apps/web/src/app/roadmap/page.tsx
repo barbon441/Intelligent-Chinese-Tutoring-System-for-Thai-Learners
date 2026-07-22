@@ -34,6 +34,17 @@ export default function Roadmap() {
   const total = allItems.length;
   const pct = Math.round((doneCount / total) * 100);
 
+  // รายการ "ถัดไป" = ตัวแรกในลำดับงาน (NEXT_UP) ที่ยังไม่ถูกติ๊ก — โชว์เป็นป้ายในลิสต์
+  const nextId = useMemo(() => {
+    const lookup = new Map(allItems.map((i) => [i.id, i]));
+    for (const n of NEXT_UP) {
+      const it = lookup.get(n.itemId);
+      if (it && !isDone(it.id, it.status)) return it.id;
+    }
+    return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allItems, overrides]);
+
   async function toggle(id: string, defaultStatus: string) {
     const next = !isDone(id, defaultStatus);
     setOverrides((o) => ({ ...o, [id]: next })); // optimistic
@@ -91,35 +102,6 @@ export default function Roadmap() {
             <div className="h-2.5 rounded-full bg-white transition-all" style={{ width: `${loading ? 0 : pct}%` }} />
           </div>
         </section>
-
-        {/* คิวทำต่อไป */}
-        {(() => {
-          const lookup = new Map(ROADMAP.flatMap((m) => m.items.map((it) => [it.id, { item: it, module: m }] as const)));
-          const queue = NEXT_UP.map((n) => ({ ...n, hit: lookup.get(n.itemId) }))
-            .filter((n) => n.hit && !isDone(n.hit.item.id, n.hit.item.status))
-            .slice(0, 5);
-          if (loading || queue.length === 0) return null;
-          return (
-            <section className="mb-5 rounded-2xl border border-amber-200 bg-amber-50/60 p-4">
-              <h2 className="flex items-center gap-2 font-[family-name:var(--font-display)] text-base font-bold text-slate-700">
-                <Icon name="flame" className="h-5 w-5 text-streak" /> ทำต่อไป (เรียงตามลำดับ)
-              </h2>
-              <ol className="mt-2.5 flex flex-col gap-1.5">
-                {queue.map((n, i) => (
-                  <li key={n.itemId} className="flex items-start gap-2.5 rounded-lg bg-white px-3 py-2 text-sm shadow-sm">
-                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-ink-700 font-[family-name:var(--font-display)] text-[11px] font-bold text-white">
-                      {i + 1}
-                    </span>
-                    <span className="flex-1">
-                      <span className="font-medium text-slate-700">{n.hit!.item.label}</span>
-                      <span className="text-slate-400"> · {n.hit!.module.title.replace(/·.*$/, "").trim()}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          );
-        })()}
 
         {/* เมนูโมดูล (พับ/กาง) */}
         <div className="flex flex-col gap-3">
@@ -182,6 +164,11 @@ export default function Roadmap() {
                               <span className={`text-sm leading-snug ${done ? "text-slate-400 line-through decoration-slate-300" : "text-slate-700"}`}>
                                 {it.label}
                               </span>
+                              {it.id === nextId && (
+                                <span className="ml-2 inline-flex items-center gap-1 rounded-md bg-streak/10 px-1.5 py-0.5 align-middle text-[10px] font-bold text-streak">
+                                  <Icon name="flame" className="h-3 w-3" /> ทำต่อไป
+                                </span>
+                              )}
                               {/* งานย่อย */}
                               {showDetails && it.details && (
                                 <ul className="mt-2 flex flex-col gap-1 rounded-lg bg-slate-50 p-3">
