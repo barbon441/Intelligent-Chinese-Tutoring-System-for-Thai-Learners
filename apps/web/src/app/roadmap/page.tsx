@@ -134,67 +134,99 @@ export default function Roadmap() {
                   <Icon name="arrowRight" className={`h-4 w-4 shrink-0 text-slate-300 transition-transform ${open ? "rotate-90" : ""}`} />
                 </button>
 
-                {/* ฟังก์ชันข้างใน */}
+                {/* เส้นทางข้างใน (จุดเข้า → ด่าน → เงื่อนไข → จุดออก) */}
                 {open && (
-                  <ul className="border-t border-slate-100">
-                    {m.items.map((it) => {
-                      const done = isDone(it.id, it.status);
-                      const meta = STATUS_META[it.status];
-                      const showDetails = openItems.has(it.id);
-                      return (
-                        <li key={it.id} className="border-b border-slate-50 last:border-0">
-                          <div
-                            onClick={() => it.details?.length && setOpenItems((s) => flip(s, it.id))}
-                            className={`flex w-full items-start gap-3 px-4 py-3 text-left transition hover:bg-slate-50 ${it.details?.length ? "cursor-pointer" : ""}`}
-                          >
-                            {/* ติ๊ก */}
+                  <div className="border-t border-slate-100 px-4 py-4">
+                    {/* จุดเข้า */}
+                    {m.entry && (
+                      <div className="mb-1 flex items-start gap-3">
+                        <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center">
+                          <Icon name="play" className="h-4 w-4 text-ink-300" />
+                        </span>
+                        <span className="rounded-lg bg-ink-50 px-3 py-1.5 text-xs text-ink-700">{m.entry}</span>
+                      </div>
+                    )}
+                    <ul>
+                      {m.items.map((it, idx) => {
+                        const done = isDone(it.id, it.status);
+                        const meta = STATUS_META[it.status];
+                        const showDetails = openItems.has(it.id);
+                        const isLast = idx === m.items.length - 1;
+                        return (
+                          <li key={it.id} className="relative pl-9">
+                            {/* เส้นเชื่อมแนวตั้ง */}
+                            {(!isLast || m.exit) && <span className="absolute left-[11px] top-8 bottom-0 w-0.5 bg-slate-200" />}
+                            {m.entry && idx === 0 && <span className="absolute left-[11px] -top-1 h-3 w-0.5 bg-slate-200" />}
+                            {/* จุดติ๊กบนเส้น */}
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
                                 if (!loading) toggle(it.id, it.status);
                               }}
                               aria-label="ติ๊กว่าทำแล้ว"
-                              className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-md border-2 transition active:scale-90 ${
+                              className={`absolute left-0 top-2 grid h-6 w-6 place-items-center rounded-full border-2 transition active:scale-90 ${
                                 done ? "border-correct bg-correct text-white" : "border-slate-300 bg-white text-transparent hover:border-correct/60"
                               }`}
                             >
-                              <Icon name="check" className="h-4 w-4" strokeWidth={3} />
+                              <Icon name="check" className="h-3.5 w-3.5" strokeWidth={3} />
                             </button>
-                            <div className="flex-1">
-                              <span className={`text-sm leading-snug ${done ? "text-slate-400 line-through decoration-slate-300" : "text-slate-700"}`}>
-                                {it.label}
-                              </span>
-                              {it.id === nextId && (
-                                <span className="ml-2 inline-flex items-center gap-1 rounded-md bg-streak/10 px-1.5 py-0.5 align-middle text-[10px] font-bold text-streak">
-                                  <Icon name="flame" className="h-3 w-3" /> ทำต่อไป
+                            {/* เนื้อหาขั้น */}
+                            <div
+                              onClick={() => it.details?.length && setOpenItems((s) => flip(s, it.id))}
+                              className={`flex items-start gap-2 rounded-lg px-2 py-2 transition hover:bg-slate-50 ${it.details?.length ? "cursor-pointer" : ""}`}
+                            >
+                              <div className="flex-1">
+                                <span className={`text-sm leading-snug ${done ? "text-slate-400 line-through decoration-slate-300" : "text-slate-700"}`}>
+                                  {it.label}
                                 </span>
+                                {it.id === nextId && (
+                                  <span className="ml-2 inline-flex items-center gap-1 rounded-md bg-streak/10 px-1.5 py-0.5 align-middle text-[10px] font-bold text-streak">
+                                    <Icon name="flame" className="h-3 w-3" /> ทำต่อไป
+                                  </span>
+                                )}
+                                {showDetails && it.details && (
+                                  <ul className="mt-2 flex flex-col gap-1 rounded-lg bg-slate-50 p-3">
+                                    {it.details.map((d, i) => (
+                                      <li key={i} className="flex items-start gap-2 text-xs leading-relaxed text-slate-500">
+                                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-ink-300" />
+                                        {d}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </div>
+                              {it.status !== "done" && (
+                                <span className={`mt-0.5 shrink-0 rounded-md border px-1.5 py-0.5 text-[10px] font-medium ${meta.cls}`}>{meta.label}</span>
                               )}
-                              {/* งานย่อย */}
-                              {showDetails && it.details && (
-                                <ul className="mt-2 flex flex-col gap-1 rounded-lg bg-slate-50 p-3">
-                                  {it.details.map((d, i) => (
-                                    <li key={i} className="flex items-start gap-2 text-xs leading-relaxed text-slate-500">
-                                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-ink-300" />
-                                      {d}
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
+                              {it.details?.length ? (
+                                <Icon
+                                  name="arrowRight"
+                                  className={`mt-1 h-3.5 w-3.5 shrink-0 text-slate-300 transition-transform ${showDetails ? "rotate-90" : ""}`}
+                                />
+                              ) : null}
                             </div>
-                            {it.status !== "done" && (
-                              <span className={`mt-0.5 shrink-0 rounded-md border px-1.5 py-0.5 text-[10px] font-medium ${meta.cls}`}>{meta.label}</span>
+                            {/* เงื่อนไขผ่านหลังขั้นนี้ */}
+                            {it.gateAfter && (
+                              <div className="mb-1 ml-2 flex items-center gap-2 py-1">
+                                <span className="rounded-md border border-amber-200 bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-600">
+                                  ⤋ {it.gateAfter}
+                                </span>
+                              </div>
                             )}
-                            {it.details?.length ? (
-                              <Icon
-                                name="arrowRight"
-                                className={`mt-1 h-3.5 w-3.5 shrink-0 text-slate-300 transition-transform ${showDetails ? "rotate-90" : ""}`}
-                              />
-                            ) : null}
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                    {/* จุดออก */}
+                    {m.exit && (
+                      <div className="mt-1 flex items-start gap-3 pl-0">
+                        <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center">
+                          <Icon name="arrowRight" className="h-4 w-4 rotate-90 text-correct" />
+                        </span>
+                        <span className="rounded-lg bg-emerald-50 px-3 py-1.5 text-xs text-correct">{m.exit}</span>
+                      </div>
+                    )}
+                  </div>
                 )}
               </section>
             );
