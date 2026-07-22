@@ -66,6 +66,15 @@ export default function Profile() {
           <br />
           วรเดช ปิ่นทอง · หฤทัย ยุวรัตน์
         </div>
+        <Link
+          href="/roadmap"
+          className="mt-3 flex items-center justify-between rounded-xl bg-ink-50 px-4 py-2.5 text-sm font-medium text-ink-700 transition hover:bg-ink-100"
+        >
+          <span className="inline-flex items-center gap-2">
+            <Icon name="target" className="h-4 w-4" /> แผนพัฒนาระบบ (Roadmap)
+          </span>
+          <Icon name="arrowRight" className="h-4 w-4" />
+        </Link>
       </section>
 
       <p className="pb-2 text-center text-[11px] text-slate-300">
