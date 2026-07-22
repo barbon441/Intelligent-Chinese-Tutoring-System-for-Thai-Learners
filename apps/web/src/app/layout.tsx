@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans_Thai, Noto_Sans_SC, Mali } from "next/font/google";
 import "./globals.css";
-import AppShell from "@/components/AppShell";
 
 const thai = IBM_Plex_Sans_Thai({
   variable: "--font-thai",
@@ -33,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="th" className={`${thai.variable} ${sc.variable} ${display.variable} h-full antialiased`}>
       <body className="min-h-full bg-slate-50 font-[family-name:var(--font-thai)] text-slate-800">
-        <AppShell>{children}</AppShell>
+        {children}
       </body>
     </html>
   );
