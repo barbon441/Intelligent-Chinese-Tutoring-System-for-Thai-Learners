@@ -6,6 +6,15 @@ import { supabase } from "@/lib/supabase";
 import { Icon } from "@/components/Icon";
 import { ROADMAP, STATUS_META, NEXT_UP } from "@/data/roadmap";
 
+// สีชิปทักษะ (field skill ของแต่ละฟังก์ชัน)
+const SKILL_CLS: Record<string, string> = {
+  "ฟัง": "bg-sky-50 text-sky-600",
+  "อ่าน": "bg-emerald-50 text-emerald-600",
+  "เขียน": "bg-amber-50 text-amber-700",
+  "ฟัง+อ่าน": "bg-violet-50 text-violet-600",
+  "เครื่องมือ": "bg-slate-100 text-slate-500",
+};
+
 // เมนู checklist 2 ชั้น: โมดูล (พับ/กาง) → ฟังก์ชัน (ติ๊กได้ · เก็บใน Supabase แชร์ทีม) → งานย่อย (กดดู)
 export default function Roadmap() {
   const [overrides, setOverrides] = useState<Record<string, boolean>>({});
@@ -179,6 +188,11 @@ export default function Roadmap() {
                                 <span className="mr-1.5 inline-block rounded bg-slate-100 px-1 align-middle font-mono text-[10px] text-slate-400">
                                   {it.id}
                                 </span>
+                                {it.skill && (
+                                  <span className={`mr-1.5 inline-block rounded px-1 align-middle text-[10px] font-medium ${SKILL_CLS[it.skill] ?? "bg-slate-100 text-slate-500"}`}>
+                                    {it.skill}
+                                  </span>
+                                )}
                                 <span className={`text-sm leading-snug ${done ? "text-slate-400 line-through decoration-slate-300" : "text-slate-700"}`}>
                                   {it.label}
                                 </span>
