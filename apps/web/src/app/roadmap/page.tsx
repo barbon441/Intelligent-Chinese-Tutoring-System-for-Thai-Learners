@@ -176,6 +176,9 @@ export default function Roadmap() {
                               className={`flex items-start gap-2 rounded-lg px-2 py-2 transition hover:bg-slate-50 ${it.details?.length ? "cursor-pointer" : ""}`}
                             >
                               <div className="flex-1">
+                                <span className="mr-1.5 inline-block rounded bg-slate-100 px-1 align-middle font-mono text-[10px] text-slate-400">
+                                  {it.id}
+                                </span>
                                 <span className={`text-sm leading-snug ${done ? "text-slate-400 line-through decoration-slate-300" : "text-slate-700"}`}>
                                   {it.label}
                                 </span>
