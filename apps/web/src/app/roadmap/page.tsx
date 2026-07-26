@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { Icon } from "@/components/Icon";
@@ -14,6 +14,10 @@ const SKILL_CLS: Record<string, string> = {
   "ฟัง+อ่าน": "bg-violet-50 text-violet-600",
   "เครื่องมือ": "bg-slate-100 text-slate-500",
 };
+
+// จับชิปทักษะเข้ากลุ่มหัวข้อ (ฟัง+อ่าน นับรวมกลุ่มฟัง) + ป้ายหัวกลุ่ม
+const SKILL_GROUP: Record<string, string> = { "ฟัง": "ฟัง", "ฟัง+อ่าน": "ฟัง", "อ่าน": "อ่าน", "เขียน": "เขียน", "เครื่องมือ": "เครื่องมือ" };
+const GROUP_LABEL: Record<string, string> = { "ฟัง": "ทักษะฟัง", "อ่าน": "ทักษะอ่าน", "เขียน": "ทักษะเขียน (แบบฝึกเสริม)", "เครื่องมือ": "เครื่องมือกลาง" };
 
 // เมนู checklist 2 ชั้น: โมดูล (พับ/กาง) → ฟังก์ชัน (ติ๊กได้ · เก็บใน Supabase แชร์ทีม) → งานย่อย (กดดู)
 export default function Roadmap() {
@@ -161,8 +165,18 @@ export default function Roadmap() {
                         const meta = STATUS_META[it.status];
                         const showDetails = openItems.has(it.id);
                         const isLast = idx === m.items.length - 1;
+                        const grp = it.skill ? SKILL_GROUP[it.skill] : undefined;
+                        const prevSkill = idx > 0 ? m.items[idx - 1].skill : undefined;
+                        const prevGrp = prevSkill ? SKILL_GROUP[prevSkill] : undefined;
                         return (
-                          <li key={it.id} className="relative pl-9">
+                          <Fragment key={it.id}>
+                          {grp && grp !== prevGrp && (
+                            <li className="flex items-center gap-2 pb-1 pl-9 pt-3">
+                              <span className={`rounded-md px-2 py-0.5 text-[11px] font-bold ${SKILL_CLS[grp] ?? "bg-slate-100 text-slate-500"}`}>{GROUP_LABEL[grp]}</span>
+                              <span className="h-px flex-1 bg-slate-100" />
+                            </li>
+                          )}
+                          <li className="relative pl-9">
                             {/* เส้นเชื่อมแนวตั้ง */}
                             {(!isLast || m.exit) && <span className="absolute left-[11px] top-8 bottom-0 w-0.5 bg-slate-200" />}
                             {m.entry && idx === 0 && <span className="absolute left-[11px] -top-1 h-3 w-0.5 bg-slate-200" />}
@@ -231,6 +245,7 @@ export default function Roadmap() {
                               </div>
                             )}
                           </li>
+                          </Fragment>
                         );
                       })}
                     </ul>
