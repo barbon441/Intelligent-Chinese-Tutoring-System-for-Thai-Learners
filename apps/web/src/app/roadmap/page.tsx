@@ -183,6 +183,8 @@ export default function Roadmap() {
                         const grp = it.skill ? SKILL_GROUP[it.skill] : undefined;
                         const prevSkill = idx > 0 ? m.items[idx - 1].skill : undefined;
                         const prevGrp = prevSkill ? SKILL_GROUP[prevSkill] : undefined;
+                        const nextSkill = idx + 1 < m.items.length ? m.items[idx + 1].skill : undefined;
+                        const nextGrp = nextSkill ? SKILL_GROUP[nextSkill] : undefined;
                         return (
                           <Fragment key={it.id}>
                           {grp && grp !== prevGrp && (
@@ -260,6 +262,14 @@ export default function Roadmap() {
                               </div>
                             )}
                           </li>
+                          {grp && grp !== nextGrp && m.hsk2ByGroup?.[grp] && (
+                            <li className="pb-2 pl-9">
+                              <span className="inline-flex items-baseline gap-1.5 rounded-md border border-dashed border-violet-200 bg-violet-50/60 px-2 py-1">
+                                <span className="rounded bg-violet-100 px-1 text-[10px] font-bold text-violet-600">เฟส HSK 2</span>
+                                <span className="text-[11px] leading-snug text-violet-700/80">{m.hsk2ByGroup[grp]}</span>
+                              </span>
+                            </li>
+                          )}
                           </Fragment>
                         );
                       })}
