@@ -264,6 +264,13 @@ export default function Roadmap() {
                         );
                       })}
                     </ul>
+                    {/* โน้ต: เฟส HSK2 จะเพิ่มอะไรในกล่องนี้ */}
+                    {m.hsk2 && (
+                      <div className="mt-2 flex items-start gap-2 rounded-lg border border-dashed border-violet-200 bg-violet-50/60 px-3 py-2">
+                        <span className="shrink-0 rounded bg-violet-100 px-1.5 py-0.5 text-[10px] font-bold text-violet-600">เฟส HSK 2</span>
+                        <span className="text-xs leading-relaxed text-violet-700/80">{m.hsk2}</span>
+                      </div>
+                    )}
                     {/* จุดออก */}
                     {m.exit && (
                       <div className="mt-1 flex items-start gap-3 pl-0">
