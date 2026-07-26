@@ -134,7 +134,7 @@ export default function Roadmap() {
               {m.id === "m11" && (
                 <div className="mt-2 flex items-baseline gap-2 rounded-xl border border-dashed border-slate-300 bg-slate-100 px-4 py-2.5">
                   <span className="font-[family-name:var(--font-display)] text-sm font-bold text-slate-600">เฟสถัดไป · HSK 2</span>
-                  <span className="text-xs text-slate-500">ส่วนที่เพิ่มจาก HSK 1 ({hsk2Total} รายการ — ใหม่จริง 2 ตัว ที่เหลือระบบเดิมป้อนเนื้อหายากขึ้น)</span>
+                  <span className="text-xs text-slate-500">ส่วนที่เพิ่มจาก HSK 1 ({hsk2Total} รายการ — ของใหม่จริง 2 ตัว ที่เหลือใช้ระบบเดิม แค่เนื้อหายากขึ้น)</span>
                 </div>
               )}
               <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
