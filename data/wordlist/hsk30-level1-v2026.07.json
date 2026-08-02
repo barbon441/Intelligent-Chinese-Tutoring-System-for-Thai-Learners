@@ -1,5019 +1,5319 @@
 [
- {
-  "hanzi": "爱",
-  "traditional": "愛",
-  "pinyin": "ài",
-  "pos": [
-   "v",
-   "vn",
-   "b"
-  ],
-  "meaning_en": [
-   "to love; to be fond of; to like",
-   "affection",
-   "to be inclined (to do sth); to tend to (happen)"
-  ],
-  "meaning_th": "รัก / ชอบ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "八",
-  "traditional": "八",
-  "pinyin": "bā",
-  "pos": [
-   "m",
-   "t"
-  ],
-  "meaning_en": [
-   "eight; 8"
-  ],
-  "meaning_th": "แปด (8)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "爸爸",
-  "traditional": "爸爸",
-  "pinyin": "bà ba",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "(coll.) father; dad"
-  ],
-  "meaning_th": "พ่อ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "吧",
-  "traditional": "吧",
-  "pinyin": "bā",
-  "pos": [
-   "y"
-  ],
-  "meaning_en": [
-   "bar (loanword) (serving drinks, or providing Internet access etc)",
-   "to puff (on a pipe etc)",
-   "(onom.) bang",
-   "abbr. for 贴吧"
-  ],
-  "meaning_th": "เถอะ, นะ (คำลงท้ายชวน/คาดเดา)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "白天",
-  "traditional": "白天",
-  "pinyin": "bái tiān",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "daytime",
-   "during the day",
-   "day"
-  ],
-  "meaning_th": "กลางวัน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "百",
-  "traditional": "百",
-  "pinyin": "Bǎi",
-  "pos": [
-   "m",
-   "t"
-  ],
-  "meaning_en": [
-   "surname Bai"
-  ],
-  "meaning_th": "ร้อย (100)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "半",
-  "traditional": "半",
-  "pinyin": "bàn",
-  "pos": [
-   "m"
-  ],
-  "meaning_en": [
-   "half",
-   "semi-",
-   "incomplete",
-   "(after a number) and a half"
-  ],
-  "meaning_th": "ครึ่ง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "包子",
-  "traditional": "包子",
-  "pinyin": "bāo zi",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "bao (steamed stuffed bun)"
-  ],
-  "meaning_th": "ซาลาเปา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "杯子",
-  "traditional": "杯子",
-  "pinyin": "bēi zi",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "cup",
-   "glass"
-  ],
-  "meaning_th": "แก้ว, ถ้วย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "本",
-  "traditional": "本",
-  "pinyin": "běn",
-  "pos": [
-   "r",
-   "q",
-   "d",
-   "n"
-  ],
-  "meaning_en": [
-   "root",
-   "stem",
-   "origin",
-   "source"
-  ],
-  "meaning_th": "เล่ม (ลักษณนามหนังสือ)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "边",
-  "traditional": "邊",
-  "pinyin": "biān",
-  "pos": [
-   "k",
-   "d",
-   "n"
-  ],
-  "meaning_en": [
-   "side",
-   "edge",
-   "margin",
-   "border"
-  ],
-  "meaning_th": "ข้าง, ด้าน, ขอบ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "病",
-  "traditional": "病",
-  "pinyin": "bìng",
-  "pos": [
-   "n",
-   "v"
-  ],
-  "meaning_en": [
-   "illness",
-   "disease",
-   "to fall ill",
-   "defect"
-  ],
-  "meaning_th": "ป่วย / โรค",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "不",
-  "traditional": "不",
-  "pinyin": "bù",
-  "pos": [
-   "d"
-  ],
-  "meaning_en": [
-   "no; not so",
-   "(bound form) not; un-"
-  ],
-  "meaning_th": "ไม่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "不客气",
-  "traditional": "不客氣",
-  "pinyin": "bù kè qi",
-  "pos": [],
-  "meaning_en": [
-   "you're welcome",
-   "don't mention it",
-   "impolite",
-   "rude"
-  ],
-  "meaning_th": "ไม่ต้องเกรงใจ, ด้วยความยินดี",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "不要",
-  "traditional": "不要",
-  "pinyin": "bù yào",
-  "pos": [
-   "d"
-  ],
-  "meaning_en": [
-   "don't!",
-   "must not"
-  ],
-  "meaning_th": "อย่า, ห้าม",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "菜",
-  "traditional": "菜",
-  "pinyin": "cài",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "dish (type of food)",
-   "vegetable",
-   "cuisine",
-   "(coll.) (one's) type"
-  ],
-  "meaning_th": "กับข้าว / ผัก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "茶",
-  "traditional": "茶",
-  "pinyin": "chá",
-  "pos": [
-   "n",
-   "g"
-  ],
-  "meaning_en": [
-   "tea",
-   "tea plant"
-  ],
-  "meaning_th": "ชา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "唱",
-  "traditional": "唱",
-  "pinyin": "chàng",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to sing",
-   "to call loudly",
-   "to chant"
-  ],
-  "meaning_th": "ร้องเพลง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "超市",
-  "traditional": "超市",
-  "pinyin": "chāo shì",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "supermarket (abbr. for 超级市场)"
-  ],
-  "meaning_th": "ซูเปอร์มาร์เก็ต",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "车",
-  "traditional": "車",
-  "pinyin": "Chē",
-  "pos": [
-   "n",
-   "q"
-  ],
-  "meaning_en": [
-   "surname Che"
-  ],
-  "meaning_th": "รถ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "吃",
-  "traditional": "吃",
-  "pinyin": "chī",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to eat; to consume",
-   "to eat at (a cafeteria etc)",
-   "to eradicate; to destroy",
-   "to absorb"
-  ],
-  "meaning_th": "กิน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "出租车",
-  "traditional": "出租車",
-  "pinyin": "chū zū chē",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "taxi",
-   "(Tw) rental car"
-  ],
-  "meaning_th": "รถแท็กซี่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "穿",
-  "traditional": "穿",
-  "pinyin": "chuān",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to wear",
-   "to put on",
-   "to dress",
-   "to bore through"
-  ],
-  "meaning_th": "สวม, ใส่ (เสื้อผ้า)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "打电话",
-  "traditional": "打電話",
-  "pinyin": "dǎ diàn huà",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to make a telephone call"
-  ],
-  "meaning_th": "โทรศัพท์, โทรหา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "大",
-  "traditional": "大",
-  "pinyin": "dà",
-  "pos": [
-   "a",
-   "d",
-   "n",
-   "g"
-  ],
-  "meaning_en": [
-   "big; large; great",
-   "older (than another person)",
-   "eldest (as in 姐)",
-   "greatly; freely; fully"
-  ],
-  "meaning_th": "ใหญ่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "大家",
-  "traditional": "大家",
-  "pinyin": "dà jiā",
-  "pos": [
-   "r",
-   "n"
-  ],
-  "meaning_en": [
-   "everyone",
-   "influential family",
-   "great expert"
-  ],
-  "meaning_th": "ทุกคน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "大学",
-  "traditional": "大學",
-  "pinyin": "Dà xué",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "the Great Learning, one of the Four Books 四书 in Confucianism"
-  ],
-  "meaning_th": "มหาวิทยาลัย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "大学生",
-  "traditional": "大學生",
-  "pinyin": "dà xué shēng",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "university student",
-   "college student"
-  ],
-  "meaning_th": "นักศึกษามหาวิทยาลัย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "到",
-  "traditional": "到",
-  "pinyin": "dào",
-  "pos": [
-   "v",
-   "p"
-  ],
-  "meaning_en": [
-   "to reach; to arrive",
-   "to leave for; to go to",
-   "to (a place); until (a time); up to (a point)",
-   "(verb complement indicating arriving at a place or reaching a point)"
-  ],
-  "meaning_th": "ถึง, ไปถึง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "的",
-  "traditional": "的",
-  "pinyin": "de",
-  "pos": [
-   "u",
-   "n"
-  ],
-  "meaning_en": [
-   "of; ~'s (possessive particle)",
-   "(used after an attribute)",
-   "(used to form a nominal expression)",
-   "(used at the end of a declarative sentence for emphasis)"
-  ],
-  "meaning_th": "ของ (คำแสดงความเป็นเจ้าของ/ขยายนาม)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "第",
-  "traditional": "第",
-  "pinyin": "dì",
-  "pos": [
-   "m"
-  ],
-  "meaning_en": [
-   "(prefix indicating ordinal number, as in 六 \"sixth\")",
-   "(literary) grades in which successful candidates in the imperial examinations were placed",
-   "(old) residence of a high official",
-   "(literary) but; however"
-  ],
-  "meaning_th": "ที่ (นำหน้าเลขบอกลำดับ)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "弟弟",
-  "traditional": "弟弟",
-  "pinyin": "dì di",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "younger brother"
-  ],
-  "meaning_th": "น้องชาย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "点",
-  "traditional": "點",
-  "pinyin": "diǎn",
-  "pos": [
-   "qt",
-   "n",
-   "t",
-   "v"
-  ],
-  "meaning_en": [
-   "point",
-   "dot",
-   "drop",
-   "speck"
-  ],
-  "meaning_th": "โมง (บอกเวลา) / จุด",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "店",
-  "traditional": "店",
-  "pinyin": "diàn",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "inn; old-style hotel",
-   "(bound form) shop; store"
-  ],
-  "meaning_th": "ร้าน, ร้านค้า",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "电话",
-  "traditional": "電話",
-  "pinyin": "diàn huà",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "telephone",
-   "phone call",
-   "phone number"
-  ],
-  "meaning_th": "โทรศัพท์",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "电脑",
-  "traditional": "電腦",
-  "pinyin": "diàn nǎo",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "computer"
-  ],
-  "meaning_th": "คอมพิวเตอร์",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "电视",
-  "traditional": "電視",
-  "pinyin": "diàn shì",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "television; TV"
-  ],
-  "meaning_th": "โทรทัศน์, ทีวี",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "电影",
-  "traditional": "電影",
-  "pinyin": "diàn yǐng",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "movie; film"
-  ],
-  "meaning_th": "ภาพยนตร์, หนัง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "电影院",
-  "traditional": "電影院",
-  "pinyin": "diàn yǐng yuàn",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "cinema; movie theater"
-  ],
-  "meaning_th": "โรงภาพยนตร์, โรงหนัง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "东西",
-  "traditional": "東西",
-  "pinyin": "dōng xī",
-  "pos": [
-   "n",
-   "f",
-   "nr"
-  ],
-  "meaning_en": [
-   "east and west"
-  ],
-  "meaning_th": "สิ่งของ, ของ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "都",
-  "traditional": "都",
-  "pinyin": "Dū",
-  "pos": [
-   "d",
-   "g"
-  ],
-  "meaning_en": [
-   "surname Du"
-  ],
-  "meaning_th": "ทั้งหมด, ล้วน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "读",
-  "traditional": "讀",
-  "pinyin": "dòu",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "comma",
-   "phrase marked by pause"
-  ],
-  "meaning_th": "อ่าน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "读书",
-  "traditional": "讀書",
-  "pinyin": "dú shū",
-  "pos": [
-   "v",
-   "vn"
-  ],
-  "meaning_en": [
-   "to read a book",
-   "to study",
-   "to attend school"
-  ],
-  "meaning_th": "อ่านหนังสือ / เรียนหนังสือ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "对",
-  "traditional": "對",
-  "pinyin": "duì",
-  "pos": [
-   "p",
-   "v",
-   "q",
-   "a"
-  ],
-  "meaning_en": [
-   "right; correct",
-   "towards; at; for",
-   "concerning; regarding",
-   "to treat (sb a certain way)"
-  ],
-  "meaning_th": "ถูกต้อง / ต่อ, กับ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "对不起",
-  "traditional": "對不起",
-  "pinyin": "duì bu qǐ",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "I'm sorry; excuse me; I beg your pardon",
-   "to let (sb) down; to disappoint"
-  ],
-  "meaning_th": "ขอโทษ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "多",
-  "traditional": "多",
-  "pinyin": "duō",
-  "pos": [
-   "a",
-   "m",
-   "ad",
-   "d",
-   "v",
-   "g"
-  ],
-  "meaning_en": [
-   "many; much",
-   "too many; in excess",
-   "(after a numeral) ... odd",
-   "how (to what extent) (Taiwan pr. [duó])"
-  ],
-  "meaning_th": "มาก, เยอะ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "多少",
-  "traditional": "多少",
-  "pinyin": "duō shǎo",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "number",
-   "amount",
-   "somewhat"
-  ],
-  "meaning_th": "เท่าไร, กี่ (ถามจำนวน)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "儿子",
-  "traditional": "兒子",
-  "pinyin": "ér zi",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "son"
-  ],
-  "meaning_th": "ลูกชาย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "二",
-  "traditional": "二",
-  "pinyin": "èr",
-  "pos": [
-   "m",
-   "t"
-  ],
-  "meaning_en": [
-   "two",
-   "2",
-   "(Beijing dialect) stupid"
-  ],
-  "meaning_th": "สอง (2)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "饭",
-  "traditional": "飯",
-  "pinyin": "fàn",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "cooked rice",
-   "meal",
-   "(loanword) fan",
-   "devotee"
-  ],
-  "meaning_th": "ข้าว, อาหาร",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "饭店",
-  "traditional": "飯店",
-  "pinyin": "fàn diàn",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "restaurant",
-   "hotel"
-  ],
-  "meaning_th": "ร้านอาหาร / โรงแรม",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "房间",
-  "traditional": "房間",
-  "pinyin": "fáng jiān",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "room"
-  ],
-  "meaning_th": "ห้อง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "非常",
-  "traditional": "非常",
-  "pinyin": "fēi cháng",
-  "pos": [
-   "d",
-   "b"
-  ],
-  "meaning_en": [
-   "very; really",
-   "unusual; extraordinary"
-  ],
-  "meaning_th": "มาก, อย่างยิ่ง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "飞机",
-  "traditional": "飛機",
-  "pinyin": "fēi jī",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "airplane"
-  ],
-  "meaning_th": "เครื่องบิน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "分",
-  "traditional": "分",
-  "pinyin": "fēn",
-  "pos": [
-   "t",
-   "qt",
-   "v",
-   "g",
-   "n",
-   "d"
-  ],
-  "meaning_en": [
-   "to divide; to separate",
-   "to distribute; to allocate",
-   "to distinguish (good and bad)",
-   "(bound form) branch of (an organization); sub- (as in 局)"
-  ],
-  "meaning_th": "นาที (บอกเวลา) / แบ่ง, แยก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "分钟",
-  "traditional": "分鐘",
-  "pinyin": "fēn zhōng",
-  "pos": [
-   "qt"
-  ],
-  "meaning_en": [
-   "minute"
-  ],
-  "meaning_th": "นาที",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "高兴",
-  "traditional": "高興",
-  "pinyin": "gāo xìng",
-  "pos": [
-   "a",
-   "an"
-  ],
-  "meaning_en": [
-   "happy",
-   "glad",
-   "willing (to do sth)",
-   "in a cheerful mood"
-  ],
-  "meaning_th": "ดีใจ, มีความสุข",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "歌",
-  "traditional": "歌",
-  "pinyin": "gē",
-  "pos": [
-   "n",
-   "g"
-  ],
-  "meaning_en": [
-   "song",
-   "to sing"
-  ],
-  "meaning_th": "เพลง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "哥哥",
-  "traditional": "哥哥",
-  "pinyin": "gē ge",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "older brother"
-  ],
-  "meaning_th": "พี่ชาย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "个",
-  "traditional": "個",
-  "pinyin": "gě",
-  "pos": [
-   "q",
-   "g"
-  ],
-  "meaning_en": [
-   "used in 自个儿"
-  ],
-  "meaning_th": "อัน, ตัว (ลักษณนามทั่วไป)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "给",
-  "traditional": "給",
-  "pinyin": "gěi",
-  "pos": [
-   "p",
-   "v",
-   "u"
-  ],
-  "meaning_en": [
-   "to",
-   "for",
-   "for the benefit of",
-   "to give"
-  ],
-  "meaning_th": "ให้ / แก่, ให้แก่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "公司",
-  "traditional": "公司",
-  "pinyin": "gōng sī",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "company; firm; corporation"
-  ],
-  "meaning_th": "บริษัท",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "工作",
-  "traditional": "工作",
-  "pinyin": "gōng zuò",
-  "pos": [
-   "vn",
-   "v",
-   "n"
-  ],
-  "meaning_en": [
-   "to work",
-   "(of a machine) to operate",
-   "job",
-   "work"
-  ],
-  "meaning_th": "ทำงาน / งาน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "狗",
-  "traditional": "狗",
-  "pinyin": "gǒu",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "dog"
-  ],
-  "meaning_th": "หมา, สุนัข",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "贵",
-  "traditional": "貴",
-  "pinyin": "guì",
-  "pos": [
-   "a",
-   "r",
-   "b",
-   "g"
-  ],
-  "meaning_en": [
-   "expensive",
-   "noble",
-   "precious",
-   "(honorific) your"
-  ],
-  "meaning_th": "แพง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "国",
-  "traditional": "國",
-  "pinyin": "Guó",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "surname Guo"
-  ],
-  "meaning_th": "ประเทศ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "还",
-  "traditional": "還",
-  "pinyin": "Huán",
-  "pos": [
-   "d",
-   "v"
-  ],
-  "meaning_en": [
-   "surname Huan"
-  ],
-  "meaning_th": "ยัง, ยังคง / อีก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "孩子",
-  "traditional": "孩子",
-  "pinyin": "hái zi",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "child"
-  ],
-  "meaning_th": "เด็ก, ลูก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "汉语",
-  "traditional": "漢語",
-  "pinyin": "Hàn yǔ",
-  "pos": [
-   "nz"
-  ],
-  "meaning_en": [
-   "Chinese language"
-  ],
-  "meaning_th": "ภาษาจีน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "汉字",
-  "traditional": "漢字",
-  "pinyin": "hàn zì",
-  "pos": [
-   "nz",
-   "n"
-  ],
-  "meaning_en": [
-   "Chinese character",
-   "Japanese: kanji",
-   "Korean: hanja",
-   "Vietnamese: hán tự"
-  ],
-  "meaning_th": "ตัวอักษรจีน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "好",
-  "traditional": "好",
-  "pinyin": "hǎo",
-  "pos": [
-   "a",
-   "d",
-   "v"
-  ],
-  "meaning_en": [
-   "good",
-   "appropriate; proper",
-   "all right!",
-   "(before a verb) easy to"
-  ],
-  "meaning_th": "ดี",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "好吃",
-  "traditional": "好吃",
-  "pinyin": "hǎo chī",
-  "pos": [
-   "a"
-  ],
-  "meaning_en": [
-   "tasty",
-   "delicious"
-  ],
-  "meaning_th": "อร่อย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "好看",
-  "traditional": "好看",
-  "pinyin": "hǎo kàn",
-  "pos": [
-   "a"
-  ],
-  "meaning_en": [
-   "good-looking",
-   "nice-looking",
-   "good (of a movie, book, TV show etc)",
-   "embarrassed"
-  ],
-  "meaning_th": "สวย, น่าดู",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "好听",
-  "traditional": "好聽",
-  "pinyin": "hǎo tīng",
-  "pos": [
-   "a"
-  ],
-  "meaning_en": [
-   "pleasant to hear"
-  ],
-  "meaning_th": "เพราะ, น่าฟัง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "好玩儿",
-  "traditional": "好玩兒",
-  "pinyin": "hǎo wán r",
-  "pos": [
-   "a"
-  ],
-  "meaning_en": [
-   "erhua variant of 好玩",
-   "amusing",
-   "fun",
-   "interesting"
-  ],
-  "meaning_th": "สนุก, น่าเล่น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "号",
-  "traditional": "號",
-  "pinyin": "háo",
-  "pos": [
-   "q",
-   "n",
-   "v"
-  ],
-  "meaning_en": [
-   "roar",
-   "cry"
-  ],
-  "meaning_th": "วันที่ / หมายเลข, เบอร์",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "喝",
-  "traditional": "喝",
-  "pinyin": "hē",
-  "pos": [
-   "g",
-   "vn"
-  ],
-  "meaning_en": [
-   "to drink",
-   "variant of 嗬"
-  ],
-  "meaning_th": "ดื่ม",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "和",
-  "traditional": "咊",
-  "pinyin": "hé",
-  "pos": [
-   "cc",
-   "p",
-   "v",
-   "qv",
-   "g",
-   "n"
-  ],
-  "meaning_en": [
-   "old variant of 和"
-  ],
-  "meaning_th": "และ, กับ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "很",
-  "traditional": "很",
-  "pinyin": "hěn",
-  "pos": [
-   "d"
-  ],
-  "meaning_en": [
-   "(adverb of degree)",
-   "quite",
-   "very",
-   "awfully"
-  ],
-  "meaning_th": "มาก (คำบอกระดับหน้าคุณศัพท์)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "后",
-  "traditional": "后",
-  "pinyin": "Hòu",
-  "pos": [
-   "f",
-   "g",
-   "t"
-  ],
-  "meaning_en": [
-   "surname Hou"
-  ],
-  "meaning_th": "ข้างหลัง / หลังจาก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "回",
-  "traditional": "回",
-  "pinyin": "huí",
-  "pos": [
-   "v",
-   "qv"
-  ],
-  "meaning_en": [
-   "to circle",
-   "to go back",
-   "to turn around",
-   "to answer"
-  ],
-  "meaning_th": "กลับ, กลับไป",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "会",
-  "traditional": "會",
-  "pinyin": "huì",
-  "pos": [
-   "v",
-   "n"
-  ],
-  "meaning_en": [
-   "can; to have the skill; to know how to",
-   "to be likely to; to be sure to",
-   "to meet; to get together",
-   "meeting; gathering"
-  ],
-  "meaning_th": "เป็น, ทำเป็น (ทักษะ) / จะ, น่าจะ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "火车",
-  "traditional": "火車",
-  "pinyin": "huǒ chē",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "train"
-  ],
-  "meaning_th": "รถไฟ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "鸡蛋",
-  "traditional": "雞蛋",
-  "pinyin": "jī dàn",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "(chicken) egg",
-   "hen's egg"
-  ],
-  "meaning_th": "ไข่ไก่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "几",
-  "traditional": "几",
-  "pinyin": "jī",
-  "pos": [
-   "m",
-   "d"
-  ],
-  "meaning_en": [
-   "small table"
-  ],
-  "meaning_th": "กี่ (ถามจำนวนน้อย)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "家",
-  "traditional": "傢",
-  "pinyin": "jiā",
-  "pos": [
-   "n",
-   "q"
-  ],
-  "meaning_en": [
-   "used in 家伙 and 家俱"
-  ],
-  "meaning_th": "บ้าน / ครอบครัว",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "家人",
-  "traditional": "家人",
-  "pinyin": "jiā rén",
-  "pos": [
-   "n",
-   "nr"
-  ],
-  "meaning_en": [
-   "family member",
-   "(old) servant"
-  ],
-  "meaning_th": "คนในครอบครัว",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "见",
-  "traditional": "見",
-  "pinyin": "jiàn",
-  "pos": [
-   "v",
-   "g"
-  ],
-  "meaning_en": [
-   "to see",
-   "to meet",
-   "to appear (to be sth)",
-   "to interview"
-  ],
-  "meaning_th": "พบ, เจอ / เห็น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "件",
-  "traditional": "件",
-  "pinyin": "jiàn",
-  "pos": [
-   "q",
-   "g"
-  ],
-  "meaning_en": [
-   "item",
-   "component",
-   "classifier for events, things, clothes etc"
-  ],
-  "meaning_th": "ตัว, เรื่อง (ลักษณนามเสื้อผ้า/เหตุการณ์)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "饺子",
-  "traditional": "餃子",
-  "pinyin": "jiǎo zi",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "dumpling",
-   "pot-sticker"
-  ],
-  "meaning_th": "เกี๊ยวจีน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "叫",
-  "traditional": "叫",
-  "pinyin": "jiào",
-  "pos": [
-   "v",
-   "p",
-   "n"
-  ],
-  "meaning_en": [
-   "to shout",
-   "to call",
-   "to order",
-   "to ask"
-  ],
-  "meaning_th": "เรียก / มีชื่อว่า",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "姐姐",
-  "traditional": "姐姐",
-  "pinyin": "jiě jie",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "older sister"
-  ],
-  "meaning_th": "พี่สาว",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "今年",
-  "traditional": "今年",
-  "pinyin": "jīn nián",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "this year"
-  ],
-  "meaning_th": "ปีนี้",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "今天",
-  "traditional": "今天",
-  "pinyin": "jīn tiān",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "today",
-   "at the present",
-   "now"
-  ],
-  "meaning_th": "วันนี้",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "九",
-  "traditional": "九",
-  "pinyin": "jiǔ",
-  "pos": [
-   "m",
-   "t",
-   "b"
-  ],
-  "meaning_en": [
-   "nine",
-   "9"
-  ],
-  "meaning_th": "เก้า (9)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "觉得",
-  "traditional": "覺得",
-  "pinyin": "jué de",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to think that ...; to feel that ...",
-   "to feel (uncomfortable etc)"
-  ],
-  "meaning_th": "รู้สึกว่า / คิดว่า",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "开",
-  "traditional": "開",
-  "pinyin": "kāi",
-  "pos": [
-   "v",
-   "q"
-  ],
-  "meaning_en": [
-   "to open (transitive or intransitive)",
-   "(of ships, vehicles, troops etc) to start",
-   "to turn on; to put in operation; to operate; to run",
-   "to boil"
-  ],
-  "meaning_th": "เปิด / ขับ (รถ)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "开车",
-  "traditional": "開車",
-  "pinyin": "kāi chē",
-  "pos": [
-   "v",
-   "vn"
-  ],
-  "meaning_en": [
-   "to drive a car"
-  ],
-  "meaning_th": "ขับรถ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "看",
-  "traditional": "看",
-  "pinyin": "kān",
-  "pos": [
-   "v",
-   "u"
-  ],
-  "meaning_en": [
-   "to look after",
-   "to take care of",
-   "to watch",
-   "to guard"
-  ],
-  "meaning_th": "ดู, มอง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "看病",
-  "traditional": "看病",
-  "pinyin": "kàn bìng",
-  "pos": [
-   "v",
-   "vn"
-  ],
-  "meaning_en": [
-   "to visit a doctor",
-   "to see a patient"
-  ],
-  "meaning_th": "ไปหาหมอ, ตรวจโรค",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "看见",
-  "traditional": "看見",
-  "pinyin": "kàn jiàn",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to see",
-   "to catch sight of"
-  ],
-  "meaning_th": "มองเห็น, เห็น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "可以",
-  "traditional": "可以",
-  "pinyin": "kě yǐ",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "can",
-   "may",
-   "possible",
-   "able to"
-  ],
-  "meaning_th": "ได้, สามารถ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "课",
-  "traditional": "課",
-  "pinyin": "kè",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "subject",
-   "course",
-   "class",
-   "lesson"
-  ],
-  "meaning_th": "บทเรียน, วิชา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "口",
-  "traditional": "口",
-  "pinyin": "kǒu",
-  "pos": [
-   "q",
-   "n"
-  ],
-  "meaning_en": [
-   "mouth",
-   "classifier for things with mouths (people, domestic animals, cannons, wells etc)",
-   "classifier for bites or mouthfuls"
-  ],
-  "meaning_th": "ปาก / ลักษณนามนับคนในครอบครัว",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "块",
-  "traditional": "塊",
-  "pinyin": "kuài",
-  "pos": [
-   "q",
-   "g"
-  ],
-  "meaning_en": [
-   "lump; chunk; piece",
-   "classifier for pieces of cloth, cake, soap etc",
-   "(coll.) classifier for money and currency units"
-  ],
-  "meaning_th": "ก้อน, ชิ้น (ลักษณนาม) / หยวน (หน่วยเงิน ภาษาพูด)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "来",
-  "traditional": "來",
-  "pinyin": "lái",
-  "pos": [
-   "v",
-   "f",
-   "m",
-   "u",
-   "y"
-  ],
-  "meaning_en": [
-   "to come",
-   "(used as a substitute for a more specific verb)",
-   "hither (directional complement for motion toward the speaker, as in 回来)",
-   "ever since (as in 自古以来)"
-  ],
-  "meaning_th": "มา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "老师",
-  "traditional": "老師",
-  "pinyin": "lǎo shī",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "teacher"
-  ],
-  "meaning_th": "ครู, อาจารย์",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "了",
-  "traditional": "了",
-  "pinyin": "le",
-  "pos": [
-   "y",
-   "u",
-   "v"
-  ],
-  "meaning_en": [
-   "(completed action marker)",
-   "(modal particle indicating change of state, situation now)",
-   "(modal particle intensifying preceding clause)"
-  ],
-  "meaning_th": "แล้ว (บอกว่าเกิดขึ้นแล้ว/เปลี่ยนแปลง ท้ายประโยค)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "冷",
-  "traditional": "冷",
-  "pinyin": "Lěng",
-  "pos": [
-   "a",
-   "ad",
-   "g"
-  ],
-  "meaning_en": [
-   "surname Leng"
-  ],
-  "meaning_th": "หนาว, เย็น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "里",
-  "traditional": "裏",
-  "pinyin": "lǐ",
-  "pos": [
-   "f",
-   "q"
-  ],
-  "meaning_en": [
-   "variant of 里"
-  ],
-  "meaning_th": "ใน, ข้างใน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "两",
-  "traditional": "兩",
-  "pinyin": "liǎng",
-  "pos": [
-   "m",
-   "t"
-  ],
-  "meaning_en": [
-   "two",
-   "both",
-   "some",
-   "a few"
-  ],
-  "meaning_th": "สอง (ใช้หน้าลักษณนาม)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "零",
-  "traditional": "零",
-  "pinyin": "líng",
-  "pos": [
-   "m",
-   "t",
-   "g"
-  ],
-  "meaning_en": [
-   "zero",
-   "nought",
-   "zero sign",
-   "fractional"
-  ],
-  "meaning_th": "ศูนย์ (0)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "六",
-  "traditional": "六",
-  "pinyin": "liù",
-  "pos": [
-   "m",
-   "t"
-  ],
-  "meaning_en": [
-   "six",
-   "6"
-  ],
-  "meaning_th": "หก (6)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "妈妈",
-  "traditional": "媽媽",
-  "pinyin": "mā ma",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "mama",
-   "mommy",
-   "mother"
-  ],
-  "meaning_th": "แม่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "吗",
-  "traditional": "嗎",
-  "pinyin": "má",
-  "pos": [
-   "y"
-  ],
-  "meaning_en": [
-   "(coll.) what?"
-  ],
-  "meaning_th": "ไหม (คำถามท้ายประโยค)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "买",
-  "traditional": "買",
-  "pinyin": "mǎi",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to buy",
-   "to purchase"
-  ],
-  "meaning_th": "ซื้อ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "卖",
-  "traditional": "賣",
-  "pinyin": "mài",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to sell",
-   "to betray",
-   "to spare no effort",
-   "to show off or flaunt"
-  ],
-  "meaning_th": "ขาย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "忙",
-  "traditional": "忙",
-  "pinyin": "máng",
-  "pos": [
-   "v",
-   "a",
-   "ad",
-   "g",
-   "an"
-  ],
-  "meaning_en": [
-   "busy",
-   "hurriedly",
-   "to hurry",
-   "to rush"
-  ],
-  "meaning_th": "ยุ่ง, งานยุ่ง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "猫",
-  "traditional": "貓",
-  "pinyin": "māo",
-  "pos": [
-   "n",
-   "v"
-  ],
-  "meaning_en": [
-   "cat",
-   "(dialect) to hide oneself",
-   "(coll.) modem"
-  ],
-  "meaning_th": "แมว",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "没关系",
-  "traditional": "沒關係",
-  "pinyin": "méi guān xi",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "it doesn't matter"
-  ],
-  "meaning_th": "ไม่เป็นไร",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "没事",
-  "traditional": "没事",
-  "pinyin": "méi shì",
-  "pos": [],
-  "meaning_en": [],
-  "meaning_th": "ไม่เป็นไร",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "没有",
-  "traditional": "沒有",
-  "pinyin": "méi yǒu",
-  "pos": [
-   "v",
-   "d"
-  ],
-  "meaning_en": [
-   "haven't",
-   "hasn't",
-   "doesn't exist",
-   "to not have"
-  ],
-  "meaning_th": "ไม่มี / ไม่ได้ (ปฏิเสธอดีต)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "妹妹",
-  "traditional": "妹妹",
-  "pinyin": "mèi mei",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "younger sister",
-   "young woman"
-  ],
-  "meaning_th": "น้องสาว",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "们",
-  "traditional": "們",
-  "pinyin": "men",
-  "pos": [
-   "k"
-  ],
-  "meaning_en": [
-   "plural marker for pronouns, and nouns referring to individuals"
-  ],
-  "meaning_th": "พวก (ต่อท้ายบอกพหูพจน์)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "米饭",
-  "traditional": "米飯",
-  "pinyin": "mǐ fàn",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "(cooked) rice"
-  ],
-  "meaning_th": "ข้าวสวย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "面包",
-  "traditional": "麵包",
-  "pinyin": "miàn bāo",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "bread"
-  ],
-  "meaning_th": "ขนมปัง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "面条儿",
-  "traditional": "麵條兒",
-  "pinyin": "miàn tiáo r",
-  "pos": [],
-  "meaning_en": [
-   "erhua variant of 面条",
-   "noodles"
-  ],
-  "meaning_th": "บะหมี่ (อาหารเส้น)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "明年",
-  "traditional": "明年",
-  "pinyin": "míng nián",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "next year"
-  ],
-  "meaning_th": "ปีหน้า",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "明天",
-  "traditional": "明天",
-  "pinyin": "míng tiān",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "tomorrow"
-  ],
-  "meaning_th": "พรุ่งนี้",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "名字",
-  "traditional": "名字",
-  "pinyin": "míng zi",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "name (of a person or thing)"
-  ],
-  "meaning_th": "ชื่อ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "哪",
-  "traditional": "哪",
-  "pinyin": "nǎ",
-  "pos": [
-   "r",
-   "y"
-  ],
-  "meaning_en": [
-   "how",
-   "which"
-  ],
-  "meaning_th": "ไหน, อันไหน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "哪个",
-  "traditional": "哪个",
-  "pinyin": "nǎ ge",
-  "pos": [],
-  "meaning_en": [],
-  "meaning_th": "อันไหน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "哪里",
-  "traditional": "哪裏",
-  "pinyin": "nǎ lǐ",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "where?",
-   "somewhere",
-   "anywhere",
-   "wherever"
-  ],
-  "meaning_th": "ที่ไหน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "哪儿",
-  "traditional": "哪兒",
-  "pinyin": "nǎ r",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "where?",
-   "wherever; anywhere; somewhere",
-   "(used in rhetorical questions) how can ...?; how could ...?"
-  ],
-  "meaning_th": "ที่ไหน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "哪些",
-  "traditional": "哪些",
-  "pinyin": "nǎ xiē",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "which ones?",
-   "who?",
-   "what?"
-  ],
-  "meaning_th": "อันไหนบ้าง (พหูพจน์)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "那",
-  "traditional": "那",
-  "pinyin": "Nā",
-  "pos": [
-   "r",
-   "c"
-  ],
-  "meaning_en": [
-   "surname Na"
-  ],
-  "meaning_th": "นั่น, นั้น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "那边",
-  "traditional": "那邊",
-  "pinyin": "nà bian",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "over there",
-   "yonder"
-  ],
-  "meaning_th": "ทางนั้น, ด้านนั้น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "那个",
-  "traditional": "那个",
-  "pinyin": "nà ge",
-  "pos": [],
-  "meaning_en": [],
-  "meaning_th": "อันนั้น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "那里",
-  "traditional": "那裏",
-  "pinyin": "nà li",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "there; that place"
-  ],
-  "meaning_th": "ที่นั่น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "那儿",
-  "traditional": "那兒",
-  "pinyin": "nà r",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "there"
-  ],
-  "meaning_th": "ที่นั่น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "那些",
-  "traditional": "那些",
-  "pinyin": "nà xiē",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "those"
-  ],
-  "meaning_th": "เหล่านั้น, พวกนั้น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "男",
-  "traditional": "男",
-  "pinyin": "nán",
-  "pos": [
-   "b",
-   "g"
-  ],
-  "meaning_en": [
-   "male",
-   "Baron, lowest of five orders of nobility 位"
-  ],
-  "meaning_th": "ชาย, ผู้ชาย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "男朋友",
-  "traditional": "男朋友",
-  "pinyin": "nán péng you",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "boyfriend"
-  ],
-  "meaning_th": "แฟน (ผู้ชาย)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "呢",
-  "traditional": "呢",
-  "pinyin": "ne",
-  "pos": [
-   "y"
-  ],
-  "meaning_en": [
-   "particle indicating that a previously asked question is to be applied to the preceding word (\"What about ...?\", \"And ...?\")",
-   "particle for inquiring about location (\"Where is ...?\")",
-   "particle signaling a pause, to emphasize the preceding words and allow the listener time to take them on board (\"ok?\", \"are you with me?\")",
-   "(at the end of a declarative sentence) particle indicating continuation of a state or action"
-  ],
-  "meaning_th": "ล่ะ (คำถามท้ายประโยค)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "能",
-  "traditional": "能",
-  "pinyin": "Néng",
-  "pos": [
-   "v",
-   "g"
-  ],
-  "meaning_en": [
-   "surname Neng"
-  ],
-  "meaning_th": "สามารถ, ได้",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "你",
-  "traditional": "你",
-  "pinyin": "nǐ",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "you (informal, as opposed to courteous 您)"
-  ],
-  "meaning_th": "เธอ, คุณ (ไม่เป็นทางการ)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "你好",
-  "traditional": "你好",
-  "pinyin": "nǐ hǎo",
-  "pos": [],
-  "meaning_en": [],
-  "meaning_th": "สวัสดี",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "你们",
-  "traditional": "你們",
-  "pinyin": "nǐ men",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "you (plural)"
-  ],
-  "meaning_th": "พวกเธอ, พวกคุณ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "年",
-  "traditional": "年",
-  "pinyin": "Nián",
-  "pos": [
-   "qt",
-   "t",
-   "n"
-  ],
-  "meaning_en": [
-   "surname Nian"
-  ],
-  "meaning_th": "ปี",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "您",
-  "traditional": "您",
-  "pinyin": "nín",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "you (courteous, as opposed to informal 你)"
-  ],
-  "meaning_th": "ท่าน, คุณ (สุภาพ)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "牛奶",
-  "traditional": "牛奶",
-  "pinyin": "niú nǎi",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "cow's milk"
-  ],
-  "meaning_th": "นมวัว",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "女",
-  "traditional": "女",
-  "pinyin": "nǚ",
-  "pos": [
-   "b",
-   "g"
-  ],
-  "meaning_en": [
-   "female",
-   "woman",
-   "daughter"
-  ],
-  "meaning_th": "ผู้หญิง, เพศหญิง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "女儿",
-  "traditional": "女兒",
-  "pinyin": "nǚ ér",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "daughter"
-  ],
-  "meaning_th": "ลูกสาว",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "女朋友",
-  "traditional": "女朋友",
-  "pinyin": "nǚ péng you",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "girlfriend"
-  ],
-  "meaning_th": "แฟน (ผู้หญิง)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "女士",
-  "traditional": "女士",
-  "pinyin": "nǚ shì",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "lady",
-   "madam",
-   "Miss",
-   "Ms"
-  ],
-  "meaning_th": "คุณผู้หญิง (คำสุภาพ)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "朋友",
-  "traditional": "朋友",
-  "pinyin": "péng you",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "friend"
-  ],
-  "meaning_th": "เพื่อน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "便宜",
-  "traditional": "便宜",
-  "pinyin": "biàn yí",
-  "pos": [
-   "a",
-   "v",
-   "an"
-  ],
-  "meaning_en": [
-   "convenient"
-  ],
-  "meaning_th": "ถูก (ราคา)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "漂亮",
-  "traditional": "漂亮",
-  "pinyin": "piào liang",
-  "pos": [
-   "a"
-  ],
-  "meaning_en": [
-   "pretty",
-   "beautiful"
-  ],
-  "meaning_th": "สวย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "苹果",
-  "traditional": "蘋果",
-  "pinyin": "píng guǒ",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "apple"
-  ],
-  "meaning_th": "แอปเปิล",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "七",
-  "traditional": "七",
-  "pinyin": "qī",
-  "pos": [
-   "m",
-   "t"
-  ],
-  "meaning_en": [
-   "seven",
-   "7"
-  ],
-  "meaning_th": "เจ็ด (7)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "起床",
-  "traditional": "起床",
-  "pinyin": "qǐ chuáng",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to get out of bed",
-   "to get up"
-  ],
-  "meaning_th": "ตื่นนอน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "千",
-  "traditional": "千",
-  "pinyin": "qiān",
-  "pos": [
-   "m",
-   "t"
-  ],
-  "meaning_en": [
-   "thousand"
-  ],
-  "meaning_th": "พัน (1,000)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "前",
-  "traditional": "前",
-  "pinyin": "qián",
-  "pos": [
-   "f",
-   "v"
-  ],
-  "meaning_en": [
-   "front",
-   "forward",
-   "ahead",
-   "first"
-  ],
-  "meaning_th": "ข้างหน้า / ก่อน (เวลา)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "钱",
-  "traditional": "錢",
-  "pinyin": "Qián",
-  "pos": [
-   "n",
-   "nr"
-  ],
-  "meaning_en": [
-   "surname Qian"
-  ],
-  "meaning_th": "เงิน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "请",
-  "traditional": "請",
-  "pinyin": "qǐng",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to ask",
-   "to invite",
-   "please (do sth)",
-   "to treat (to a meal etc)"
-  ],
-  "meaning_th": "เชิญ, กรุณา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "请问",
-  "traditional": "請問",
-  "pinyin": "qǐng wèn",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "Excuse me, may I ask...?"
-  ],
-  "meaning_th": "ขอถามหน่อย (คำสุภาพ)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "去",
-  "traditional": "去",
-  "pinyin": "qù",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to go",
-   "to go to (a place)",
-   "(of a time etc) last",
-   "just passed"
-  ],
-  "meaning_th": "ไป",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "去年",
-  "traditional": "去年",
-  "pinyin": "qù nián",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "last year"
-  ],
-  "meaning_th": "ปีที่แล้ว",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "热",
-  "traditional": "熱",
-  "pinyin": "rè",
-  "pos": [
-   "a",
-   "n",
-   "k",
-   "v",
-   "ad",
-   "an"
-  ],
-  "meaning_en": [
-   "to warm up",
-   "to heat up",
-   "hot (of weather)",
-   "heat"
-  ],
-  "meaning_th": "ร้อน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "人",
-  "traditional": "人",
-  "pinyin": "rén",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "person; people"
-  ],
-  "meaning_th": "คน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "认识",
-  "traditional": "認識",
-  "pinyin": "rèn shi",
-  "pos": [
-   "v",
-   "n",
-   "vn"
-  ],
-  "meaning_en": [
-   "to know",
-   "to recognize",
-   "to be familiar with",
-   "to get acquainted with sb"
-  ],
-  "meaning_th": "รู้จัก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "日",
-  "traditional": "日",
-  "pinyin": "Rì",
-  "pos": [
-   "t",
-   "g",
-   "b",
-   "qt"
-  ],
-  "meaning_en": [
-   "abbr. for 本, Japan"
-  ],
-  "meaning_th": "วัน, วันที่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "三",
-  "traditional": "三",
-  "pinyin": "Sān",
-  "pos": [
-   "m",
-   "t"
-  ],
-  "meaning_en": [
-   "surname San"
-  ],
-  "meaning_th": "สาม (3)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "商店",
-  "traditional": "商店",
-  "pinyin": "shāng diàn",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "store; shop"
-  ],
-  "meaning_th": "ร้านค้า",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "上",
-  "traditional": "上",
-  "pinyin": "shǎng",
-  "pos": [
-   "f",
-   "v",
-   "g"
-  ],
-  "meaning_en": [
-   "used in 上声"
-  ],
-  "meaning_th": "บน, ข้างบน / ขึ้น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "上班",
-  "traditional": "上班",
-  "pinyin": "shàng bān",
-  "pos": [
-   "v",
-   "vn"
-  ],
-  "meaning_en": [
-   "to go to work",
-   "to be on duty",
-   "to start work",
-   "to go to the office"
-  ],
-  "meaning_th": "ไปทำงาน, เข้างาน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "上课",
-  "traditional": "上課",
-  "pinyin": "shàng kè",
-  "pos": [
-   "v",
-   "vn"
-  ],
-  "meaning_en": [
-   "to go to class",
-   "to attend class",
-   "to go to teach a class"
-  ],
-  "meaning_th": "เข้าเรียน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "上午",
-  "traditional": "上午",
-  "pinyin": "shàng wǔ",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "morning"
-  ],
-  "meaning_th": "ช่วงเช้า (ก่อนเที่ยง)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "上学",
-  "traditional": "上學",
-  "pinyin": "shàng xué",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to go to school",
-   "to attend school"
-  ],
-  "meaning_th": "ไปโรงเรียน, ไปเรียน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "少",
-  "traditional": "少",
-  "pinyin": "shǎo",
-  "pos": [
-   "a",
-   "ad",
-   "v",
-   "d",
-   "g"
-  ],
-  "meaning_en": [
-   "few",
-   "less",
-   "to lack",
-   "to be missing"
-  ],
-  "meaning_th": "น้อย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "谁",
-  "traditional": "誰",
-  "pinyin": "shéi",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "who",
-   "also pr. [shuí]"
-  ],
-  "meaning_th": "ใคร",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "什么",
-  "traditional": "什麼",
-  "pinyin": "shén me",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "what?",
-   "something",
-   "anything"
-  ],
-  "meaning_th": "อะไร",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "生病",
-  "traditional": "生病",
-  "pinyin": "shēng bìng",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to fall ill"
-  ],
-  "meaning_th": "ป่วย, ไม่สบาย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "十",
-  "traditional": "十",
-  "pinyin": "shí",
-  "pos": [
-   "m",
-   "t"
-  ],
-  "meaning_en": [
-   "ten",
-   "10"
-  ],
-  "meaning_th": "สิบ (10)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "时候",
-  "traditional": "時候",
-  "pinyin": "shí hou",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "time",
-   "length of time",
-   "moment",
-   "period"
-  ],
-  "meaning_th": "เวลา, ตอน (ที่)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "时间",
-  "traditional": "時間",
-  "pinyin": "shí jiān",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "time",
-   "period"
-  ],
-  "meaning_th": "เวลา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "事",
-  "traditional": "事",
-  "pinyin": "shì",
-  "pos": [
-   "n",
-   "g"
-  ],
-  "meaning_en": [
-   "matter",
-   "thing",
-   "item",
-   "work"
-  ],
-  "meaning_th": "เรื่อง, ธุระ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "是",
-  "traditional": "是",
-  "pinyin": "shì",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to be (followed by substantives only)",
-   "correct; right; true",
-   "(respectful acknowledgement of a command) very well",
-   "(adverb for emphatic assertion)"
-  ],
-  "meaning_th": "เป็น, คือ / ใช่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "手机",
-  "traditional": "手機",
-  "pinyin": "shǒu jī",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "cell phone",
-   "mobile phone"
-  ],
-  "meaning_th": "โทรศัพท์มือถือ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "书",
-  "traditional": "書",
-  "pinyin": "Shū",
-  "pos": [
-   "n",
-   "g"
-  ],
-  "meaning_en": [
-   "abbr. for 书经"
-  ],
-  "meaning_th": "หนังสือ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "书店",
-  "traditional": "書店",
-  "pinyin": "shū diàn",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "bookstore"
-  ],
-  "meaning_th": "ร้านหนังสือ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "水",
-  "traditional": "水",
-  "pinyin": "Shuǐ",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "surname Shui"
-  ],
-  "meaning_th": "น้ำ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "水果",
-  "traditional": "水果",
-  "pinyin": "shuǐ guǒ",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "fruit"
-  ],
-  "meaning_th": "ผลไม้",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "睡",
-  "traditional": "睡",
-  "pinyin": "shuì",
-  "pos": [
-   "v",
-   "vn"
-  ],
-  "meaning_en": [
-   "to sleep",
-   "to lie down"
-  ],
-  "meaning_th": "นอนหลับ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "睡觉",
-  "traditional": "睡覺",
-  "pinyin": "shuì jiào",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to go to bed",
-   "to sleep"
-  ],
-  "meaning_th": "นอนหลับ, เข้านอน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "说",
-  "traditional": "說",
-  "pinyin": "shuì",
-  "pos": [
-   "v",
-   "g"
-  ],
-  "meaning_en": [
-   "to persuade"
-  ],
-  "meaning_th": "พูด, บอก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "说话",
-  "traditional": "說話",
-  "pinyin": "shuō huà",
-  "pos": [
-   "v",
-   "vn"
-  ],
-  "meaning_en": [
-   "to speak",
-   "to say",
-   "to talk",
-   "to gossip"
-  ],
-  "meaning_th": "พูด, พูดคุย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "四",
-  "traditional": "四",
-  "pinyin": "sì",
-  "pos": [
-   "m",
-   "t"
-  ],
-  "meaning_en": [
-   "four",
-   "4"
-  ],
-  "meaning_th": "สี่ (4)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "岁",
-  "traditional": "嵗",
-  "pinyin": "suì",
-  "pos": [
-   "qt"
-  ],
-  "meaning_en": [
-   "variant of 岁, year",
-   "years old"
-  ],
-  "meaning_th": "ขวบ, ปี (บอกอายุ)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "他",
-  "traditional": "他",
-  "pinyin": "tā",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "he; him (used for either sex when the sex is unknown or unimportant)",
-   "(used before sb's name for emphasis)",
-   "(used as a meaningless mock object)",
-   "(literary) other"
-  ],
-  "meaning_th": "เขา (ผู้ชาย)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "它",
-  "traditional": "它",
-  "pinyin": "tā",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "it"
-  ],
-  "meaning_th": "มัน (สรรพนามแทนสิ่งของ/สัตว์)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "她",
-  "traditional": "她",
-  "pinyin": "tā",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "she"
-  ],
-  "meaning_th": "เธอ, หล่อน (ผู้หญิง)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "他们",
-  "traditional": "他們",
-  "pinyin": "tā men",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "they"
-  ],
-  "meaning_th": "พวกเขา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "它们",
-  "traditional": "它們",
-  "pinyin": "tā men",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "they (for inanimate objects)"
-  ],
-  "meaning_th": "พวกมัน (สิ่งของ/สัตว์)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "她们",
-  "traditional": "她們",
-  "pinyin": "tā men",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "they",
-   "them (for females)"
-  ],
-  "meaning_th": "พวกเธอ (ผู้หญิง)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "太",
-  "traditional": "太",
-  "pinyin": "tài",
-  "pos": [
-   "d",
-   "b"
-  ],
-  "meaning_en": [
-   "highest",
-   "greatest",
-   "too (much)",
-   "very"
-  ],
-  "meaning_th": "เกินไป / มาก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "天",
-  "traditional": "天",
-  "pinyin": "tiān",
-  "pos": [
-   "qt",
-   "n"
-  ],
-  "meaning_en": [
-   "day",
-   "sky",
-   "heaven"
-  ],
-  "meaning_th": "วัน / ท้องฟ้า",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "天气",
-  "traditional": "天氣",
-  "pinyin": "tiān qì",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "weather"
-  ],
-  "meaning_th": "อากาศ, สภาพอากาศ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "听",
-  "traditional": "听",
-  "pinyin": "yǐn",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "smile (archaic)"
-  ],
-  "meaning_th": "ฟัง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "听见",
-  "traditional": "聽見",
-  "pinyin": "tīng jiàn",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to hear"
-  ],
-  "meaning_th": "ได้ยิน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "同学",
-  "traditional": "同學",
-  "pinyin": "tóng xué",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "to study at the same school",
-   "fellow student",
-   "classmate"
-  ],
-  "meaning_th": "เพื่อนร่วมชั้นเรียน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "外",
-  "traditional": "外",
-  "pinyin": "wài",
-  "pos": [
-   "f"
-  ],
-  "meaning_en": [
-   "outside",
-   "in addition",
-   "foreign",
-   "external"
-  ],
-  "meaning_th": "ข้างนอก, ภายนอก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "外边",
-  "traditional": "外邊",
-  "pinyin": "wài bian",
-  "pos": [
-   "f"
-  ],
-  "meaning_en": [
-   "outside",
-   "outer surface",
-   "abroad",
-   "place other than one's home"
-  ],
-  "meaning_th": "ข้างนอก, ด้านนอก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "玩",
-  "traditional": "玩",
-  "pinyin": "wán",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to play",
-   "to have fun",
-   "to trifle with",
-   "toy"
-  ],
-  "meaning_th": "เล่น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "晚",
-  "traditional": "晚",
-  "pinyin": "wǎn",
-  "pos": [
-   "tg",
-   "a",
-   "ad"
-  ],
-  "meaning_en": [
-   "evening",
-   "night",
-   "late"
-  ],
-  "meaning_th": "ตอนค่ำ / สาย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "晚饭",
-  "traditional": "晚飯",
-  "pinyin": "wǎn fàn",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "evening meal",
-   "dinner",
-   "supper"
-  ],
-  "meaning_th": "อาหารเย็น, ข้าวเย็น",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "晚上",
-  "traditional": "晚上",
-  "pinyin": "wǎn shang",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "evening",
-   "night",
-   "in the evening"
-  ],
-  "meaning_th": "ตอนกลางคืน, ตอนค่ำ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "喂",
-  "traditional": "喂",
-  "pinyin": "wéi",
-  "pos": [
-   "v",
-   "e"
-  ],
-  "meaning_en": [
-   "hello (when answering the phone)"
-  ],
-  "meaning_th": "ฮัลโหล (คำรับโทรศัพท์)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "问",
-  "traditional": "問",
-  "pinyin": "wèn",
-  "pos": [
-   "v",
-   "g",
-   "vn"
-  ],
-  "meaning_en": [
-   "to ask; to inquire"
-  ],
-  "meaning_th": "ถาม",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "问题",
-  "traditional": "問題",
-  "pinyin": "wèn tí",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "question",
-   "problem",
-   "issue",
-   "topic"
-  ],
-  "meaning_th": "คำถาม / ปัญหา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "我",
-  "traditional": "我",
-  "pinyin": "wǒ",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "I; me; my"
-  ],
-  "meaning_th": "ฉัน, ผม",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "我们",
-  "traditional": "我們",
-  "pinyin": "wǒ men",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "we",
-   "us",
-   "ourselves",
-   "our"
-  ],
-  "meaning_th": "พวกเรา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "五",
-  "traditional": "五",
-  "pinyin": "wǔ",
-  "pos": [
-   "m",
-   "t"
-  ],
-  "meaning_en": [
-   "five",
-   "5"
-  ],
-  "meaning_th": "ห้า (5)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "午饭",
-  "traditional": "午飯",
-  "pinyin": "wǔ fàn",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "lunch"
-  ],
-  "meaning_th": "อาหารกลางวัน, ข้าวเที่ยง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "喜欢",
-  "traditional": "喜歡",
-  "pinyin": "xǐ huan",
-  "pos": [
-   "v",
-   "vn"
-  ],
-  "meaning_en": [
-   "to like; to be fond of"
-  ],
-  "meaning_th": "ชอบ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "下",
-  "traditional": "下",
-  "pinyin": "xià",
-  "pos": [
-   "v",
-   "f",
-   "qt",
-   "g"
-  ],
-  "meaning_en": [
-   "down",
-   "downwards",
-   "below",
-   "lower"
-  ],
-  "meaning_th": "ลง / ข้างล่าง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "下雨",
-  "traditional": "下雨",
-  "pinyin": "xià yǔ",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to rain"
-  ],
-  "meaning_th": "ฝนตก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "下班",
-  "traditional": "下班",
-  "pinyin": "xià bān",
-  "pos": [
-   "v",
-   "vn"
-  ],
-  "meaning_en": [
-   "to finish work",
-   "to get off work"
-  ],
-  "meaning_th": "เลิกงาน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "下课",
-  "traditional": "下課",
-  "pinyin": "xià kè",
-  "pos": [
-   "v",
-   "vn"
-  ],
-  "meaning_en": [
-   "to finish class",
-   "to get out of class",
-   "(fig.) (esp. of a sports coach) to be dismissed",
-   "to be fired"
-  ],
-  "meaning_th": "เลิกเรียน, เลิกคาบ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "下午",
-  "traditional": "下午",
-  "pinyin": "xià wǔ",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "afternoon",
-   "p.m."
-  ],
-  "meaning_th": "ตอนบ่าย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "先生",
-  "traditional": "先生",
-  "pinyin": "xiān sheng",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "teacher",
-   "gentleman; sir; mister (Mr.)",
-   "husband",
-   "(dialect) doctor"
-  ],
-  "meaning_th": "คุณ, นาย (คำเรียกผู้ชายสุภาพ) / สามี",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "现在",
-  "traditional": "現在",
-  "pinyin": "xiàn zài",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "now",
-   "at present",
-   "at the moment",
-   "modern"
-  ],
-  "meaning_th": "ตอนนี้, ขณะนี้",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "想",
-  "traditional": "想",
-  "pinyin": "xiǎng",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to think (about)",
-   "to think of; to devise",
-   "to think (that); to believe (that)",
-   "to desire; to want (to)"
-  ],
-  "meaning_th": "คิด / อยาก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "小",
-  "traditional": "小",
-  "pinyin": "xiǎo",
-  "pos": [
-   "a",
-   "ad"
-  ],
-  "meaning_en": [
-   "small",
-   "tiny",
-   "few",
-   "young"
-  ],
-  "meaning_th": "เล็ก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "小朋友",
-  "traditional": "小朋友",
-  "pinyin": "xiǎo péng yǒu",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "child"
-  ],
-  "meaning_th": "เด็ก, เด็กน้อย",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "小时",
-  "traditional": "小時",
-  "pinyin": "xiǎo shí",
-  "pos": [
-   "n",
-   "q"
-  ],
-  "meaning_en": [
-   "hour"
-  ],
-  "meaning_th": "ชั่วโมง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "小学",
-  "traditional": "小學",
-  "pinyin": "xiǎo xué",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "elementary school; primary school"
-  ],
-  "meaning_th": "โรงเรียนประถม",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "小学生",
-  "traditional": "小學生",
-  "pinyin": "xiǎo xué shēng",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "primary school student",
-   "schoolchild",
-   "(fig.) beginner"
-  ],
-  "meaning_th": "นักเรียนประถม",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "些",
-  "traditional": "些",
-  "pinyin": "xiē",
-  "pos": [
-   "q"
-  ],
-  "meaning_en": [
-   "classifier indicating a small amount or small number greater than 1: some, a few, several"
-  ],
-  "meaning_th": "บ้าง, จำนวนหนึ่ง (ลักษณนามบอกจำนวนเล็กน้อย)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "写",
-  "traditional": "寫",
-  "pinyin": "xiě",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to write"
-  ],
-  "meaning_th": "เขียน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "谢谢",
-  "traditional": "謝謝",
-  "pinyin": "xiè xie",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to thank",
-   "thanks",
-   "thank you"
-  ],
-  "meaning_th": "ขอบคุณ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "新",
-  "traditional": "新",
-  "pinyin": "Xīn",
-  "pos": [
-   "a",
-   "d",
-   "b"
-  ],
-  "meaning_en": [
-   "abbr. for Xinjiang 疆 or Singapore 坡",
-   "surname Xin"
-  ],
-  "meaning_th": "ใหม่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "星期",
-  "traditional": "星期",
-  "pinyin": "xīng qī",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "week",
-   "day of the week",
-   "Sunday"
-  ],
-  "meaning_th": "สัปดาห์",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "星期日",
-  "traditional": "星期日",
-  "pinyin": "Xīng qī rì",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "Sunday"
-  ],
-  "meaning_th": "วันอาทิตย์",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "星期天",
-  "traditional": "星期天",
-  "pinyin": "Xīng qī tiān",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "Sunday"
-  ],
-  "meaning_th": "วันอาทิตย์",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "休息",
-  "traditional": "休息",
-  "pinyin": "xiū xi",
-  "pos": [
-   "v",
-   "vn"
-  ],
-  "meaning_en": [
-   "rest",
-   "to rest"
-  ],
-  "meaning_th": "พักผ่อน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "学",
-  "traditional": "學",
-  "pinyin": "xué",
-  "pos": [
-   "v",
-   "g"
-  ],
-  "meaning_en": [
-   "to learn",
-   "to study",
-   "to imitate",
-   "science"
-  ],
-  "meaning_th": "เรียน, ศึกษา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "学生",
-  "traditional": "學生",
-  "pinyin": "xué sheng",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "student",
-   "schoolchild"
-  ],
-  "meaning_th": "นักเรียน, นักศึกษา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "学习",
-  "traditional": "學習",
-  "pinyin": "xué xí",
-  "pos": [
-   "v",
-   "vn"
-  ],
-  "meaning_en": [
-   "to learn",
-   "to study"
-  ],
-  "meaning_th": "เรียน, ศึกษา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "学校",
-  "traditional": "學校",
-  "pinyin": "xué xiào",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "school"
-  ],
-  "meaning_th": "โรงเรียน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "雪",
-  "traditional": "雪",
-  "pinyin": "Xuě",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "surname Xue"
-  ],
-  "meaning_th": "หิมะ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "要",
-  "traditional": "要",
-  "pinyin": "yāo",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "(bound form) to demand; to coerce"
-  ],
-  "meaning_th": "ต้องการ, เอา / จะ (กำลังจะ)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "也",
-  "traditional": "也",
-  "pinyin": "Yě",
-  "pos": [
-   "d",
-   "y",
-   "u",
-   "b"
-  ],
-  "meaning_en": [
-   "surname Ye"
-  ],
-  "meaning_th": "ก็ (ด้วย, เหมือนกัน)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "一",
-  "traditional": "一",
-  "pinyin": "yī",
-  "pos": [
-   "m",
-   "d",
-   "t"
-  ],
-  "meaning_en": [
-   "one",
-   "single",
-   "a (article)",
-   "as soon as"
-  ],
-  "meaning_th": "หนึ่ง (1)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "衣服",
-  "traditional": "衣服",
-  "pinyin": "yī fu",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "clothes"
-  ],
-  "meaning_th": "เสื้อผ้า",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "医生",
-  "traditional": "醫生",
-  "pinyin": "yī shēng",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "doctor"
-  ],
-  "meaning_th": "หมอ, แพทย์",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "医院",
-  "traditional": "醫院",
-  "pinyin": "yī yuàn",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "hospital"
-  ],
-  "meaning_th": "โรงพยาบาล",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "一半",
-  "traditional": "一半",
-  "pinyin": "yī bàn",
-  "pos": [
-   "m"
-  ],
-  "meaning_en": [
-   "half"
-  ],
-  "meaning_th": "ครึ่งหนึ่ง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "一下",
-  "traditional": "一下",
-  "pinyin": "yī xià",
-  "pos": [],
-  "meaning_en": [],
-  "meaning_th": "สักหน่อย / แป๊บหนึ่ง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "椅子",
-  "traditional": "椅子",
-  "pinyin": "yǐ zi",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "chair"
-  ],
-  "meaning_th": "เก้าอี้",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "一点儿",
-  "traditional": "一點兒",
-  "pinyin": "yī diǎn r",
-  "pos": [
-   "mq"
-  ],
-  "meaning_en": [
-   "erhua variant of 一点",
-   "a bit; a little bit",
-   "(used in negative expressions) (not) the least bit",
-   "(after an adjective, used to form the comparative) a bit more"
-  ],
-  "meaning_th": "นิดหน่อย, นิดเดียว",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "一些",
-  "traditional": "一些",
-  "pinyin": "yī xiē",
-  "pos": [
-   "mq"
-  ],
-  "meaning_en": [
-   "some",
-   "a few",
-   "a little",
-   "(following an adjective) slightly ...er"
-  ],
-  "meaning_th": "บ้าง, จำนวนหนึ่ง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "有",
-  "traditional": "有",
-  "pinyin": "yǒu",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to have; there is",
-   "(bound form) having; with; -ful; -ed; -al (as in 意 intentional)"
-  ],
-  "meaning_th": "มี",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "有的",
-  "traditional": "有的",
-  "pinyin": "yǒu de",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "(there are) some (who are...)",
-   "some (exist)"
-  ],
-  "meaning_th": "บางอัน, บางคน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "有点儿",
-  "traditional": "有點兒",
-  "pinyin": "yǒu diǎn r",
-  "pos": [],
-  "meaning_en": [
-   "slightly",
-   "a little",
-   "somewhat"
-  ],
-  "meaning_th": "ค่อนข้าง, ...ไปหน่อย (หน้าคำคุณศัพท์)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "有些",
-  "traditional": "有些",
-  "pinyin": "yǒu xiē",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "some",
-   "somewhat"
-  ],
-  "meaning_th": "บางส่วน / ค่อนข้าง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "雨",
-  "traditional": "雨",
-  "pinyin": "yǔ",
-  "pos": [
-   "n",
-   "g"
-  ],
-  "meaning_en": [
-   "rain"
-  ],
-  "meaning_th": "ฝน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "元",
-  "traditional": "元",
-  "pinyin": "Yuán",
-  "pos": [
-   "q",
-   "tg"
-  ],
-  "meaning_en": [
-   "surname Yuan",
-   "the Yuan or Mongol dynasty (1279-1368)"
-  ],
-  "meaning_th": "หยวน (หน่วยเงินจีน)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "月",
-  "traditional": "月",
-  "pinyin": "yuè",
-  "pos": [
-   "n",
-   "t"
-  ],
-  "meaning_en": [
-   "moon",
-   "month",
-   "monthly"
-  ],
-  "meaning_th": "เดือน / พระจันทร์",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "再",
-  "traditional": "再",
-  "pinyin": "zài",
-  "pos": [
-   "d",
-   "g"
-  ],
-  "meaning_en": [
-   "again; once more; re-",
-   "second; another",
-   "then (after sth, and not until then)",
-   "no matter how ... (followed by an adjective or verb, and then (usually) 也 or 都 for emphasis)"
-  ],
-  "meaning_th": "อีก, อีกครั้ง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "在",
-  "traditional": "在",
-  "pinyin": "zài",
-  "pos": [
-   "p",
-   "v",
-   "d"
-  ],
-  "meaning_en": [
-   "to exist; to be alive",
-   "(of sb or sth) to be (located) at",
-   "(used before a verb to indicate an action in progress)"
-  ],
-  "meaning_th": "อยู่, อยู่ที่ / กำลัง...อยู่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "再见",
-  "traditional": "再見",
-  "pinyin": "zài jiàn",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "goodbye",
-   "see you again later"
-  ],
-  "meaning_th": "ลาก่อน, แล้วพบกันใหม่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "早",
-  "traditional": "早",
-  "pinyin": "zǎo",
-  "pos": [
-   "ad",
-   "a",
-   "tg"
-  ],
-  "meaning_en": [
-   "early",
-   "morning",
-   "Good morning!",
-   "long ago"
-  ],
-  "meaning_th": "เช้า, แต่เช้า / สวัสดีตอนเช้า",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "早饭",
-  "traditional": "早飯",
-  "pinyin": "zǎo fàn",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "breakfast"
-  ],
-  "meaning_th": "อาหารเช้า",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "早上",
-  "traditional": "早上",
-  "pinyin": "zǎo shang",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "early morning"
-  ],
-  "meaning_th": "ตอนเช้า",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "怎么",
-  "traditional": "怎麼",
-  "pinyin": "zěn me",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "how?",
-   "what?",
-   "why?"
-  ],
-  "meaning_th": "อย่างไร, ยังไง / ทำไม",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "怎么样",
-  "traditional": "怎麼樣",
-  "pinyin": "zěn me yàng",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "how?",
-   "how about?",
-   "how was it?",
-   "how are things?"
-  ],
-  "meaning_th": "เป็นอย่างไร, เป็นยังไงบ้าง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "找",
-  "traditional": "找",
-  "pinyin": "zhǎo",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to try to find",
-   "to look for",
-   "to call on sb",
-   "to find"
-  ],
-  "meaning_th": "หา, ตามหา",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "这",
-  "traditional": "這",
-  "pinyin": "zhè",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "(pronoun) this; these",
-   "(bound form) this; the (followed by a noun)",
-   "(bound form) this; these (followed by a classifier) (in this sense, commonly pr. [zhèi], esp. in Beijing)"
-  ],
-  "meaning_th": "นี่, นี้",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "这边",
-  "traditional": "這邊",
-  "pinyin": "zhè biān",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "this side",
-   "here"
-  ],
-  "meaning_th": "ทางนี้, ด้านนี้",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "这个",
-  "traditional": "这个",
-  "pinyin": "zhè ge",
-  "pos": [],
-  "meaning_en": [],
-  "meaning_th": "อันนี้",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "这里",
-  "traditional": "這裏",
-  "pinyin": "zhè lǐ",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "variant of 这里"
-  ],
-  "meaning_th": "ที่นี่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "这儿",
-  "traditional": "這兒",
-  "pinyin": "zhè r",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "here"
-  ],
-  "meaning_th": "ที่นี่",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "这些",
-  "traditional": "這些",
-  "pinyin": "zhè xiē",
-  "pos": [
-   "r"
-  ],
-  "meaning_en": [
-   "these"
-  ],
-  "meaning_th": "เหล่านี้, พวกนี้",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "真",
-  "traditional": "真",
-  "pinyin": "zhēn",
-  "pos": [
-   "d",
-   "a",
-   "g"
-  ],
-  "meaning_en": [
-   "really",
-   "truly",
-   "indeed",
-   "real"
-  ],
-  "meaning_th": "จริง ๆ / จริง, แท้",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "正在",
-  "traditional": "正在",
-  "pinyin": "zhèng zài",
-  "pos": [
-   "d"
-  ],
-  "meaning_en": [
-   "just at (that time)",
-   "right in (that place)",
-   "right in the middle of (doing sth)"
-  ],
-  "meaning_th": "กำลัง...อยู่ (บอกการกระทำกำลังเกิด)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "只",
-  "traditional": "只",
-  "pinyin": "zhǐ",
-  "pos": [
-   "d",
-   "q"
-  ],
-  "meaning_en": [
-   "only",
-   "merely",
-   "just",
-   "but"
-  ],
-  "meaning_th": "แค่, เพียง / ตัว (ลักษณนามสัตว์)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "知道",
-  "traditional": "知道",
-  "pinyin": "zhī dào",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to know; to become aware of",
-   "also pr. [zhī dao]"
-  ],
-  "meaning_th": "รู้, ทราบ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "中国",
-  "traditional": "中國",
-  "pinyin": "Zhōng guó",
-  "pos": [
-   "ns"
-  ],
-  "meaning_en": [
-   "China"
-  ],
-  "meaning_th": "ประเทศจีน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "中文",
-  "traditional": "中文",
-  "pinyin": "Zhōng wén",
-  "pos": [
-   "nz"
-  ],
-  "meaning_en": [
-   "Chinese language"
-  ],
-  "meaning_th": "ภาษาจีน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "中午",
-  "traditional": "中午",
-  "pinyin": "zhōng wǔ",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "noon",
-   "midday"
-  ],
-  "meaning_th": "เที่ยงวัน, ตอนเที่ยง",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "中学",
-  "traditional": "中學",
-  "pinyin": "zhōng xué",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "middle school"
-  ],
-  "meaning_th": "โรงเรียนมัธยม",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "中学生",
-  "traditional": "中學生",
-  "pinyin": "zhōng xué shēng",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "middle-school student",
-   "high school student"
-  ],
-  "meaning_th": "นักเรียนมัธยม",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "住",
-  "traditional": "住",
-  "pinyin": "zhù",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to live",
-   "to dwell",
-   "to stay",
-   "to reside"
-  ],
-  "meaning_th": "อาศัยอยู่, พัก",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "桌子",
-  "traditional": "桌子",
-  "pinyin": "zhuō zi",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "table",
-   "desk"
-  ],
-  "meaning_th": "โต๊ะ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "字",
-  "traditional": "字",
-  "pinyin": "zì",
-  "pos": [
-   "n"
-  ],
-  "meaning_en": [
-   "letter",
-   "symbol",
-   "character",
-   "word"
-  ],
-  "meaning_th": "ตัวอักษร, ตัวหนังสือ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "昨天",
-  "traditional": "昨天",
-  "pinyin": "zuó tiān",
-  "pos": [
-   "t"
-  ],
-  "meaning_en": [
-   "yesterday"
-  ],
-  "meaning_th": "เมื่อวาน",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "坐",
-  "traditional": "坐",
-  "pinyin": "Zuò",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "surname Zuo"
-  ],
-  "meaning_th": "นั่ง / โดยสาร (รถ, เครื่องบิน)",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "做",
-  "traditional": "做",
-  "pinyin": "zuò",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to make; to produce",
-   "to write; to compose",
-   "to do; to engage in; to hold (a party etc)",
-   "(of a person) to be (an intermediary, a good student etc); to become (husband and wife, friends etc)"
-  ],
-  "meaning_th": "ทำ",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- },
- {
-  "hanzi": "做饭",
-  "traditional": "做飯",
-  "pinyin": "zuò fàn",
-  "pos": [
-   "v"
-  ],
-  "meaning_en": [
-   "to prepare a meal",
-   "to cook"
-  ],
-  "meaning_th": "ทำอาหาร, ทำกับข้าว",
-  "th_reviewed": true,
-  "hsk_level": 1,
-  "wordlist_version": "HSK3.0-v2026.07"
- }
+  {
+    "hanzi": "爱",
+    "traditional": "愛",
+    "pinyin": "ài",
+    "pos": [
+      "v",
+      "vn",
+      "b"
+    ],
+    "meaning_en": [
+      "to love; to be fond of; to like",
+      "affection",
+      "to be inclined (to do sth); to tend to (happen)"
+    ],
+    "meaning_th": "รัก / ชอบ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "八",
+    "traditional": "八",
+    "pinyin": "bā",
+    "pos": [
+      "m",
+      "t"
+    ],
+    "meaning_en": [
+      "eight; 8"
+    ],
+    "meaning_th": "แปด (8)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "爸爸",
+    "traditional": "爸爸",
+    "pinyin": "bà ba",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "(coll.) father; dad"
+    ],
+    "meaning_th": "พ่อ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "吧",
+    "traditional": "吧",
+    "pinyin": "ba",
+    "pos": [
+      "y"
+    ],
+    "meaning_en": [
+      "bar (loanword) (serving drinks, or providing Internet access etc)",
+      "to puff (on a pipe etc)",
+      "(onom.) bang",
+      "abbr. for 贴吧"
+    ],
+    "meaning_th": "เถอะ, นะ (คำลงท้ายชวน/คาดเดา)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "白天",
+    "traditional": "白天",
+    "pinyin": "bái tiān",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "daytime",
+      "during the day",
+      "day"
+    ],
+    "meaning_th": "กลางวัน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "百",
+    "traditional": "百",
+    "pinyin": "Bǎi",
+    "pos": [
+      "m",
+      "t"
+    ],
+    "meaning_en": [
+      "surname Bai"
+    ],
+    "meaning_th": "ร้อย (100)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "半",
+    "traditional": "半",
+    "pinyin": "bàn",
+    "pos": [
+      "m"
+    ],
+    "meaning_en": [
+      "half",
+      "semi-",
+      "incomplete",
+      "(after a number) and a half"
+    ],
+    "meaning_th": "ครึ่ง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "包子",
+    "traditional": "包子",
+    "pinyin": "bāo zi",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "bao (steamed stuffed bun)"
+    ],
+    "meaning_th": "ซาลาเปา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "杯子",
+    "traditional": "杯子",
+    "pinyin": "bēi zi",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "cup",
+      "glass"
+    ],
+    "meaning_th": "แก้ว, ถ้วย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "本",
+    "traditional": "本",
+    "pinyin": "běn",
+    "pos": [
+      "r",
+      "q",
+      "d",
+      "n"
+    ],
+    "meaning_en": [
+      "root",
+      "stem",
+      "origin",
+      "source"
+    ],
+    "meaning_th": "เล่ม (ลักษณนามหนังสือ)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "边",
+    "traditional": "邊",
+    "pinyin": "biān",
+    "pos": [
+      "k",
+      "d",
+      "n"
+    ],
+    "meaning_en": [
+      "side",
+      "edge",
+      "margin",
+      "border"
+    ],
+    "meaning_th": "ข้าง, ด้าน, ขอบ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "病",
+    "traditional": "病",
+    "pinyin": "bìng",
+    "pos": [
+      "n",
+      "v"
+    ],
+    "meaning_en": [
+      "illness",
+      "disease",
+      "to fall ill",
+      "defect"
+    ],
+    "meaning_th": "ป่วย / โรค",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "不",
+    "traditional": "不",
+    "pinyin": "bù",
+    "pos": [
+      "d"
+    ],
+    "meaning_en": [
+      "no; not so",
+      "(bound form) not; un-"
+    ],
+    "meaning_th": "ไม่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "不客气",
+    "traditional": "不客氣",
+    "pinyin": "bù kè qi",
+    "pos": [],
+    "meaning_en": [
+      "you're welcome",
+      "don't mention it",
+      "impolite",
+      "rude"
+    ],
+    "meaning_th": "ไม่ต้องเกรงใจ, ด้วยความยินดี",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "不要",
+    "traditional": "不要",
+    "pinyin": "bù yào",
+    "pos": [
+      "d"
+    ],
+    "meaning_en": [
+      "don't!",
+      "must not"
+    ],
+    "meaning_th": "อย่า, ห้าม",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "菜",
+    "traditional": "菜",
+    "pinyin": "cài",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "dish (type of food)",
+      "vegetable",
+      "cuisine",
+      "(coll.) (one's) type"
+    ],
+    "meaning_th": "กับข้าว / ผัก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "茶",
+    "traditional": "茶",
+    "pinyin": "chá",
+    "pos": [
+      "n",
+      "g"
+    ],
+    "meaning_en": [
+      "tea",
+      "tea plant"
+    ],
+    "meaning_th": "ชา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "唱",
+    "traditional": "唱",
+    "pinyin": "chàng",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to sing",
+      "to call loudly",
+      "to chant"
+    ],
+    "meaning_th": "ร้องเพลง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "超市",
+    "traditional": "超市",
+    "pinyin": "chāo shì",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "supermarket (abbr. for 超级市场)"
+    ],
+    "meaning_th": "ซูเปอร์มาร์เก็ต",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "车",
+    "traditional": "車",
+    "pinyin": "Chē",
+    "pos": [
+      "n",
+      "q"
+    ],
+    "meaning_en": [
+      "surname Che"
+    ],
+    "meaning_th": "รถ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "吃",
+    "traditional": "吃",
+    "pinyin": "chī",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to eat; to consume",
+      "to eat at (a cafeteria etc)",
+      "to eradicate; to destroy",
+      "to absorb"
+    ],
+    "meaning_th": "กิน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "出租车",
+    "traditional": "出租車",
+    "pinyin": "chū zū chē",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "taxi",
+      "(Tw) rental car"
+    ],
+    "meaning_th": "รถแท็กซี่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "穿",
+    "traditional": "穿",
+    "pinyin": "chuān",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to wear",
+      "to put on",
+      "to dress",
+      "to bore through"
+    ],
+    "meaning_th": "สวม, ใส่ (เสื้อผ้า)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "打电话",
+    "traditional": "打電話",
+    "pinyin": "dǎ diàn huà",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to make a telephone call"
+    ],
+    "meaning_th": "โทรศัพท์, โทรหา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "大",
+    "traditional": "大",
+    "pinyin": "dà",
+    "pos": [
+      "a",
+      "d",
+      "n",
+      "g"
+    ],
+    "meaning_en": [
+      "big; large; great",
+      "older (than another person)",
+      "eldest (as in 姐)",
+      "greatly; freely; fully"
+    ],
+    "meaning_th": "ใหญ่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "大家",
+    "traditional": "大家",
+    "pinyin": "dà jiā",
+    "pos": [
+      "r",
+      "n"
+    ],
+    "meaning_en": [
+      "everyone",
+      "influential family",
+      "great expert"
+    ],
+    "meaning_th": "ทุกคน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "大学",
+    "traditional": "大學",
+    "pinyin": "Dà xué",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "the Great Learning, one of the Four Books 四书 in Confucianism"
+    ],
+    "meaning_th": "มหาวิทยาลัย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "大学生",
+    "traditional": "大學生",
+    "pinyin": "dà xué shēng",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "university student",
+      "college student"
+    ],
+    "meaning_th": "นักศึกษามหาวิทยาลัย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "到",
+    "traditional": "到",
+    "pinyin": "dào",
+    "pos": [
+      "v",
+      "p"
+    ],
+    "meaning_en": [
+      "to reach; to arrive",
+      "to leave for; to go to",
+      "to (a place); until (a time); up to (a point)",
+      "(verb complement indicating arriving at a place or reaching a point)"
+    ],
+    "meaning_th": "ถึง, ไปถึง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "的",
+    "traditional": "的",
+    "pinyin": "de",
+    "pos": [
+      "u",
+      "n"
+    ],
+    "meaning_en": [
+      "of; ~'s (possessive particle)",
+      "(used after an attribute)",
+      "(used to form a nominal expression)",
+      "(used at the end of a declarative sentence for emphasis)"
+    ],
+    "meaning_th": "ของ (คำแสดงความเป็นเจ้าของ/ขยายนาม)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "第",
+    "traditional": "第",
+    "pinyin": "dì",
+    "pos": [
+      "m"
+    ],
+    "meaning_en": [
+      "(prefix indicating ordinal number, as in 六 \"sixth\")",
+      "(literary) grades in which successful candidates in the imperial examinations were placed",
+      "(old) residence of a high official",
+      "(literary) but; however"
+    ],
+    "meaning_th": "ที่ (นำหน้าเลขบอกลำดับ)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "弟弟",
+    "traditional": "弟弟",
+    "pinyin": "dì di",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "younger brother"
+    ],
+    "meaning_th": "น้องชาย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "点",
+    "traditional": "點",
+    "pinyin": "diǎn",
+    "pos": [
+      "qt",
+      "n",
+      "t",
+      "v"
+    ],
+    "meaning_en": [
+      "point",
+      "dot",
+      "drop",
+      "speck"
+    ],
+    "meaning_th": "โมง (บอกเวลา) / จุด",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "店",
+    "traditional": "店",
+    "pinyin": "diàn",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "inn; old-style hotel",
+      "(bound form) shop; store"
+    ],
+    "meaning_th": "ร้าน, ร้านค้า",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "电话",
+    "traditional": "電話",
+    "pinyin": "diàn huà",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "telephone",
+      "phone call",
+      "phone number"
+    ],
+    "meaning_th": "โทรศัพท์",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "电脑",
+    "traditional": "電腦",
+    "pinyin": "diàn nǎo",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "computer"
+    ],
+    "meaning_th": "คอมพิวเตอร์",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "电视",
+    "traditional": "電視",
+    "pinyin": "diàn shì",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "television; TV"
+    ],
+    "meaning_th": "โทรทัศน์, ทีวี",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "电影",
+    "traditional": "電影",
+    "pinyin": "diàn yǐng",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "movie; film"
+    ],
+    "meaning_th": "ภาพยนตร์, หนัง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "电影院",
+    "traditional": "電影院",
+    "pinyin": "diàn yǐng yuàn",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "cinema; movie theater"
+    ],
+    "meaning_th": "โรงภาพยนตร์, โรงหนัง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "东西",
+    "traditional": "東西",
+    "pinyin": "dōng xī",
+    "pos": [
+      "n",
+      "f",
+      "nr"
+    ],
+    "meaning_en": [
+      "east and west"
+    ],
+    "meaning_th": "สิ่งของ, ของ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "都",
+    "traditional": "都",
+    "pinyin": "dōu",
+    "pos": [
+      "d",
+      "g"
+    ],
+    "meaning_en": [
+      "surname Du"
+    ],
+    "meaning_th": "ทั้งหมด, ล้วน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "读",
+    "traditional": "讀",
+    "pinyin": "dú",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "comma",
+      "phrase marked by pause"
+    ],
+    "meaning_th": "อ่าน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "读书",
+    "traditional": "讀書",
+    "pinyin": "dú shū",
+    "pos": [
+      "v",
+      "vn"
+    ],
+    "meaning_en": [
+      "to read a book",
+      "to study",
+      "to attend school"
+    ],
+    "meaning_th": "อ่านหนังสือ / เรียนหนังสือ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "对",
+    "traditional": "對",
+    "pinyin": "duì",
+    "pos": [
+      "p",
+      "v",
+      "q",
+      "a"
+    ],
+    "meaning_en": [
+      "right; correct",
+      "towards; at; for",
+      "concerning; regarding",
+      "to treat (sb a certain way)"
+    ],
+    "meaning_th": "ถูกต้อง / ต่อ, กับ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "对不起",
+    "traditional": "對不起",
+    "pinyin": "duì bu qǐ",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "I'm sorry; excuse me; I beg your pardon",
+      "to let (sb) down; to disappoint"
+    ],
+    "meaning_th": "ขอโทษ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "多",
+    "traditional": "多",
+    "pinyin": "duō",
+    "pos": [
+      "a",
+      "m",
+      "ad",
+      "d",
+      "v",
+      "g"
+    ],
+    "meaning_en": [
+      "many; much",
+      "too many; in excess",
+      "(after a numeral) ... odd",
+      "how (to what extent) (Taiwan pr. [duó])"
+    ],
+    "meaning_th": "มาก, เยอะ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "多少",
+    "traditional": "多少",
+    "pinyin": "duō shǎo",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "number",
+      "amount",
+      "somewhat"
+    ],
+    "meaning_th": "เท่าไร, กี่ (ถามจำนวน)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "儿子",
+    "traditional": "兒子",
+    "pinyin": "ér zi",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "son"
+    ],
+    "meaning_th": "ลูกชาย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "二",
+    "traditional": "二",
+    "pinyin": "èr",
+    "pos": [
+      "m",
+      "t"
+    ],
+    "meaning_en": [
+      "two",
+      "2",
+      "(Beijing dialect) stupid"
+    ],
+    "meaning_th": "สอง (2)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "饭",
+    "traditional": "飯",
+    "pinyin": "fàn",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "cooked rice",
+      "meal",
+      "(loanword) fan",
+      "devotee"
+    ],
+    "meaning_th": "ข้าว, อาหาร",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "饭店",
+    "traditional": "飯店",
+    "pinyin": "fàn diàn",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "restaurant",
+      "hotel"
+    ],
+    "meaning_th": "ร้านอาหาร / โรงแรม",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "房间",
+    "traditional": "房間",
+    "pinyin": "fáng jiān",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "room"
+    ],
+    "meaning_th": "ห้อง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "非常",
+    "traditional": "非常",
+    "pinyin": "fēi cháng",
+    "pos": [
+      "d",
+      "b"
+    ],
+    "meaning_en": [
+      "very; really",
+      "unusual; extraordinary"
+    ],
+    "meaning_th": "มาก, อย่างยิ่ง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "飞机",
+    "traditional": "飛機",
+    "pinyin": "fēi jī",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "airplane"
+    ],
+    "meaning_th": "เครื่องบิน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "分",
+    "traditional": "分",
+    "pinyin": "fēn",
+    "pos": [
+      "t",
+      "qt",
+      "v",
+      "g",
+      "n",
+      "d"
+    ],
+    "meaning_en": [
+      "to divide; to separate",
+      "to distribute; to allocate",
+      "to distinguish (good and bad)",
+      "(bound form) branch of (an organization); sub- (as in 局)"
+    ],
+    "meaning_th": "นาที (บอกเวลา) / แบ่ง, แยก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "分钟",
+    "traditional": "分鐘",
+    "pinyin": "fēn zhōng",
+    "pos": [
+      "qt"
+    ],
+    "meaning_en": [
+      "minute"
+    ],
+    "meaning_th": "นาที",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "高兴",
+    "traditional": "高興",
+    "pinyin": "gāo xìng",
+    "pos": [
+      "a",
+      "an"
+    ],
+    "meaning_en": [
+      "happy",
+      "glad",
+      "willing (to do sth)",
+      "in a cheerful mood"
+    ],
+    "meaning_th": "ดีใจ, มีความสุข",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "歌",
+    "traditional": "歌",
+    "pinyin": "gē",
+    "pos": [
+      "n",
+      "g"
+    ],
+    "meaning_en": [
+      "song",
+      "to sing"
+    ],
+    "meaning_th": "เพลง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "哥哥",
+    "traditional": "哥哥",
+    "pinyin": "gē ge",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "older brother"
+    ],
+    "meaning_th": "พี่ชาย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "个",
+    "traditional": "個",
+    "pinyin": "gè",
+    "pos": [
+      "q",
+      "g"
+    ],
+    "meaning_en": [
+      "used in 自个儿"
+    ],
+    "meaning_th": "อัน, ตัว (ลักษณนามทั่วไป)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "给",
+    "traditional": "給",
+    "pinyin": "gěi",
+    "pos": [
+      "p",
+      "v",
+      "u"
+    ],
+    "meaning_en": [
+      "to",
+      "for",
+      "for the benefit of",
+      "to give"
+    ],
+    "meaning_th": "ให้ / แก่, ให้แก่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "公司",
+    "traditional": "公司",
+    "pinyin": "gōng sī",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "company; firm; corporation"
+    ],
+    "meaning_th": "บริษัท",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "工作",
+    "traditional": "工作",
+    "pinyin": "gōng zuò",
+    "pos": [
+      "vn",
+      "v",
+      "n"
+    ],
+    "meaning_en": [
+      "to work",
+      "(of a machine) to operate",
+      "job",
+      "work"
+    ],
+    "meaning_th": "ทำงาน / งาน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "狗",
+    "traditional": "狗",
+    "pinyin": "gǒu",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "dog"
+    ],
+    "meaning_th": "หมา, สุนัข",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "贵",
+    "traditional": "貴",
+    "pinyin": "guì",
+    "pos": [
+      "a",
+      "r",
+      "b",
+      "g"
+    ],
+    "meaning_en": [
+      "expensive",
+      "noble",
+      "precious",
+      "(honorific) your"
+    ],
+    "meaning_th": "แพง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "国",
+    "traditional": "國",
+    "pinyin": "Guó",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "surname Guo"
+    ],
+    "meaning_th": "ประเทศ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "还",
+    "traditional": "還",
+    "pinyin": "hái",
+    "pos": [
+      "d",
+      "v"
+    ],
+    "meaning_en": [
+      "surname Huan"
+    ],
+    "meaning_th": "ยัง, ยังคง / อีก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "孩子",
+    "traditional": "孩子",
+    "pinyin": "hái zi",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "child"
+    ],
+    "meaning_th": "เด็ก, ลูก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "汉语",
+    "traditional": "漢語",
+    "pinyin": "Hàn yǔ",
+    "pos": [
+      "nz"
+    ],
+    "meaning_en": [
+      "Chinese language"
+    ],
+    "meaning_th": "ภาษาจีน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "汉字",
+    "traditional": "漢字",
+    "pinyin": "hàn zì",
+    "pos": [
+      "nz",
+      "n"
+    ],
+    "meaning_en": [
+      "Chinese character",
+      "Japanese: kanji",
+      "Korean: hanja",
+      "Vietnamese: hán tự"
+    ],
+    "meaning_th": "ตัวอักษรจีน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "好",
+    "traditional": "好",
+    "pinyin": "hǎo",
+    "pos": [
+      "a",
+      "d",
+      "v"
+    ],
+    "meaning_en": [
+      "good",
+      "appropriate; proper",
+      "all right!",
+      "(before a verb) easy to"
+    ],
+    "meaning_th": "ดี",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "好吃",
+    "traditional": "好吃",
+    "pinyin": "hǎo chī",
+    "pos": [
+      "a"
+    ],
+    "meaning_en": [
+      "tasty",
+      "delicious"
+    ],
+    "meaning_th": "อร่อย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "好看",
+    "traditional": "好看",
+    "pinyin": "hǎo kàn",
+    "pos": [
+      "a"
+    ],
+    "meaning_en": [
+      "good-looking",
+      "nice-looking",
+      "good (of a movie, book, TV show etc)",
+      "embarrassed"
+    ],
+    "meaning_th": "สวย, น่าดู",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "好听",
+    "traditional": "好聽",
+    "pinyin": "hǎo tīng",
+    "pos": [
+      "a"
+    ],
+    "meaning_en": [
+      "pleasant to hear"
+    ],
+    "meaning_th": "เพราะ, น่าฟัง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "好玩儿",
+    "traditional": "好玩兒",
+    "pinyin": "hǎo wán r",
+    "pos": [
+      "a"
+    ],
+    "meaning_en": [
+      "erhua variant of 好玩",
+      "amusing",
+      "fun",
+      "interesting"
+    ],
+    "meaning_th": "สนุก, น่าเล่น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "号",
+    "traditional": "號",
+    "pinyin": "hào",
+    "pos": [
+      "q",
+      "n",
+      "v"
+    ],
+    "meaning_en": [
+      "roar",
+      "cry"
+    ],
+    "meaning_th": "วันที่ / หมายเลข, เบอร์",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "喝",
+    "traditional": "喝",
+    "pinyin": "hē",
+    "pos": [
+      "g",
+      "vn"
+    ],
+    "meaning_en": [
+      "to drink",
+      "variant of 嗬"
+    ],
+    "meaning_th": "ดื่ม",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "和",
+    "traditional": "咊",
+    "pinyin": "hé",
+    "pos": [
+      "cc",
+      "p",
+      "v",
+      "qv",
+      "g",
+      "n"
+    ],
+    "meaning_en": [
+      "old variant of 和"
+    ],
+    "meaning_th": "และ, กับ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "很",
+    "traditional": "很",
+    "pinyin": "hěn",
+    "pos": [
+      "d"
+    ],
+    "meaning_en": [
+      "(adverb of degree)",
+      "quite",
+      "very",
+      "awfully"
+    ],
+    "meaning_th": "มาก (คำบอกระดับหน้าคุณศัพท์)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "后",
+    "traditional": "后",
+    "pinyin": "Hòu",
+    "pos": [
+      "f",
+      "g",
+      "t"
+    ],
+    "meaning_en": [
+      "surname Hou"
+    ],
+    "meaning_th": "ข้างหลัง / หลังจาก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "回",
+    "traditional": "回",
+    "pinyin": "huí",
+    "pos": [
+      "v",
+      "qv"
+    ],
+    "meaning_en": [
+      "to circle",
+      "to go back",
+      "to turn around",
+      "to answer"
+    ],
+    "meaning_th": "กลับ, กลับไป",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "会",
+    "traditional": "會",
+    "pinyin": "huì",
+    "pos": [
+      "v",
+      "n"
+    ],
+    "meaning_en": [
+      "can; to have the skill; to know how to",
+      "to be likely to; to be sure to",
+      "to meet; to get together",
+      "meeting; gathering"
+    ],
+    "meaning_th": "เป็น, ทำเป็น (ทักษะ) / จะ, น่าจะ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "火车",
+    "traditional": "火車",
+    "pinyin": "huǒ chē",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "train"
+    ],
+    "meaning_th": "รถไฟ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "鸡蛋",
+    "traditional": "雞蛋",
+    "pinyin": "jī dàn",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "(chicken) egg",
+      "hen's egg"
+    ],
+    "meaning_th": "ไข่ไก่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "几",
+    "traditional": "几",
+    "pinyin": "jǐ",
+    "pos": [
+      "m",
+      "d"
+    ],
+    "meaning_en": [
+      "small table"
+    ],
+    "meaning_th": "กี่ (ถามจำนวนน้อย)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "家",
+    "traditional": "傢",
+    "pinyin": "jiā",
+    "pos": [
+      "n",
+      "q"
+    ],
+    "meaning_en": [
+      "used in 家伙 and 家俱"
+    ],
+    "meaning_th": "บ้าน / ครอบครัว",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "家人",
+    "traditional": "家人",
+    "pinyin": "jiā rén",
+    "pos": [
+      "n",
+      "nr"
+    ],
+    "meaning_en": [
+      "family member",
+      "(old) servant"
+    ],
+    "meaning_th": "คนในครอบครัว",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "见",
+    "traditional": "見",
+    "pinyin": "jiàn",
+    "pos": [
+      "v",
+      "g"
+    ],
+    "meaning_en": [
+      "to see",
+      "to meet",
+      "to appear (to be sth)",
+      "to interview"
+    ],
+    "meaning_th": "พบ, เจอ / เห็น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "件",
+    "traditional": "件",
+    "pinyin": "jiàn",
+    "pos": [
+      "q",
+      "g"
+    ],
+    "meaning_en": [
+      "item",
+      "component",
+      "classifier for events, things, clothes etc"
+    ],
+    "meaning_th": "ตัว, เรื่อง (ลักษณนามเสื้อผ้า/เหตุการณ์)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "饺子",
+    "traditional": "餃子",
+    "pinyin": "jiǎo zi",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "dumpling",
+      "pot-sticker"
+    ],
+    "meaning_th": "เกี๊ยวจีน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "叫",
+    "traditional": "叫",
+    "pinyin": "jiào",
+    "pos": [
+      "v",
+      "p",
+      "n"
+    ],
+    "meaning_en": [
+      "to shout",
+      "to call",
+      "to order",
+      "to ask"
+    ],
+    "meaning_th": "เรียก / มีชื่อว่า",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "姐姐",
+    "traditional": "姐姐",
+    "pinyin": "jiě jie",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "older sister"
+    ],
+    "meaning_th": "พี่สาว",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "今年",
+    "traditional": "今年",
+    "pinyin": "jīn nián",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "this year"
+    ],
+    "meaning_th": "ปีนี้",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "今天",
+    "traditional": "今天",
+    "pinyin": "jīn tiān",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "today",
+      "at the present",
+      "now"
+    ],
+    "meaning_th": "วันนี้",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "九",
+    "traditional": "九",
+    "pinyin": "jiǔ",
+    "pos": [
+      "m",
+      "t",
+      "b"
+    ],
+    "meaning_en": [
+      "nine",
+      "9"
+    ],
+    "meaning_th": "เก้า (9)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "觉得",
+    "traditional": "覺得",
+    "pinyin": "jué de",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to think that ...; to feel that ...",
+      "to feel (uncomfortable etc)"
+    ],
+    "meaning_th": "รู้สึกว่า / คิดว่า",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "开",
+    "traditional": "開",
+    "pinyin": "kāi",
+    "pos": [
+      "v",
+      "q"
+    ],
+    "meaning_en": [
+      "to open (transitive or intransitive)",
+      "(of ships, vehicles, troops etc) to start",
+      "to turn on; to put in operation; to operate; to run",
+      "to boil"
+    ],
+    "meaning_th": "เปิด / ขับ (รถ)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "开车",
+    "traditional": "開車",
+    "pinyin": "kāi chē",
+    "pos": [
+      "v",
+      "vn"
+    ],
+    "meaning_en": [
+      "to drive a car"
+    ],
+    "meaning_th": "ขับรถ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "看",
+    "traditional": "看",
+    "pinyin": "kàn",
+    "pos": [
+      "v",
+      "u"
+    ],
+    "meaning_en": [
+      "to look after",
+      "to take care of",
+      "to watch",
+      "to guard"
+    ],
+    "meaning_th": "ดู, มอง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "看病",
+    "traditional": "看病",
+    "pinyin": "kàn bìng",
+    "pos": [
+      "v",
+      "vn"
+    ],
+    "meaning_en": [
+      "to visit a doctor",
+      "to see a patient"
+    ],
+    "meaning_th": "ไปหาหมอ, ตรวจโรค",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "看见",
+    "traditional": "看見",
+    "pinyin": "kàn jiàn",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to see",
+      "to catch sight of"
+    ],
+    "meaning_th": "มองเห็น, เห็น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "可以",
+    "traditional": "可以",
+    "pinyin": "kě yǐ",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "can",
+      "may",
+      "possible",
+      "able to"
+    ],
+    "meaning_th": "ได้, สามารถ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "课",
+    "traditional": "課",
+    "pinyin": "kè",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "subject",
+      "course",
+      "class",
+      "lesson"
+    ],
+    "meaning_th": "บทเรียน, วิชา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "口",
+    "traditional": "口",
+    "pinyin": "kǒu",
+    "pos": [
+      "q",
+      "n"
+    ],
+    "meaning_en": [
+      "mouth",
+      "classifier for things with mouths (people, domestic animals, cannons, wells etc)",
+      "classifier for bites or mouthfuls"
+    ],
+    "meaning_th": "ปาก / ลักษณนามนับคนในครอบครัว",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "块",
+    "traditional": "塊",
+    "pinyin": "kuài",
+    "pos": [
+      "q",
+      "g"
+    ],
+    "meaning_en": [
+      "lump; chunk; piece",
+      "classifier for pieces of cloth, cake, soap etc",
+      "(coll.) classifier for money and currency units"
+    ],
+    "meaning_th": "ก้อน, ชิ้น (ลักษณนาม) / หยวน (หน่วยเงิน ภาษาพูด)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "来",
+    "traditional": "來",
+    "pinyin": "lái",
+    "pos": [
+      "v",
+      "f",
+      "m",
+      "u",
+      "y"
+    ],
+    "meaning_en": [
+      "to come",
+      "(used as a substitute for a more specific verb)",
+      "hither (directional complement for motion toward the speaker, as in 回来)",
+      "ever since (as in 自古以来)"
+    ],
+    "meaning_th": "มา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "老师",
+    "traditional": "老師",
+    "pinyin": "lǎo shī",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "teacher"
+    ],
+    "meaning_th": "ครู, อาจารย์",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "了",
+    "traditional": "了",
+    "pinyin": "le",
+    "pos": [
+      "y",
+      "u",
+      "v"
+    ],
+    "meaning_en": [
+      "(completed action marker)",
+      "(modal particle indicating change of state, situation now)",
+      "(modal particle intensifying preceding clause)"
+    ],
+    "meaning_th": "แล้ว (บอกว่าเกิดขึ้นแล้ว/เปลี่ยนแปลง ท้ายประโยค)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "冷",
+    "traditional": "冷",
+    "pinyin": "Lěng",
+    "pos": [
+      "a",
+      "ad",
+      "g"
+    ],
+    "meaning_en": [
+      "surname Leng"
+    ],
+    "meaning_th": "หนาว, เย็น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "里",
+    "traditional": "裏",
+    "pinyin": "lǐ",
+    "pos": [
+      "f",
+      "q"
+    ],
+    "meaning_en": [
+      "variant of 里"
+    ],
+    "meaning_th": "ใน, ข้างใน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "两",
+    "traditional": "兩",
+    "pinyin": "liǎng",
+    "pos": [
+      "m",
+      "t"
+    ],
+    "meaning_en": [
+      "two",
+      "both",
+      "some",
+      "a few"
+    ],
+    "meaning_th": "สอง (ใช้หน้าลักษณนาม)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "零",
+    "traditional": "零",
+    "pinyin": "líng",
+    "pos": [
+      "m",
+      "t",
+      "g"
+    ],
+    "meaning_en": [
+      "zero",
+      "nought",
+      "zero sign",
+      "fractional"
+    ],
+    "meaning_th": "ศูนย์ (0)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "六",
+    "traditional": "六",
+    "pinyin": "liù",
+    "pos": [
+      "m",
+      "t"
+    ],
+    "meaning_en": [
+      "six",
+      "6"
+    ],
+    "meaning_th": "หก (6)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "妈妈",
+    "traditional": "媽媽",
+    "pinyin": "mā ma",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "mama",
+      "mommy",
+      "mother"
+    ],
+    "meaning_th": "แม่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "吗",
+    "traditional": "嗎",
+    "pinyin": "ma",
+    "pos": [
+      "y"
+    ],
+    "meaning_en": [
+      "(coll.) what?"
+    ],
+    "meaning_th": "ไหม (คำถามท้ายประโยค)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "买",
+    "traditional": "買",
+    "pinyin": "mǎi",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to buy",
+      "to purchase"
+    ],
+    "meaning_th": "ซื้อ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "卖",
+    "traditional": "賣",
+    "pinyin": "mài",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to sell",
+      "to betray",
+      "to spare no effort",
+      "to show off or flaunt"
+    ],
+    "meaning_th": "ขาย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "忙",
+    "traditional": "忙",
+    "pinyin": "máng",
+    "pos": [
+      "v",
+      "a",
+      "ad",
+      "g",
+      "an"
+    ],
+    "meaning_en": [
+      "busy",
+      "hurriedly",
+      "to hurry",
+      "to rush"
+    ],
+    "meaning_th": "ยุ่ง, งานยุ่ง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "猫",
+    "traditional": "貓",
+    "pinyin": "māo",
+    "pos": [
+      "n",
+      "v"
+    ],
+    "meaning_en": [
+      "cat",
+      "(dialect) to hide oneself",
+      "(coll.) modem"
+    ],
+    "meaning_th": "แมว",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "没关系",
+    "traditional": "沒關係",
+    "pinyin": "méi guān xi",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "it doesn't matter"
+    ],
+    "meaning_th": "ไม่เป็นไร",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "没事",
+    "traditional": "没事",
+    "pinyin": "méi shì",
+    "pos": [],
+    "meaning_en": [],
+    "meaning_th": "ไม่เป็นไร",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "没有",
+    "traditional": "沒有",
+    "pinyin": "méi yǒu",
+    "pos": [
+      "v",
+      "d"
+    ],
+    "meaning_en": [
+      "haven't",
+      "hasn't",
+      "doesn't exist",
+      "to not have"
+    ],
+    "meaning_th": "ไม่มี / ไม่ได้ (ปฏิเสธอดีต)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "妹妹",
+    "traditional": "妹妹",
+    "pinyin": "mèi mei",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "younger sister",
+      "young woman"
+    ],
+    "meaning_th": "น้องสาว",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "们",
+    "traditional": "們",
+    "pinyin": "men",
+    "pos": [
+      "k"
+    ],
+    "meaning_en": [
+      "plural marker for pronouns, and nouns referring to individuals"
+    ],
+    "meaning_th": "พวก (ต่อท้ายบอกพหูพจน์)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "米饭",
+    "traditional": "米飯",
+    "pinyin": "mǐ fàn",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "(cooked) rice"
+    ],
+    "meaning_th": "ข้าวสวย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "面包",
+    "traditional": "麵包",
+    "pinyin": "miàn bāo",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "bread"
+    ],
+    "meaning_th": "ขนมปัง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "面条儿",
+    "traditional": "麵條兒",
+    "pinyin": "miàn tiáo r",
+    "pos": [],
+    "meaning_en": [
+      "erhua variant of 面条",
+      "noodles"
+    ],
+    "meaning_th": "บะหมี่ (อาหารเส้น)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "明年",
+    "traditional": "明年",
+    "pinyin": "míng nián",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "next year"
+    ],
+    "meaning_th": "ปีหน้า",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "明天",
+    "traditional": "明天",
+    "pinyin": "míng tiān",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "tomorrow"
+    ],
+    "meaning_th": "พรุ่งนี้",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "名字",
+    "traditional": "名字",
+    "pinyin": "míng zi",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "name (of a person or thing)"
+    ],
+    "meaning_th": "ชื่อ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "哪",
+    "traditional": "哪",
+    "pinyin": "nǎ",
+    "pos": [
+      "r",
+      "y"
+    ],
+    "meaning_en": [
+      "how",
+      "which"
+    ],
+    "meaning_th": "ไหน, อันไหน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "哪个",
+    "traditional": "哪个",
+    "pinyin": "nǎ ge",
+    "pos": [],
+    "meaning_en": [],
+    "meaning_th": "อันไหน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "哪里",
+    "traditional": "哪裏",
+    "pinyin": "nǎ lǐ",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "where?",
+      "somewhere",
+      "anywhere",
+      "wherever"
+    ],
+    "meaning_th": "ที่ไหน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "哪儿",
+    "traditional": "哪兒",
+    "pinyin": "nǎ r",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "where?",
+      "wherever; anywhere; somewhere",
+      "(used in rhetorical questions) how can ...?; how could ...?"
+    ],
+    "meaning_th": "ที่ไหน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "哪些",
+    "traditional": "哪些",
+    "pinyin": "nǎ xiē",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "which ones?",
+      "who?",
+      "what?"
+    ],
+    "meaning_th": "อันไหนบ้าง (พหูพจน์)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "那",
+    "traditional": "那",
+    "pinyin": "nà",
+    "pos": [
+      "r",
+      "c"
+    ],
+    "meaning_en": [
+      "surname Na"
+    ],
+    "meaning_th": "นั่น, นั้น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "那边",
+    "traditional": "那邊",
+    "pinyin": "nà bian",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "over there",
+      "yonder"
+    ],
+    "meaning_th": "ทางนั้น, ด้านนั้น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "那个",
+    "traditional": "那个",
+    "pinyin": "nà ge",
+    "pos": [],
+    "meaning_en": [],
+    "meaning_th": "อันนั้น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "那里",
+    "traditional": "那裏",
+    "pinyin": "nà li",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "there; that place"
+    ],
+    "meaning_th": "ที่นั่น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "那儿",
+    "traditional": "那兒",
+    "pinyin": "nà r",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "there"
+    ],
+    "meaning_th": "ที่นั่น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "那些",
+    "traditional": "那些",
+    "pinyin": "nà xiē",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "those"
+    ],
+    "meaning_th": "เหล่านั้น, พวกนั้น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "男",
+    "traditional": "男",
+    "pinyin": "nán",
+    "pos": [
+      "b",
+      "g"
+    ],
+    "meaning_en": [
+      "male",
+      "Baron, lowest of five orders of nobility 位"
+    ],
+    "meaning_th": "ชาย, ผู้ชาย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "男朋友",
+    "traditional": "男朋友",
+    "pinyin": "nán péng you",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "boyfriend"
+    ],
+    "meaning_th": "แฟน (ผู้ชาย)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "呢",
+    "traditional": "呢",
+    "pinyin": "ne",
+    "pos": [
+      "y"
+    ],
+    "meaning_en": [
+      "particle indicating that a previously asked question is to be applied to the preceding word (\"What about ...?\", \"And ...?\")",
+      "particle for inquiring about location (\"Where is ...?\")",
+      "particle signaling a pause, to emphasize the preceding words and allow the listener time to take them on board (\"ok?\", \"are you with me?\")",
+      "(at the end of a declarative sentence) particle indicating continuation of a state or action"
+    ],
+    "meaning_th": "ล่ะ (คำถามท้ายประโยค)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "能",
+    "traditional": "能",
+    "pinyin": "Néng",
+    "pos": [
+      "v",
+      "g"
+    ],
+    "meaning_en": [
+      "surname Neng"
+    ],
+    "meaning_th": "สามารถ, ได้",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "你",
+    "traditional": "你",
+    "pinyin": "nǐ",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "you (informal, as opposed to courteous 您)"
+    ],
+    "meaning_th": "เธอ, คุณ (ไม่เป็นทางการ)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "你好",
+    "traditional": "你好",
+    "pinyin": "nǐ hǎo",
+    "pos": [],
+    "meaning_en": [],
+    "meaning_th": "สวัสดี",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "你们",
+    "traditional": "你們",
+    "pinyin": "nǐ men",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "you (plural)"
+    ],
+    "meaning_th": "พวกเธอ, พวกคุณ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "年",
+    "traditional": "年",
+    "pinyin": "Nián",
+    "pos": [
+      "qt",
+      "t",
+      "n"
+    ],
+    "meaning_en": [
+      "surname Nian"
+    ],
+    "meaning_th": "ปี",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "您",
+    "traditional": "您",
+    "pinyin": "nín",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "you (courteous, as opposed to informal 你)"
+    ],
+    "meaning_th": "ท่าน, คุณ (สุภาพ)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "牛奶",
+    "traditional": "牛奶",
+    "pinyin": "niú nǎi",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "cow's milk"
+    ],
+    "meaning_th": "นมวัว",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "女",
+    "traditional": "女",
+    "pinyin": "nǚ",
+    "pos": [
+      "b",
+      "g"
+    ],
+    "meaning_en": [
+      "female",
+      "woman",
+      "daughter"
+    ],
+    "meaning_th": "ผู้หญิง, เพศหญิง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "女儿",
+    "traditional": "女兒",
+    "pinyin": "nǚ ér",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "daughter"
+    ],
+    "meaning_th": "ลูกสาว",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "女朋友",
+    "traditional": "女朋友",
+    "pinyin": "nǚ péng you",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "girlfriend"
+    ],
+    "meaning_th": "แฟน (ผู้หญิง)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "女士",
+    "traditional": "女士",
+    "pinyin": "nǚ shì",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "lady",
+      "madam",
+      "Miss",
+      "Ms"
+    ],
+    "meaning_th": "คุณผู้หญิง (คำสุภาพ)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "朋友",
+    "traditional": "朋友",
+    "pinyin": "péng you",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "friend"
+    ],
+    "meaning_th": "เพื่อน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "便宜",
+    "traditional": "便宜",
+    "pinyin": "pián yi",
+    "pos": [
+      "a",
+      "v",
+      "an"
+    ],
+    "meaning_en": [
+      "convenient"
+    ],
+    "meaning_th": "ถูก (ราคา)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "漂亮",
+    "traditional": "漂亮",
+    "pinyin": "piào liang",
+    "pos": [
+      "a"
+    ],
+    "meaning_en": [
+      "pretty",
+      "beautiful"
+    ],
+    "meaning_th": "สวย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "苹果",
+    "traditional": "蘋果",
+    "pinyin": "píng guǒ",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "apple"
+    ],
+    "meaning_th": "แอปเปิล",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "七",
+    "traditional": "七",
+    "pinyin": "qī",
+    "pos": [
+      "m",
+      "t"
+    ],
+    "meaning_en": [
+      "seven",
+      "7"
+    ],
+    "meaning_th": "เจ็ด (7)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "起床",
+    "traditional": "起床",
+    "pinyin": "qǐ chuáng",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to get out of bed",
+      "to get up"
+    ],
+    "meaning_th": "ตื่นนอน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "千",
+    "traditional": "千",
+    "pinyin": "qiān",
+    "pos": [
+      "m",
+      "t"
+    ],
+    "meaning_en": [
+      "thousand"
+    ],
+    "meaning_th": "พัน (1,000)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "前",
+    "traditional": "前",
+    "pinyin": "qián",
+    "pos": [
+      "f",
+      "v"
+    ],
+    "meaning_en": [
+      "front",
+      "forward",
+      "ahead",
+      "first"
+    ],
+    "meaning_th": "ข้างหน้า / ก่อน (เวลา)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "钱",
+    "traditional": "錢",
+    "pinyin": "Qián",
+    "pos": [
+      "n",
+      "nr"
+    ],
+    "meaning_en": [
+      "surname Qian"
+    ],
+    "meaning_th": "เงิน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "请",
+    "traditional": "請",
+    "pinyin": "qǐng",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to ask",
+      "to invite",
+      "please (do sth)",
+      "to treat (to a meal etc)"
+    ],
+    "meaning_th": "เชิญ, กรุณา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "请问",
+    "traditional": "請問",
+    "pinyin": "qǐng wèn",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "Excuse me, may I ask...?"
+    ],
+    "meaning_th": "ขอถามหน่อย (คำสุภาพ)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "去",
+    "traditional": "去",
+    "pinyin": "qù",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to go",
+      "to go to (a place)",
+      "(of a time etc) last",
+      "just passed"
+    ],
+    "meaning_th": "ไป",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "去年",
+    "traditional": "去年",
+    "pinyin": "qù nián",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "last year"
+    ],
+    "meaning_th": "ปีที่แล้ว",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "热",
+    "traditional": "熱",
+    "pinyin": "rè",
+    "pos": [
+      "a",
+      "n",
+      "k",
+      "v",
+      "ad",
+      "an"
+    ],
+    "meaning_en": [
+      "to warm up",
+      "to heat up",
+      "hot (of weather)",
+      "heat"
+    ],
+    "meaning_th": "ร้อน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "人",
+    "traditional": "人",
+    "pinyin": "rén",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "person; people"
+    ],
+    "meaning_th": "คน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "认识",
+    "traditional": "認識",
+    "pinyin": "rèn shi",
+    "pos": [
+      "v",
+      "n",
+      "vn"
+    ],
+    "meaning_en": [
+      "to know",
+      "to recognize",
+      "to be familiar with",
+      "to get acquainted with sb"
+    ],
+    "meaning_th": "รู้จัก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "日",
+    "traditional": "日",
+    "pinyin": "Rì",
+    "pos": [
+      "t",
+      "g",
+      "b",
+      "qt"
+    ],
+    "meaning_en": [
+      "abbr. for 本, Japan"
+    ],
+    "meaning_th": "วัน, วันที่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "三",
+    "traditional": "三",
+    "pinyin": "Sān",
+    "pos": [
+      "m",
+      "t"
+    ],
+    "meaning_en": [
+      "surname San"
+    ],
+    "meaning_th": "สาม (3)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "商店",
+    "traditional": "商店",
+    "pinyin": "shāng diàn",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "store; shop"
+    ],
+    "meaning_th": "ร้านค้า",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "上",
+    "traditional": "上",
+    "pinyin": "shàng",
+    "pos": [
+      "f",
+      "v",
+      "g"
+    ],
+    "meaning_en": [
+      "used in 上声"
+    ],
+    "meaning_th": "บน, ข้างบน / ขึ้น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "上班",
+    "traditional": "上班",
+    "pinyin": "shàng bān",
+    "pos": [
+      "v",
+      "vn"
+    ],
+    "meaning_en": [
+      "to go to work",
+      "to be on duty",
+      "to start work",
+      "to go to the office"
+    ],
+    "meaning_th": "ไปทำงาน, เข้างาน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "上课",
+    "traditional": "上課",
+    "pinyin": "shàng kè",
+    "pos": [
+      "v",
+      "vn"
+    ],
+    "meaning_en": [
+      "to go to class",
+      "to attend class",
+      "to go to teach a class"
+    ],
+    "meaning_th": "เข้าเรียน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "上午",
+    "traditional": "上午",
+    "pinyin": "shàng wǔ",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "morning"
+    ],
+    "meaning_th": "ช่วงเช้า (ก่อนเที่ยง)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "上学",
+    "traditional": "上學",
+    "pinyin": "shàng xué",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to go to school",
+      "to attend school"
+    ],
+    "meaning_th": "ไปโรงเรียน, ไปเรียน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "少",
+    "traditional": "少",
+    "pinyin": "shǎo",
+    "pos": [
+      "a",
+      "ad",
+      "v",
+      "d",
+      "g"
+    ],
+    "meaning_en": [
+      "few",
+      "less",
+      "to lack",
+      "to be missing"
+    ],
+    "meaning_th": "น้อย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "谁",
+    "traditional": "誰",
+    "pinyin": "shéi",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "who",
+      "also pr. [shuí]"
+    ],
+    "meaning_th": "ใคร",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "什么",
+    "traditional": "什麼",
+    "pinyin": "shén me",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "what?",
+      "something",
+      "anything"
+    ],
+    "meaning_th": "อะไร",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "生病",
+    "traditional": "生病",
+    "pinyin": "shēng bìng",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to fall ill"
+    ],
+    "meaning_th": "ป่วย, ไม่สบาย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "十",
+    "traditional": "十",
+    "pinyin": "shí",
+    "pos": [
+      "m",
+      "t"
+    ],
+    "meaning_en": [
+      "ten",
+      "10"
+    ],
+    "meaning_th": "สิบ (10)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "时候",
+    "traditional": "時候",
+    "pinyin": "shí hou",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "time",
+      "length of time",
+      "moment",
+      "period"
+    ],
+    "meaning_th": "เวลา, ตอน (ที่)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "时间",
+    "traditional": "時間",
+    "pinyin": "shí jiān",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "time",
+      "period"
+    ],
+    "meaning_th": "เวลา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "事",
+    "traditional": "事",
+    "pinyin": "shì",
+    "pos": [
+      "n",
+      "g"
+    ],
+    "meaning_en": [
+      "matter",
+      "thing",
+      "item",
+      "work"
+    ],
+    "meaning_th": "เรื่อง, ธุระ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "是",
+    "traditional": "是",
+    "pinyin": "shì",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to be (followed by substantives only)",
+      "correct; right; true",
+      "(respectful acknowledgement of a command) very well",
+      "(adverb for emphatic assertion)"
+    ],
+    "meaning_th": "เป็น, คือ / ใช่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "手机",
+    "traditional": "手機",
+    "pinyin": "shǒu jī",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "cell phone",
+      "mobile phone"
+    ],
+    "meaning_th": "โทรศัพท์มือถือ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "书",
+    "traditional": "書",
+    "pinyin": "Shū",
+    "pos": [
+      "n",
+      "g"
+    ],
+    "meaning_en": [
+      "abbr. for 书经"
+    ],
+    "meaning_th": "หนังสือ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "书店",
+    "traditional": "書店",
+    "pinyin": "shū diàn",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "bookstore"
+    ],
+    "meaning_th": "ร้านหนังสือ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "水",
+    "traditional": "水",
+    "pinyin": "Shuǐ",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "surname Shui"
+    ],
+    "meaning_th": "น้ำ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "水果",
+    "traditional": "水果",
+    "pinyin": "shuǐ guǒ",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "fruit"
+    ],
+    "meaning_th": "ผลไม้",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "睡",
+    "traditional": "睡",
+    "pinyin": "shuì",
+    "pos": [
+      "v",
+      "vn"
+    ],
+    "meaning_en": [
+      "to sleep",
+      "to lie down"
+    ],
+    "meaning_th": "นอนหลับ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "睡觉",
+    "traditional": "睡覺",
+    "pinyin": "shuì jiào",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to go to bed",
+      "to sleep"
+    ],
+    "meaning_th": "นอนหลับ, เข้านอน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "说",
+    "traditional": "說",
+    "pinyin": "shuō",
+    "pos": [
+      "v",
+      "g"
+    ],
+    "meaning_en": [
+      "to persuade"
+    ],
+    "meaning_th": "พูด, บอก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "说话",
+    "traditional": "說話",
+    "pinyin": "shuō huà",
+    "pos": [
+      "v",
+      "vn"
+    ],
+    "meaning_en": [
+      "to speak",
+      "to say",
+      "to talk",
+      "to gossip"
+    ],
+    "meaning_th": "พูด, พูดคุย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "四",
+    "traditional": "四",
+    "pinyin": "sì",
+    "pos": [
+      "m",
+      "t"
+    ],
+    "meaning_en": [
+      "four",
+      "4"
+    ],
+    "meaning_th": "สี่ (4)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "岁",
+    "traditional": "嵗",
+    "pinyin": "suì",
+    "pos": [
+      "qt"
+    ],
+    "meaning_en": [
+      "variant of 岁, year",
+      "years old"
+    ],
+    "meaning_th": "ขวบ, ปี (บอกอายุ)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "他",
+    "traditional": "他",
+    "pinyin": "tā",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "he; him (used for either sex when the sex is unknown or unimportant)",
+      "(used before sb's name for emphasis)",
+      "(used as a meaningless mock object)",
+      "(literary) other"
+    ],
+    "meaning_th": "เขา (ผู้ชาย)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "它",
+    "traditional": "它",
+    "pinyin": "tā",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "it"
+    ],
+    "meaning_th": "มัน (สรรพนามแทนสิ่งของ/สัตว์)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "她",
+    "traditional": "她",
+    "pinyin": "tā",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "she"
+    ],
+    "meaning_th": "เธอ, หล่อน (ผู้หญิง)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "他们",
+    "traditional": "他們",
+    "pinyin": "tā men",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "they"
+    ],
+    "meaning_th": "พวกเขา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "它们",
+    "traditional": "它們",
+    "pinyin": "tā men",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "they (for inanimate objects)"
+    ],
+    "meaning_th": "พวกมัน (สิ่งของ/สัตว์)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "她们",
+    "traditional": "她們",
+    "pinyin": "tā men",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "they",
+      "them (for females)"
+    ],
+    "meaning_th": "พวกเธอ (ผู้หญิง)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "太",
+    "traditional": "太",
+    "pinyin": "tài",
+    "pos": [
+      "d",
+      "b"
+    ],
+    "meaning_en": [
+      "highest",
+      "greatest",
+      "too (much)",
+      "very"
+    ],
+    "meaning_th": "เกินไป / มาก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "天",
+    "traditional": "天",
+    "pinyin": "tiān",
+    "pos": [
+      "qt",
+      "n"
+    ],
+    "meaning_en": [
+      "day",
+      "sky",
+      "heaven"
+    ],
+    "meaning_th": "วัน / ท้องฟ้า",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "天气",
+    "traditional": "天氣",
+    "pinyin": "tiān qì",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "weather"
+    ],
+    "meaning_th": "อากาศ, สภาพอากาศ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "听",
+    "traditional": "听",
+    "pinyin": "tīng",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "smile (archaic)"
+    ],
+    "meaning_th": "ฟัง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "听见",
+    "traditional": "聽見",
+    "pinyin": "tīng jiàn",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to hear"
+    ],
+    "meaning_th": "ได้ยิน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "同学",
+    "traditional": "同學",
+    "pinyin": "tóng xué",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "to study at the same school",
+      "fellow student",
+      "classmate"
+    ],
+    "meaning_th": "เพื่อนร่วมชั้นเรียน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "外",
+    "traditional": "外",
+    "pinyin": "wài",
+    "pos": [
+      "f"
+    ],
+    "meaning_en": [
+      "outside",
+      "in addition",
+      "foreign",
+      "external"
+    ],
+    "meaning_th": "ข้างนอก, ภายนอก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "外边",
+    "traditional": "外邊",
+    "pinyin": "wài bian",
+    "pos": [
+      "f"
+    ],
+    "meaning_en": [
+      "outside",
+      "outer surface",
+      "abroad",
+      "place other than one's home"
+    ],
+    "meaning_th": "ข้างนอก, ด้านนอก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "玩",
+    "traditional": "玩",
+    "pinyin": "wán",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to play",
+      "to have fun",
+      "to trifle with",
+      "toy"
+    ],
+    "meaning_th": "เล่น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "晚",
+    "traditional": "晚",
+    "pinyin": "wǎn",
+    "pos": [
+      "tg",
+      "a",
+      "ad"
+    ],
+    "meaning_en": [
+      "evening",
+      "night",
+      "late"
+    ],
+    "meaning_th": "ตอนค่ำ / สาย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "晚饭",
+    "traditional": "晚飯",
+    "pinyin": "wǎn fàn",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "evening meal",
+      "dinner",
+      "supper"
+    ],
+    "meaning_th": "อาหารเย็น, ข้าวเย็น",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "晚上",
+    "traditional": "晚上",
+    "pinyin": "wǎn shang",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "evening",
+      "night",
+      "in the evening"
+    ],
+    "meaning_th": "ตอนกลางคืน, ตอนค่ำ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "喂",
+    "traditional": "喂",
+    "pinyin": "wéi",
+    "pos": [
+      "v",
+      "e"
+    ],
+    "meaning_en": [
+      "hello (when answering the phone)"
+    ],
+    "meaning_th": "ฮัลโหล (คำรับโทรศัพท์)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "问",
+    "traditional": "問",
+    "pinyin": "wèn",
+    "pos": [
+      "v",
+      "g",
+      "vn"
+    ],
+    "meaning_en": [
+      "to ask; to inquire"
+    ],
+    "meaning_th": "ถาม",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "问题",
+    "traditional": "問題",
+    "pinyin": "wèn tí",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "question",
+      "problem",
+      "issue",
+      "topic"
+    ],
+    "meaning_th": "คำถาม / ปัญหา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "我",
+    "traditional": "我",
+    "pinyin": "wǒ",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "I; me; my"
+    ],
+    "meaning_th": "ฉัน, ผม",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "我们",
+    "traditional": "我們",
+    "pinyin": "wǒ men",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "we",
+      "us",
+      "ourselves",
+      "our"
+    ],
+    "meaning_th": "พวกเรา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "五",
+    "traditional": "五",
+    "pinyin": "wǔ",
+    "pos": [
+      "m",
+      "t"
+    ],
+    "meaning_en": [
+      "five",
+      "5"
+    ],
+    "meaning_th": "ห้า (5)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "午饭",
+    "traditional": "午飯",
+    "pinyin": "wǔ fàn",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "lunch"
+    ],
+    "meaning_th": "อาหารกลางวัน, ข้าวเที่ยง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "喜欢",
+    "traditional": "喜歡",
+    "pinyin": "xǐ huan",
+    "pos": [
+      "v",
+      "vn"
+    ],
+    "meaning_en": [
+      "to like; to be fond of"
+    ],
+    "meaning_th": "ชอบ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "下",
+    "traditional": "下",
+    "pinyin": "xià",
+    "pos": [
+      "v",
+      "f",
+      "qt",
+      "g"
+    ],
+    "meaning_en": [
+      "down",
+      "downwards",
+      "below",
+      "lower"
+    ],
+    "meaning_th": "ลง / ข้างล่าง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "下雨",
+    "traditional": "下雨",
+    "pinyin": "xià yǔ",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to rain"
+    ],
+    "meaning_th": "ฝนตก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "下班",
+    "traditional": "下班",
+    "pinyin": "xià bān",
+    "pos": [
+      "v",
+      "vn"
+    ],
+    "meaning_en": [
+      "to finish work",
+      "to get off work"
+    ],
+    "meaning_th": "เลิกงาน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "下课",
+    "traditional": "下課",
+    "pinyin": "xià kè",
+    "pos": [
+      "v",
+      "vn"
+    ],
+    "meaning_en": [
+      "to finish class",
+      "to get out of class",
+      "(fig.) (esp. of a sports coach) to be dismissed",
+      "to be fired"
+    ],
+    "meaning_th": "เลิกเรียน, เลิกคาบ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "下午",
+    "traditional": "下午",
+    "pinyin": "xià wǔ",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "afternoon",
+      "p.m."
+    ],
+    "meaning_th": "ตอนบ่าย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "先生",
+    "traditional": "先生",
+    "pinyin": "xiān sheng",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "teacher",
+      "gentleman; sir; mister (Mr.)",
+      "husband",
+      "(dialect) doctor"
+    ],
+    "meaning_th": "คุณ, นาย (คำเรียกผู้ชายสุภาพ) / สามี",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "现在",
+    "traditional": "現在",
+    "pinyin": "xiàn zài",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "now",
+      "at present",
+      "at the moment",
+      "modern"
+    ],
+    "meaning_th": "ตอนนี้, ขณะนี้",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "想",
+    "traditional": "想",
+    "pinyin": "xiǎng",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to think (about)",
+      "to think of; to devise",
+      "to think (that); to believe (that)",
+      "to desire; to want (to)"
+    ],
+    "meaning_th": "คิด / อยาก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "小",
+    "traditional": "小",
+    "pinyin": "xiǎo",
+    "pos": [
+      "a",
+      "ad"
+    ],
+    "meaning_en": [
+      "small",
+      "tiny",
+      "few",
+      "young"
+    ],
+    "meaning_th": "เล็ก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "小朋友",
+    "traditional": "小朋友",
+    "pinyin": "xiǎo péng yǒu",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "child"
+    ],
+    "meaning_th": "เด็ก, เด็กน้อย",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "小时",
+    "traditional": "小時",
+    "pinyin": "xiǎo shí",
+    "pos": [
+      "n",
+      "q"
+    ],
+    "meaning_en": [
+      "hour"
+    ],
+    "meaning_th": "ชั่วโมง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "小学",
+    "traditional": "小學",
+    "pinyin": "xiǎo xué",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "elementary school; primary school"
+    ],
+    "meaning_th": "โรงเรียนประถม",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "小学生",
+    "traditional": "小學生",
+    "pinyin": "xiǎo xué shēng",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "primary school student",
+      "schoolchild",
+      "(fig.) beginner"
+    ],
+    "meaning_th": "นักเรียนประถม",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "些",
+    "traditional": "些",
+    "pinyin": "xiē",
+    "pos": [
+      "q"
+    ],
+    "meaning_en": [
+      "classifier indicating a small amount or small number greater than 1: some, a few, several"
+    ],
+    "meaning_th": "บ้าง, จำนวนหนึ่ง (ลักษณนามบอกจำนวนเล็กน้อย)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "写",
+    "traditional": "寫",
+    "pinyin": "xiě",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to write"
+    ],
+    "meaning_th": "เขียน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "谢谢",
+    "traditional": "謝謝",
+    "pinyin": "xiè xie",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to thank",
+      "thanks",
+      "thank you"
+    ],
+    "meaning_th": "ขอบคุณ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "新",
+    "traditional": "新",
+    "pinyin": "Xīn",
+    "pos": [
+      "a",
+      "d",
+      "b"
+    ],
+    "meaning_en": [
+      "abbr. for Xinjiang 疆 or Singapore 坡",
+      "surname Xin"
+    ],
+    "meaning_th": "ใหม่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "星期",
+    "traditional": "星期",
+    "pinyin": "xīng qī",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "week",
+      "day of the week",
+      "Sunday"
+    ],
+    "meaning_th": "สัปดาห์",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "星期日",
+    "traditional": "星期日",
+    "pinyin": "Xīng qī rì",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "Sunday"
+    ],
+    "meaning_th": "วันอาทิตย์",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "星期天",
+    "traditional": "星期天",
+    "pinyin": "Xīng qī tiān",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "Sunday"
+    ],
+    "meaning_th": "วันอาทิตย์",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "休息",
+    "traditional": "休息",
+    "pinyin": "xiū xi",
+    "pos": [
+      "v",
+      "vn"
+    ],
+    "meaning_en": [
+      "rest",
+      "to rest"
+    ],
+    "meaning_th": "พักผ่อน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "学",
+    "traditional": "學",
+    "pinyin": "xué",
+    "pos": [
+      "v",
+      "g"
+    ],
+    "meaning_en": [
+      "to learn",
+      "to study",
+      "to imitate",
+      "science"
+    ],
+    "meaning_th": "เรียน, ศึกษา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "学生",
+    "traditional": "學生",
+    "pinyin": "xué sheng",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "student",
+      "schoolchild"
+    ],
+    "meaning_th": "นักเรียน, นักศึกษา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "学习",
+    "traditional": "學習",
+    "pinyin": "xué xí",
+    "pos": [
+      "v",
+      "vn"
+    ],
+    "meaning_en": [
+      "to learn",
+      "to study"
+    ],
+    "meaning_th": "เรียน, ศึกษา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "学校",
+    "traditional": "學校",
+    "pinyin": "xué xiào",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "school"
+    ],
+    "meaning_th": "โรงเรียน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "雪",
+    "traditional": "雪",
+    "pinyin": "Xuě",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "surname Xue"
+    ],
+    "meaning_th": "หิมะ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "要",
+    "traditional": "要",
+    "pinyin": "yào",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "(bound form) to demand; to coerce"
+    ],
+    "meaning_th": "ต้องการ, เอา / จะ (กำลังจะ)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "也",
+    "traditional": "也",
+    "pinyin": "Yě",
+    "pos": [
+      "d",
+      "y",
+      "u",
+      "b"
+    ],
+    "meaning_en": [
+      "surname Ye"
+    ],
+    "meaning_th": "ก็ (ด้วย, เหมือนกัน)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "一",
+    "traditional": "一",
+    "pinyin": "yī",
+    "pos": [
+      "m",
+      "d",
+      "t"
+    ],
+    "meaning_en": [
+      "one",
+      "single",
+      "a (article)",
+      "as soon as"
+    ],
+    "meaning_th": "หนึ่ง (1)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "衣服",
+    "traditional": "衣服",
+    "pinyin": "yī fu",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "clothes"
+    ],
+    "meaning_th": "เสื้อผ้า",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "医生",
+    "traditional": "醫生",
+    "pinyin": "yī shēng",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "doctor"
+    ],
+    "meaning_th": "หมอ, แพทย์",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "医院",
+    "traditional": "醫院",
+    "pinyin": "yī yuàn",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "hospital"
+    ],
+    "meaning_th": "โรงพยาบาล",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "一半",
+    "traditional": "一半",
+    "pinyin": "yī bàn",
+    "pos": [
+      "m"
+    ],
+    "meaning_en": [
+      "half"
+    ],
+    "meaning_th": "ครึ่งหนึ่ง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "一下",
+    "traditional": "一下",
+    "pinyin": "yī xià",
+    "pos": [],
+    "meaning_en": [],
+    "meaning_th": "สักหน่อย / แป๊บหนึ่ง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "椅子",
+    "traditional": "椅子",
+    "pinyin": "yǐ zi",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "chair"
+    ],
+    "meaning_th": "เก้าอี้",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "一点儿",
+    "traditional": "一點兒",
+    "pinyin": "yī diǎn r",
+    "pos": [
+      "mq"
+    ],
+    "meaning_en": [
+      "erhua variant of 一点",
+      "a bit; a little bit",
+      "(used in negative expressions) (not) the least bit",
+      "(after an adjective, used to form the comparative) a bit more"
+    ],
+    "meaning_th": "นิดหน่อย, นิดเดียว",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "一些",
+    "traditional": "一些",
+    "pinyin": "yī xiē",
+    "pos": [
+      "mq"
+    ],
+    "meaning_en": [
+      "some",
+      "a few",
+      "a little",
+      "(following an adjective) slightly ...er"
+    ],
+    "meaning_th": "บ้าง, จำนวนหนึ่ง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "有",
+    "traditional": "有",
+    "pinyin": "yǒu",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to have; there is",
+      "(bound form) having; with; -ful; -ed; -al (as in 意 intentional)"
+    ],
+    "meaning_th": "มี",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "有的",
+    "traditional": "有的",
+    "pinyin": "yǒu de",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "(there are) some (who are...)",
+      "some (exist)"
+    ],
+    "meaning_th": "บางอัน, บางคน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "有点儿",
+    "traditional": "有點兒",
+    "pinyin": "yǒu diǎn r",
+    "pos": [],
+    "meaning_en": [
+      "slightly",
+      "a little",
+      "somewhat"
+    ],
+    "meaning_th": "ค่อนข้าง, ...ไปหน่อย (หน้าคำคุณศัพท์)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "有些",
+    "traditional": "有些",
+    "pinyin": "yǒu xiē",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "some",
+      "somewhat"
+    ],
+    "meaning_th": "บางส่วน / ค่อนข้าง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "雨",
+    "traditional": "雨",
+    "pinyin": "yǔ",
+    "pos": [
+      "n",
+      "g"
+    ],
+    "meaning_en": [
+      "rain"
+    ],
+    "meaning_th": "ฝน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "元",
+    "traditional": "元",
+    "pinyin": "Yuán",
+    "pos": [
+      "q",
+      "tg"
+    ],
+    "meaning_en": [
+      "surname Yuan",
+      "the Yuan or Mongol dynasty (1279-1368)"
+    ],
+    "meaning_th": "หยวน (หน่วยเงินจีน)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "月",
+    "traditional": "月",
+    "pinyin": "yuè",
+    "pos": [
+      "n",
+      "t"
+    ],
+    "meaning_en": [
+      "moon",
+      "month",
+      "monthly"
+    ],
+    "meaning_th": "เดือน / พระจันทร์",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "再",
+    "traditional": "再",
+    "pinyin": "zài",
+    "pos": [
+      "d",
+      "g"
+    ],
+    "meaning_en": [
+      "again; once more; re-",
+      "second; another",
+      "then (after sth, and not until then)",
+      "no matter how ... (followed by an adjective or verb, and then (usually) 也 or 都 for emphasis)"
+    ],
+    "meaning_th": "อีก, อีกครั้ง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "在",
+    "traditional": "在",
+    "pinyin": "zài",
+    "pos": [
+      "p",
+      "v",
+      "d"
+    ],
+    "meaning_en": [
+      "to exist; to be alive",
+      "(of sb or sth) to be (located) at",
+      "(used before a verb to indicate an action in progress)"
+    ],
+    "meaning_th": "อยู่, อยู่ที่ / กำลัง...อยู่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "再见",
+    "traditional": "再見",
+    "pinyin": "zài jiàn",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "goodbye",
+      "see you again later"
+    ],
+    "meaning_th": "ลาก่อน, แล้วพบกันใหม่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "早",
+    "traditional": "早",
+    "pinyin": "zǎo",
+    "pos": [
+      "ad",
+      "a",
+      "tg"
+    ],
+    "meaning_en": [
+      "early",
+      "morning",
+      "Good morning!",
+      "long ago"
+    ],
+    "meaning_th": "เช้า, แต่เช้า / สวัสดีตอนเช้า",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "早饭",
+    "traditional": "早飯",
+    "pinyin": "zǎo fàn",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "breakfast"
+    ],
+    "meaning_th": "อาหารเช้า",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "早上",
+    "traditional": "早上",
+    "pinyin": "zǎo shang",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "early morning"
+    ],
+    "meaning_th": "ตอนเช้า",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "怎么",
+    "traditional": "怎麼",
+    "pinyin": "zěn me",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "how?",
+      "what?",
+      "why?"
+    ],
+    "meaning_th": "อย่างไร, ยังไง / ทำไม",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "怎么样",
+    "traditional": "怎麼樣",
+    "pinyin": "zěn me yàng",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "how?",
+      "how about?",
+      "how was it?",
+      "how are things?"
+    ],
+    "meaning_th": "เป็นอย่างไร, เป็นยังไงบ้าง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "找",
+    "traditional": "找",
+    "pinyin": "zhǎo",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to try to find",
+      "to look for",
+      "to call on sb",
+      "to find"
+    ],
+    "meaning_th": "หา, ตามหา",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "这",
+    "traditional": "這",
+    "pinyin": "zhè",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "(pronoun) this; these",
+      "(bound form) this; the (followed by a noun)",
+      "(bound form) this; these (followed by a classifier) (in this sense, commonly pr. [zhèi], esp. in Beijing)"
+    ],
+    "meaning_th": "นี่, นี้",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "这边",
+    "traditional": "這邊",
+    "pinyin": "zhè biān",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "this side",
+      "here"
+    ],
+    "meaning_th": "ทางนี้, ด้านนี้",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "这个",
+    "traditional": "这个",
+    "pinyin": "zhè ge",
+    "pos": [],
+    "meaning_en": [],
+    "meaning_th": "อันนี้",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "这里",
+    "traditional": "這裏",
+    "pinyin": "zhè lǐ",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "variant of 这里"
+    ],
+    "meaning_th": "ที่นี่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "这儿",
+    "traditional": "這兒",
+    "pinyin": "zhè r",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "here"
+    ],
+    "meaning_th": "ที่นี่",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "这些",
+    "traditional": "這些",
+    "pinyin": "zhè xiē",
+    "pos": [
+      "r"
+    ],
+    "meaning_en": [
+      "these"
+    ],
+    "meaning_th": "เหล่านี้, พวกนี้",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "真",
+    "traditional": "真",
+    "pinyin": "zhēn",
+    "pos": [
+      "d",
+      "a",
+      "g"
+    ],
+    "meaning_en": [
+      "really",
+      "truly",
+      "indeed",
+      "real"
+    ],
+    "meaning_th": "จริง ๆ / จริง, แท้",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  },
+  {
+    "hanzi": "正在",
+    "traditional": "正在",
+    "pinyin": "zhèng zài",
+    "pos": [
+      "d"
+    ],
+    "meaning_en": [
+      "just at (that time)",
+      "right in (that place)",
+      "right in the middle of (doing sth)"
+    ],
+    "meaning_th": "กำลัง...อยู่ (บอกการกระทำกำลังเกิด)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "只",
+    "traditional": "只",
+    "pinyin": "zhǐ",
+    "pos": [
+      "d",
+      "q"
+    ],
+    "meaning_en": [
+      "only",
+      "merely",
+      "just",
+      "but"
+    ],
+    "meaning_th": "แค่, เพียง / ตัว (ลักษณนามสัตว์)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "知道",
+    "traditional": "知道",
+    "pinyin": "zhī dào",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to know; to become aware of",
+      "also pr. [zhī dao]"
+    ],
+    "meaning_th": "รู้, ทราบ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "中国",
+    "traditional": "中國",
+    "pinyin": "Zhōng guó",
+    "pos": [
+      "ns"
+    ],
+    "meaning_en": [
+      "China"
+    ],
+    "meaning_th": "ประเทศจีน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "中文",
+    "traditional": "中文",
+    "pinyin": "Zhōng wén",
+    "pos": [
+      "nz"
+    ],
+    "meaning_en": [
+      "Chinese language"
+    ],
+    "meaning_th": "ภาษาจีน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 1
+  },
+  {
+    "hanzi": "中午",
+    "traditional": "中午",
+    "pinyin": "zhōng wǔ",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "noon",
+      "midday"
+    ],
+    "meaning_th": "เที่ยงวัน, ตอนเที่ยง",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "中学",
+    "traditional": "中學",
+    "pinyin": "zhōng xué",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "middle school"
+    ],
+    "meaning_th": "โรงเรียนมัธยม",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "中学生",
+    "traditional": "中學生",
+    "pinyin": "zhōng xué shēng",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "middle-school student",
+      "high school student"
+    ],
+    "meaning_th": "นักเรียนมัธยม",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "住",
+    "traditional": "住",
+    "pinyin": "zhù",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to live",
+      "to dwell",
+      "to stay",
+      "to reside"
+    ],
+    "meaning_th": "อาศัยอยู่, พัก",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "桌子",
+    "traditional": "桌子",
+    "pinyin": "zhuō zi",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "table",
+      "desk"
+    ],
+    "meaning_th": "โต๊ะ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "字",
+    "traditional": "字",
+    "pinyin": "zì",
+    "pos": [
+      "n"
+    ],
+    "meaning_en": [
+      "letter",
+      "symbol",
+      "character",
+      "word"
+    ],
+    "meaning_th": "ตัวอักษร, ตัวหนังสือ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "昨天",
+    "traditional": "昨天",
+    "pinyin": "zuó tiān",
+    "pos": [
+      "t"
+    ],
+    "meaning_en": [
+      "yesterday"
+    ],
+    "meaning_th": "เมื่อวาน",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 2
+  },
+  {
+    "hanzi": "坐",
+    "traditional": "坐",
+    "pinyin": "Zuò",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "surname Zuo"
+    ],
+    "meaning_th": "นั่ง / โดยสาร (รถ, เครื่องบิน)",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 5
+  },
+  {
+    "hanzi": "做",
+    "traditional": "做",
+    "pinyin": "zuò",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to make; to produce",
+      "to write; to compose",
+      "to do; to engage in; to hold (a party etc)",
+      "(of a person) to be (an intermediary, a good student etc); to become (husband and wife, friends etc)"
+    ],
+    "meaning_th": "ทำ",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 4
+  },
+  {
+    "hanzi": "做饭",
+    "traditional": "做飯",
+    "pinyin": "zuò fàn",
+    "pos": [
+      "v"
+    ],
+    "meaning_en": [
+      "to prepare a meal",
+      "to cook"
+    ],
+    "meaning_th": "ทำอาหาร, ทำกับข้าว",
+    "th_reviewed": true,
+    "hsk_level": 1,
+    "wordlist_version": "HSK3.0-v2026.07",
+    "category": 3
+  }
 ]

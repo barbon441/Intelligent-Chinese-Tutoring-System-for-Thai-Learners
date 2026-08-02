@@ -28,12 +28,12 @@ def main():
         pos = "ARRAY[" + ",".join(f"'{q(p)}'" for p in w.get("pos", [])) + "]::text[]" if w.get("pos") else "'{}'::text[]"
         men = q(json.dumps(w.get("meaning_en", []), ensure_ascii=False))
         lines.append(
-            "insert into public.words (hanzi, traditional, pinyin, pos, meaning_en, meaning_th, th_reviewed, hsk_level, wordlist_version) values "
+            "insert into public.words (hanzi, traditional, pinyin, pos, meaning_en, meaning_th, th_reviewed, hsk_level, wordlist_version, category) values "
             f"('{q(w['hanzi'])}', '{q(w.get('traditional', ''))}', '{q(w['pinyin'])}', {pos}, '{men}'::jsonb, "
-            f"'{q(w.get('meaning_th', ''))}', {str(bool(w.get('th_reviewed'))).lower()}, {int(w['hsk_level'])}, '{q(w['wordlist_version'])}') "
+            f"'{q(w.get('meaning_th', ''))}', {str(bool(w.get('th_reviewed'))).lower()}, {int(w['hsk_level'])}, '{q(w['wordlist_version'])}', {int(w['category']) if w.get('category') else 'null'}) "
             "on conflict (hanzi) do update set traditional = excluded.traditional, pinyin = excluded.pinyin, "
             "pos = excluded.pos, meaning_en = excluded.meaning_en, meaning_th = excluded.meaning_th, "
-            "th_reviewed = excluded.th_reviewed, hsk_level = excluded.hsk_level, wordlist_version = excluded.wordlist_version;"
+            "th_reviewed = excluded.th_reviewed, hsk_level = excluded.hsk_level, wordlist_version = excluded.wordlist_version, category = excluded.category;"
         )
     OUT.write_text("\n".join(lines), encoding="utf-8")
     print(f"✅ สร้าง {OUT.name}: {len(words)} แถว")
