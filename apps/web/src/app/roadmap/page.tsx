@@ -86,8 +86,7 @@ export default function Roadmap() {
       <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-3">
           <div className="flex items-baseline gap-2">
-            <span className="font-[family-name:var(--font-display)] text-lg font-bold text-ink-900">จีนรู้ใจ</span>
-            <span className="font-[family-name:var(--font-sc)] text-sm text-seal">中文知心</span>
+            <span className="font-[family-name:var(--font-sc)] text-lg font-bold text-seal">中文知心</span>
             <span className="ml-2 hidden text-sm text-slate-400 sm:inline">· เมนูฟังก์ชันทั้งหมด + ติ๊กความคืบหน้า</span>
           </div>
           <Link

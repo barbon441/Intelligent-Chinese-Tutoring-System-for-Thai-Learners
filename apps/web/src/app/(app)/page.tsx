@@ -65,10 +65,9 @@ export default function Home() {
       {/* สถิติคลังคำ */}
       <section>
         <h2 className="mb-2 text-sm font-semibold text-slate-500">คลังคำศัพท์ HSK 1</h2>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <Stat icon="cards" tone="ink" label="คำศัพท์" value={stats ? `${stats.total}` : "…"} sub="คำ" />
           <Stat icon="speaker" tone="correct" label="มีเสียงอ่าน" value={stats ? `${stats.withAudio}` : "…"} sub={`/${stats?.total ?? "…"}`} />
-          <Stat icon="check" tone="seal" label="ตรวจแล้ว" value={stats ? `${stats.reviewed}` : "…"} sub={`/${stats?.total ?? "…"}`} />
         </div>
       </section>
 

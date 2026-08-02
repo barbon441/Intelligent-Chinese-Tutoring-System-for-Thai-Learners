@@ -58,7 +58,7 @@ export default function Profile() {
       <section className="rounded-2xl border border-slate-100 bg-white p-4 text-sm text-slate-500">
         <h2 className="mb-2 font-semibold text-slate-600">เกี่ยวกับแอป</h2>
         <p className="leading-relaxed">
-          <span className="font-medium text-slate-700">จีนรู้ใจ (中文知心)</span> — ติวเตอร์เตรียมสอบ
+          <span className="font-medium text-slate-700">中文知心</span> — ติวเตอร์เตรียมสอบ
           HSK อัจฉริยะสำหรับคนไทย วินิจฉัยจุดที่คนไทยมักพลาด (Thai-L1) แล้วเจาะติวรายทักษะ
         </p>
         <div className="mt-3 border-t border-slate-100 pt-3 text-xs text-slate-400">

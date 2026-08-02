@@ -21,8 +21,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       {/* Header แบรนด์ */}
       <header className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-100 bg-white/90 px-4 py-3 backdrop-blur">
         <Link href="/" className="flex items-baseline gap-1.5">
-          <span className="font-[family-name:var(--font-display)] text-xl font-bold text-ink-900">จีนรู้ใจ</span>
-          <span className="font-[family-name:var(--font-sc)] text-base text-seal">中文知心</span>
+          <span className="font-[family-name:var(--font-sc)] text-xl font-bold text-seal">中文知心</span>
         </Link>
         {/* badge สไตล์ตราชาด */}
         <span className="rounded-md border border-seal/40 bg-seal-soft px-2.5 py-1 text-xs font-semibold text-seal">

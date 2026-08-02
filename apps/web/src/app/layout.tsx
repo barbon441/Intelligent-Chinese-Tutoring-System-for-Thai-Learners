@@ -22,7 +22,7 @@ const display = Mali({
 });
 
 export const metadata: Metadata = {
-  title: "จีนรู้ใจ 中文知心 — ติวเตอร์ HSK สำหรับคนไทย",
+  title: "中文知心 — ติวเตอร์ HSK สำหรับคนไทย",
   description: "ติวเตอร์เตรียมสอบ HSK 1–2 อัจฉริยะสำหรับคนไทย",
 };
 
