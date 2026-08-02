@@ -21,4 +21,5 @@ export type Word = {
   th_reviewed: boolean;
   audio_path: string | null;
   hsk_level: number;
+  category?: number | null; // หมวด 1-5 (โครงหฤทัยอนุมัติ 26 ก.ค.)
 };

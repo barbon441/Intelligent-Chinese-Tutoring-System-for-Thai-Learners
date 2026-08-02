@@ -1,7 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { supabase, audioUrl, type Word } from "@/lib/supabase";
+import { catName } from "@/data/categories";
 import { Icon } from "@/components/Icon";
 import { Pinyin } from "@/components/Pinyin";
 
@@ -14,6 +16,7 @@ export default function Flashcards() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [reviewMode, setReviewMode] = useState(false);
+  const [cat, setCat] = useState<number | null>(null);
 
   // โหมดตรวจ (สำหรับหฤทัย) เปิดด้วย ?review=1 — ผู้เรียนทั่วไปเห็นบัตรคำสะอาด ๆ
   useEffect(() => {
@@ -21,12 +24,16 @@ export default function Flashcards() {
   }, []);
 
   useEffect(() => {
+    // อ่านหมวดจาก ?cat=1-5 (มาจากหน้าเลือกหมวด) — ไม่มี = โชว์ทั้ง 300 คำแบบเดิม
+    const c = Number(new URLSearchParams(window.location.search).get("cat")) || null;
+    setCat(c);
     (async () => {
-      const { data, error } = await supabase
+      let q = supabase
         .from("words")
-        .select("id, hanzi, pinyin, meaning_th, meaning_en, th_reviewed, audio_path, hsk_level")
-        .eq("hsk_level", 1)
-        .order("id");
+        .select("id, hanzi, pinyin, meaning_th, meaning_en, th_reviewed, audio_path, hsk_level, category")
+        .eq("hsk_level", 1);
+      if (c) q = q.eq("category", c);
+      const { data, error } = await q.order("id");
       if (error) setError(error.message);
       else setWords(data as Word[]);
       setLoading(false);
@@ -88,7 +95,14 @@ export default function Flashcards() {
     <div className="flex flex-col items-center gap-6 p-5">
       <div className="w-full">
         <div className="flex items-center justify-between text-sm text-slate-500">
-          <span>บัตรคำ HSK 1</span>
+          <span className="flex items-center gap-2">
+            {cat && (
+              <Link href="/learn" className="rounded-md bg-slate-100 px-1.5 py-0.5 text-xs text-slate-500 transition hover:bg-slate-200">
+                ◀ หมวด
+              </Link>
+            )}
+            {cat ? `บัตรคำ · ${catName(cat) ?? `หมวด ${cat}`}` : "บัตรคำ HSK 1"}
+          </span>
           <span>{reviewMode ? `ตรวจแล้ว ${reviewedCount}/${words.length}` : `${idx + 1}/${words.length}`}</span>
         </div>
         <div className="mt-2 h-2 w-full rounded-full bg-slate-200">

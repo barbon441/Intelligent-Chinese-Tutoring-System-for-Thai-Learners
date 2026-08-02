@@ -24,9 +24,44 @@ export type IconName =
   | "arrowRight"
   | "arrowLeft"
   | "play"
-  | "flame";
+  | "flame"
+  | "chat"
+  | "clock"
+  | "bowl"
+  | "briefcase"
+  | "compass";
 
 const PATHS: Record<IconName, React.ReactNode> = {
+  chat: (
+    <>
+      <path d="M21 11.5a8.38 8.38 0 0 1-9 8.35 8.5 8.5 0 0 1-3.4-.7L3 21l1.85-5.6A8.38 8.38 0 0 1 12 3.15a8.38 8.38 0 0 1 9 8.35Z" />
+      <path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" />
+    </>
+  ),
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3.5 2" />
+    </>
+  ),
+  bowl: (
+    <>
+      <path d="M4 12h16a8 8 0 0 1-5 7.4V21H9v-1.6A8 8 0 0 1 4 12Z" />
+      <path d="M9 8.5c0-1.5 1-1.5 1-3M13.5 8.5c0-1.5 1-1.5 1-3" />
+    </>
+  ),
+  briefcase: (
+    <>
+      <rect x="3" y="7.5" width="18" height="12.5" rx="2" />
+      <path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3 13h18" />
+    </>
+  ),
+  compass: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" />
+    </>
+  ),
   home: (
     <>
       <path d="M4 11.4 12 4l8 7.4" />

@@ -6,6 +6,7 @@ import { Icon, type IconName } from "@/components/Icon";
 
 const NAV: { href: string; label: string; icon: IconName; ready: boolean }[] = [
   { href: "/", label: "หน้าแรก", icon: "home", ready: true },
+  { href: "/learn", label: "เรียน", icon: "book", ready: true },
   { href: "/flashcards", label: "บัตรคำ", icon: "cards", ready: true },
   { href: "/practice", label: "ฝึก", icon: "pencil", ready: true },
   { href: "/progress", label: "ผล", icon: "chart", ready: true },

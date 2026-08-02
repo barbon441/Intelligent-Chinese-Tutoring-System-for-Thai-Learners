@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { supabase, audioUrl, type Word } from "@/lib/supabase";
+import { catName } from "@/data/categories";
 import { saveRound, type QuizMode } from "@/lib/progress";
 import { SENTENCES } from "@/data/sentences";
 import SentenceOrder from "./SentenceOrder";
@@ -17,6 +18,7 @@ type Question = { word: Word; choices: Choice[] };
 export default function Practice() {
   const [words, setWords] = useState<Word[]>([]);
   const [loading, setLoading] = useState(true);
+  const [cat, setCat] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const [mode, setMode] = useState<QuizMode | null>(null);
@@ -28,12 +30,16 @@ export default function Practice() {
   const savedRef = useRef(false);
 
   useEffect(() => {
+    // อ่านหมวดจาก ?cat=1-5 (มาจากหน้าเลือกหมวด) — ไม่มี = ฝึกจากทั้ง 300 คำแบบเดิม
+    const c = Number(new URLSearchParams(window.location.search).get("cat")) || null;
+    setCat(c);
     (async () => {
-      const { data, error } = await supabase
+      let q = supabase
         .from("words")
-        .select("id, hanzi, pinyin, meaning_th, meaning_en, th_reviewed, audio_path, hsk_level")
-        .eq("hsk_level", 1)
-        .order("id");
+        .select("id, hanzi, pinyin, meaning_th, meaning_en, th_reviewed, audio_path, hsk_level, category")
+        .eq("hsk_level", 1);
+      if (c) q = q.eq("category", c);
+      const { data, error } = await q.order("id");
       if (error) setError(error.message);
       else setWords(data as Word[]);
       setLoading(false);
@@ -105,9 +111,12 @@ export default function Practice() {
     return (
       <div className="flex flex-col gap-5 p-5">
         <header>
-          <h1 className="text-xl font-semibold text-slate-700">ฝึกทำข้อสอบ</h1>
+          <h1 className="text-xl font-semibold text-slate-700">
+            ฝึกทำข้อสอบ{cat ? ` · ${catName(cat) ?? `หมวด ${cat}`}` : ""}
+          </h1>
           <p className="mt-1 text-sm text-slate-400">
             รูปแบบข้อสอบ HSK · เลือกคำตอบที่ถูก · ตรวจให้ทันที {N_QUESTIONS} ข้อ/รอบ
+            {cat ? " · เฉพาะคำในหมวดนี้" : ""}
           </p>
         </header>
 
