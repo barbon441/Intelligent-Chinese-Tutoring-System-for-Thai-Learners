@@ -113,20 +113,12 @@ export default function Learn() {
                 </div>
               </div>
             </div>
-            <div className="mt-3 flex gap-2">
-              <Link
-                href={`/flashcards?cat=${c.id}`}
-                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-ink-700 px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-ink-900 active:scale-95"
-              >
-                <Icon name="cards" className="h-4 w-4" /> บัตรคำ
-              </Link>
-              <Link
-                href={`/practice?cat=${c.id}`}
-                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-slate-100 px-3 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-200 active:scale-95"
-              >
-                <Icon name="pencil" className="h-4 w-4" /> ฝึก
-              </Link>
-            </div>
+            <Link
+              href={`/learn/category?cat=${c.id}`}
+              className="mt-3 flex items-center justify-center gap-1.5 rounded-xl bg-ink-700 px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-ink-900 active:scale-95"
+            >
+              เข้าเรียนหมวดนี้ <Icon name="arrowRight" className="h-4 w-4" />
+            </Link>
           </div>
         );
       })}

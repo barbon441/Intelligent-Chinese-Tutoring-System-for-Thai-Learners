@@ -19,6 +19,8 @@ export default function Practice() {
   const [words, setWords] = useState<Word[]>([]);
   const [loading, setLoading] = useState(true);
   const [cat, setCat] = useState<number | null>(null);
+  const [modeParam, setModeParam] = useState<QuizMode | null>(null);
+  const autoStartedRef = useRef(false);
   const [error, setError] = useState<string | null>(null);
 
   const [mode, setMode] = useState<QuizMode | null>(null);
@@ -31,8 +33,11 @@ export default function Practice() {
 
   useEffect(() => {
     // อ่านหมวดจาก ?cat=1-5 (มาจากหน้าเลือกหมวด) — ไม่มี = ฝึกจากทั้ง 300 คำแบบเดิม
-    const c = Number(new URLSearchParams(window.location.search).get("cat")) || null;
+    const sp = new URLSearchParams(window.location.search);
+    const c = Number(sp.get("cat")) || null;
     setCat(c);
+    const mp = sp.get("mode");
+    if (mp === "read" || mp === "listen" || mp === "order") setModeParam(mp);
     (async () => {
       let q = supabase
         .from("words")
@@ -99,6 +104,14 @@ export default function Practice() {
       setPicked(null);
     }
   }
+
+  // มาจากเมนูหมวด (?mode=) → เข้าโหมดที่เลือกทันที ไม่ต้องเลือกซ้ำ
+  useEffect(() => {
+    if (loading || !modeParam || autoStartedRef.current) return;
+    autoStartedRef.current = true;
+    if (modeParam === "order") setMode("order");
+    else start(modeParam);
+  }, [loading, modeParam, start]);
 
   if (loading) return <Center>กำลังโหลดคลังคำ...</Center>;
   if (error) return <Center>❌ {error}</Center>;

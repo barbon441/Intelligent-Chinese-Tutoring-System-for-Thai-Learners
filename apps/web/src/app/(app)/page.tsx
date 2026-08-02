@@ -61,7 +61,7 @@ export default function Home() {
   const cta = useMemo(() => {
     if (dueCount === null) return { href: "/learn", label: "เริ่มเรียน", sub: "" };
     if (dueCount > 0) return { href: "/review", label: `ทวนวันนี้ · ${dueCount} คำ`, sub: "ทวนก่อนแล้วค่อยเรียนคำใหม่ จำแม่นสุด" };
-    if (nextCat) return { href: `/flashcards?cat=${nextCat.id}`, label: `เรียนต่อ · หมวด ${nextCat.id} ${nextCat.name}`, sub: "ไม่มีคำค้างทวนแล้ว ลุยคำใหม่ได้เลย" };
+    if (nextCat) return { href: `/learn/category?cat=${nextCat.id}`, label: `เรียนต่อ · หมวด ${nextCat.id} ${nextCat.name}`, sub: "ไม่มีคำค้างทวนแล้ว ลุยคำใหม่ได้เลย" };
     return { href: "/practice", label: "ฝึกทำข้อสอบ", sub: "เรียนครบทุกหมวดแล้ว — ฝึกให้คล่องมือ" };
   }, [dueCount, nextCat]);
 
@@ -140,7 +140,7 @@ export default function Home() {
             return (
               <Link
                 key={c.id}
-                href={`/flashcards?cat=${c.id}`}
+                href={`/learn/category?cat=${c.id}`}
                 className={`flex items-center gap-3 px-4 py-3 transition hover:bg-slate-50 ${i > 0 ? "border-t border-slate-50" : ""}`}
               >
                 <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-ink-50 text-ink-700">
