@@ -115,7 +115,7 @@ export default function Progress() {
       )}
 
       <p className="pb-2 text-center text-[11px] leading-relaxed text-slate-300">
-        * ตอนนี้เก็บผลไว้ในเครื่องนี้ก่อน · เมื่อทำระบบล็อกอิน + Knowledge Tracing (BKT) จะย้ายไปเก็บรายบุคคลบนเซิร์ฟเวอร์
+        * ตอนนี้เก็บผลไว้ในเครื่องนี้ก่อน · เมื่อมีระบบล็อกอิน ผลการเรียนจะติดตามบัญชีไปทุกเครื่อง
       </p>
     </div>
   );

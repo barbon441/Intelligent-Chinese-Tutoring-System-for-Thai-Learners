@@ -71,19 +71,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* โมดูล */}
+      {/* เมนูการเรียน */}
       <section>
-        <h2 className="mb-2 text-sm font-semibold text-slate-500">โมดูลการเรียน</h2>
+        <h2 className="mb-2 text-sm font-semibold text-slate-500">เมนูการเรียน</h2>
         <div className="flex flex-col gap-3">
           <ModuleCard href="/flashcards" icon="cards" title="บัตรคำศัพท์" desc="เรียน 300 คำ HSK 1 พร้อมเสียง" ready />
           <ModuleCard href="/practice" icon="pencil" title="ฝึกทำข้อสอบ" desc="ฟัง-อ่าน-เรียงประโยค แบบ HSK ตรวจให้ทันที" ready />
           <ModuleCard href="/progress" icon="chart" title="ผลการเรียน" desc="ดูความคืบหน้า + ความแม่นยำ" ready />
-          <ModuleCard href="/review" icon="refresh" title="ทบทวนอัจฉริยะ (FSRS)" desc="ทวนคำตอนกำลังจะลืมพอดี" ready />
+          <ModuleCard href="/review" icon="refresh" title="ทบทวนคำศัพท์" desc="ระบบเลือกคำที่ใกล้ลืมมาให้ทวนพอดีเวลา" ready />
           <ModuleCard icon="flask" title="ข้อสอบเสมือนจริง" desc="Mock Exam จับเวลา วัดความพร้อมสอบ" />
         </div>
       </section>
 
-      <p className="pb-2 text-center text-[11px] text-slate-300">เวอร์ชันพัฒนา · โมดูลที่ยังไม่เปิดจะทยอยเพิ่ม</p>
+      <p className="pb-2 text-center text-[11px] text-slate-300">เวอร์ชันพัฒนา · ฟีเจอร์ใหม่จะทยอยเปิดเพิ่ม</p>
     </div>
   );
 }

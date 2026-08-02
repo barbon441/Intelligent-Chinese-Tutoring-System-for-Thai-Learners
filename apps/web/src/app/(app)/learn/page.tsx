@@ -66,14 +66,14 @@ export default function Learn() {
         </p>
       </header>
 
-      {/* โมดูล 0 — พื้นฐานเสียง (กำลังสร้าง) */}
+      {/* ด่านพื้นฐานเสียง (ศัพท์ทีม: โมดูล 0) — กำลังสร้าง */}
       <div className="flex items-center gap-3 rounded-2xl border border-dashed border-ink-200 bg-ink-50/60 p-4">
         <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white text-ink-500">
           <Icon name="speaker" className="h-5 w-5" />
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2 font-medium text-ink-700">
-            โมดูล 0 · พื้นฐานเสียง
+            ปูพื้นฐานเสียงก่อนเริ่ม
             <span className="rounded-md bg-ink-100 px-1.5 py-0.5 text-[10px] font-bold text-ink-500">เริ่มที่นี่ถ้าไม่มีพื้น</span>
           </div>
           <div className="mt-0.5 text-xs text-slate-400">พินอินเทียบเสียงไทย · วรรณยุกต์ · เกมฝึกหู — กำลังสร้าง (ส.ค.)</div>

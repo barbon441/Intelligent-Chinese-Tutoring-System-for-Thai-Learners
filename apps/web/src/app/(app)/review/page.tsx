@@ -94,7 +94,7 @@ export default function Review() {
         </div>
         <h1 className="text-xl font-semibold text-slate-700">ทบทวนอัจฉริยะ</h1>
         <p className="text-center text-sm text-slate-400">
-          ระบบเลือกคำที่ “กำลังจะลืมพอดี” มาให้ทวน (FSRS) — ทวนตอนนี้จำได้นานที่สุด
+          ระบบเลือกคำที่ “กำลังจะลืมพอดี” มาให้ทวน — ทวนตอนนี้จำได้นานที่สุด
         </p>
         <div className="w-full rounded-3xl bg-gradient-to-br from-sky-600 to-sky-800 p-6 text-center text-white shadow-lg">
           <div className="text-5xl font-bold">{queue.length}</div>
@@ -110,7 +110,7 @@ export default function Review() {
           เริ่มทบทวน →
         </button>
         <p className="rounded-2xl bg-slate-50 p-4 text-center text-[11px] leading-relaxed text-slate-500">
-          FSRS ตอบว่า “ควรทวนเมื่อไหร่” · เก็บกำหนดไว้ในเครื่อง ใช้ได้แม้ไม่มีเน็ต
+          ระบบคำนวณเองว่าแต่ละคำ “ควรทวนเมื่อไหร่” · เก็บกำหนดไว้ในเครื่องนี้
         </p>
       </div>
     );
@@ -149,7 +149,7 @@ export default function Review() {
       {/* ความคืบหน้า */}
       <div className="w-full">
         <div className="flex items-center justify-between text-sm text-slate-500">
-          <span>ทบทวน (FSRS)</span>
+          <span>ทบทวนคำศัพท์</span>
           <span>
             {idx + 1}/{queue.length}
           </span>
