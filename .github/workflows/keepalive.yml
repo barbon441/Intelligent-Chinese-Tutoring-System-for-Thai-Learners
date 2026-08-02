@@ -1,6 +1,8 @@
-# ⏰ Keepalive — ปลุก HF Spaces (หลับหลัง 48 ชม.) + Supabase (pause หลัง 7 วันไม่มี query)
-# วิธีเปิดใช้: ตั้งค่า API_HEALTH_URL ใน repo Settings → Secrets and variables → Actions → Variables
-# (ยังไม่ deploy = ยังไม่ต้องทำอะไร — workflow จะข้ามเอง)
+# ⏰ Keepalive — ปลุก Render (หลับหลัง 15 นาที) + Supabase (pause หลัง 7 วันไม่มี query)
+# บทเรียน 2 ส.ค. 2026: Supabase โดน pause จริง (ทีมไม่แตะระบบ 27 ก.ค.→2 ส.ค.) เพราะไฟล์นี้เวอร์ชันเก่า
+#   ① รอตัวแปร API_HEALTH_URL ที่ไม่เคยถูกตั้ง → ข้ามตัวเองเงียบ ๆ ทุกวัน
+#   ② ยิง /health เฉย ๆ ซึ่งไม่ query DB → ต่อให้ยิงก็ไม่นับเป็น activity ของ Supabase
+# แก้แล้ว: hardcode URL (ไม่ใช่ความลับ) + ยิง ?db=1 (API v0.2.1 จะ query words 1 ครั้ง) + เช็กคำตอบจริง
 
 name: keepalive
 
@@ -13,10 +15,18 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping API /health (ปลุก HF Spaces + Supabase ในตัว)
+      - name: Ping API /health?db=1 (ปลุก Render + Supabase ในครั้งเดียว)
         run: |
-          if [ -z "${{ vars.API_HEALTH_URL }}" ]; then
-            echo "ยังไม่ได้ตั้ง API_HEALTH_URL — ข้าม (ตั้งได้ที่ Settings > Actions > Variables)"
-            exit 0
-          fi
-          curl -fsS --max-time 120 "${{ vars.API_HEALTH_URL }}" && echo "ปลุกสำเร็จ"
+          URL="${{ vars.API_HEALTH_URL }}"
+          [ -z "$URL" ] && URL="https://intelligent-chinese-tutoring-system-for.onrender.com/health?db=1"
+          for i in 1 2 3; do
+            body=$(curl -s --max-time 120 "$URL" || true)
+            echo "ครั้งที่ $i: $body"
+            if echo "$body" | grep -q '"db": *"ok"'; then
+              echo "✅ Render ตื่น + Supabase ตอบ query แล้ว"
+              exit 0
+            fi
+            sleep 45  # เผื่อ Render cold start (~30-50 วิ)
+          done
+          echo "❌ ยิง 3 รอบแล้ว Supabase ยังไม่ตอบ — น่าจะโดน pause อยู่ ให้เข้า dashboard กด Restore"
+          exit 1

@@ -48,9 +48,22 @@ def root():
 
 
 @app.get("/health")
-def health():
-    """ใช้เช็กว่า API ตื่นอยู่ — และเป็นปลายทางของ keepalive ping"""
-    return {"status": "ok", "service": "jeen-roo-jai-api", "version": "0.2.0"}
+def health(db: int = 0):
+    """ใช้เช็กว่า API ตื่นอยู่ — และเป็นปลายทางของ keepalive ping
+    เรียกด้วย ?db=1 จะ query Supabase เบา ๆ 1 ครั้ง → นับเป็น activity กัน free tier pause
+    (บทเรียน 2 ส.ค.: Supabase โดน pause เพราะไม่มีใครแตะระบบ 7 วัน — cron ต้องยิง ?db=1)
+    """
+    out = {"status": "ok", "service": "jeen-roo-jai-api", "version": "0.2.1"}
+    if db:
+        try:
+            with psycopg.connect(DB_URL, connect_timeout=8) as conn:
+                with conn.cursor() as cur:
+                    cur.execute("select count(*) from public.words")
+                    out["db"] = "ok"
+                    out["words"] = cur.fetchone()[0]
+        except Exception as e:
+            out["db"] = f"unreachable: {type(e).__name__}"
+    return out
 
 
 # ── โมดูล 1: คลังคำ + ตรวจคำแปล (human review) ──────────────────────────
