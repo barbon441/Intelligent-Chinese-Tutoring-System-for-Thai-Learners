@@ -1,9 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase, audioUrl, type Word } from "@/lib/supabase";
 import { catName } from "@/data/categories";
+import { Center, ErrorState } from "@/components/Feedback";
+import { shuffle } from "@/lib/random";
 import { saveRound, type QuizMode } from "@/lib/progress";
 import { SENTENCES } from "@/data/sentences";
 import SentenceOrder from "./SentenceOrder";
@@ -15,12 +18,11 @@ const N_QUESTIONS = 10;
 type Choice = { id: number; label: string };
 type Question = { word: Word; choices: Choice[] };
 
-export default function Practice() {
+function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: QuizMode | null }) {
   const [words, setWords] = useState<Word[]>([]);
   const [loading, setLoading] = useState(true);
-  const [cat, setCat] = useState<number | null>(null);
-  const [modeParam, setModeParam] = useState<QuizMode | null>(null);
   const autoStartedRef = useRef(false);
+  const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const [mode, setMode] = useState<QuizMode | null>(null);
@@ -32,24 +34,18 @@ export default function Practice() {
   const savedRef = useRef(false);
 
   useEffect(() => {
-    // อ่านหมวดจาก ?cat=1-5 (มาจากหน้าเลือกหมวด) — ไม่มี = ฝึกจากทั้ง 300 คำแบบเดิม
-    const sp = new URLSearchParams(window.location.search);
-    const c = Number(sp.get("cat")) || null;
-    setCat(c);
-    const mp = sp.get("mode");
-    if (mp === "read" || mp === "listen" || mp === "order") setModeParam(mp);
     (async () => {
       let q = supabase
         .from("words")
         .select("id, hanzi, pinyin, meaning_th, meaning_en, th_reviewed, audio_path, hsk_level, category")
         .eq("hsk_level", 1);
-      if (c) q = q.eq("category", c);
+      if (cat) q = q.eq("category", cat);
       const { data, error } = await q.order("id");
       if (error) setError(error.message);
       else setWords(data as Word[]);
       setLoading(false);
     })();
-  }, []);
+  }, [cat]);
 
   // คำที่ใช้ได้ในแต่ละโหมด (อ่าน = ต้องมีคำแปล · ฟัง = ต้องมีเสียง)
   const pools = useMemo(() => {
@@ -105,16 +101,17 @@ export default function Practice() {
     }
   }
 
-  // มาจากเมนูหมวด (?mode=) → เข้าโหมดที่เลือกทันที ไม่ต้องเลือกซ้ำ
+  // มาจากเมนูหมวด (?mode=) → เข้าโหมดที่เลือกทันที · ถ้าคลังคำไม่พอ อยู่หน้าเลือกโหมดพร้อมข้อความ (กัน crash)
   useEffect(() => {
     if (loading || !modeParam || autoStartedRef.current) return;
     autoStartedRef.current = true;
     if (modeParam === "order") setMode("order");
-    else start(modeParam);
-  }, [loading, modeParam, start]);
+    else if (pools[modeParam].length >= 4) start(modeParam);
+    else setNotice("หมวดนี้ยังมีคำไม่พอสำหรับโหมดนี้ — ลองโหมดอื่น หรือฝึกแบบรวมทุกหมวดก่อนนะ");
+  }, [loading, modeParam, pools, start]);
 
   if (loading) return <Center>กำลังโหลดคลังคำ...</Center>;
-  if (error) return <Center>❌ {error}</Center>;
+  if (error) return <ErrorState detail={error} />;
 
   // ---------- โหมดเรียงประโยค (ใช้คนละ engine กับ MCQ) ----------
   if (mode === "order") return <SentenceOrder onExit={() => setMode(null)} />;
@@ -124,6 +121,11 @@ export default function Practice() {
     return (
       <div className="flex flex-col gap-5 p-5">
         <header>
+          {cat && (
+            <Link href={`/learn/category?cat=${cat}`} className="mb-1 inline-flex items-center gap-1 text-xs text-slate-400 hover:text-slate-600">
+              <Icon name="arrowLeft" className="h-3.5 w-3.5" /> กลับเมนูหมวด
+            </Link>
+          )}
           <h1 className="text-xl font-semibold text-slate-700">
             ฝึกทำข้อสอบ{cat ? ` · ${catName(cat) ?? `หมวด ${cat}`}` : ""}
           </h1>
@@ -131,6 +133,9 @@ export default function Practice() {
             รูปแบบข้อสอบ HSK · เลือกคำตอบที่ถูก · ตรวจให้ทันที {N_QUESTIONS} ข้อ/รอบ
             {cat ? " · เฉพาะคำในหมวดนี้" : ""}
           </p>
+          {notice && (
+            <p className="mt-2 rounded-xl bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-700">{notice}</p>
+          )}
         </header>
 
         <ModeCard
@@ -159,7 +164,7 @@ export default function Practice() {
         <div className="flex gap-2 rounded-2xl bg-slate-50 p-4 text-xs leading-relaxed text-slate-500">
           <Icon name="bulb" className="mt-0.5 h-4 w-4 shrink-0 text-xp" />
           <p>
-            ข้อสอบสุ่มจากคลังคำ HSK 1 ที่เรามี ตรวจด้วยกติกา (rule-based) ไม่ใช้ AI เดา —
+            ข้อสอบสุ่มจากคลังคำ HSK 1 ตรวจตามเฉลยแบบเดียวกับข้อสอบจริง ไม่ใช้ AI เดา —
             ตรงกับรูปแบบการวัดผลจริงของ HSK · ผลการฝึกจะไปแสดงในหน้า{" "}
             <Link href="/progress" className="text-ink-500 underline">
               ผล
@@ -203,8 +208,16 @@ export default function Practice() {
             เปลี่ยนโหมด
           </button>
         </div>
-        <Link href="/progress" className="text-sm text-sky-600 underline">
-          ดูสรุปผลการฝึกทั้งหมด →
+        {cat && (
+          <Link
+            href={`/learn/category?cat=${cat}`}
+            className="w-full rounded-xl border border-slate-200 px-4 py-3 text-center font-medium text-slate-600 transition hover:bg-slate-50"
+          >
+            กลับเมนูหมวด {catName(cat) ?? cat}
+          </Link>
+        )}
+        <Link href="/progress" className="text-sm text-ink-500 underline">
+          ดูสรุปผลการฝึกทั้งหมด
         </Link>
       </div>
     );
@@ -217,16 +230,22 @@ export default function Practice() {
       {/* แถบความคืบหน้า */}
       <div>
         <div className="flex items-center justify-between text-sm text-slate-500">
-          <button onClick={() => setMode(null)} className="text-slate-400">
-            ← ออก
-          </button>
+          {cat && modeParam ? (
+            <Link href={`/learn/category?cat=${cat}`} className="inline-flex items-center gap-1 text-slate-400 hover:text-slate-600">
+              <Icon name="arrowLeft" className="h-3.5 w-3.5" /> ออก
+            </Link>
+          ) : (
+            <button onClick={() => setMode(null)} className="inline-flex items-center gap-1 text-slate-400 hover:text-slate-600">
+              <Icon name="arrowLeft" className="h-3.5 w-3.5" /> ออก
+            </button>
+          )}
           <span>
             ข้อ {qi + 1}/{questions.length} · ถูก {correctCount}
           </span>
         </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-200">
+        <div className="mt-2 h-2 w-full rounded-full bg-slate-100">
           <div
-            className="h-2 rounded-full bg-sky-500 transition-all"
+            className="h-2 rounded-full bg-ink-500 transition-all"
             style={{ width: `${(qi / questions.length) * 100}%` }}
           />
         </div>
@@ -322,14 +341,6 @@ function buildQuiz(pool: Word[], mode: QuizMode, n: number): Question[] {
   });
 }
 
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
 
 function ModeCard({
   icon,
@@ -368,8 +379,19 @@ function ModeCard({
   );
 }
 
-function Center({ children }: { children: React.ReactNode }) {
+// อ่าน ?cat=&mode= ผ่าน useSearchParams — key ตาม query ทำให้เปลี่ยน URL แล้วรีเซ็ต state เสมอ
+export default function Practice() {
   return (
-    <div className="flex min-h-[60vh] items-center justify-center text-slate-600">{children}</div>
+    <Suspense fallback={<Center>กำลังโหลด...</Center>}>
+      <PracticeFromQuery />
+    </Suspense>
   );
+}
+
+function PracticeFromQuery() {
+  const sp = useSearchParams();
+  const cat = Number(sp.get("cat")) || null;
+  const mp = sp.get("mode");
+  const modeParam = mp === "read" || mp === "listen" || mp === "order" ? (mp as QuizMode) : null;
+  return <PracticeInner key={sp.toString()} cat={cat} modeParam={modeParam} />;
 }

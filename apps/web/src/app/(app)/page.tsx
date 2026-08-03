@@ -16,7 +16,7 @@ type Row = { id: number; category: number | null };
 
 export default function Home() {
   const [rows, setRows] = useState<Row[]>([]);
-  const [dueCount, setDueCount] = useState<number | null>(null);
+  const [dueReal, setDueReal] = useState<number | null>(null);
   const [started, setStarted] = useState<Set<number>>(new Set());
   const [streak, setStreak] = useState(0);
 
@@ -27,8 +27,8 @@ export default function Home() {
       const { data } = await supabase.from("words").select("id, category").eq("hsk_level", 1);
       if (data) {
         setRows(data as Row[]);
-        const { due, fresh } = buildQueue(data.map((w) => w.id));
-        setDueCount(due.length + fresh.length);
+        const { due } = buildQueue(data.map((w) => w.id));
+        setDueReal(due.length);
       }
     })();
   }, []);
@@ -57,13 +57,15 @@ export default function Home() {
     return null;
   }, [byCat]);
 
-  // ปุ่ม "เรียนต่อ" ปุ่มเดียว (กฎ MO-01 ฉบับแรก): มีคิวทวน → ทวนก่อน · ไม่มี → หมวดที่ค้างอยู่
+  // ปุ่ม "เรียนต่อ" ปุ่มเดียว (กฎ MO-01): "ทวน" เฉพาะคำที่เคยเรียนแล้วถึงกำหนดจริง — คำใหม่ไม่ใช่ของค้างทวน
   const cta = useMemo(() => {
-    if (dueCount === null) return { href: "/learn/category?cat=1", label: "เริ่มเรียน", sub: "" };
-    if (dueCount > 0) return { href: "/review", label: `ทวนวันนี้ · ${dueCount} คำ`, sub: "ทวนก่อนแล้วค่อยเรียนคำใหม่ จำแม่นสุด" };
+    if (dueReal === null) return null; // กำลังโหลด
+    if (learned === 0 && nextCat)
+      return { href: `/learn/category?cat=${nextCat.id}`, label: `เริ่มเรียน · หมวด ${nextCat.id} ${nextCat.name}`, sub: "หมวดแรกง่ายสุด — เริ่มจากคำทักทายที่ได้ใช้จริง" };
+    if (dueReal > 0) return { href: "/review", label: `ทวนวันนี้ · ${dueReal} คำ`, sub: "ทวนก่อนแล้วค่อยเรียนคำใหม่ จำแม่นสุด" };
     if (nextCat) return { href: `/learn/category?cat=${nextCat.id}`, label: `เรียนต่อ · หมวด ${nextCat.id} ${nextCat.name}`, sub: "ไม่มีคำค้างทวนแล้ว ลุยคำใหม่ได้เลย" };
     return { href: "/practice", label: "ฝึกทำข้อสอบ", sub: "เรียนครบทุกหมวดแล้ว — ฝึกให้คล่องมือ" };
-  }, [dueCount, nextCat]);
+  }, [dueReal, learned, nextCat]);
 
   return (
     <div className="flex flex-col gap-5 p-5">
@@ -82,16 +84,22 @@ export default function Home() {
           </h1>
           <p className="mt-1 text-sm text-ink-100">
             {total ? `เรียนไปแล้ว ${learned}/${total} คำ` : "เรียนคำศัพท์ · ฝึกฟัง-อ่าน · วัดความพร้อมสอบ"}
-            {dueCount !== null && dueCount > 0 ? ` · มี ${dueCount} คำรอทวนวันนี้` : ""}
+            {dueReal !== null && dueReal > 0 ? ` · มี ${dueReal} คำรอทวนวันนี้` : ""}
           </p>
-          <Link
-            href={cta.href}
-            className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 font-semibold text-ink-900 shadow transition active:scale-[0.98]"
-          >
-            <Icon name="play" className="h-5 w-5 text-seal" />
-            {cta.label}
-          </Link>
-          {cta.sub && <p className="mt-2 text-center text-xs text-ink-100/90">{cta.sub}</p>}
+          {cta ? (
+            <Link
+              href={cta.href}
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 font-semibold text-ink-900 shadow transition active:scale-[0.98]"
+            >
+              <Icon name="play" className="h-5 w-5 text-seal" />
+              {cta.label}
+            </Link>
+          ) : (
+            <div className="mt-4 flex w-full items-center justify-center rounded-xl bg-white/40 px-5 py-3.5 font-semibold text-white/70">
+              กำลังโหลด...
+            </div>
+          )}
+          {cta?.sub && <p className="mt-2 text-center text-xs text-ink-100/90">{cta.sub}</p>}
         </div>
       </section>
 
@@ -113,7 +121,7 @@ export default function Home() {
           </div>
           <div className="mt-3 grid grid-cols-2 gap-3 text-center">
             <div className="rounded-xl bg-slate-50 p-2.5">
-              <div className="font-[family-name:var(--font-display)] text-xl font-extrabold text-seal">{dueCount ?? "…"}</div>
+              <div className="font-[family-name:var(--font-display)] text-xl font-extrabold text-seal">{dueReal ?? "…"}</div>
               <div className="text-xs text-slate-500">คำรอทวนวันนี้</div>
             </div>
             <div className="rounded-xl bg-slate-50 p-2.5">
@@ -133,11 +141,11 @@ export default function Home() {
             <Icon name="speaker" className="h-5 w-5" />
           </div>
           <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-1.5 text-sm font-medium text-ink-700">
-              ปูพื้นฐานเสียงก่อนเริ่ม
-              <span className="rounded-md bg-ink-100 px-1.5 py-0.5 text-[9px] font-bold text-ink-500">เริ่มที่นี่ถ้าไม่มีพื้น</span>
+            <div className="flex flex-wrap items-center gap-1.5 text-sm font-medium text-slate-500">
+              ปูพื้นฐานเสียง (สำหรับคนไม่มีพื้น)
+              <span className="rounded-md bg-slate-200 px-1.5 py-0.5 text-[9px] font-bold text-slate-500">เร็ว ๆ นี้</span>
             </div>
-            <div className="mt-0.5 text-[11px] text-slate-400">พินอินเทียบเสียงไทย · วรรณยุกต์ · เกมฝึกหู — กำลังสร้าง</div>
+            <div className="mt-0.5 text-[11px] text-slate-400">พินอินเทียบไทย · วรรณยุกต์ · เกมฝึกหู — กำลังสร้าง ระหว่างนี้เริ่มหมวด 1 ได้เลย</div>
           </div>
         </div>
         <div className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">

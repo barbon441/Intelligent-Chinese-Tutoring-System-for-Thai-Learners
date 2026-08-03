@@ -59,7 +59,15 @@ export default function CategoryMenu() {
         </div>
       </div>
 
+      {/* หมวดยังไม่มีคำ → ไม่เปิดกิจกรรมให้เดินเข้าทางตัน */}
+      {ids.length === 0 && (
+        <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-5 text-center text-sm text-slate-400">
+          หมวดนี้กำลังเติมคำศัพท์ — ลองหมวดอื่นก่อนนะ
+        </div>
+      )}
+
       {/* เมนูกิจกรรม — เรียงตามลำดับแนะนำ แต่กดอะไรก่อนก็ได้ */}
+      {ids.length > 0 && (<>
       <ActivityCard
         href={`/flashcards?cat=${cat}`}
         icon="cards"
@@ -86,6 +94,8 @@ export default function CategoryMenu() {
         title="ฝึกเรียงประโยค"
         desc="ลากคำมาเรียงเป็นประโยค (ชุดประโยครวม — ยังไม่แยกหมวด)"
       />
+      </>)}
+
       {/* ควิซท้ายหมวด — กำลังสร้าง (ส.ค.) */}
       <div className="flex items-center gap-3 rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-4 opacity-70">
         <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-slate-100 text-slate-400">

@@ -3,6 +3,7 @@
 import { Fragment, useMemo, useRef, useState } from "react";
 import { SENTENCES, type SentenceItem } from "@/data/sentences";
 import { saveRound } from "@/lib/progress";
+import { shuffle } from "@/lib/random";
 import { Icon } from "@/components/Icon";
 import { Pinyin } from "@/components/Pinyin";
 
@@ -24,14 +25,7 @@ type Drag = {
   active: boolean; // ขยับเกิน threshold แล้ว = เป็นการลาก (ไม่ใช่แตะ)
 };
 
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+
 
 function makeTiles(s: SentenceItem): Tile[] {
   const tiles = s.tokens.map((t, i) => ({ key: i, text: t }));
@@ -218,7 +212,7 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
             onClick={onExit}
             className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300 focus-visible:ring-offset-2"
           >
-            <Icon name="refresh" className="h-5 w-5" /> กลับเมนูฝึก
+            <Icon name="arrowLeft" className="h-5 w-5" /> กลับเมนูฝึก
           </button>
         </div>
       </div>

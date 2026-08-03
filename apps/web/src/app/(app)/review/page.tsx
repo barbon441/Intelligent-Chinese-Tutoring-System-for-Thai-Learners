@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { supabase, audioUrl, type Word } from "@/lib/supabase";
-import { buildQueue, review, preview, Rating, type Grade } from "@/lib/fsrs";
+import { buildQueue, loadCards, review, preview, Rating, type Grade } from "@/lib/fsrs";
 import { Icon } from "@/components/Icon";
 import { Pinyin } from "@/components/Pinyin";
+import { Center, ErrorState } from "@/components/Feedback";
 
 export default function Review() {
   const [words, setWords] = useState<Word[]>([]);
@@ -18,6 +19,7 @@ export default function Review() {
   const [reviewed, setReviewed] = useState(0);
   const [freshCount, setFreshCount] = useState(0);
   const [started, setStarted] = useState(false);
+  const [knownIds, setKnownIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     (async () => {
@@ -28,6 +30,7 @@ export default function Review() {
         .order("id");
       if (error) setError(error.message);
       else {
+        setKnownIds(new Set(Object.keys(loadCards()).map(Number)));
         const ws = data as Word[];
         setWords(ws);
         const ids = ws.map((w) => w.id);
@@ -65,7 +68,7 @@ export default function Review() {
   }
 
   if (loading) return <Center>กำลังเตรียมคิวทบทวน...</Center>;
-  if (error) return <Center>❌ {error}</Center>;
+  if (error) return <ErrorState detail={error} />;
 
   // ---------- ไม่มีอะไรต้องทวน ----------
   if (queue.length === 0) {
@@ -78,8 +81,8 @@ export default function Review() {
         <p className="text-center text-sm text-slate-400">
           ยังไม่มีคำที่ถึงกำหนดทวน กลับมาใหม่พรุ่งนี้ หรือไปเรียนคำใหม่ก่อน
         </p>
-        <Link href="/flashcards" className="rounded-xl bg-sky-700 px-5 py-3 text-white shadow hover:bg-sky-800">
-          ไปเรียนบัตรคำ →
+        <Link href="/" className="rounded-xl bg-ink-700 px-5 py-3 text-white shadow transition hover:bg-ink-900">
+          กลับหน้าแรก — ไปเรียนคำใหม่ต่อ
         </Link>
       </div>
     );
@@ -96,18 +99,18 @@ export default function Review() {
         <p className="text-center text-sm text-slate-400">
           ระบบเลือกคำที่ “กำลังจะลืมพอดี” มาให้ทวน — ทวนตอนนี้จำได้นานที่สุด
         </p>
-        <div className="w-full rounded-3xl bg-gradient-to-br from-sky-600 to-sky-800 p-6 text-center text-white shadow-lg">
+        <div className="w-full rounded-3xl bg-gradient-to-br from-ink-900 via-ink-700 to-ink-500 p-6 text-center text-white shadow-lg">
           <div className="text-5xl font-bold">{queue.length}</div>
-          <div className="mt-1 text-sky-100">คำในคิววันนี้</div>
-          <div className="mt-2 text-xs text-sky-200">
-            ถึงกำหนดทวน {queue.length - freshCount} · คำใหม่ {freshCount}
+          <div className="mt-1 text-ink-100">คำในคิววันนี้</div>
+          <div className="mt-2 text-xs text-ink-100/80">
+            {freshCount === queue.length ? "วันนี้เป็นคำใหม่ทั้งหมด — เจอครั้งแรก ค่อย ๆ ดูไปทีละคำ" : `ถึงกำหนดทวน ${queue.length - freshCount} · คำใหม่ ${freshCount}`}
           </div>
         </div>
         <button
           onClick={() => setStarted(true)}
-          className="w-full rounded-xl bg-sky-700 px-5 py-3.5 font-semibold text-white shadow hover:bg-sky-800"
+          className="w-full rounded-xl bg-ink-700 px-5 py-3.5 font-semibold text-white shadow transition hover:bg-ink-900"
         >
-          เริ่มทบทวน →
+          เริ่มกันเลย
         </button>
         <p className="rounded-2xl bg-slate-50 p-4 text-center text-[11px] leading-relaxed text-slate-500">
           ระบบคำนวณเองว่าแต่ละคำ “ควรทวนเมื่อไหร่” · เก็บกำหนดไว้ในเครื่องนี้
@@ -125,20 +128,12 @@ export default function Review() {
         </div>
         <h1 className="text-xl font-semibold text-slate-700">ทวนจบรอบแล้ว!</h1>
         <p className="text-center text-sm text-slate-400">ทวนไป {reviewed} คำ · เก็บกำหนดครั้งถัดไปให้เรียบร้อย</p>
-        <div className="flex w-full gap-3">
-          <Link
-            href="/"
-            className="flex-1 rounded-xl bg-slate-100 px-4 py-3 text-center font-medium text-slate-600 transition hover:bg-slate-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
-          >
-            กลับหน้าแรก
-          </Link>
-          <Link
-            href="/flashcards"
-            className="flex-1 rounded-xl bg-sky-700 px-4 py-3 text-center font-semibold text-white shadow transition hover:bg-sky-800 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2"
-          >
-            เรียนคำใหม่ →
-          </Link>
-        </div>
+        <Link
+          href="/"
+          className="w-full rounded-xl bg-ink-700 px-4 py-3.5 text-center font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95"
+        >
+          ไปต่อกันเลย
+        </Link>
       </div>
     );
   }
@@ -149,14 +144,16 @@ export default function Review() {
       {/* ความคืบหน้า */}
       <div className="w-full">
         <div className="flex items-center justify-between text-sm text-slate-500">
-          <span>ทบทวนคำศัพท์</span>
+          <Link href="/" className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-1.5 py-0.5 text-xs text-slate-500 transition hover:bg-slate-200">
+            <Icon name="arrowLeft" className="h-3 w-3" /> ออก
+          </Link>
           <span>
             {idx + 1}/{queue.length}
           </span>
         </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-200">
+        <div className="mt-2 h-2 w-full rounded-full bg-slate-100">
           <div
-            className="h-2 rounded-full bg-sky-500 transition-all"
+            className="h-2 rounded-full bg-ink-500 transition-all"
             style={{ width: `${(idx / queue.length) * 100}%` }}
           />
         </div>
@@ -169,9 +166,14 @@ export default function Review() {
       >
         {!flipped ? (
           <>
-            <div className="text-7xl font-bold">{card.hanzi}</div>
-            <div className="mt-3 text-2xl text-slate-500">{card.pinyin}</div>
-            <div className="mt-6 text-xs text-slate-400">แตะเพื่อดูคำแปล แล้วให้คะแนนว่าจำได้แค่ไหน</div>
+            {!knownIds.has(card.id) && (
+              <span className="mb-2 rounded-md bg-ink-50 px-2 py-0.5 text-xs font-bold text-ink-500">คำใหม่</span>
+            )}
+            <div className="text-7xl font-bold text-slate-900">{card.hanzi}</div>
+            <Pinyin text={card.pinyin} className="mt-3 text-2xl font-medium" />
+            <div className="mt-6 text-xs text-slate-400">
+              {knownIds.has(card.id) ? "แตะเพื่อดูคำแปล แล้วให้คะแนนว่าจำได้แค่ไหน" : "เพิ่งเจอครั้งแรก — จำหน้าตาไว้ แล้วแตะดูคำแปล"}
+            </div>
           </>
         ) : (
           <>
@@ -196,10 +198,10 @@ export default function Review() {
       {/* ปุ่มให้คะแนน (โผล่หลังพลิก) */}
       {flipped ? (
         <div className="grid w-full grid-cols-4 gap-2">
-          <RateBtn label="ลืม" color="bg-rose-500" sub={intervals?.again} onClick={() => rate(Rating.Again)} />
+          <RateBtn label="ลืม" color="bg-seal" sub={intervals?.again} onClick={() => rate(Rating.Again)} />
           <RateBtn label="ยาก" color="bg-amber-500" sub={intervals?.hard} onClick={() => rate(Rating.Hard)} />
-          <RateBtn label="ปกติ" color="bg-sky-600" sub={intervals?.good} onClick={() => rate(Rating.Good)} />
-          <RateBtn label="ง่าย" color="bg-emerald-600" sub={intervals?.easy} onClick={() => rate(Rating.Easy)} />
+          <RateBtn label="ปกติ" color="bg-ink-500" sub={intervals?.good} onClick={() => rate(Rating.Good)} />
+          <RateBtn label="ง่าย" color="bg-correct" sub={intervals?.easy} onClick={() => rate(Rating.Easy)} />
         </div>
       ) : (
         <button
@@ -235,6 +237,3 @@ function RateBtn({
   );
 }
 
-function Center({ children }: { children: React.ReactNode }) {
-  return <div className="flex min-h-[60vh] items-center justify-center text-slate-600">{children}</div>;
-}

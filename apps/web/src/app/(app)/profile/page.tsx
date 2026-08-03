@@ -26,17 +26,18 @@ export default function Profile() {
         <div className="text-sm text-slate-400">เป้าหมาย: สอบผ่าน HSK 1 (120/200)</div>
       </section>
 
-      {/* สรุปสั้น */}
-      <section className="grid grid-cols-2 gap-3">
-        <div className="rounded-2xl bg-slate-50 p-4 text-center">
-          <div className="text-2xl font-bold text-sky-700">{rounds}</div>
-          <div className="mt-1 text-xs text-slate-500">รอบที่ฝึก</div>
-        </div>
-        <div className="rounded-2xl bg-slate-50 p-4 text-center">
-          <div className="text-2xl font-bold text-pink-600">{acc === null ? "—" : `${acc}%`}</div>
-          <div className="mt-1 text-xs text-slate-500">ความแม่นยำรวม</div>
-        </div>
-      </section>
+      {/* ลิงก์ดูผล (สถิติเต็มอยู่หน้า ผล — ไม่โชว์ซ้ำ) */}
+      <Link
+        href="/progress"
+        className="flex items-center justify-between rounded-2xl border border-slate-100 bg-white p-4 text-sm transition hover:border-ink-300"
+      >
+        <span className="text-slate-600">
+          ฝึกไป {rounds} รอบ{acc !== null ? ` · ความแม่นยำ ${acc}%` : ""}
+        </span>
+        <span className="inline-flex items-center gap-1 font-medium text-ink-500">
+          ดูผลเต็ม <Icon name="arrowRight" className="h-4 w-4" />
+        </span>
+      </Link>
 
       {/* เป้าหมายการเรียน */}
       <section className="rounded-2xl border border-slate-100 bg-white p-4">
@@ -48,9 +49,9 @@ export default function Profile() {
         </ul>
         <Link
           href="/practice"
-          className="mt-4 block rounded-xl bg-sky-700 px-4 py-2.5 text-center text-sm font-medium text-white shadow hover:bg-sky-800"
+          className="mt-4 flex items-center justify-center gap-1.5 rounded-xl bg-ink-700 px-4 py-2.5 text-center text-sm font-semibold text-white shadow transition hover:bg-ink-900"
         >
-          ฝึกทำข้อสอบต่อ →
+          ฝึกทำข้อสอบต่อ <Icon name="arrowRight" className="h-4 w-4" />
         </Link>
       </section>
 
@@ -58,27 +59,20 @@ export default function Profile() {
       <section className="rounded-2xl border border-slate-100 bg-white p-4 text-sm text-slate-500">
         <h2 className="mb-2 font-semibold text-slate-600">เกี่ยวกับแอป</h2>
         <p className="leading-relaxed">
-          <span className="font-medium text-slate-700">中文知心</span> — ติวเตอร์เตรียมสอบ
-          HSK อัจฉริยะสำหรับคนไทย วินิจฉัยจุดที่คนไทยมักพลาด (Thai-L1) แล้วเจาะติวรายทักษะ
+          <span className="font-medium text-slate-700">中文知心</span> — ผู้ช่วยเตรียมสอบ HSK สำหรับคนไทย
+          เรียนคำศัพท์เป็นหมวด ฝึกฟัง-อ่านแบบข้อสอบจริง และทวนตามจังหวะที่จำได้ดีที่สุด
         </p>
         <div className="mt-3 border-t border-slate-100 pt-3 text-xs text-slate-400">
           โปรเจกต์นักศึกษาวิทยาการคอมพิวเตอร์ ม.แม่โจ้
           <br />
           วรเดช ปิ่นทอง · หฤทัย ยุวรัตน์
         </div>
-        <Link
-          href="/roadmap"
-          className="mt-3 flex items-center justify-between rounded-xl bg-ink-50 px-4 py-2.5 text-sm font-medium text-ink-700 transition hover:bg-ink-100"
-        >
-          <span className="inline-flex items-center gap-2">
-            <Icon name="target" className="h-4 w-4" /> แผนพัฒนาระบบ (Roadmap)
-          </span>
-          <Icon name="arrowRight" className="h-4 w-4" />
-        </Link>
+
       </section>
 
       <p className="pb-2 text-center text-[11px] text-slate-300">
-        เวอร์ชันพัฒนา · ระบบล็อกอิน/โปรไฟล์รายบุคคลจะเพิ่มในเฟสถัดไป
+        เวอร์ชันพัฒนา · ระบบล็อกอิน/โปรไฟล์รายบุคคลจะเพิ่มในเฟสถัดไป ·{" "}
+        <Link href="/roadmap" className="underline hover:text-slate-500">แผนพัฒนา (ทีม)</Link>
       </p>
     </div>
   );

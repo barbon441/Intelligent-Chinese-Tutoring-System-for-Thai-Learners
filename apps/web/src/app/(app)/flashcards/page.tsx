@@ -1,44 +1,40 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase, audioUrl, type Word } from "@/lib/supabase";
 import { catName } from "@/data/categories";
+import { Center, ErrorState } from "@/components/Feedback";
+import { loadCards, review, Rating } from "@/lib/fsrs";
 import { Icon } from "@/components/Icon";
 import { Pinyin } from "@/components/Pinyin";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
-export default function Flashcards() {
+function FlashcardsInner({ cat, reviewMode }: { cat: number | null; reviewMode: boolean }) {
   const [words, setWords] = useState<Word[]>([]);
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [reviewMode, setReviewMode] = useState(false);
-  const [cat, setCat] = useState<number | null>(null);
-
-  // โหมดตรวจ (สำหรับหฤทัย) เปิดด้วย ?review=1 — ผู้เรียนทั่วไปเห็นบัตรคำสะอาด ๆ
-  useEffect(() => {
-    setReviewMode(new URLSearchParams(window.location.search).get("review") === "1");
-  }, []);
+  const [finished, setFinished] = useState(false);
+  const seenRef = useRef<Set<number>>(new Set());
 
   useEffect(() => {
-    // อ่านหมวดจาก ?cat=1-5 (มาจากหน้าเลือกหมวด) — ไม่มี = โชว์ทั้ง 300 คำแบบเดิม
-    const c = Number(new URLSearchParams(window.location.search).get("cat")) || null;
-    setCat(c);
+    seenRef.current = new Set(Object.keys(loadCards()).map(Number));
     (async () => {
       let q = supabase
         .from("words")
         .select("id, hanzi, pinyin, meaning_th, meaning_en, th_reviewed, audio_path, hsk_level, category")
         .eq("hsk_level", 1);
-      if (c) q = q.eq("category", c);
+      if (cat) q = q.eq("category", cat);
       const { data, error } = await q.order("id");
       if (error) setError(error.message);
       else setWords(data as Word[]);
       setLoading(false);
     })();
-  }, []);
+  }, [cat]);
 
   const word = words[idx];
   const reviewedCount = words.filter((w) => w.th_reviewed).length;
@@ -47,12 +43,24 @@ export default function Flashcards() {
     if (word?.audio_path) new Audio(audioUrl(word.audio_path)).play().catch(() => {});
   }, [word]);
 
+  // พลิกดูคำแปลครั้งแรกของคำไหน = เริ่มเรียนคำนั้น (สร้างการ์ดทวน → "เรียนแล้ว" ทุกหน้าขยับตามจริง)
+  useEffect(() => {
+    if (flipped && word && !seenRef.current.has(word.id)) {
+      review(word.id, Rating.Good);
+      seenRef.current.add(word.id);
+    }
+  }, [flipped, word]);
+
   const go = useCallback(
     (delta: number) => {
+      if (delta > 0 && idx >= words.length - 1 && words.length > 0) {
+        setFinished(true);
+        return;
+      }
       setFlipped(false);
       setIdx((i) => Math.min(Math.max(i + delta, 0), words.length - 1));
     },
-    [words.length]
+    [words.length, idx]
   );
 
   // เล่นเสียงอัตโนมัติเมื่อเปลี่ยนคำ
@@ -88,8 +96,64 @@ export default function Flashcards() {
   }
 
   if (loading) return <Center>กำลังโหลดคำศัพท์...</Center>;
-  if (error) return <Center>❌ {error}</Center>;
-  if (!word) return <Center>ไม่พบคำศัพท์</Center>;
+  if (error) return <ErrorState detail={error} />;
+  if (!word)
+    return (
+      <Center>
+        ไม่พบคำศัพท์ —{" "}
+        <Link href="/" className="ml-1 text-ink-500 underline">
+          กลับหน้าแรก
+        </Link>
+      </Center>
+    );
+
+  // ---------- จบชุด ----------
+  if (finished) {
+    return (
+      <div className="flex flex-col items-center gap-5 p-5">
+        <div className="mt-10 grid h-20 w-20 place-items-center rounded-full bg-emerald-50 text-correct">
+          <Icon name="check" className="h-10 w-10" strokeWidth={2.4} />
+        </div>
+        <h1 className="text-xl font-semibold text-slate-700">จบชุดบัตรคำแล้ว!</h1>
+        <p className="text-center text-sm text-slate-400">
+          ดูไป {words.length} คำ — คำที่พลิกดูแล้วจะทยอยเข้าคิวทวนให้อัตโนมัติ
+        </p>
+        {cat ? (
+          <div className="flex w-full flex-col gap-2">
+            <Link
+              href={`/practice?cat=${cat}&mode=listen`}
+              className="w-full rounded-xl bg-ink-700 px-4 py-3.5 text-center font-semibold text-white shadow transition hover:bg-ink-900 active:scale-[0.98]"
+            >
+              ไปฝึกฟังหมวดนี้ต่อ
+            </Link>
+            <Link
+              href={`/learn/category?cat=${cat}`}
+              className="w-full rounded-xl bg-slate-100 px-4 py-3 text-center font-medium text-slate-600 transition hover:bg-slate-200"
+            >
+              กลับเมนูหมวด
+            </Link>
+          </div>
+        ) : (
+          <Link
+            href="/"
+            className="w-full rounded-xl bg-ink-700 px-4 py-3.5 text-center font-semibold text-white shadow transition hover:bg-ink-900 active:scale-[0.98]"
+          >
+            กลับหน้าแรก
+          </Link>
+        )}
+        <button
+          onClick={() => {
+            setFinished(false);
+            setIdx(0);
+            setFlipped(false);
+          }}
+          className="text-sm text-slate-400 underline"
+        >
+          ดูซ้ำอีกรอบ
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center gap-6 p-5">
@@ -97,17 +161,20 @@ export default function Flashcards() {
         <div className="flex items-center justify-between text-sm text-slate-500">
           <span className="flex items-center gap-2">
             {cat && (
-              <Link href={`/learn/category?cat=${cat}`} className="rounded-md bg-slate-100 px-1.5 py-0.5 text-xs text-slate-500 transition hover:bg-slate-200">
-                ◀ หมวด
+              <Link
+                href={`/learn/category?cat=${cat}`}
+                className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-1.5 py-0.5 text-xs text-slate-500 transition hover:bg-slate-200"
+              >
+                <Icon name="arrowLeft" className="h-3 w-3" /> หมวด
               </Link>
             )}
             {cat ? `บัตรคำ · ${catName(cat) ?? `หมวด ${cat}`}` : "บัตรคำ HSK 1"}
           </span>
           <span>{reviewMode ? `ตรวจแล้ว ${reviewedCount}/${words.length}` : `${idx + 1}/${words.length}`}</span>
         </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-200">
+        <div className="mt-2 h-2 w-full rounded-full bg-slate-100">
           <div
-            className="h-2 rounded-full bg-pink-400"
+            className="h-2 rounded-full bg-ink-500"
             style={{ width: `${((reviewMode ? reviewedCount : idx + 1) / words.length) * 100}%` }}
           />
         </div>
@@ -156,11 +223,14 @@ export default function Flashcards() {
         </button>
         <button
           onClick={() => go(1)}
-          disabled={idx === words.length - 1}
           aria-label="คำถัดไป"
-          className="inline-flex items-center gap-1 rounded-xl bg-slate-100 px-5 py-3 font-medium text-slate-600 transition hover:bg-slate-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 disabled:pointer-events-none disabled:opacity-40"
+          className={`inline-flex items-center gap-1 rounded-xl px-5 py-3 font-medium transition active:scale-95 focus-visible:outline-none focus-visible:ring-2 ${
+            idx === words.length - 1
+              ? "bg-correct text-white shadow hover:opacity-90 focus-visible:ring-emerald-300"
+              : "bg-slate-100 text-slate-600 hover:bg-slate-200 focus-visible:ring-slate-300"
+          }`}
         >
-          ถัดไป <Icon name="arrowRight" className="h-4 w-4" />
+          {idx === words.length - 1 ? "จบชุด" : "ถัดไป"} <Icon name="arrowRight" className="h-4 w-4" />
         </button>
       </div>
       {reviewMode && <div className="text-sm text-slate-400">{idx + 1} / {words.length}</div>}
@@ -198,6 +268,19 @@ export default function Flashcards() {
   );
 }
 
-function Center({ children }: { children: React.ReactNode }) {
-  return <div className="flex min-h-[60vh] items-center justify-center text-slate-600">{children}</div>;
+
+// อ่าน ?cat=&review= ผ่าน useSearchParams — key ตาม query ให้เปลี่ยน URL แล้ว state รีเซ็ตเสมอ
+export default function Flashcards() {
+  return (
+    <Suspense fallback={<Center>กำลังโหลดคำศัพท์...</Center>}>
+      <FlashcardsFromQuery />
+    </Suspense>
+  );
+}
+
+function FlashcardsFromQuery() {
+  const sp = useSearchParams();
+  const cat = Number(sp.get("cat")) || null;
+  const reviewMode = sp.get("review") === "1";
+  return <FlashcardsInner key={sp.toString()} cat={cat} reviewMode={reviewMode} />;
 }
