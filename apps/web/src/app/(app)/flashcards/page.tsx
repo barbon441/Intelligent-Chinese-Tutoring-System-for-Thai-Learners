@@ -97,7 +97,7 @@ export default function Flashcards() {
         <div className="flex items-center justify-between text-sm text-slate-500">
           <span className="flex items-center gap-2">
             {cat && (
-              <Link href="/learn" className="rounded-md bg-slate-100 px-1.5 py-0.5 text-xs text-slate-500 transition hover:bg-slate-200">
+              <Link href={`/learn/category?cat=${cat}`} className="rounded-md bg-slate-100 px-1.5 py-0.5 text-xs text-slate-500 transition hover:bg-slate-200">
                 ◀ หมวด
               </Link>
             )}

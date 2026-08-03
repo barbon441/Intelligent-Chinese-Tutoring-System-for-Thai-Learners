@@ -33,13 +33,13 @@ export default function CategoryMenu() {
   const pct = ids.length ? Math.round((learned / ids.length) * 100) : 0;
 
   if (loading) return <Center>กำลังโหลด...</Center>;
-  if (!cat || !meta) return <Center>ไม่พบหมวดนี้ — <Link href="/learn" className="ml-1 text-ink-500 underline">กลับไปเลือกหมวด</Link></Center>;
+  if (!cat || !meta) return <Center>ไม่พบหมวดนี้ — <Link href="/" className="ml-1 text-ink-500 underline">กลับไปเลือกหมวด</Link></Center>;
 
   return (
     <div className="flex flex-col gap-4 p-5">
       {/* หัวหมวด */}
       <div>
-        <Link href="/learn" className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-slate-600">
+        <Link href="/" className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-slate-600">
           <Icon name="arrowLeft" className="h-3.5 w-3.5" /> ทุกหมวด
         </Link>
         <div className="mt-2 flex items-center gap-3">

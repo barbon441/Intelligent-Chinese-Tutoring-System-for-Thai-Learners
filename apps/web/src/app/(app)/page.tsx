@@ -59,7 +59,7 @@ export default function Home() {
 
   // ปุ่ม "เรียนต่อ" ปุ่มเดียว (กฎ MO-01 ฉบับแรก): มีคิวทวน → ทวนก่อน · ไม่มี → หมวดที่ค้างอยู่
   const cta = useMemo(() => {
-    if (dueCount === null) return { href: "/learn", label: "เริ่มเรียน", sub: "" };
+    if (dueCount === null) return { href: "/learn/category?cat=1", label: "เริ่มเรียน", sub: "" };
     if (dueCount > 0) return { href: "/review", label: `ทวนวันนี้ · ${dueCount} คำ`, sub: "ทวนก่อนแล้วค่อยเรียนคำใหม่ จำแม่นสุด" };
     if (nextCat) return { href: `/learn/category?cat=${nextCat.id}`, label: `เรียนต่อ · หมวด ${nextCat.id} ${nextCat.name}`, sub: "ไม่มีคำค้างทวนแล้ว ลุยคำใหม่ได้เลย" };
     return { href: "/practice", label: "ฝึกทำข้อสอบ", sub: "เรียนครบทุกหมวดแล้ว — ฝึกให้คล่องมือ" };
@@ -126,11 +126,19 @@ export default function Home() {
 
       {/* ③ เลือกหมวดเรียน — ทางเข้าหลักของการเรียน */}
       <section>
-        <div className="mb-2 flex items-baseline justify-between">
-          <h2 className="text-sm font-semibold text-slate-500">เลือกหมวดเรียน</h2>
-          <Link href="/learn" className="text-xs font-medium text-ink-500 hover:text-ink-700">
-            ดูทั้งหมด →
-          </Link>
+        <h2 className="mb-2 text-sm font-semibold text-slate-500">เลือกหมวดเรียน</h2>
+        {/* ด่านพื้นฐานเสียง (ศัพท์ทีม: โมดูล 0) — กำลังสร้าง */}
+        <div className="mb-3 flex items-center gap-3 rounded-2xl border border-dashed border-ink-200 bg-ink-50/60 p-3.5">
+          <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-ink-500">
+            <Icon name="speaker" className="h-5 w-5" />
+          </div>
+          <div className="flex-1">
+            <div className="flex flex-wrap items-center gap-1.5 text-sm font-medium text-ink-700">
+              ปูพื้นฐานเสียงก่อนเริ่ม
+              <span className="rounded-md bg-ink-100 px-1.5 py-0.5 text-[9px] font-bold text-ink-500">เริ่มที่นี่ถ้าไม่มีพื้น</span>
+            </div>
+            <div className="mt-0.5 text-[11px] text-slate-400">พินอินเทียบเสียงไทย · วรรณยุกต์ · เกมฝึกหู — กำลังสร้าง</div>
+          </div>
         </div>
         <div className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
           {CATEGORIES.map((c, i) => {
