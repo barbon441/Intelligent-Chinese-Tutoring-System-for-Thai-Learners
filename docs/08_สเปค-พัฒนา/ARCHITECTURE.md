@@ -51,7 +51,7 @@
 
 **หลักการแบ่งหน้าที่:**
 - **Next.js PWA** = หน้ากาก + ชั้นออฟไลน์ (Serwist เก็บ "ตัวแอป", Dexie เก็บ "ข้อมูล") — **IndexedDB = ที่พัก, Supabase = ตัวจริง**
-- **FastAPI** = engine เดียวรวม ML ทั้งหมด (pyBKT/py-fsrs/jieba/pypinyin เป็น Python ทั้งหมด — รันโปรเซสเดียว) แยกจาก frontend เพื่อ reuse/ต่อยอดช่องทางอื่น (ตาม proposal 1.4.4)
+- **FastAPI** = engine เดียวรวม ML ทั้งหมด (pyBKT/py-fsrs/jieba/pypinyin เป็น Python ทั้งหมด — รันโปรเซสเดียว) แยกจาก frontend เพื่อ reuse/ต่อยอดช่องทางอื่น (ตาม proposal 1.4.5)
 - **Supabase** = DB ถาวร + Auth + Storage ไฟล์เสียง
 - **Gemini Flash** = เส้นประ (optional) — ระบบหลักต้องทำงานได้แม้ปิด LLM ทิ้ง
 
