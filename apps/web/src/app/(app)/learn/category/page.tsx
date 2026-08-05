@@ -3,30 +3,32 @@
 // เมนูในหมวด — ชั้น "เลือกทักษะ" ตามกฎ PA-10: เลือกหมวด → เลือกกิจกรรม → ค่อยเข้าฝึก
 // ลำดับแนะนำ: บัตรคำ → ฟัง → อ่าน → เขียน ("หูมาก่อนตา") แต่กดข้ามได้ทุกปุ่ม ไม่ล็อก
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { Icon, type IconName } from "@/components/Icon";
 import { CATEGORIES } from "@/data/categories";
 import { loadCards } from "@/lib/fsrs";
+import { bestScore } from "@/lib/quiz";
+import { Center } from "@/components/Feedback";
 
-export default function CategoryMenu() {
-  const [cat, setCat] = useState<number | null>(null);
+function CategoryMenuInner({ cat }: { cat: number | null }) {
   const [ids, setIds] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
   const [started, setStarted] = useState<Set<number>>(new Set());
+  const [quizBest, setQuizBest] = useState<number | null>(null);
 
   useEffect(() => {
-    const c = Number(new URLSearchParams(window.location.search).get("cat")) || null;
-    setCat(c);
     setStarted(new Set(Object.keys(loadCards()).map(Number)));
-    if (!c) { setLoading(false); return; }
+    if (!cat) { setLoading(false); return; }
+    setQuizBest(bestScore(cat));
     (async () => {
-      const { data } = await supabase.from("words").select("id").eq("hsk_level", 1).eq("category", c);
+      const { data } = await supabase.from("words").select("id").eq("hsk_level", 1).eq("category", cat);
       setIds((data ?? []).map((r) => r.id));
       setLoading(false);
     })();
-  }, []);
+  }, [cat]);
 
   const meta = CATEGORIES.find((c) => c.id === cat);
   const learned = useMemo(() => ids.filter((id) => started.has(id)).length, [ids, started]);
@@ -96,16 +98,21 @@ export default function CategoryMenu() {
       />
       </>)}
 
-      {/* ควิซท้ายหมวด — กำลังสร้าง (ส.ค.) */}
-      <div className="flex items-center gap-3 rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-4 opacity-70">
-        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-slate-100 text-slate-400">
-          <Icon name="target" className="h-5 w-5" />
-        </div>
-        <div className="flex-1">
-          <div className="font-medium text-slate-500">ควิซท้ายหมวด</div>
-          <div className="text-xs text-slate-400">สอบย่อย 10 ข้อ วัดว่าหมวดนี้แน่นหรือยัง · เร็ว ๆ นี้</div>
-        </div>
-      </div>
+      {/* ควิซท้ายหมวด (โมดูล 3) — เปิดเฉพาะหมวดที่มีคำแล้ว */}
+      {ids.length > 0 && (
+        <ActivityCard
+          href={`/quiz?cat=${cat}`}
+          icon="target"
+          title="ควิซท้ายหมวด"
+          desc={
+            quizBest !== null
+              ? `คะแนนเก็บ ${quizBest}/10 · สอบใหม่ได้ไม่จำกัด นับครั้งที่ดีที่สุด`
+              : "สอบย่อย 10 ข้อ ผ่านที่ 7 ขึ้นไป — วัดว่าหมวดนี้แน่นหรือยัง"
+          }
+          badge={quizBest !== null && quizBest >= 7 ? "ผ่านแล้ว" : undefined}
+          badgeTone="correct"
+        />
+      )}
 
       <p className="mt-1 text-center text-xs leading-relaxed text-slate-400">
         แนะนำ: เรียนคำศัพท์ก่อน แล้วค่อยฝึกฟัง → อ่าน · แต่เลือกแบบไหนก่อนก็ได้ตามสะดวก
@@ -120,6 +127,7 @@ function ActivityCard({
   title,
   desc,
   badge,
+  badgeTone = "seal",
   primary = false,
 }: {
   href: string;
@@ -127,6 +135,7 @@ function ActivityCard({
   title: string;
   desc: string;
   badge?: string;
+  badgeTone?: "seal" | "correct";
   primary?: boolean;
 }) {
   return (
@@ -142,7 +151,11 @@ function ActivityCard({
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2 font-medium text-slate-700">
           {title}
-          {badge && <span className="rounded-md bg-seal px-1.5 py-0.5 text-[10px] font-bold text-white">{badge}</span>}
+          {badge && (
+            <span className={`rounded-md px-1.5 py-0.5 text-[10px] font-bold text-white ${badgeTone === "correct" ? "bg-correct" : "bg-seal"}`}>
+              {badge}
+            </span>
+          )}
         </div>
         <div className="text-xs text-slate-400">{desc}</div>
       </div>
@@ -151,6 +164,17 @@ function ActivityCard({
   );
 }
 
-function Center({ children }: { children: React.ReactNode }) {
-  return <div className="flex min-h-[60vh] items-center justify-center text-slate-600">{children}</div>;
+// อ่าน ?cat= ผ่าน useSearchParams — key ตาม query ให้เปลี่ยนหมวดแล้ว state รีเซ็ตเสมอ
+export default function CategoryMenu() {
+  return (
+    <Suspense fallback={<Center>กำลังโหลด...</Center>}>
+      <CategoryMenuFromQuery />
+    </Suspense>
+  );
+}
+
+function CategoryMenuFromQuery() {
+  const sp = useSearchParams();
+  const cat = Number(sp.get("cat")) || null;
+  return <CategoryMenuInner key={sp.toString()} cat={cat} />;
 }

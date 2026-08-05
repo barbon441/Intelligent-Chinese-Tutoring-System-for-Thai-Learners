@@ -279,7 +279,7 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
         {q.choices.map((c) => {
           const isCorrect = c.id === q.word.id;
           const isPicked = c.id === picked;
-          let cls = "border-slate-200 bg-white text-slate-700 hover:border-sky-300";
+          let cls = "border-slate-200 bg-white text-slate-700 hover:border-ink-300";
           if (answered) {
             if (isCorrect) cls = "border-emerald-400 bg-emerald-50 text-emerald-800";
             else if (isPicked) cls = "border-rose-300 bg-rose-50 text-rose-700";
@@ -306,7 +306,7 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
       {answered && (
         <button
           onClick={next}
-          className="rounded-xl bg-sky-700 px-4 py-3 text-white shadow hover:bg-sky-800"
+          className="rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900"
         >
           {qi + 1 >= questions.length ? "ดูผล →" : "ข้อถัดไป →"}
         </button>
