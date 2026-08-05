@@ -167,7 +167,8 @@ export default function Home() {
                     <span className="truncate font-medium text-slate-700">{c.name}</span>
                     {suggested && (
                       <span className="inline-flex shrink-0 items-center gap-0.5 rounded bg-streak/10 px-1 py-0.5 text-[9px] font-bold text-streak">
-                        <Icon name="flame" className="h-2.5 w-2.5" /> ต่อจากเดิม
+                        <Icon name="flame" className="h-2.5 w-2.5" />
+                        {b.learned === 0 ? "เริ่มที่นี่" : "ต่อจากเดิม"}
                       </span>
                     )}
                   </div>
