@@ -8,6 +8,7 @@ import { catName } from "@/data/categories";
 import { Center, ErrorState } from "@/components/Feedback";
 import { shuffle } from "@/lib/random";
 import { saveRound, type QuizMode } from "@/lib/progress";
+import { loadCards } from "@/lib/fsrs";
 import { SENTENCES } from "@/data/sentences";
 import SentenceOrder from "./SentenceOrder";
 import { Icon, type IconName } from "@/components/Icon";
@@ -48,13 +49,20 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
   }, [cat]);
 
   // คำที่ใช้ได้ในแต่ละโหมด (อ่าน = ต้องมีคำแปล · ฟัง = ต้องมีเสียง)
+  // PA-14: ฝึก = ดึงความจำของคำที่เรียนแล้ว — เรียนแล้ว ≥4 คำ สุ่มเฉพาะคำที่เรียนแล้ว
+  // ยังไม่ถึง 4 ใช้ทั้งหมวดไปก่อนกันทางตัน (ควิซท้ายหมวดไม่ใช้กฎนี้ — มันคือตัววัดทั้งหมวด)
+  const [learnedIds] = useState(() => new Set(Object.keys(loadCards()).map(Number)));
   const pools = useMemo(() => {
     const withMeaning = words.filter((w) => w.meaning_th && w.meaning_th.trim());
-    return {
-      read: withMeaning,
-      listen: withMeaning.filter((w) => w.audio_path),
+    const preferLearned = (arr: Word[]) => {
+      const learned = arr.filter((w) => learnedIds.has(w.id));
+      return learned.length >= 4 ? learned : arr;
     };
-  }, [words]);
+    return {
+      read: preferLearned(withMeaning),
+      listen: preferLearned(withMeaning.filter((w) => w.audio_path)),
+    };
+  }, [words, learnedIds]);
 
   const start = useCallback(
     (m: "read" | "listen") => {
