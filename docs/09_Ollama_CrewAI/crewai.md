@@ -1,4 +1,4 @@
-1chJ��ܟ�E��qUM㡆��b4D}[�ใช้งานกับ Ollama Local และ Gemini API
+# CrewAI Installation Guide — ใช้งานกับ Ollama Local และ Gemini API
 
 เอกสารนี้สรุปขั้นตอนการติดตั้ง สร้างโปรเจกต์ และตั้งค่า CrewAI ให้ใช้งานได้ทั้งแบบ **Ollama Local LLM** และ **Google Gemini API** บน Windows PowerShell
 
