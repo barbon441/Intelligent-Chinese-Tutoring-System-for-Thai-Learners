@@ -5,17 +5,26 @@
 //        ④ ทวน / จุดที่ควรฝึกเพิ่ม ⑤ หมวดทั้งหมด ⑥ ฝึกและวัดผล
 // ภาษาบนจอ = ภาษาคนเท่านั้น (กฎ PA-13) · อีโมจิใช้ได้เฉพาะในคำพูดของ 小星 นอกนั้นใช้ Icon เส้น
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useJourney } from "@/lib/journey";
 import { Icon, type IconName } from "@/components/Icon";
 import { Mascot } from "@/components/Mascot";
 import { LevelCard } from "@/components/LevelCard";
 import { ProgressBar } from "@/components/ProgressBar";
+import { Pinyin } from "@/components/Pinyin";
 import { getLevel } from "@/data/levels";
 import { QUIZ_TOTAL } from "@/lib/quiz";
+import { loadPretest, REVIEW_WORDS } from "@/data/mockData";
 
 export default function Home() {
   const j = useJourney();
+  const [pretestDone, setPretestDone] = useState<boolean | null>(null);
+
+  // ยังไม่เคยทำแบบทดสอบก่อนเรียน = ยังไม่มีคะแนนฐาน → ต้องชวนทำก่อนอย่างอื่น (มติ PL-08)
+  useEffect(() => {
+    queueMicrotask(() => setPretestDone(loadPretest() !== null));
+  }, []);
 
   // ดาวนำทางวันนี้ — เลือกจากสถานะจริงของผู้เรียน ไม่ใช่สุ่มหรือค่าตายตัว
   const star = pickToday(j);
@@ -32,6 +41,29 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      {/* ⓪ ก่อนออกเดินทาง — ยังไม่มีคะแนนฐาน ต้องทำแบบทดสอบก่อนเรียนก่อน */}
+      {pretestDone === false && (
+        <Link
+          href="/pretest"
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-ocean-900 via-ocean-800 to-ocean-600 p-5 text-white shadow-lg shadow-ocean-900/20 transition active:scale-[0.99]"
+        >
+          <span aria-hidden="true" className="absolute left-6 top-4 h-1 w-1 rounded-full bg-white/50" />
+          <span aria-hidden="true" className="absolute right-14 top-7 h-1.5 w-1.5 rounded-full bg-white/40" />
+          <div className="relative flex items-center gap-3">
+            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/15">
+              <Icon name="target" className="h-5 w-5 text-star" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="font-semibold">ก่อนออกเดินทาง</div>
+              <div className="text-xs leading-snug text-ocean-100">
+                มาดูกันว่าตอนนี้คุณมีพื้นฐานภาษาจีนแค่ไหน — ใช้เวลาราว 3 นาที
+              </div>
+            </div>
+            <Icon name="arrowRight" className="h-5 w-5 shrink-0 text-star" />
+          </div>
+        </Link>
+      )}
 
       {/* ② ระดับที่กำลังเดินทาง */}
       <LevelCard
@@ -90,6 +122,33 @@ export default function Home() {
           hint={j.weakest ? "แตะดูผลรายทักษะ" : "ฝึกสัก 1 รอบแล้วจะรู้"}
           tone="coral"
         />
+      </section>
+
+      {/* ④.5 คำที่กำลังจะลืม — โชว์ตัวคำจริง ๆ ให้เห็น ไม่ใช่แค่ตัวเลข */}
+      <section>
+        <div className="mb-2 flex items-baseline justify-between">
+          <h2 className="flex items-center gap-1.5 text-sm font-semibold text-slate-500">
+            <Icon name="star" className="h-3.5 w-3.5 text-star-dark" fill="currentColor" strokeWidth={0} />
+            คำที่กำลังจะลืม
+          </h2>
+          <Link href="/review" className="inline-flex items-center gap-0.5 text-xs font-medium text-ocean-600 hover:text-ocean-800">
+            ทบทวนทั้งหมด <Icon name="arrowRight" className="h-3 w-3" />
+          </Link>
+        </div>
+        <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+          <p className="text-xs leading-relaxed text-slate-500">
+            วันนี้มี {REVIEW_WORDS.length} คำที่เริ่มจำได้ไม่แม่น ทบทวนก่อนเดินทางต่อจะจำได้นานที่สุด
+          </p>
+          <div className="mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+            {REVIEW_WORDS.map((w) => (
+              <div key={w.hanzi} className="shrink-0 rounded-xl border border-slate-100 bg-ocean-50/50 px-3 py-2 text-center">
+                <div className="font-[family-name:var(--font-sc)] text-xl font-semibold text-slate-900">{w.hanzi}</div>
+                <Pinyin text={w.pinyin} className="block text-[11px] font-medium" />
+                <div className="text-[10px] text-slate-500">{w.th}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ⑤ หมวดทั้งหมดของ HSK 1 */}
@@ -166,13 +225,16 @@ export default function Home() {
             <div className="text-sm font-medium text-slate-700">ฝึกทำข้อสอบ</div>
             <div className="text-[11px] leading-snug text-slate-400">ฟัง-อ่าน-เรียงประโยค ตรวจทันที</div>
           </Link>
-          <div className="flex flex-col items-center gap-1.5 rounded-2xl border border-slate-100 bg-slate-50 p-4 text-center opacity-70">
-            <div className="grid h-10 w-10 place-items-center rounded-xl bg-slate-100 text-slate-400">
+          <Link
+            href="/mock-test"
+            className="flex flex-col items-center gap-1.5 rounded-2xl border border-slate-100 bg-white p-4 text-center shadow-sm transition hover:border-ocean-300"
+          >
+            <div className="grid h-10 w-10 place-items-center rounded-xl bg-star-soft text-star-ink">
               <Icon name="flask" className="h-5 w-5" />
             </div>
-            <div className="text-sm font-medium text-slate-500">ข้อสอบเสมือนจริง</div>
-            <div className="text-[11px] leading-snug text-slate-400">จับเวลาเหมือนสนามสอบ · เร็ว ๆ นี้</div>
-          </div>
+            <div className="text-sm font-medium text-slate-700">ข้อสอบเสมือนจริง</div>
+            <div className="text-[11px] leading-snug text-slate-400">20 ข้อ 25 นาที · ครอบทั้ง 5 หมวด</div>
+          </Link>
         </div>
       </section>
 

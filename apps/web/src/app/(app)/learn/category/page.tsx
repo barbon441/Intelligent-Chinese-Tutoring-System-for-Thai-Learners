@@ -12,6 +12,9 @@ import { CATEGORIES } from "@/data/categories";
 import { loadCards } from "@/lib/fsrs";
 import { bestScore } from "@/lib/quiz";
 import { Center } from "@/components/Feedback";
+import { ProgressBar } from "@/components/ProgressBar";
+import { SkillBars } from "@/components/SkillPanel";
+import { CONTENT_MOCK, overall } from "@/data/mockData";
 
 function CategoryMenuInner({ cat }: { cat: number | null }) {
   const [ids, setIds] = useState<number[]>([]);
@@ -20,10 +23,11 @@ function CategoryMenuInner({ cat }: { cat: number | null }) {
   const [quizBest, setQuizBest] = useState<number | null>(null);
 
   useEffect(() => {
-    setStarted(new Set(Object.keys(loadCards()).map(Number)));
-    if (!cat) { setLoading(false); return; }
-    setQuizBest(bestScore(cat));
+    // อ่านของในเครื่องก่อน await จึงขึ้นจอทันที (อยู่ใน async function เพื่อไม่ setState ตรง ๆ ในตัว effect)
     (async () => {
+      setStarted(new Set(Object.keys(loadCards()).map(Number)));
+      if (!cat) { setLoading(false); return; }
+      setQuizBest(bestScore(cat));
       const { data } = await supabase.from("words").select("id").eq("hsk_level", 1).eq("category", cat);
       setIds((data ?? []).map((r) => r.id));
       setLoading(false);
@@ -32,7 +36,8 @@ function CategoryMenuInner({ cat }: { cat: number | null }) {
 
   const meta = CATEGORIES.find((c) => c.id === cat);
   const learned = useMemo(() => ids.filter((id) => started.has(id)).length, [ids, started]);
-  const pct = ids.length ? Math.round((learned / ids.length) * 100) : 0;
+  // คะแนนรายทักษะของหมวดนี้ยังเป็นค่าสมมติ (mockData) — ของจริงรอ BKT โมดูล 8
+  const contentSkills = cat ? CONTENT_MOCK[cat]?.skills ?? null : null;
 
   if (loading) return <Center>กำลังโหลด...</Center>;
   if (!cat || !meta) return <Center>ไม่พบหมวดนี้ — <Link href="/" className="ml-1 text-ocean-500 underline">กลับไปเลือกหมวด</Link></Center>;
@@ -49,17 +54,37 @@ function CategoryMenuInner({ cat }: { cat: number | null }) {
             <Icon name={meta.icon} className="h-6 w-6" />
           </div>
           <div className="min-w-0 flex-1">
-            <h1 className="text-lg font-semibold text-slate-700">หมวด {meta.id} · {meta.name}</h1>
-            <p className="text-xs text-slate-400">{meta.desc}</p>
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-ocean-500">เรื่องที่เรียน</div>
+            <h1 className="font-[family-name:var(--font-display)] text-lg font-bold text-ocean-900">
+              หมวด {meta.id} · {meta.name}
+            </h1>
+            <p className="text-xs text-slate-500">{meta.desc}</p>
           </div>
         </div>
         <div className="mt-3 flex items-center gap-2">
-          <div className="h-1.5 flex-1 rounded-full bg-slate-100">
-            <div className="h-1.5 rounded-full bg-correct transition-all" style={{ width: `${pct}%` }} />
-          </div>
-          <span className="shrink-0 text-xs text-slate-400">เรียนแล้ว {learned}/{ids.length} คำ</span>
+          <ProgressBar value={learned} max={ids.length || 1} tone="correct" label={`ความคืบหน้าหมวด ${meta.name}`} />
+          <span className="shrink-0 text-xs tabular-nums text-slate-400">เรียนแล้ว {learned}/{ids.length} คำ</span>
         </div>
       </div>
+
+      {/* คะแนนรายทักษะของหมวดนี้ — กรอบที่อาจารย์ย้ำ: หมวด = เรื่อง, ในหมวดต้องฝึกหลายทักษะ */}
+      <section className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+        <div className="mb-3 flex items-baseline justify-between">
+          <h2 className="text-sm font-semibold text-slate-600">ทักษะในหมวดนี้</h2>
+          {contentSkills && (
+            <span className="text-xs text-slate-400">
+              รวม <span className="font-bold tabular-nums text-ocean-900">{overall(contentSkills)}%</span>
+            </span>
+          )}
+        </div>
+        {contentSkills ? (
+          <SkillBars scores={contentSkills} size="sm" />
+        ) : (
+          <p className="rounded-xl bg-ocean-50 p-3 text-xs leading-relaxed text-slate-500">
+            ยังไม่มีคะแนนของหมวดนี้ — เรียนคำศัพท์แล้วลองฝึกฟัง/อ่าน/เรียงประโยคดู แล้วคะแนนรายทักษะจะขึ้นตรงนี้
+          </p>
+        )}
+      </section>
 
       {/* หมวดยังไม่มีคำ → ไม่เปิดกิจกรรมให้เดินเข้าทางตัน */}
       {ids.length === 0 && (

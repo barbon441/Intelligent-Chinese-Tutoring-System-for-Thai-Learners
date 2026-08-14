@@ -1,24 +1,39 @@
 "use client";
 
-// 🧭 เส้นทาง — ภาพรวมการเดินทางทั้งหมดของผู้เรียน (Foundation → HSK 1 → HSK 2)
-// เจตนา: ตอบคำถาม "ฉันอยู่ตรงไหน แล้วข้างหน้าคืออะไร" ในจอเดียว ไม่ต้องเลื่อนหาหลายหน้า
+// 🧭 เส้นทาง — ภาพรวมทั้งระบบในจอเดียว
+// นี่คือหน้าที่ตอบกรอบที่อาจารย์ขอ: Content × Skill × Assessment × Level เชื่อมกันยังไง
 //
-// ทุกจุดบนเส้นทางใช้ <JourneyNode> ตัวเดียวกัน — เพิ่ม HSK 3–6 ทีหลังคือเพิ่มข้อมูล ไม่ใช่เพิ่มหน้า
-// สถานะที่ใช้: ✓ ผ่านแล้ว · ⭐ กำลังอยู่ตรงนี้ · ○ ยังไม่ถึง (กดเข้าไปเรียนก่อนได้ ไม่ล็อก — PA-09)
-//              🔒 ใช้เฉพาะของที่ยังไม่มีจริง (Foundation กำลังสร้าง · HSK 2 ยังไม่เปิด)
+//   แบบทดสอบก่อนเรียน → พื้นฐานเสียง → 5 หมวด → ข้อสอบเสมือนจริง → ความพร้อมสอบ → HSK 2
+//
+// ทุกจุดใช้ <JourneyNode> ตัวเดียวกัน — เพิ่ม HSK 3–6 ทีหลังคือเพิ่มข้อมูล ไม่ใช่เพิ่มหน้า
+// สถานะ: ✓ ผ่านแล้ว · ⭐ กำลังอยู่ตรงนี้ · ○ ยังไม่ถึง (กดเข้าไปก่อนได้ ไม่ล็อก — PA-09) · 🔒 ยังไม่มีจริง
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useJourney } from "@/lib/journey";
-import { JourneyNode } from "@/components/JourneyNode";
+import { JourneyNode, type NodeStatus } from "@/components/JourneyNode";
 import { LevelCard } from "@/components/LevelCard";
 import { MascotSays } from "@/components/Mascot";
 import { Center } from "@/components/Feedback";
 import { Icon } from "@/components/Icon";
 import { getLevel } from "@/data/levels";
 import { QUIZ_TOTAL } from "@/lib/quiz";
+import { loadPretest, loadMockTest, overall } from "@/data/mockData";
 
 export default function Journey() {
   const j = useJourney();
+  const [pretestPct, setPretestPct] = useState<number | null>(null);
+  const [mockPct, setMockPct] = useState<number | null>(null);
+
+  // อ่านผลที่เก็บไว้ในเครื่อง — ทำใน microtask เพื่อไม่ setState ตรง ๆ ในตัว effect
+  useEffect(() => {
+    queueMicrotask(() => {
+      const pre = loadPretest();
+      if (pre) setPretestPct(overall(pre.skills));
+      const mt = loadMockTest();
+      if (mt) setMockPct(overall(mt.skills));
+    });
+  }, []);
 
   if (j.loading) return <Center>กำลังกางแผนที่การเดินทาง...</Center>;
 
@@ -27,11 +42,16 @@ export default function Journey() {
   const quizGot = j.islands.reduce((s, i) => s + (i.quizBest ?? 0), 0);
   const quizFull = j.islands.length * QUIZ_TOTAL;
 
+  const pretestDone = pretestPct !== null;
+  const preStatus: NodeStatus = pretestDone ? "done" : "current";
+
   return (
     <div className="flex flex-col gap-5 p-5">
       <header>
         <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-ocean-900">เส้นทางเดินเรือของคุณ</h1>
-        <p className="mt-0.5 text-sm text-slate-500">ผ่านมาแล้ว {passedCount} จาก {j.islands.length} หมวดของ HSK 1</p>
+        <p className="mt-0.5 text-sm text-slate-500">
+          ผ่านมาแล้ว {passedCount} จาก {j.islands.length} หมวดของ HSK 1
+        </p>
       </header>
 
       <MascotSays>ไม่ต้องรู้ว่าจะไปทางไหนก็ได้ — เดินตามดาวไปทีละจุดพอ ⭐</MascotSays>
@@ -54,18 +74,34 @@ export default function Journey() {
         }
       />
 
-      {/* ---------- เส้นทาง ---------- */}
       <section>
         <h2 className="mb-3 text-sm font-semibold text-slate-500">จุดแวะทั้งหมด</h2>
 
+        {/* ① วัดพื้นก่อนออกเดินทาง */}
         <JourneyNode
-          status="locked"
-          icon="speaker"
-          title="ปูพื้นฐานเสียง"
-          subtitle="พินอินเทียบเสียงไทย · วรรณยุกต์ · เกมฝึกหู — กำลังสร้าง ระหว่างนี้เริ่มที่หมวด 1 ได้เลย"
-          badge="กำลังสร้าง"
+          status={preStatus}
+          icon="target"
+          title="แบบทดสอบก่อนเรียน"
+          subtitle={
+            pretestDone
+              ? "เก็บคะแนนฐานไว้แล้ว — ใช้เทียบตอนเรียนไปสักพักว่าดีขึ้นแค่ไหน"
+              : "ทำครั้งเดียวตอนเริ่ม เพื่อรู้ว่าตอนนี้พื้นอยู่ตรงไหน และควรเริ่มที่ใด"
+          }
+          href="/pretest"
+          badge={pretestDone ? `${pretestPct}%` : "เริ่มที่นี่"}
+          emphasis
         />
 
+        {/* ② พื้นฐานเสียง — เป็น content หนึ่ง ไม่ใช่ระดับแยก */}
+        <JourneyNode
+          status="upcoming"
+          icon="speaker"
+          title="พื้นฐานเสียง"
+          subtitle="พินอิน · วรรณยุกต์ 4 เสียง · ฝึกหูแยกเสียง — พื้นดีอยู่แล้วข้ามได้เลย ไม่ล็อก"
+          href="/foundation"
+        />
+
+        {/* ③ ระดับ HSK 1 */}
         <JourneyNode
           status="current"
           icon="star"
@@ -83,7 +119,11 @@ export default function Journey() {
             title={`หมวด ${island.cat.id} · ${island.cat.name}`}
             subtitle={island.cat.desc}
             href={`/learn/category?cat=${island.cat.id}`}
-            progress={island.total > 0 ? { value: island.learned, max: island.total, text: `${island.learned}/${island.total} คำ` } : undefined}
+            progress={
+              island.total > 0
+                ? { value: island.learned, max: island.total, text: `${island.learned}/${island.total} คำ` }
+                : undefined
+            }
             badge={
               island.passed
                 ? `ผ่าน ${island.quizBest}/${QUIZ_TOTAL}`
@@ -96,23 +136,31 @@ export default function Journey() {
           />
         ))}
 
+        {/* ④ วัดภาพรวมข้ามทุกหมวด */}
         <JourneyNode
-          status={allPassed ? "done" : "upcoming"}
-          icon="target"
-          title="ผ่านครบทั้ง 5 หมวดของ HSK 1"
-          subtitle={
-            allPassed
-              ? "ครบแล้ว! ลองฝึกทำข้อสอบรวมให้คล่องมือก่อนออกเดินทางต่อ"
-              : `ต้องผ่านควิซท้ายหมวดให้ครบทุกหมวด — ตอนนี้ ${passedCount}/${j.islands.length}`
-          }
+          status={mockPct !== null ? "done" : allPassed ? "current" : "upcoming"}
+          icon="flask"
+          title="ข้อสอบเสมือนจริง HSK 1"
+          subtitle="20 ข้อ 25 นาที ครอบทั้ง 5 หมวด — จับเวลาเหมือนสนามสอบ"
+          href="/mock-test"
+          badge={mockPct !== null ? `${mockPct}%` : undefined}
+        />
+
+        <JourneyNode
+          status={mockPct !== null ? "done" : "upcoming"}
+          icon="chart"
+          title="ความพร้อมสอบ HSK 1"
+          subtitle="คะแนนแยกรายทักษะ + เทียบกับตอนก่อนเรียน ว่าพัฒนาขึ้นเท่าไหร่"
+          href="/mock-test/result"
           emphasis
         />
 
+        {/* ⑤ ระดับถัดไป */}
         <JourneyNode
           status="locked"
           icon="ship"
           title="HSK 2 — เส้นทางถัดไป"
-          subtitle="เส้นทางใหม่กำลังรอคุณอยู่ · หน้าจอรองรับแล้ว รอเนื้อหาและคลังคำ"
+          subtitle="ใช้หน้าจอและ component ชุดเดียวกับ HSK 1 · รอเนื้อหาและคลังคำ"
           badge="เร็ว ๆ นี้"
           last
         />
