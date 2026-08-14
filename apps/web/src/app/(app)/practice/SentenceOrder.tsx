@@ -6,6 +6,8 @@ import { saveRound } from "@/lib/progress";
 import { shuffle } from "@/lib/random";
 import { Icon } from "@/components/Icon";
 import { Pinyin } from "@/components/Pinyin";
+import { Mascot } from "@/components/Mascot";
+import { ProgressBar } from "@/components/ProgressBar";
 
 const N_PER_ROUND = 5;
 
@@ -196,21 +198,25 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
     const pass = pct >= 60;
     return (
       <div className="flex flex-col items-center gap-6 p-5">
-        <div className={`mt-6 grid h-20 w-20 place-items-center rounded-full ${pass ? "bg-seal-soft text-seal" : "bg-ink-50 text-ink-500"}`}>
-          <Icon name={pass ? "sparkles" : "target"} className="h-10 w-10" />
-        </div>
-        <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-slate-700">{pass ? "เยี่ยมมาก!" : "ฝึกอีกนิด!"}</h1>
-        <div className="w-full rounded-3xl bg-gradient-to-br from-ink-900 via-ink-700 to-ink-500 p-6 text-center text-white shadow-lg">
+        {pass ? (
+          <Mascot className="mt-6 h-20 w-20" />
+        ) : (
+          <div className="mt-6 grid h-20 w-20 place-items-center rounded-full bg-ocean-50 text-ocean-500">
+            <Icon name="target" className="h-10 w-10" />
+          </div>
+        )}
+        <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-ocean-900">{pass ? "เยี่ยมมาก!" : "ฝึกอีกนิด!"}</h1>
+        <div className="w-full rounded-3xl bg-gradient-to-br from-ocean-900 via-ocean-800 to-ocean-600 p-6 text-center text-white shadow-lg shadow-ocean-900/20">
           <div className="font-[family-name:var(--font-display)] text-5xl font-extrabold">
             {correctCount}
-            <span className="text-2xl font-normal text-ink-100"> / {round.length}</span>
+            <span className="text-2xl font-normal text-ocean-100"> / {round.length}</span>
           </div>
-          <div className="mt-1 text-ink-100">เรียงถูก {pct}%</div>
+          <div className="mt-1 text-ocean-100">เรียงถูก {pct}%</div>
         </div>
         <div className="flex w-full gap-3">
           <button
             onClick={onExit}
-            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300 focus-visible:ring-offset-2"
+            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-ocean-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ocean-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean-300 focus-visible:ring-offset-2"
           >
             <Icon name="arrowLeft" className="h-5 w-5" /> กลับเมนูฝึก
           </button>
@@ -232,9 +238,7 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
             ข้อ {qi + 1}/{round.length} · ถูก {correctCount}
           </span>
         </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-200">
-          <div className="h-2 rounded-full bg-ink-500 transition-all" style={{ width: `${(qi / round.length) * 100}%` }} />
-        </div>
+        <ProgressBar className="mt-2" size="lg" value={qi} max={round.length} label="ความคืบหน้าในรอบเรียงประโยค" />
       </div>
 
       {/* โจทย์: ความหมายไทย */}
@@ -248,7 +252,7 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
         ref={answerRef}
         data-answer
         className={`flex min-h-[64px] flex-wrap items-center gap-2 rounded-2xl border-2 border-dashed p-3 transition-colors ${
-          drag?.active && dropIdx !== null ? "border-ink-500 bg-ink-50" : "border-slate-300 bg-slate-50"
+          drag?.active && dropIdx !== null ? "border-ocean-500 bg-ocean-50" : "border-slate-300 bg-slate-50"
         }`}
       >
         {answer.length === 0 && !drag?.active && (
@@ -259,11 +263,11 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
           const cls = checked
             ? isCorrect
               ? "border-emerald-400 bg-emerald-50 text-emerald-800"
-              : "border-seal/40 bg-seal-soft text-seal"
-            : "border-ink-100 bg-white text-slate-800";
+              : "border-coral/40 bg-coral-soft text-ocean-900"
+            : "border-ocean-100 bg-white text-slate-800";
           return (
             <Fragment key={tile.key}>
-              {drag?.active && dropIdx === i && <span className="h-10 w-1 shrink-0 rounded-full bg-ink-500" />}
+              {drag?.active && dropIdx === i && <span className="h-10 w-1 shrink-0 rounded-full bg-ocean-500" />}
               <button
                 data-akey={tile.key}
                 disabled={checked}
@@ -278,7 +282,7 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
             </Fragment>
           );
         })}
-        {drag?.active && dropIdx === answer.length && <span className="h-10 w-1 shrink-0 rounded-full bg-ink-500" />}
+        {drag?.active && dropIdx === answer.length && <span className="h-10 w-1 shrink-0 rounded-full bg-ocean-500" />}
       </div>
 
       {/* คลังคำ (สับ) */}
@@ -291,7 +295,7 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
               disabled={checked}
               draggable={false}
               {...tileHandlers(tile, "pool")}
-              className={`touch-none select-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-xl font-[family-name:var(--font-sc)] text-slate-800 shadow-sm transition hover:border-ink-300 active:scale-95 disabled:opacity-40 ${
+              className={`touch-none select-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-xl font-[family-name:var(--font-sc)] text-slate-800 shadow-sm transition hover:border-ocean-300 active:scale-95 disabled:opacity-40 ${
                 beingDragged ? "opacity-30" : ""
               }`}
             >
@@ -308,7 +312,7 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
           className="pointer-events-none fixed z-50"
           style={{ left: drag.x - drag.w / 2, top: drag.y - drag.h / 2, width: drag.w }}
         >
-          <div className="scale-105 rounded-xl border border-ink-300 bg-white px-3 py-2 text-center text-xl font-[family-name:var(--font-sc)] text-slate-800 shadow-xl">
+          <div className="scale-105 rounded-xl border border-ocean-300 bg-white px-3 py-2 text-center text-xl font-[family-name:var(--font-sc)] text-slate-800 shadow-xl">
             {drag.tile.text}
           </div>
         </div>
@@ -316,10 +320,10 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
 
       {/* เฉลยหลังตรวจ */}
       {checked && (
-        <div className={`rounded-2xl p-4 ${isCorrect ? "bg-emerald-50" : "bg-seal-soft"}`}>
-          <div className={`flex items-center gap-1.5 text-sm font-semibold ${isCorrect ? "text-correct" : "text-seal"}`}>
-            <Icon name={isCorrect ? "check" : "x"} className="h-4 w-4" strokeWidth={2.4} />
-            {isCorrect ? "ถูกต้อง!" : "ยังไม่ถูก — ที่ถูกคือ:"}
+        <div className={`rounded-2xl p-4 ${isCorrect ? "bg-emerald-50" : "border border-coral/25 bg-coral-soft"}`}>
+          <div className={`flex items-center gap-1.5 text-sm font-semibold ${isCorrect ? "text-correct" : "text-ocean-900"}`}>
+            <Icon name={isCorrect ? "check" : "x"} className={`h-4 w-4 ${isCorrect ? "" : "text-coral"}`} strokeWidth={2.4} />
+            {isCorrect ? "ถูกต้อง!" : "ลองอีกครั้งนะ — ที่ถูกคือ:"}
           </div>
           <div className="mt-2 text-2xl font-[family-name:var(--font-sc)] text-slate-800">{s.tokens.join(" ")}</div>
           <Pinyin text={s.pinyin} className="text-sm" />
@@ -334,14 +338,14 @@ export default function SentenceOrder({ onExit }: { onExit: () => void }) {
         <button
           onClick={check}
           disabled={!allPlaced}
-          className="rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
+          className="rounded-xl bg-ocean-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ocean-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean-300 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
         >
           ตรวจ
         </button>
       ) : (
         <button
           onClick={next}
-          className="rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300 focus-visible:ring-offset-2"
+          className="rounded-xl bg-ocean-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ocean-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean-300 focus-visible:ring-offset-2"
         >
           {qi + 1 >= round.length ? "ดูผล →" : "ข้อถัดไป →"}
         </button>

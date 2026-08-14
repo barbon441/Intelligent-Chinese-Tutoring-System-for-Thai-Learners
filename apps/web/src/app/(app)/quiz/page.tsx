@@ -17,6 +17,8 @@ import { CATEGORIES } from "@/data/categories";
 import { Icon } from "@/components/Icon";
 import { Pinyin } from "@/components/Pinyin";
 import { Center, ErrorState } from "@/components/Feedback";
+import { Mascot } from "@/components/Mascot";
+import { ProgressBar } from "@/components/ProgressBar";
 import { shuffle } from "@/lib/random";
 import { bestScore, saveAttempt, QUIZ_PASS, QUIZ_TOTAL, type QuizItemLog } from "@/lib/quiz";
 
@@ -158,7 +160,7 @@ function QuizInner({ cat }: { cat: number | null }) {
     return (
       <Center>
         ไม่พบหมวดนี้ —{" "}
-        <Link href="/" className="ml-1 text-ink-500 underline">
+        <Link href="/" className="ml-1 text-ocean-500 underline">
           กลับไปเลือกหมวด
         </Link>
       </Center>
@@ -184,9 +186,9 @@ function QuizInner({ cat }: { cat: number | null }) {
         </div>
 
         {best !== null && (
-          <div className="flex items-center justify-between rounded-2xl bg-ink-50 px-4 py-3 text-sm">
-            <span className="text-ink-700">คะแนนเก็บของหมวดนี้ (ครั้งที่ดีที่สุด)</span>
-            <span className={`font-bold ${best >= QUIZ_PASS ? "text-correct" : "text-ink-700"}`}>
+          <div className="flex items-center justify-between rounded-2xl bg-ocean-50 px-4 py-3 text-sm">
+            <span className="text-ocean-700">คะแนนเก็บของหมวดนี้ (ครั้งที่ดีที่สุด)</span>
+            <span className={`font-bold ${best >= QUIZ_PASS ? "text-correct" : "text-ocean-700"}`}>
               {best}/{QUIZ_TOTAL}
             </span>
           </div>
@@ -213,7 +215,7 @@ function QuizInner({ cat }: { cat: number | null }) {
         <button
           onClick={start}
           disabled={!ready}
-          className="flex items-center justify-center gap-2 rounded-xl bg-ink-700 px-5 py-3.5 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
+          className="flex items-center justify-center gap-2 rounded-xl bg-ocean-700 px-5 py-3.5 font-semibold text-white shadow transition hover:bg-ocean-900 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
         >
           <Icon name="play" className="h-5 w-5" /> เริ่มควิซ
         </button>
@@ -240,22 +242,22 @@ function QuizInner({ cat }: { cat: number | null }) {
     return (
       <div className="flex flex-col gap-5 p-5">
         <div className="flex flex-col items-center gap-3">
-          <div
-            className={`mt-4 grid h-20 w-20 place-items-center rounded-full ${
-              pass ? "bg-seal-soft text-seal" : "bg-ink-50 text-ink-500"
-            }`}
-          >
-            <Icon name={pass ? "sparkles" : "target"} className="h-10 w-10" />
-          </div>
-          <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-slate-700">
+          {pass ? (
+            <Mascot className="mt-4 h-20 w-20" />
+          ) : (
+            <div className="mt-4 grid h-20 w-20 place-items-center rounded-full bg-ocean-50 text-ocean-500">
+              <Icon name="target" className="h-10 w-10" />
+            </div>
+          )}
+          <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-ocean-900">
             {pass ? `ผ่านหมวด ${meta.name} แล้ว!` : "ยังไม่ผ่าน — อีกนิดเดียว!"}
           </h1>
-          <div className="w-full rounded-3xl bg-gradient-to-br from-ink-900 via-ink-700 to-ink-500 p-6 text-center text-white shadow-lg">
+          <div className="w-full rounded-3xl bg-gradient-to-br from-ocean-900 via-ocean-700 to-ocean-500 p-6 text-center text-white shadow-lg">
             <div className="font-[family-name:var(--font-display)] text-5xl font-extrabold">
               {score}
-              <span className="text-2xl font-normal text-ink-100"> / {questions.length}</span>
+              <span className="text-2xl font-normal text-ocean-100"> / {questions.length}</span>
             </div>
-            <div className="mt-1 text-sm text-ink-100">
+            <div className="mt-1 text-sm text-ocean-100">
               เกณฑ์ผ่าน {QUIZ_PASS}/{QUIZ_TOTAL}
               {best !== null ? ` · ครั้งที่ดีที่สุดของหมวดนี้ ${Math.max(best, score)}/${QUIZ_TOTAL}` : ""}
             </div>
@@ -267,7 +269,7 @@ function QuizInner({ cat }: { cat: number | null }) {
           {!pass && (
             <Link
               href={drill.href}
-              className="flex items-center justify-center gap-2 rounded-xl bg-ink-700 px-4 py-3.5 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-[0.98]"
+              className="flex items-center justify-center gap-2 rounded-xl bg-ocean-700 px-4 py-3.5 font-semibold text-white shadow transition hover:bg-ocean-900 active:scale-[0.98]"
             >
               <Icon name="play" className="h-5 w-5" /> {drill.label}ข้อที่พลาด แล้วค่อยกลับมาสอบใหม่
             </Link>
@@ -321,12 +323,7 @@ function QuizInner({ cat }: { cat: number | null }) {
             {part} · ข้อ {qi + 1}/{questions.length}
           </span>
         </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-100">
-          <div
-            className="h-2 rounded-full bg-ink-500 transition-all"
-            style={{ width: `${(qi / questions.length) * 100}%` }}
-          />
-        </div>
+        <ProgressBar className="mt-2" size="lg" value={qi} max={questions.length} label="ความคืบหน้าในควิซ" />
       </div>
 
       {q.kind === "write" ? (
@@ -348,7 +345,7 @@ function QuizInner({ cat }: { cat: number | null }) {
                   onClick={replay}
                   disabled={playsLeft <= 0}
                   aria-label="ฟังอีกครั้ง"
-                  className="grid h-24 w-24 place-items-center rounded-full bg-ink-700 text-white shadow-lg shadow-ink-900/30 transition hover:bg-ink-900 active:scale-95 disabled:pointer-events-none disabled:opacity-40"
+                  className="grid h-24 w-24 place-items-center rounded-full bg-ocean-700 text-white shadow-lg shadow-ocean-900/30 transition hover:bg-ocean-900 active:scale-95 disabled:pointer-events-none disabled:opacity-40"
                 >
                   <Icon name="speaker" className="h-10 w-10" />
                 </button>
@@ -365,7 +362,7 @@ function QuizInner({ cat }: { cat: number | null }) {
               <button
                 key={c.id}
                 onClick={() => record({ pickedId: c.id })}
-                className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-4 text-left text-slate-700 transition hover:border-ink-300 active:scale-[0.99] active:border-ink-500 active:bg-ink-50"
+                className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-4 text-left text-slate-700 transition hover:border-ocean-300 active:scale-[0.99] active:border-ocean-500 active:bg-ocean-50"
               >
                 <span className={q.kind === "listen" ? "font-[family-name:var(--font-sc)] text-2xl font-semibold" : "text-base"}>
                   {c.label}
@@ -407,7 +404,7 @@ function WriteQuestion({ s, onSubmit }: { s: SentenceItem; onSubmit: (tokens: st
           <button
             key={tile.key}
             onClick={() => setAnswer((a) => a.filter((t) => t.key !== tile.key))}
-            className="rounded-xl border border-ink-100 bg-white px-3 py-2 font-[family-name:var(--font-sc)] text-xl text-slate-800 shadow-sm transition active:scale-95"
+            className="rounded-xl border border-ocean-100 bg-white px-3 py-2 font-[family-name:var(--font-sc)] text-xl text-slate-800 shadow-sm transition active:scale-95"
           >
             {tile.text}
           </button>
@@ -420,7 +417,7 @@ function WriteQuestion({ s, onSubmit }: { s: SentenceItem; onSubmit: (tokens: st
             <button
               key={tile.key}
               onClick={() => setAnswer((a) => [...a, tile])}
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 font-[family-name:var(--font-sc)] text-xl text-slate-800 shadow-sm transition hover:border-ink-300 active:scale-95"
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2 font-[family-name:var(--font-sc)] text-xl text-slate-800 shadow-sm transition hover:border-ocean-300 active:scale-95"
             >
               {tile.text}
             </button>
@@ -432,7 +429,7 @@ function WriteQuestion({ s, onSubmit }: { s: SentenceItem; onSubmit: (tokens: st
       <button
         onClick={() => onSubmit(answer.map((t) => t.text))}
         disabled={!allPlaced}
-        className="rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95 disabled:pointer-events-none disabled:opacity-40"
+        className="rounded-xl bg-ocean-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ocean-900 active:scale-95 disabled:pointer-events-none disabled:opacity-40"
       >
         ยืนยันคำตอบ
       </button>
@@ -443,11 +440,11 @@ function WriteQuestion({ s, onSubmit }: { s: SentenceItem; onSubmit: (tokens: st
 // ---------- แถวเฉลยรายข้อ ----------
 function ResultRow({ n, question, a, ok }: { n: number; question: Q; a: Answer | undefined; ok: boolean }) {
   return (
-    <div className={`rounded-2xl border p-3.5 ${ok ? "border-slate-100 bg-white" : "border-seal/25 bg-seal-soft/40"}`}>
+    <div className={`rounded-2xl border p-3.5 ${ok ? "border-slate-100 bg-white" : "border-coral/25 bg-coral-soft/60"}`}>
       <div className="flex items-start gap-2.5">
         <div
           className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full ${
-            ok ? "bg-emerald-50 text-correct" : "bg-seal-soft text-seal"
+            ok ? "bg-emerald-50 text-correct" : "bg-white text-coral"
           }`}
         >
           <Icon name={ok ? "check" : "x"} className="h-3.5 w-3.5" strokeWidth={2.6} />
@@ -465,8 +462,8 @@ function ResultRow({ n, question, a, ok }: { n: number; question: Q; a: Answer |
               {!ok && (
                 <>
                   {a?.tokens && a.tokens.length > 0 && (
-                    <div className="mt-1 text-xs text-seal">
-                      ของคุณ: <span className="font-[family-name:var(--font-sc)] text-sm">{a.tokens.join(" ")}</span>
+                    <div className="mt-1 text-xs text-coral">
+                      คุณเลือก: <span className="font-[family-name:var(--font-sc)] text-sm">{a.tokens.join(" ")}</span>
                     </div>
                   )}
                   <div className="mt-1.5 flex items-start gap-1.5 rounded-lg bg-white/80 p-2 text-xs text-slate-500">
@@ -499,7 +496,7 @@ function WrongPick({ question, a }: { question: ListenQ | ReadQ; a: Answer | und
   const picked = question.choices.find((c) => c.id === a?.pickedId);
   if (!picked) return null;
   return (
-    <div className="mt-1 text-xs text-seal">
+    <div className="mt-1 text-xs text-coral">
       คุณเลือก “{picked.label}” —{" "}
       {question.kind === "listen"
         ? "กลับไปเปิดบัตรคำ ฟังเสียงคำนี้อีกสัก 2-3 รอบนะ"
@@ -511,7 +508,7 @@ function WrongPick({ question, a }: { question: ListenQ | ReadQ; a: Answer | und
 function Rule({ icon, text }: { icon: Parameters<typeof Icon>[0]["name"]; text: string }) {
   return (
     <li className="flex items-start gap-2.5">
-      <Icon name={icon} className="mt-0.5 h-4 w-4 shrink-0 text-ink-500" />
+      <Icon name={icon} className="mt-0.5 h-4 w-4 shrink-0 text-ocean-500" />
       <span className="leading-relaxed">{text}</span>
     </li>
   );

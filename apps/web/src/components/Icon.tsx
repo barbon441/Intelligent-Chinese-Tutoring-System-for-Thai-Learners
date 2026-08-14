@@ -29,9 +29,28 @@ export type IconName =
   | "clock"
   | "bowl"
   | "briefcase"
-  | "compass";
+  | "compass"
+  | "star"
+  | "ship"
+  | "lock";
 
 const PATHS: Record<IconName, React.ReactNode> = {
+  // ⭐ ดาวนำทาง — สัญลักษณ์หลักของ 星航 (ส่ง fill="currentColor" เข้ามาได้ถ้าอยากได้แบบทึบ)
+  star: <path d="M12 3.2 14.4 9.6 20.8 12 14.4 14.4 12 20.8 9.6 14.4 3.2 12 9.6 9.6Z" />,
+  // ⛵ เรือ — ใช้แทน "ระดับถัดไป / การเดินทาง"
+  ship: (
+    <>
+      <path d="M12 4.5 6.5 13h11L12 4.5Z" />
+      <path d="M12 13v4" />
+      <path d="M4 17h16l-1.6 2.6a2 2 0 0 1-1.7 1H7.3a2 2 0 0 1-1.7-1L4 17Z" />
+    </>
+  ),
+  lock: (
+    <>
+      <rect x="4.5" y="10.5" width="15" height="9.5" rx="2.5" />
+      <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" />
+    </>
+  ),
   chat: (
     <>
       <path d="M21 11.5a8.38 8.38 0 0 1-9 8.35 8.5 8.5 0 0 1-3.4-.7L3 21l1.85-5.6A8.38 8.38 0 0 1 12 3.15a8.38 8.38 0 0 1 9 8.35Z" />

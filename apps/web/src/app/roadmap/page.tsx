@@ -86,12 +86,12 @@ export default function Roadmap() {
       <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-3">
           <div className="flex items-baseline gap-2">
-            <span className="font-[family-name:var(--font-sc)] text-lg font-bold text-seal">中文知心</span>
+            <span className="font-[family-name:var(--font-sc)] text-lg font-bold text-ocean-900">星航</span>
             <span className="ml-2 hidden text-sm text-slate-400 sm:inline">· เมนูฟังก์ชันทั้งหมด + ติ๊กความคืบหน้า</span>
           </div>
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 rounded-lg bg-ink-700 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-ink-900"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-ocean-700 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-ocean-900"
           >
             เปิดแอป <Icon name="arrowRight" className="h-3.5 w-3.5" />
           </Link>
@@ -100,16 +100,16 @@ export default function Roadmap() {
 
       <main className="mx-auto max-w-4xl px-6 py-6">
         {saveError && (
-          <div className="mb-4 rounded-xl bg-seal-soft p-3 text-sm text-seal">บันทึกไม่สำเร็จ ลองใหม่อีกครั้ง (ตรวจอินเทอร์เน็ต)</div>
+          <div className="mb-4 rounded-xl bg-coral-soft p-3 text-sm text-coral">บันทึกไม่สำเร็จ ลองใหม่อีกครั้ง (ตรวจอินเทอร์เน็ต)</div>
         )}
 
         {/* สรุปรวม */}
-        <section className="mb-5 rounded-2xl bg-gradient-to-r from-ink-900 via-ink-700 to-ink-500 p-5 text-white shadow-lg">
+        <section className="mb-5 rounded-2xl bg-gradient-to-r from-ocean-900 via-ocean-700 to-ocean-500 p-5 text-white shadow-lg">
           <div className="flex items-baseline justify-between">
-            <span className="text-sm text-ink-100">ความคืบหน้ารวมทั้งระบบ</span>
+            <span className="text-sm text-ocean-100">ความคืบหน้ารวมทั้งระบบ</span>
             <span className="font-[family-name:var(--font-display)] text-3xl font-extrabold">
               {loading ? "…" : doneCount}
-              <span className="text-lg font-normal text-ink-100"> / {total} ({loading ? "-" : pct}%)</span>
+              <span className="text-lg font-normal text-ocean-100"> / {total} ({loading ? "-" : pct}%)</span>
             </span>
           </div>
           <div className="mt-3 h-2.5 w-full rounded-full bg-white/20">
@@ -125,9 +125,9 @@ export default function Roadmap() {
             return (
               <Fragment key={m.id}>
               {m.id === "m0" && (
-                <div className="flex items-baseline gap-2 rounded-xl bg-ink-700 px-4 py-2.5 text-white">
+                <div className="flex items-baseline gap-2 rounded-xl bg-ocean-700 px-4 py-2.5 text-white">
                   <span className="font-[family-name:var(--font-display)] text-sm font-bold">เฟสปัจจุบัน · HSK 1</span>
-                  <span className="text-xs text-ink-100">ทุกฟังก์ชันข้างล่างนี้ = พาสอบ HSK 1 ผ่าน ({hsk1Total} ฟังก์ชัน)</span>
+                  <span className="text-xs text-ocean-100">ทุกฟังก์ชันข้างล่างนี้ = พาสอบ HSK 1 ผ่าน ({hsk1Total} ฟังก์ชัน)</span>
                 </div>
               )}
               {m.id === "m11" && (
@@ -142,7 +142,7 @@ export default function Roadmap() {
                   onClick={() => setOpenModules((s) => flip(s, m.id))}
                   className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition hover:bg-slate-50"
                 >
-                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ink-50 text-ink-700">
+                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ocean-50 text-ocean-700">
                     <Icon name={m.icon} className="h-5 w-5" />
                   </div>
                   <div className="flex-1">
@@ -168,9 +168,9 @@ export default function Roadmap() {
                     {m.entry && (
                       <div className="mb-1 flex items-start gap-3">
                         <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center">
-                          <Icon name="play" className="h-4 w-4 text-ink-300" />
+                          <Icon name="play" className="h-4 w-4 text-ocean-300" />
                         </span>
-                        <span className="rounded-lg bg-ink-50 px-3 py-1.5 text-xs text-ink-700">{m.entry}</span>
+                        <span className="rounded-lg bg-ocean-50 px-3 py-1.5 text-xs text-ocean-700">{m.entry}</span>
                       </div>
                     )}
                     <ul>
@@ -235,7 +235,7 @@ export default function Roadmap() {
                                   <ul className="mt-2 flex flex-col gap-1 rounded-lg bg-slate-50 p-3">
                                     {it.details.map((d, i) => (
                                       <li key={i} className="flex items-start gap-2 text-xs leading-relaxed text-slate-500">
-                                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-ink-300" />
+                                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-ocean-300" />
                                         {d}
                                       </li>
                                     ))}

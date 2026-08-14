@@ -13,6 +13,9 @@ import { SENTENCES } from "@/data/sentences";
 import SentenceOrder from "./SentenceOrder";
 import { Icon, type IconName } from "@/components/Icon";
 import { Pinyin } from "@/components/Pinyin";
+import { Mascot, MascotSays } from "@/components/Mascot";
+import { ProgressBar } from "@/components/ProgressBar";
+import { FeedbackCard } from "@/components/FeedbackCard";
 
 const N_QUESTIONS = 10;
 
@@ -174,7 +177,7 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
           <p>
             ข้อสอบสุ่มจากคลังคำ HSK 1 ตรวจตามเฉลยแบบเดียวกับข้อสอบจริง ไม่ใช้ AI เดา —
             ตรงกับรูปแบบการวัดผลจริงของ HSK · ผลการฝึกจะไปแสดงในหน้า{" "}
-            <Link href="/progress" className="text-ink-500 underline">
+            <Link href="/progress" className="text-ocean-500 underline">
               ผล
             </Link>
           </p>
@@ -189,23 +192,29 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
     const pass = pct >= 60;
     return (
       <div className="flex flex-col items-center gap-6 p-5">
-        <div className={`mt-6 grid h-20 w-20 place-items-center rounded-full ${pass ? "bg-seal-soft text-seal" : "bg-ink-50 text-ink-500"}`}>
-          <Icon name={pass ? "sparkles" : "target"} className="h-10 w-10" />
-        </div>
-        <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-slate-700">
+        {pass ? (
+          <Mascot className="mt-6 h-20 w-20" />
+        ) : (
+          <div className="mt-6 grid h-20 w-20 place-items-center rounded-full bg-ocean-50 text-ocean-500">
+            <Icon name="target" className="h-10 w-10" />
+          </div>
+        )}
+        <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-ocean-900">
           {pass ? "เยี่ยมมาก!" : "สู้ ๆ ทวนอีกนิด!"}
         </h1>
-        <div className="w-full rounded-3xl bg-gradient-to-br from-ink-900 via-ink-700 to-ink-500 p-6 text-center text-white shadow-lg">
-          <div className="font-[family-name:var(--font-display)] text-5xl font-extrabold">
+        <div className="relative w-full overflow-hidden rounded-3xl bg-gradient-to-br from-ocean-900 via-ocean-800 to-ocean-600 p-6 text-center text-white shadow-lg shadow-ocean-900/20">
+          <span aria-hidden="true" className="absolute left-7 top-5 h-1 w-1 rounded-full bg-white/50" />
+          <span aria-hidden="true" className="absolute right-10 top-7 h-1.5 w-1.5 rounded-full bg-white/40" />
+          <div className="relative font-[family-name:var(--font-display)] text-5xl font-extrabold">
             {correctCount}
-            <span className="text-2xl font-normal text-ink-100"> / {questions.length}</span>
+            <span className="text-2xl font-normal text-ocean-100"> / {questions.length}</span>
           </div>
-          <div className="mt-1 text-ink-100">ความแม่นยำ {pct}%</div>
+          <div className="relative mt-1 text-ocean-100">ความแม่นยำ {pct}%</div>
         </div>
         <div className="flex w-full gap-3">
           <button
             onClick={() => start(mode)}
-            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300 focus-visible:ring-offset-2"
+            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-ocean-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ocean-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean-300 focus-visible:ring-offset-2"
           >
             <Icon name="refresh" className="h-5 w-5" /> ฝึกอีกรอบ
           </button>
@@ -224,7 +233,7 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
             กลับเมนูหมวด {catName(cat) ?? cat}
           </Link>
         )}
-        <Link href="/progress" className="text-sm text-ink-500 underline">
+        <Link href="/progress" className="text-sm text-ocean-500 underline">
           ดูสรุปผลการฝึกทั้งหมด
         </Link>
       </div>
@@ -233,6 +242,8 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
 
   // ---------- หน้าทำข้อสอบ ----------
   const answered = picked !== null;
+  const isRight = picked === q.word.id;
+  const pickedWord = answered ? words.find((w) => w.id === picked) : undefined;
   return (
     <div className="flex flex-col gap-5 p-5">
       {/* แถบความคืบหน้า */}
@@ -251,33 +262,33 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
             ข้อ {qi + 1}/{questions.length} · ถูก {correctCount}
           </span>
         </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-100">
-          <div
-            className="h-2 rounded-full bg-ink-500 transition-all"
-            style={{ width: `${(qi / questions.length) * 100}%` }}
-          />
-        </div>
+        <ProgressBar className="mt-2" size="lg" value={qi} max={questions.length} label="ความคืบหน้าในรอบฝึก" />
       </div>
 
+      {/* 小星 ช่วยตั้งหลักก่อนฟัง (โหมดฟังเท่านั้น — โหมดอ่านโจทย์ชัดอยู่แล้ว ไม่ต้องมีเสียงรบกวน) */}
+      {mode === "listen" && !answered && <MascotSays mascotClassName="h-10 w-10">ลองฟังให้ดีนะ ⭐</MascotSays>}
+
       {/* โจทย์ */}
-      <div className="flex min-h-[38vh] flex-col items-center justify-center rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
+      <div className="flex min-h-[34vh] flex-col items-center justify-center rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
         {mode === "read" ? (
           <>
-            <div className="text-7xl font-bold text-slate-900">{q.word.hanzi}</div>
+            <div className="font-[family-name:var(--font-sc)] text-7xl font-bold text-slate-900">{q.word.hanzi}</div>
             <Pinyin text={q.word.pinyin} className="mt-3 text-2xl font-medium" />
+            <div className="mt-4 text-xs text-slate-400">คำนี้แปลว่าอะไร</div>
           </>
         ) : (
           <>
             <button
               onClick={play}
               aria-label="ฟังเสียง"
-              className="grid h-24 w-24 place-items-center rounded-full bg-ink-700 text-white shadow-lg shadow-ink-900/30 transition hover:bg-ink-900 active:scale-95"
+              className="grid h-24 w-24 place-items-center rounded-full bg-ocean-800 text-white shadow-lg shadow-ocean-900/30 transition hover:bg-ocean-900 active:scale-95"
             >
               <Icon name="speaker" className="h-10 w-10" />
             </button>
             <div className="mt-3 text-sm text-slate-400">
               {answered ? <Pinyin text={q.word.pinyin} /> : "แตะเพื่อฟังอีกครั้ง"}
             </div>
+            {!answered && <div className="mt-1 text-xs text-slate-400">คุณได้ยินคำว่าอะไร</div>}
           </>
         )}
       </div>
@@ -287,10 +298,10 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
         {q.choices.map((c) => {
           const isCorrect = c.id === q.word.id;
           const isPicked = c.id === picked;
-          let cls = "border-slate-200 bg-white text-slate-700 hover:border-ink-300";
+          let cls = "border-slate-200 bg-white text-slate-700 hover:border-ocean-300";
           if (answered) {
-            if (isCorrect) cls = "border-emerald-400 bg-emerald-50 text-emerald-800";
-            else if (isPicked) cls = "border-rose-300 bg-rose-50 text-rose-700";
+            if (isCorrect) cls = "border-correct bg-emerald-50 text-emerald-800";
+            else if (isPicked) cls = "border-coral/50 bg-coral-soft text-ocean-900";
             else cls = "border-slate-100 bg-slate-50 text-slate-400";
           }
           return (
@@ -300,21 +311,47 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
               disabled={answered}
               className={`flex items-center justify-between rounded-2xl border px-4 py-4 text-left transition ${cls}`}
             >
-              <span className={mode === "listen" ? "text-2xl font-semibold" : "text-base"}>
+              <span className={mode === "listen" ? "font-[family-name:var(--font-sc)] text-2xl font-semibold" : "text-base"}>
                 {c.label}
               </span>
               {answered && isCorrect && <Icon name="check" className="h-5 w-5 text-correct" strokeWidth={2.4} />}
-              {answered && isPicked && !isCorrect && <Icon name="x" className="h-5 w-5 text-seal" strokeWidth={2.4} />}
+              {answered && isPicked && !isCorrect && <Icon name="x" className="h-5 w-5 text-coral" strokeWidth={2.4} />}
             </button>
           );
         })}
       </div>
 
+      {/* เฉลย + เหตุผล (กติกา: ตอบผิดต้องรู้ว่าที่ถูกคืออะไร เพราะอะไร ไม่ใช่แค่ขึ้นสีแดง) */}
+      {answered && (
+        <FeedbackCard
+          correct={isRight}
+          yourAnswer={
+            pickedWord && !isRight
+              ? mode === "listen"
+                ? { main: pickedWord.hanzi, sub: pickedWord.meaning_th, chinese: true }
+                : { main: pickedWord.meaning_th, sub: pickedWord.hanzi }
+              : undefined
+          }
+          rightAnswer={
+            mode === "listen"
+              ? { main: q.word.hanzi, sub: q.word.meaning_th, chinese: true }
+              : { main: q.word.meaning_th, sub: q.word.hanzi }
+          }
+          hint={
+            isRight
+              ? undefined
+              : pickedWord
+                ? `${q.word.hanzi} = ${q.word.meaning_th} · ${pickedWord.hanzi} = ${pickedWord.meaning_th}`
+                : undefined
+          }
+        />
+      )}
+
       {/* ปุ่มถัดไป */}
       {answered && (
         <button
           onClick={next}
-          className="rounded-xl bg-ink-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ink-900"
+          className="rounded-xl bg-ocean-900 px-4 py-3 font-semibold text-white shadow transition hover:bg-ocean-800 active:scale-[0.98]"
         >
           {qi + 1 >= questions.length ? "ดูผล →" : "ข้อถัดไป →"}
         </button>
@@ -370,10 +407,10 @@ function ModeCard({
     <button
       onClick={onStart}
       disabled={!enough}
-      className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 text-left shadow-sm transition hover:border-sky-200 hover:shadow disabled:opacity-50"
+      className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 text-left shadow-sm transition hover:border-ocean-300 hover:shadow disabled:opacity-50"
     >
-      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-ink-50">
-        <Icon name={icon} className="h-6 w-6 text-ink-700" />
+      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-ocean-50">
+        <Icon name={icon} className="h-6 w-6 text-ocean-700" />
       </div>
       <div className="flex-1">
         <div className="font-medium text-slate-700">{title}</div>
@@ -382,7 +419,7 @@ function ModeCard({
           {enough ? `คลังพร้อม ${count} ${unit}` : `${unit}ในคลังยังไม่พอ`}
         </div>
       </div>
-      <Icon name="play" className="h-4 w-4 text-ink-300" />
+      <Icon name="play" className="h-4 w-4 text-ocean-300" />
     </button>
   );
 }

@@ -12,7 +12,7 @@ export function ErrorState({ detail }: { detail?: string }) {
   if (detail) console.error("โหลดข้อมูลไม่สำเร็จ:", detail);
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 p-6 text-center">
-      <div className="grid h-16 w-16 place-items-center rounded-full bg-seal-soft text-seal">
+      <div className="grid h-16 w-16 place-items-center rounded-full bg-coral-soft text-coral">
         <Icon name="x" className="h-8 w-8" strokeWidth={2.4} />
       </div>
       <div>
@@ -22,7 +22,7 @@ export function ErrorState({ detail }: { detail?: string }) {
       <div className="flex gap-2">
         <button
           onClick={() => window.location.reload()}
-          className="rounded-xl bg-ink-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-ink-900 active:scale-95"
+          className="rounded-xl bg-ocean-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-ocean-900 active:scale-95"
         >
           ลองใหม่
         </button>

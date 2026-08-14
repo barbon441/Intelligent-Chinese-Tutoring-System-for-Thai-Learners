@@ -80,3 +80,38 @@ function dayKey(ts: number): string {
   const d = new Date(ts);
   return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
 }
+
+// ---------- แยกความแม่นยำรายทักษะ (ใช้ในหน้า "จุดที่ควรฝึกเพิ่ม") ----------
+// นับจากรอบฝึกจริงที่ผู้เรียนทำเท่านั้น — ทักษะที่ยังไม่เคยฝึก pct = null (ห้ามเดาเป็น 0%)
+// หมายเหตุ: นี่คือ "ความแม่นจากการฝึก" ไม่ใช่ค่าความพร้อมสอบเชิงโมเดล (นั่นรอ BKT ในโมดูล 8)
+
+export type SkillStat = {
+  mode: QuizMode;
+  label: string;
+  correct: number;
+  total: number;
+  pct: number | null; // null = ยังไม่เคยฝึกทักษะนี้
+};
+
+export const SKILL_LABEL: Record<QuizMode, string> = {
+  listen: "ฝึกฟัง",
+  read: "ฝึกอ่าน",
+  order: "เรียงประโยค",
+};
+
+export function bySkill(rounds: Round[]): SkillStat[] {
+  const modes: QuizMode[] = ["listen", "read", "order"];
+  return modes.map((mode) => {
+    const of = rounds.filter((r) => r.mode === mode);
+    const total = of.reduce((s, r) => s + r.total, 0);
+    const correct = of.reduce((s, r) => s + r.correct, 0);
+    return { mode, label: SKILL_LABEL[mode], correct, total, pct: total ? Math.round((correct / total) * 100) : null };
+  });
+}
+
+/** ทักษะที่อ่อนสุด = ทักษะที่เคยฝึกแล้วและเปอร์เซ็นต์ต่ำสุด · null = ยังไม่มีข้อมูลพอจะชี้ */
+export function weakestSkill(rounds: Round[]): SkillStat | null {
+  const tried = bySkill(rounds).filter((s) => s.pct !== null && s.total >= 5);
+  if (tried.length === 0) return null;
+  return tried.reduce((a, b) => (b.pct! < a.pct! ? b : a));
+}

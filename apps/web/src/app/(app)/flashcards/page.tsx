@@ -9,6 +9,8 @@ import { Center, ErrorState } from "@/components/Feedback";
 import { loadCards, review, Rating } from "@/lib/fsrs";
 import { Icon } from "@/components/Icon";
 import { Pinyin } from "@/components/Pinyin";
+import { Mascot } from "@/components/Mascot";
+import { ProgressBar } from "@/components/ProgressBar";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
@@ -101,7 +103,7 @@ function FlashcardsInner({ cat, reviewMode }: { cat: number | null; reviewMode: 
     return (
       <Center>
         ไม่พบคำศัพท์ —{" "}
-        <Link href="/" className="ml-1 text-ink-500 underline">
+        <Link href="/" className="ml-1 text-ocean-500 underline">
           กลับหน้าแรก
         </Link>
       </Center>
@@ -111,18 +113,16 @@ function FlashcardsInner({ cat, reviewMode }: { cat: number | null; reviewMode: 
   if (finished) {
     return (
       <div className="flex flex-col items-center gap-5 p-5">
-        <div className="mt-10 grid h-20 w-20 place-items-center rounded-full bg-emerald-50 text-correct">
-          <Icon name="check" className="h-10 w-10" strokeWidth={2.4} />
-        </div>
-        <h1 className="text-xl font-semibold text-slate-700">จบชุดบัตรคำแล้ว!</h1>
-        <p className="text-center text-sm text-slate-400">
+        <Mascot className="mt-8 h-20 w-20" />
+        <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-ocean-900">จบชุดบัตรคำแล้ว!</h1>
+        <p className="text-center text-sm text-slate-500">
           ดูไป {words.length} คำ — คำที่พลิกดูแล้วจะทยอยเข้าคิวทวนให้อัตโนมัติ
         </p>
         {cat ? (
           <div className="flex w-full flex-col gap-2">
             <Link
               href={`/practice?cat=${cat}&mode=listen`}
-              className="w-full rounded-xl bg-ink-700 px-4 py-3.5 text-center font-semibold text-white shadow transition hover:bg-ink-900 active:scale-[0.98]"
+              className="w-full rounded-xl bg-ocean-700 px-4 py-3.5 text-center font-semibold text-white shadow transition hover:bg-ocean-900 active:scale-[0.98]"
             >
               ไปฝึกฟังหมวดนี้ต่อ
             </Link>
@@ -136,7 +136,7 @@ function FlashcardsInner({ cat, reviewMode }: { cat: number | null; reviewMode: 
         ) : (
           <Link
             href="/"
-            className="w-full rounded-xl bg-ink-700 px-4 py-3.5 text-center font-semibold text-white shadow transition hover:bg-ink-900 active:scale-[0.98]"
+            className="w-full rounded-xl bg-ocean-700 px-4 py-3.5 text-center font-semibold text-white shadow transition hover:bg-ocean-900 active:scale-[0.98]"
           >
             กลับหน้าแรก
           </Link>
@@ -170,14 +170,15 @@ function FlashcardsInner({ cat, reviewMode }: { cat: number | null; reviewMode: 
             )}
             {cat ? `บัตรคำ · ${catName(cat) ?? `หมวด ${cat}`}` : "บัตรคำ HSK 1"}
           </span>
-          <span>{reviewMode ? `ตรวจแล้ว ${reviewedCount}/${words.length}` : `${idx + 1}/${words.length}`}</span>
+          <span className="tabular-nums">{reviewMode ? `ตรวจแล้ว ${reviewedCount}/${words.length}` : `${idx + 1}/${words.length}`}</span>
         </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-100">
-          <div
-            className="h-2 rounded-full bg-ink-500"
-            style={{ width: `${((reviewMode ? reviewedCount : idx + 1) / words.length) * 100}%` }}
-          />
-        </div>
+        <ProgressBar
+          className="mt-2"
+          size="lg"
+          value={reviewMode ? reviewedCount : idx + 1}
+          max={words.length}
+          label="ความคืบหน้าในชุดบัตรคำ"
+        />
       </div>
 
       {/* บัตรคำ — คลิกเพื่อพลิก */}
@@ -193,7 +194,7 @@ function FlashcardsInner({ cat, reviewMode }: { cat: number | null; reviewMode: 
           </>
         ) : (
           <>
-            <div className="text-4xl font-semibold text-seal">{word.meaning_th || "—"}</div>
+            <div className="text-4xl font-semibold text-ocean-800">{word.meaning_th || "—"}</div>
             <div className="mt-3 text-sm text-slate-400">{(word.meaning_en ?? []).slice(0, 2).join("; ")}</div>
             <div className="mt-2 flex items-center gap-2 text-2xl text-slate-500">
               <span className="font-[family-name:var(--font-sc)]">{word.hanzi}</span>
@@ -217,7 +218,7 @@ function FlashcardsInner({ cat, reviewMode }: { cat: number | null; reviewMode: 
         <button
           onClick={play}
           aria-label="ฟังเสียงอ่าน"
-          className="flex items-center gap-2 rounded-full bg-ink-700 px-7 py-3.5 font-semibold text-white shadow-lg shadow-ink-900/30 transition hover:bg-ink-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-300 focus-visible:ring-offset-2"
+          className="flex items-center gap-2 rounded-full bg-ocean-700 px-7 py-3.5 font-semibold text-white shadow-lg shadow-ocean-900/30 transition hover:bg-ocean-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean-300 focus-visible:ring-offset-2"
         >
           <Icon name="speaker" className="h-5 w-5" /> ฟัง
         </button>

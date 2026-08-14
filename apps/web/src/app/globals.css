@@ -1,27 +1,46 @@
 @import "tailwindcss";
 
-/* ============ Design tokens: ธีม "หมึกใจดี" (Warm Ink · 墨心) ============ */
-@theme {
-  /* หมึก (ink) — น้ำเงินอินดิโก้ ไล่โทน */
-  --color-ink-50: #eef1f8;
-  --color-ink-100: #dbe2f1;
-  --color-ink-300: #9fb0d6;
-  --color-ink-500: #4a63a0;
-  --color-ink-700: #29406e;
-  --color-ink-900: #16233f;
+/* ============ 星航 Xīng Háng — Design tokens ============
+   คอนเซ็ปต์: มหาสมุทร + ท้องฟ้ากลางคืน + ดาวนำทาง
+   ผู้เรียน = เรือที่กำลังเดินทาง · 星航 = ดาวที่นำทาง · เส้นทางเรียน = เส้นทางเดินเรือ
 
-  /* ตราชาด (seal red · 印章) — แทนชมพู generic */
-  --color-seal: #d64435;
-  --color-seal-dark: #b0342a;
-  --color-seal-soft: #fdeceb;
+   กติกาการใช้สี (อ่านก่อนเพิ่มสีใหม่):
+   1. จอต้องสว่าง — navy ใช้เป็นตัวหนังสือ/แถบเน้น/hero เท่านั้น ห้ามใช้เป็นพื้นทั้งหน้า
+   2. เหลืองดาว = accent ล้วน · ห้ามใช้ text-star กับตัวหนังสือเล็กบนพื้นขาว (คอนทราสต์ ~1.9:1 ไม่ผ่าน)
+      ถ้าต้องเขียนตัวหนังสือโทนดาวบนพื้นสว่าง ให้ใช้ text-star-ink (ผ่าน AA)
+   3. 1 สี 1 ความหมาย — ถูก=correct · ผิด=coral · ต่อเนื่อง=streak · ดาว/รางวัล=star
+*/
+@theme {
+  /* มหาสมุทร (ocean) — ฟ้าอ่อนผิวน้ำ → กรมท่ากลางคืนใต้ทะเลลึก */
+  --color-ocean-50: #eff6fc;
+  --color-ocean-100: #dbeafa;
+  --color-ocean-200: #bdd9f2;
+  --color-ocean-300: #8fbde5;
+  --color-ocean-400: #5b98d0;
+  --color-ocean-500: #3577b4;
+  --color-ocean-600: #245f97;
+  --color-ocean-700: #1a4b79; /* ตัวหนังสือหลักบนพื้นสว่าง (8.4:1) */
+  --color-ocean-800: #133758;
+  --color-ocean-900: #0d2440; /* midnight navy — hero / โลโก้ */
+
+  /* ดาวนำทาง (star) — เหลืองอุ่น ใช้เป็น accent */
+  --color-star: #f4b740;
+  --color-star-dark: #d1911c;
+  --color-star-soft: #fdf3dc;
+  --color-star-ink: #7d5406; /* โทนดาวที่ใช้เป็นตัวหนังสือบนพื้นสว่างได้ (AA) */
+
+  /* ครีมอุ่น — พื้นหลังนุ่มตา ใช้แทนเทาเวลาอยากได้ความอบอุ่น */
+  --color-cream: #fdfaf4;
 
   /* สีเชิงความหมาย (1 สี 1 ความหมาย) */
-  --color-correct: #16a34a;
-  --color-streak: #f97316;
-  --color-xp: #eab308;
-  --color-miss: #e11d48;
+  --color-correct: #1f9d63; /* soft green — ตอบถูก / ผ่าน */
+  --color-coral: #e2685a; /* soft coral — ตอบผิด (ไม่ใช้แดงจัด กันรู้สึกโดนดุ) */
+  --color-coral-soft: #fdeeec;
+  --color-streak: #dd8a1c; /* warm amber — เรียนต่อเนื่อง */
+  --color-xp: #f4b740; /* = star */
 
-  /* สีวรรณยุกต์ (tone colors) — ออกแบบให้เสียง 2 (ขึ้น) กับ 3 (ลง-ขึ้น) ต่างชัด (จุด Thai-L1) */
+  /* สีวรรณยุกต์ (tone colors) — ออกแบบให้เสียง 2 (ขึ้น) กับ 3 (ลง-ขึ้น) ต่างชัด (จุด Thai-L1)
+     ชุดนี้เป็นการตัดสินใจเชิงการสอน ไม่ใช่แค่ความสวย — เปลี่ยนต้องถามหฤทัยก่อน */
   --color-tone1: #c0392b; /* ˉ สูงราบ  = แดง */
   --color-tone2: #d98307; /* ˊ ขึ้น    = ส้ม */
   --color-tone3: #16a34a; /* ˇ ลง-ขึ้น = เขียว */
@@ -32,25 +51,32 @@
 /* หัวข้อกระจายบรรทัดสวย */
 h1, h2, h3 { text-wrap: balance; }
 
-/* ============ ปุ่มกดยุบ 3D (tactile · แบบ Duolingo) ============ */
-.btn-ink {
-  background-color: var(--color-ink-700);
-  color: #fff;
-  box-shadow: 0 4px 0 0 var(--color-ink-900);
-  transition: transform 80ms ease, box-shadow 80ms ease, background-color 120ms ease;
+/* ============ พื้นหลังนอกกรอบมือถือ (เห็นตอนเปิดบนจอกว้าง) ============ */
+/* ท้องฟ้ากลางคืนจาง ๆ ไล่ลงเป็นผิวน้ำ — ไม่รบกวนเนื้อหาในกรอบซึ่งเป็นพื้นสว่าง */
+body {
+  background-image: linear-gradient(180deg, var(--color-ocean-100) 0%, var(--color-ocean-50) 45%, var(--color-cream) 100%);
+  background-attachment: fixed;
 }
-.btn-ink:hover { background-color: var(--color-ink-900); }
-.btn-ink:active { transform: translateY(4px); box-shadow: 0 0 0 0 var(--color-ink-900); }
-.btn-ink:disabled { opacity: 0.4; box-shadow: none; transform: none; }
 
-.btn-seal {
-  background-color: var(--color-seal);
+/* ============ ปุ่มกดยุบ 3D (tactile) ============ */
+.btn-ocean {
+  background-color: var(--color-ocean-700);
   color: #fff;
-  box-shadow: 0 4px 0 0 var(--color-seal-dark);
+  box-shadow: 0 4px 0 0 var(--color-ocean-900);
   transition: transform 80ms ease, box-shadow 80ms ease, background-color 120ms ease;
 }
-.btn-seal:hover { background-color: var(--color-seal-dark); }
-.btn-seal:active { transform: translateY(4px); box-shadow: 0 0 0 0 var(--color-seal-dark); }
+.btn-ocean:hover { background-color: var(--color-ocean-900); }
+.btn-ocean:active { transform: translateY(4px); box-shadow: 0 0 0 0 var(--color-ocean-900); }
+.btn-ocean:disabled { opacity: 0.4; box-shadow: none; transform: none; }
+
+.btn-star {
+  background-color: var(--color-star);
+  color: var(--color-ocean-900);
+  box-shadow: 0 4px 0 0 var(--color-star-dark);
+  transition: transform 80ms ease, box-shadow 80ms ease, background-color 120ms ease;
+}
+.btn-star:hover { background-color: var(--color-star-dark); }
+.btn-star:active { transform: translateY(4px); box-shadow: 0 0 0 0 var(--color-star-dark); }
 
 .btn-soft {
   background-color: #f1f5f9;
@@ -61,3 +87,15 @@ h1, h2, h3 { text-wrap: balance; }
 .btn-soft:hover { background-color: #e2e8f0; }
 .btn-soft:active { transform: translateY(3px); box-shadow: 0 0 0 0 #cbd5e1; }
 .btn-soft:disabled { opacity: 0.4; box-shadow: none; transform: none; }
+
+/* ============ ดาวกะพริบ (ใช้เท่าที่จำเป็น — โลโก้/มาสคอต) ============ */
+@keyframes xh-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.72; transform: scale(0.94); }
+}
+.twinkle { animation: xh-twinkle 3.2s ease-in-out infinite; transform-origin: center; }
+
+/* เคารพผู้ใช้ที่ตั้งค่าลดการเคลื่อนไหว */
+@media (prefers-reduced-motion: reduce) {
+  .twinkle { animation: none; }
+}

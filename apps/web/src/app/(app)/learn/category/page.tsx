@@ -35,7 +35,7 @@ function CategoryMenuInner({ cat }: { cat: number | null }) {
   const pct = ids.length ? Math.round((learned / ids.length) * 100) : 0;
 
   if (loading) return <Center>กำลังโหลด...</Center>;
-  if (!cat || !meta) return <Center>ไม่พบหมวดนี้ — <Link href="/" className="ml-1 text-ink-500 underline">กลับไปเลือกหมวด</Link></Center>;
+  if (!cat || !meta) return <Center>ไม่พบหมวดนี้ — <Link href="/" className="ml-1 text-ocean-500 underline">กลับไปเลือกหมวด</Link></Center>;
 
   return (
     <div className="flex flex-col gap-4 p-5">
@@ -45,7 +45,7 @@ function CategoryMenuInner({ cat }: { cat: number | null }) {
           <Icon name="arrowLeft" className="h-3.5 w-3.5" /> ทุกหมวด
         </Link>
         <div className="mt-2 flex items-center gap-3">
-          <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-ink-50 text-ink-700">
+          <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-ocean-50 text-ocean-700">
             <Icon name={meta.icon} className="h-6 w-6" />
           </div>
           <div className="min-w-0 flex-1">
@@ -127,7 +127,7 @@ function ActivityCard({
   title,
   desc,
   badge,
-  badgeTone = "seal",
+  badgeTone = "star",
   primary = false,
 }: {
   href: string;
@@ -135,24 +135,24 @@ function ActivityCard({
   title: string;
   desc: string;
   badge?: string;
-  badgeTone?: "seal" | "correct";
+  badgeTone?: "star" | "correct";
   primary?: boolean;
 }) {
   return (
     <Link
       href={href}
       className={`flex items-center gap-3 rounded-2xl border p-4 transition active:scale-[0.99] ${
-        primary ? "border-ink-200 bg-ink-50/50 hover:border-ink-400" : "border-slate-100 bg-white hover:border-ink-300 hover:shadow-sm"
+        primary ? "border-ocean-200 bg-ocean-50/50 hover:border-ocean-400" : "border-slate-100 bg-white hover:border-ocean-300 hover:shadow-sm"
       }`}
     >
-      <div className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${primary ? "bg-ink-700 text-white" : "bg-ink-50 text-ink-700"}`}>
+      <div className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${primary ? "bg-ocean-700 text-white" : "bg-ocean-50 text-ocean-700"}`}>
         <Icon name={icon} className="h-5 w-5" />
       </div>
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2 font-medium text-slate-700">
           {title}
           {badge && (
-            <span className={`rounded-md px-1.5 py-0.5 text-[10px] font-bold text-white ${badgeTone === "correct" ? "bg-correct" : "bg-seal"}`}>
+            <span className={`rounded-md px-1.5 py-0.5 text-[10px] font-bold ${badgeTone === "correct" ? "bg-correct text-white" : "bg-star text-ocean-900"}`}>
               {badge}
             </span>
           )}

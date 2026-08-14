@@ -6,11 +6,11 @@ export type ItemStatus = "done" | "doing" | "aug" | "sep" | "hsk2" | "opt";
 
 export const STATUS_META: Record<ItemStatus, { label: string; cls: string }> = {
   done: { label: "เสร็จแล้ว", cls: "bg-emerald-50 text-correct border-emerald-200" },
-  doing: { label: "กำลังทำ", cls: "bg-ink-50 text-ink-700 border-ink-100" },
+  doing: { label: "กำลังทำ", cls: "bg-ocean-50 text-ocean-700 border-ocean-100" },
   aug: { label: "คิว ส.ค.", cls: "bg-amber-50 text-amber-600 border-amber-200" },
   sep: { label: "ก.ย.–ต.ค.", cls: "bg-slate-100 text-slate-500 border-slate-200" },
   hsk2: { label: "เฟส HSK2", cls: "bg-slate-100 text-slate-400 border-slate-200" },
-  opt: { label: "Optional", cls: "bg-seal-soft text-seal border-seal/30" },
+  opt: { label: "Optional", cls: "bg-star-soft text-star-ink border-star/40" },
 };
 
 // คิวงานถัดไป (เรียงตามลำดับที่ควรทำ — คิดจาก dependency) แสดงเป็นการ์ด "ทำต่อไป" บนหน้า /roadmap

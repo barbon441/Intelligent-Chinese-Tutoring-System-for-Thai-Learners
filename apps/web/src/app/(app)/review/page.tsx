@@ -7,6 +7,8 @@ import { buildQueue, loadCards, review, preview, Rating, type Grade } from "@/li
 import { Icon } from "@/components/Icon";
 import { Pinyin } from "@/components/Pinyin";
 import { Center, ErrorState } from "@/components/Feedback";
+import { Mascot, MascotSays } from "@/components/Mascot";
+import { ProgressBar } from "@/components/ProgressBar";
 
 export default function Review() {
   const [words, setWords] = useState<Word[]>([]);
@@ -74,15 +76,13 @@ export default function Review() {
   if (queue.length === 0) {
     return (
       <div className="flex flex-col items-center gap-5 p-5">
-        <div className="mt-10 grid h-20 w-20 place-items-center rounded-full bg-seal-soft text-seal">
-          <Icon name="sparkles" className="h-10 w-10" />
-        </div>
-        <h1 className="text-xl font-semibold text-slate-700">ทวนครบแล้ววันนี้!</h1>
-        <p className="text-center text-sm text-slate-400">
-          ยังไม่มีคำที่ถึงกำหนดทวน กลับมาใหม่พรุ่งนี้ หรือไปเรียนคำใหม่ก่อน
+        <Mascot className="mt-10 h-20 w-20" />
+        <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-ocean-900">ดาวทุกดวงยังสว่างอยู่</h1>
+        <p className="text-center text-sm text-slate-500">
+          ยังไม่มีคำที่ถึงกำหนดทวน กลับมาใหม่พรุ่งนี้ หรือไปเรียนคำใหม่ก่อนก็ได้
         </p>
-        <Link href="/" className="rounded-xl bg-ink-700 px-5 py-3 text-white shadow transition hover:bg-ink-900">
-          กลับหน้าแรก — ไปเรียนคำใหม่ต่อ
+        <Link href="/" className="rounded-xl bg-ocean-700 px-5 py-3 font-semibold text-white shadow transition hover:bg-ocean-900">
+          กลับไปเดินทางต่อ
         </Link>
       </div>
     );
@@ -91,28 +91,40 @@ export default function Review() {
   // ---------- หน้าเริ่ม (บอกจำนวนคิว) ----------
   if (!started) {
     return (
-      <div className="flex flex-col items-center gap-5 p-5">
-        <div className="mt-8 grid h-16 w-16 place-items-center rounded-2xl bg-ink-50 text-ink-700">
-          <Icon name="refresh" className="h-8 w-8" />
-        </div>
-        <h1 className="text-xl font-semibold text-slate-700">ทบทวนอัจฉริยะ</h1>
-        <p className="text-center text-sm text-slate-400">
-          ระบบเลือกคำที่ “กำลังจะลืมพอดี” มาให้ทวน — ทวนตอนนี้จำได้นานที่สุด
-        </p>
-        <div className="w-full rounded-3xl bg-gradient-to-br from-ink-900 via-ink-700 to-ink-500 p-6 text-center text-white shadow-lg">
-          <div className="text-5xl font-bold">{queue.length}</div>
-          <div className="mt-1 text-ink-100">คำในคิววันนี้</div>
-          <div className="mt-2 text-xs text-ink-100/80">
-            {freshCount === queue.length ? "วันนี้เป็นคำใหม่ทั้งหมด — เจอครั้งแรก ค่อย ๆ ดูไปทีละคำ" : `ถึงกำหนดทวน ${queue.length - freshCount} · คำใหม่ ${freshCount}`}
+      <div className="flex flex-col gap-5 p-5">
+        <header className="text-center">
+          <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-ocean-900">ดาวที่กำลังจาง</h1>
+          <p className="mt-1 text-sm leading-relaxed text-slate-500">
+            คำเหล่านี้เริ่มจำได้ไม่แม่น ลองทบทวนอีกครั้งก่อนเดินทางต่อ
+          </p>
+        </header>
+
+        {/* ท้องฟ้ากลางคืน + จำนวนดาวที่รอ */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-ocean-900 via-ocean-800 to-ocean-600 p-6 text-center text-white shadow-lg shadow-ocean-900/20">
+          <span aria-hidden="true" className="absolute left-7 top-5 h-1 w-1 rounded-full bg-white/50" />
+          <span aria-hidden="true" className="absolute right-9 top-8 h-1.5 w-1.5 rounded-full bg-white/40" />
+          <span aria-hidden="true" className="absolute right-16 top-4 h-1 w-1 rounded-full bg-white/30" />
+          <div className="relative">
+            <Icon name="star" className="mx-auto h-7 w-7 text-star" fill="currentColor" strokeWidth={0} />
+            <div className="mt-2 font-[family-name:var(--font-display)] text-5xl font-bold">{queue.length}</div>
+            <div className="mt-1 text-ocean-100">คำรอทบทวนวันนี้</div>
+            <div className="mt-2 text-xs text-ocean-100/80">
+              {freshCount === queue.length
+                ? "วันนี้เป็นคำใหม่ทั้งหมด — เจอครั้งแรก ค่อย ๆ ดูไปทีละคำ"
+                : `ถึงกำหนดทวน ${queue.length - freshCount} · คำใหม่ ${freshCount}`}
+            </div>
           </div>
         </div>
+
+        <MascotSays>ทวนตอนที่กำลังจะลืมพอดี จะจำได้นานที่สุดเลยนะ ⭐</MascotSays>
+
         <button
           onClick={() => setStarted(true)}
-          className="w-full rounded-xl bg-ink-700 px-5 py-3.5 font-semibold text-white shadow transition hover:bg-ink-900"
+          className="w-full rounded-xl bg-ocean-900 px-5 py-3.5 font-semibold text-white shadow transition hover:bg-ocean-800 active:scale-[0.98]"
         >
-          เริ่มกันเลย
+          เริ่มทบทวน
         </button>
-        <p className="rounded-2xl bg-slate-50 p-4 text-center text-[11px] leading-relaxed text-slate-500">
+        <p className="rounded-2xl bg-ocean-50 p-4 text-center text-[11px] leading-relaxed text-slate-500">
           ระบบคำนวณเองว่าแต่ละคำ “ควรทวนเมื่อไหร่” · เก็บกำหนดไว้ในเครื่องนี้
         </p>
       </div>
@@ -123,16 +135,14 @@ export default function Review() {
   if (!card) {
     return (
       <div className="flex flex-col items-center gap-5 p-5">
-        <div className="mt-10 grid h-20 w-20 place-items-center rounded-full bg-emerald-50 text-correct">
-          <Icon name="check" className="h-10 w-10" strokeWidth={2.4} />
-        </div>
-        <h1 className="text-xl font-semibold text-slate-700">ทวนจบรอบแล้ว!</h1>
-        <p className="text-center text-sm text-slate-400">ทวนไป {reviewed} คำ · เก็บกำหนดครั้งถัดไปให้เรียบร้อย</p>
+        <Mascot className="mt-10 h-20 w-20" />
+        <h1 className="font-[family-name:var(--font-display)] text-xl font-bold text-ocean-900">ทวนจบรอบแล้ว!</h1>
+        <p className="text-center text-sm text-slate-500">ทวนไป {reviewed} คำ · ดาวกลับมาสว่างอีกครั้งแล้ว</p>
         <Link
           href="/"
-          className="w-full rounded-xl bg-ink-700 px-4 py-3.5 text-center font-semibold text-white shadow transition hover:bg-ink-900 active:scale-95"
+          className="w-full rounded-xl bg-ocean-900 px-4 py-3.5 text-center font-semibold text-white shadow transition hover:bg-ocean-800 active:scale-95"
         >
-          ไปต่อกันเลย
+          เดินทางต่อ
         </Link>
       </div>
     );
@@ -151,12 +161,7 @@ export default function Review() {
             {idx + 1}/{queue.length}
           </span>
         </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-100">
-          <div
-            className="h-2 rounded-full bg-ink-500 transition-all"
-            style={{ width: `${(idx / queue.length) * 100}%` }}
-          />
-        </div>
+        <ProgressBar className="mt-2" size="lg" value={idx} max={queue.length} label="ความคืบหน้าการทบทวน" />
       </div>
 
       {/* การ์ด */}
@@ -167,7 +172,7 @@ export default function Review() {
         {!flipped ? (
           <>
             {!knownIds.has(card.id) && (
-              <span className="mb-2 rounded-md bg-ink-50 px-2 py-0.5 text-xs font-bold text-ink-500">คำใหม่</span>
+              <span className="mb-2 rounded-md bg-ocean-50 px-2 py-0.5 text-xs font-bold text-ocean-500">คำใหม่</span>
             )}
             <div className="text-7xl font-bold text-slate-900">{card.hanzi}</div>
             <Pinyin text={card.pinyin} className="mt-3 text-2xl font-medium" />
@@ -177,7 +182,7 @@ export default function Review() {
           </>
         ) : (
           <>
-            <div className="text-4xl font-semibold text-seal">{card.meaning_th || "—"}</div>
+            <div className="text-4xl font-semibold text-ocean-800">{card.meaning_th || "—"}</div>
             <div className="mt-3 flex items-center gap-2 text-2xl text-slate-500">
               <span className="font-[family-name:var(--font-sc)]">{card.hanzi}</span>
               <span>·</span>
@@ -190,7 +195,7 @@ export default function Review() {
 
       <button
         onClick={play}
-        className="inline-flex items-center gap-2 rounded-full bg-ink-700 px-6 py-2.5 font-medium text-white shadow transition hover:bg-ink-900 active:scale-95"
+        className="inline-flex items-center gap-2 rounded-full bg-ocean-700 px-6 py-2.5 font-medium text-white shadow transition hover:bg-ocean-900 active:scale-95"
       >
         <Icon name="speaker" className="h-5 w-5" /> ฟัง
       </button>
@@ -198,9 +203,9 @@ export default function Review() {
       {/* ปุ่มให้คะแนน (โผล่หลังพลิก) */}
       {flipped ? (
         <div className="grid w-full grid-cols-4 gap-2">
-          <RateBtn label="ลืม" color="bg-seal" sub={intervals?.again} onClick={() => rate(Rating.Again)} />
+          <RateBtn label="ลืม" color="bg-coral" sub={intervals?.again} onClick={() => rate(Rating.Again)} />
           <RateBtn label="ยาก" color="bg-amber-500" sub={intervals?.hard} onClick={() => rate(Rating.Hard)} />
-          <RateBtn label="ปกติ" color="bg-ink-500" sub={intervals?.good} onClick={() => rate(Rating.Good)} />
+          <RateBtn label="ปกติ" color="bg-ocean-500" sub={intervals?.good} onClick={() => rate(Rating.Good)} />
           <RateBtn label="ง่าย" color="bg-correct" sub={intervals?.easy} onClick={() => rate(Rating.Easy)} />
         </div>
       ) : (
