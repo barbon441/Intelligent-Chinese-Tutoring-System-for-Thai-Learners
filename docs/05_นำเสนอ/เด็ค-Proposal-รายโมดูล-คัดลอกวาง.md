@@ -1,8 +1,8 @@
-# 🎴 เด็ค Proposal รายโมดูล — "จีนรู้ใจ" (中文知心)
+# 🎴 เด็ค Proposal รายโมดูล — "星航" (星航)
 
 > **วิธีใช้:** ก็อปทีละบล็อกไปวางในเทมเพลต (ฟอร์แมตอ้างอิงจากเด็ค MAZ / Kid's Kingdom)
 > **โครงเด็ค:** ปก + Proposed Solution + 8 โมดูล × 5 สไลด์ (ปกหมวด → ภาพรวมโมดูล → Function 2 สไลด์ → Site Map) = **42 สไลด์**
-> **แถบมุมขวาบนทุกสไลด์เนื้อหา:** `จีนรู้ใจ (中文知心)` / `Intelligent Chinese Tutoring System for Thai Learners`
+> **แถบมุมขวาบนทุกสไลด์เนื้อหา:** `星航 (Xing Hang)` / `Intelligent Chinese Tutoring System for Thai Learners`
 > อัปเดต: 13 ส.ค. 2026 · อ้างอิงเนื้อหาจาก `docs/08_สเปค-พัฒนา/PRD.md`, `ARCHITECTURE.md`, `โฟลว์ผู้ใช้-สิทธิ์แอดมิน.md`, `โมดูล-ฟังก์ชัน-สเปค.md`
 
 ---
@@ -14,7 +14,7 @@
 Proposal of
 
 **ชื่อโครงงาน (ตัวใหญ่สุด):**
-จีนรู้ใจ (中文知心)
+星航 (Xing Hang)
 
 **บรรทัดรอง (ตัวหนา):**
 Intelligent Chinese Tutoring System for Thai Learners

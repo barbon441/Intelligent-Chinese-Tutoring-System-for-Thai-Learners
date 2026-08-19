@@ -1,6 +1,6 @@
 ---
 name: hsk-item
-description: Generate a well-formed HSK-format practice item (listening / reading / vocabulary / sentence-ordering / fill-in) with a fixed correct answer, the skill(s) it tests (Q-matrix mapping), and any Thai-L1 error it targets. Use when building the HSK question bank for the จีนรู้ใจ project, or when you need example exercises that can be auto-graded (no LLM grading of free grammar).
+description: Generate a well-formed HSK-format practice item (listening / reading / vocabulary / sentence-ordering / fill-in) with a fixed correct answer, the skill(s) it tests (Q-matrix mapping), and any Thai-L1 error it targets. Use when building the HSK question bank for the 星航 project, or when you need example exercises that can be auto-graded (no LLM grading of free grammar).
 ---
 
 # Skill: สร้างข้อสอบรูปแบบ HSK (+ Q-matrix + Thai-L1)

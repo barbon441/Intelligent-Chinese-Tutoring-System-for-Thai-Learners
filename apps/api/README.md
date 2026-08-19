@@ -1,5 +1,5 @@
 ---
-title: จีนรู้ใจ API
+title: 星航 API
 emoji: 🐉
 colorFrom: blue
 colorTo: pink
@@ -8,7 +8,7 @@ app_port: 7860
 pinned: false
 ---
 
-# apps/api — จีนรู้ใจ Backend (FastAPI)
+# apps/api — 星航 Backend (FastAPI)
 
 > frontmatter ข้างบนเป็น config ของ Hugging Face Space (Docker SDK) — HF อ่านตอน deploy
 

@@ -1,4 +1,4 @@
-/** ค่าคงที่กลางของจีนรู้ใจ (ฝั่ง TypeScript) — ต้องตรงกับ constants.py เสมอ */
+/** ค่าคงที่กลางของ星航 (ฝั่ง TypeScript) — ต้องตรงกับ constants.py เสมอ */
 
 // เกณฑ์คะแนน HSK (มาตรฐานจริง)
 export const MAX_SCORE = 200;
