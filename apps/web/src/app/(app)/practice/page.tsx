@@ -14,6 +14,7 @@ import SentenceOrder from "./SentenceOrder";
 import { Icon, type IconName } from "@/components/Icon";
 import { Pinyin } from "@/components/Pinyin";
 import { Mascot, MascotSays } from "@/components/Mascot";
+import { audioRate, toggleAudioRate, playAtUserRate } from "@/lib/daily";
 import { ProgressBar } from "@/components/ProgressBar";
 import { FeedbackCard } from "@/components/FeedbackCard";
 
@@ -30,6 +31,8 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
   const [error, setError] = useState<string | null>(null);
 
   const [mode, setMode] = useState<QuizMode | null>(null);
+  const [slow, setSlow] = useState(false);
+  useEffect(() => setSlow(audioRate() === 0.75), []);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [qi, setQi] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
@@ -86,7 +89,7 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
   // เล่นเสียงอัตโนมัติในโหมดฟัง
   const play = useCallback(() => {
     if (mode === "listen" && q?.word.audio_path) {
-      new Audio(audioUrl(q.word.audio_path)).play().catch(() => {});
+      playAtUserRate(audioUrl(q.word.audio_path)); // โหมดฝึกปรับความเร็วได้ (m2-7) — ควิซ/สอบห้าม (QZ-03)
     }
   }, [mode, q]);
   useEffect(() => {
@@ -117,7 +120,7 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
     if (loading || !modeParam || autoStartedRef.current) return;
     autoStartedRef.current = true;
     if (modeParam === "order") setMode("order");
-    else if (pools[modeParam].length >= 4) start(modeParam);
+    else if ((modeParam === "read" || modeParam === "listen") && pools[modeParam].length >= 4) start(modeParam);
     else setNotice("หมวดนี้ยังมีคำไม่พอสำหรับโหมดนี้ — ลองโหมดอื่น หรือฝึกแบบรวมทุกหมวดก่อนนะ");
   }, [loading, modeParam, pools, start]);
 
@@ -171,6 +174,19 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
           unit="ประโยค"
           onStart={() => setMode("order")}
         />
+        <Link
+          href={cat ? `/match?cat=${cat}` : "/match"}
+          className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-white p-4 transition hover:border-ocean-300 hover:shadow-sm active:scale-[0.99]"
+        >
+          <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-ocean-50 text-ocean-700">
+            <Icon name="sparkles" className="h-5 w-5" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="font-medium text-slate-700">เกมจับคู่</div>
+            <div className="text-xs text-slate-400">เปิดการ์ดจับคู่คำ↔คำแปล หรือเสียง↔ตัวจีน — ทวนแบบสนุก ๆ</div>
+          </div>
+          <Icon name="arrowRight" className="h-4 w-4 shrink-0 text-slate-300" />
+        </Link>
 
         <div className="flex gap-2 rounded-2xl bg-slate-50 p-4 text-xs leading-relaxed text-slate-500">
           <Icon name="bulb" className="mt-0.5 h-4 w-4 shrink-0 text-xp" />
@@ -213,7 +229,7 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
         </div>
         <div className="flex w-full gap-3">
           <button
-            onClick={() => start(mode)}
+            onClick={() => (mode === "read" || mode === "listen") && start(mode)}
             className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-ocean-700 px-4 py-3 font-semibold text-white shadow transition hover:bg-ocean-900 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean-300 focus-visible:ring-offset-2"
           >
             <Icon name="refresh" className="h-5 w-5" /> ฝึกอีกรอบ
@@ -287,6 +303,15 @@ function PracticeInner({ cat, modeParam }: { cat: number | null; modeParam: Quiz
             </button>
             <div className="mt-3 text-sm text-slate-400">
               {answered ? <Pinyin text={q.word.pinyin} /> : "แตะเพื่อฟังอีกครั้ง"}
+              <button
+                onClick={() => setSlow(toggleAudioRate() === 0.75)}
+                aria-pressed={slow}
+                className={`ml-2 rounded-full px-2 py-0.5 text-[11px] font-medium transition ${
+                  slow ? "bg-ocean-700 text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+                }`}
+              >
+                {slow ? "ช้าอยู่" : "ฟังช้า"}
+              </button>
             </div>
             {!answered && <div className="mt-1 text-xs text-slate-400">คุณได้ยินคำว่าอะไร</div>}
           </>

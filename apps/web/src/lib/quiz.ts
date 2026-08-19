@@ -59,3 +59,30 @@ export function totalBest(): { got: number; full: number } {
   for (let c = 1; c <= 5; c++) got += bestScore(c) ?? 0;
   return { got, full: 5 * QUIZ_TOTAL };
 }
+
+export function attemptsOf(cat: number): QuizAttempt[] {
+  return loadAttempts().filter((a) => a.cat === cat);
+}
+
+/**
+ * ความแม่นรายทักษะของหมวด จาก log ควิซจริง (แทนตัวเลขสมมติใน mockData)
+ * รูปทรงตรงกับ SkillScores ของหน้าจอ: vocab = % คำที่เริ่มเรียนแล้ว (ส่งเข้ามา) ·
+ * ฟัง/อ่าน/ประโยค = % ตอบถูกสะสมจากควิซท้ายหมวด · คืน null ถ้ายังไม่เคยสอบเลย (ห้ามเดาเป็น 0)
+ */
+export function catSkillScores(
+  cat: number,
+  vocabPct: number
+): { vocab: number; listening: number; reading: number; sentence: number } | null {
+  const items = attemptsOf(cat).flatMap((a) => a.items);
+  if (items.length === 0) return null;
+  const pct = (skill: QuizSkill) => {
+    const of = items.filter((it) => it.skill === skill);
+    return of.length ? Math.round((of.filter((it) => it.correct).length / of.length) * 100) : 0;
+  };
+  return {
+    vocab: Math.round(vocabPct),
+    listening: pct("listen"),
+    reading: pct("read"),
+    sentence: pct("write"),
+  };
+}

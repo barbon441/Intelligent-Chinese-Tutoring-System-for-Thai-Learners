@@ -38,13 +38,18 @@ export type Journey = {
   current: Island | null;
   /** ทักษะที่อ่อนสุดจากการฝึกจริง (ต้องเคยฝึก ≥5 ข้อ) */
   weakest: SkillStat | null;
+  /** คำที่ถึงกำหนดทวนวันนี้ตัวจริงจาก FSRS (สูงสุด 6 คำแรก — ค้างนานสุดก่อน) */
+  dueWords: { hanzi: string; pinyin: string; meaning_th: string }[];
 };
 
 export const LEVEL_QUIZ_FULL = CATEGORIES.length * QUIZ_TOTAL;
 
 export function useJourney(): Journey {
-  const [rows, setRows] = useState<{ id: number; category: number | null }[]>([]);
+  const [rows, setRows] = useState<
+    { id: number; category: number | null; hanzi: string; pinyin: string; meaning_th: string }[]
+  >([]);
   const [due, setDue] = useState<number | null>(null);
+  const [dueIds, setDueIds] = useState<number[]>([]);
   const [learnedIds, setLearnedIds] = useState<Set<number>>(new Set());
   const [summary, setSummary] = useState<ProgressSummary | null>(null);
   const [weakest, setWeakest] = useState<SkillStat | null>(null);
@@ -62,11 +67,16 @@ export function useJourney(): Journey {
       setQuizBests(new Map(CATEGORIES.map((c) => [c.id, bestScore(c.id)])));
 
       // ---- คลังคำจาก Supabase ----
-      const { data } = await supabase.from("words").select("id, category").eq("hsk_level", 1);
+      const { data } = await supabase
+        .from("words")
+        .select("id, category, hanzi, pinyin, meaning_th")
+        .eq("hsk_level", 1);
       if (!alive) return; // ออกจากหน้าไปแล้ว อย่า setState ต่อ
       if (data) {
         setRows(data);
-        setDue(buildQueue(data.map((w) => w.id)).due.length);
+        const q = buildQueue(data.map((w) => w.id));
+        setDue(q.due.length);
+        setDueIds(q.due);
       }
       setLoading(false);
     })();
@@ -113,6 +123,11 @@ export function useJourney(): Journey {
       accuracyPct: summary && summary.totalQuestions ? Math.round(summary.accuracy * 100) : null,
       current: currentIdx >= 0 ? islands[currentIdx] : null,
       weakest,
+      dueWords: dueIds
+        .slice(0, 6)
+        .map((id) => rows.find((r) => r.id === id))
+        .filter((r): r is (typeof rows)[number] => !!r)
+        .map((r) => ({ hanzi: r.hanzi, pinyin: r.pinyin, meaning_th: r.meaning_th })),
     };
-  }, [rows, learnedIds, quizBests, due, summary, weakest, loading]);
+  }, [rows, learnedIds, quizBests, due, dueIds, summary, weakest, loading]);
 }

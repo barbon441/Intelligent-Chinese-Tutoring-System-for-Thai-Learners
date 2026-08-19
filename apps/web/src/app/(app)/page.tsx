@@ -15,15 +15,20 @@ import { ProgressBar } from "@/components/ProgressBar";
 import { Pinyin } from "@/components/Pinyin";
 import { getLevel } from "@/data/levels";
 import { QUIZ_TOTAL } from "@/lib/quiz";
-import { loadPretest, REVIEW_WORDS } from "@/data/mockData";
+import { loadPretest } from "@/data/mockData";
+import { WORDS_PER_DAY, learnedTodayCount } from "@/lib/daily";
 
 export default function Home() {
   const j = useJourney();
   const [pretestDone, setPretestDone] = useState<boolean | null>(null);
+  const [todayCount, setTodayCount] = useState(0);
 
   // ยังไม่เคยทำแบบทดสอบก่อนเรียน = ยังไม่มีคะแนนฐาน → ต้องชวนทำก่อนอย่างอื่น (มติ PL-08)
   useEffect(() => {
-    queueMicrotask(() => setPretestDone(loadPretest() !== null));
+    queueMicrotask(() => {
+      setPretestDone(loadPretest() !== null);
+      setTodayCount(learnedTodayCount());
+    });
   }, []);
 
   // ดาวนำทางวันนี้ — เลือกจากสถานะจริงของผู้เรียน ไม่ใช่สุ่มหรือค่าตายตัว
@@ -72,6 +77,26 @@ export default function Home() {
         pct={j.levelPct}
         caption={j.totalWords ? `เริ่มเรียนไปแล้ว ${j.learnedWords} จาก ${j.totalWords} คำ` : "กำลังโหลดคลังคำ..."}
       />
+
+      {/* ②.5 เป้าวันนี้ — คำใหม่วันละ 10 คำเท่ากันทุกคน (กฎ ON-06) */}
+      <section className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+        <div className="flex items-baseline justify-between">
+          <h2 className="text-sm font-semibold text-slate-600">คำใหม่วันนี้</h2>
+          <span className="text-xs tabular-nums text-slate-400">
+            {Math.min(todayCount, WORDS_PER_DAY)}/{WORDS_PER_DAY} คำ
+          </span>
+        </div>
+        <ProgressBar
+          className="mt-2"
+          value={Math.min(todayCount, WORDS_PER_DAY)}
+          max={WORDS_PER_DAY}
+          tone={todayCount >= WORDS_PER_DAY ? "correct" : undefined}
+          label="ความคืบหน้าเป้าคำใหม่วันนี้"
+        />
+        {todayCount >= WORDS_PER_DAY && (
+          <p className="mt-1.5 text-xs font-medium text-correct">ครบเป้าวันนี้แล้ว เก่งมาก — ทวนของเดิมหรือฝึกต่อได้เลย</p>
+        )}
+      </section>
 
       {/* ③ ดาวนำทางวันนี้ — ทางไปต่อทางเดียว ไม่ต้องเลือกเยอะ */}
       <section className="rounded-3xl border border-star/40 bg-star-soft p-5">
@@ -136,18 +161,26 @@ export default function Home() {
           </Link>
         </div>
         <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
-          <p className="text-xs leading-relaxed text-slate-500">
-            วันนี้มี {REVIEW_WORDS.length} คำที่เริ่มจำได้ไม่แม่น ทบทวนก่อนเดินทางต่อจะจำได้นานที่สุด
-          </p>
-          <div className="mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
-            {REVIEW_WORDS.map((w) => (
-              <div key={w.hanzi} className="shrink-0 rounded-xl border border-slate-100 bg-ocean-50/50 px-3 py-2 text-center">
-                <div className="font-[family-name:var(--font-sc)] text-xl font-semibold text-slate-900">{w.hanzi}</div>
-                <Pinyin text={w.pinyin} className="block text-[11px] font-medium" />
-                <div className="text-[10px] text-slate-500">{w.th}</div>
+          {j.dueWords.length > 0 ? (
+            <>
+              <p className="text-xs leading-relaxed text-slate-500">
+                วันนี้มี {j.due} คำที่เริ่มจำได้ไม่แม่น ทบทวนก่อนเดินทางต่อจะจำได้นานที่สุด
+              </p>
+              <div className="mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+                {j.dueWords.map((w) => (
+                  <div key={w.hanzi} className="shrink-0 rounded-xl border border-slate-100 bg-ocean-50/50 px-3 py-2 text-center">
+                    <div className="font-[family-name:var(--font-sc)] text-xl font-semibold text-slate-900">{w.hanzi}</div>
+                    <Pinyin text={w.pinyin} className="block text-[11px] font-medium" />
+                    <div className="text-[10px] text-slate-500">{w.meaning_th}</div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          ) : (
+            <p className="text-xs leading-relaxed text-slate-500">
+              ยังไม่มีคำถึงกำหนดทวนตอนนี้ — เรียนคำใหม่ไปก่อน เดี๋ยวระบบนัดทวนให้เองตามจังหวะที่จำได้ดีที่สุด
+            </p>
+          )}
         </div>
       </section>
 

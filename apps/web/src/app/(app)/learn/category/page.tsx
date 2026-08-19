@@ -10,11 +10,11 @@ import { supabase } from "@/lib/supabase";
 import { Icon, type IconName } from "@/components/Icon";
 import { CATEGORIES } from "@/data/categories";
 import { loadCards } from "@/lib/fsrs";
-import { bestScore } from "@/lib/quiz";
+import { bestScore, catSkillScores } from "@/lib/quiz";
 import { Center } from "@/components/Feedback";
 import { ProgressBar } from "@/components/ProgressBar";
 import { SkillBars } from "@/components/SkillPanel";
-import { CONTENT_MOCK, overall } from "@/data/mockData";
+import { overall } from "@/data/mockData";
 
 function CategoryMenuInner({ cat }: { cat: number | null }) {
   const [ids, setIds] = useState<number[]>([]);
@@ -36,8 +36,12 @@ function CategoryMenuInner({ cat }: { cat: number | null }) {
 
   const meta = CATEGORIES.find((c) => c.id === cat);
   const learned = useMemo(() => ids.filter((id) => started.has(id)).length, [ids, started]);
-  // คะแนนรายทักษะของหมวดนี้ยังเป็นค่าสมมติ (mockData) — ของจริงรอ BKT โมดูล 8
-  const contentSkills = cat ? CONTENT_MOCK[cat]?.skills ?? null : null;
+  // คะแนนรายทักษะจริงจาก log ควิซท้ายหมวด (ยังไม่เคยสอบ = null → โชว์ข้อความชวน ไม่เดาตัวเลข)
+  // ความแม่นเชิงโมเดลของจริงรอ BKT โมดูล 8 — ตอนนี้ใช้ % ตอบถูกสะสมไปก่อน
+  const contentSkills = useMemo(
+    () => (cat ? catSkillScores(cat, ids.length ? (learned / ids.length) * 100 : 0) : null),
+    [cat, ids.length, learned]
+  );
 
   if (loading) return <Center>กำลังโหลด...</Center>;
   if (!cat || !meta) return <Center>ไม่พบหมวดนี้ — <Link href="/" className="ml-1 text-ocean-500 underline">กลับไปเลือกหมวด</Link></Center>;
@@ -120,6 +124,12 @@ function CategoryMenuInner({ cat }: { cat: number | null }) {
         icon="puzzle"
         title="ฝึกเรียงประโยค"
         desc="ลากคำมาเรียงเป็นประโยค (ชุดประโยครวม — ยังไม่แยกหมวด)"
+      />
+      <ActivityCard
+        href={`/match?cat=${cat}`}
+        icon="sparkles"
+        title="เกมจับคู่"
+        desc="เปิดการ์ดจับคู่คำกับคำแปล/เสียง — ทวนคำที่เรียนแล้วแบบสนุก ๆ"
       />
       </>)}
 

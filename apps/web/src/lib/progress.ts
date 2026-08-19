@@ -2,7 +2,7 @@
 // พอเราทำ Auth + Knowledge Tracing (M4+) ค่อยย้ายไปเก็บบน Supabase per-user
 // รูปแบบข้อมูลตั้งใจให้ตรงกับสิ่งที่ BKT/FSRS ต้องใช้ (ข้อ → ถูก/ผิด → เวลา) ไว้ต่อยอดได้
 
-export type QuizMode = "read" | "listen" | "order";
+export type QuizMode = "read" | "listen" | "order" | "match";
 
 export type Round = {
   ts: number; // เวลาที่จบรอบ (epoch ms)
@@ -97,10 +97,11 @@ export const SKILL_LABEL: Record<QuizMode, string> = {
   listen: "ฝึกฟัง",
   read: "ฝึกอ่าน",
   order: "เรียงประโยค",
+  match: "เกมจับคู่",
 };
 
 export function bySkill(rounds: Round[]): SkillStat[] {
-  const modes: QuizMode[] = ["listen", "read", "order"];
+  const modes: QuizMode[] = ["listen", "read", "order", "match"];
   return modes.map((mode) => {
     const of = rounds.filter((r) => r.mode === mode);
     const total = of.reduce((s, r) => s + r.total, 0);
