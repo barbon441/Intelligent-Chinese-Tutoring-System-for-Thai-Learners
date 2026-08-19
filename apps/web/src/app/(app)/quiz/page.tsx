@@ -20,7 +20,7 @@ import { Center, ErrorState } from "@/components/Feedback";
 import { Mascot } from "@/components/Mascot";
 import { ProgressBar } from "@/components/ProgressBar";
 import { shuffle } from "@/lib/random";
-import { bestScore, saveAttempt, QUIZ_PASS, QUIZ_TOTAL, type QuizItemLog } from "@/lib/quiz";
+import { bestScore, quizUnlocked, saveAttempt, QUIZ_PASS, QUIZ_TOTAL, type QuizItemLog } from "@/lib/quiz";
 
 type Choice = { id: number; label: string };
 type ListenQ = { kind: "listen"; word: Word; choices: Choice[] };
@@ -44,6 +44,7 @@ function QuizInner({ cat }: { cat: number | null }) {
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [playsLeft, setPlaysLeft] = useState(MAX_PLAYS);
   const [best, setBest] = useState<number | null>(null);
+  const [locked, setLocked] = useState(false); // QZ-12: ควิซหมวดนี้ยังไม่ปลดล็อก (ต้องผ่านควิซหมวดก่อนหน้า)
   const [buildFail, setBuildFail] = useState(false);
   const advancingRef = useRef(false);
   const savedRef = useRef(false);
@@ -57,6 +58,7 @@ function QuizInner({ cat }: { cat: number | null }) {
       return;
     }
     setBest(bestScore(cat));
+    setLocked(!quizUnlocked(cat));
     (async () => {
       const { data, error } = await supabase
         .from("words")
@@ -167,6 +169,48 @@ function QuizInner({ cat }: { cat: number | null }) {
     );
 
   const ready = canBuild(words);
+
+  // ---------- ควิซยังล็อก (QZ-12) — เรียน/ฝึกหมวดนี้ได้ปกติ แค่ยังสอบไม่ได้ ----------
+  if (locked) {
+    const prev = CATEGORIES.find((c) => c.id === (cat ?? 1) - 1);
+    return (
+      <div className="flex flex-col gap-5 p-5">
+        <div>
+          <Link
+            href={`/learn/category?cat=${cat}`}
+            className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-slate-600"
+          >
+            <Icon name="arrowLeft" className="h-3.5 w-3.5" /> กลับเมนูหมวด
+          </Link>
+          <h1 className="mt-2 text-xl font-semibold text-slate-700">ควิซท้ายหมวด · {meta.name}</h1>
+        </div>
+        <div className="rounded-3xl border border-slate-100 bg-white p-6 text-center shadow-sm">
+          <Mascot className="mx-auto h-16 w-16" />
+          <div className="mt-3 font-semibold text-ocean-900">ควิซหมวดนี้ยังไม่เปิด</div>
+          <p className="mx-auto mt-1.5 max-w-xs text-sm leading-relaxed text-slate-500">
+            ผ่านควิซหมวด {prev ? `${prev.id} ${prev.name}` : "ก่อนหน้า"} ให้ได้ {QUIZ_PASS}/{QUIZ_TOTAL} ก่อน
+            แล้วควิซหมวดนี้จะเปิดให้เอง — ส่วน<span className="font-medium text-slate-600">การเรียนและฝึกหมวดนี้ทำได้ตามปกติเลย</span>
+          </p>
+        </div>
+        <div className="flex flex-col gap-2">
+          {prev && (
+            <Link
+              href={`/quiz?cat=${prev.id}`}
+              className="rounded-xl bg-ocean-700 px-4 py-3.5 text-center font-semibold text-white shadow transition hover:bg-ocean-900 active:scale-[0.98]"
+            >
+              ไปสอบควิซหมวด {prev.id} · {prev.name}
+            </Link>
+          )}
+          <Link
+            href={`/learn/category?cat=${cat}`}
+            className="rounded-xl bg-slate-100 px-4 py-3 text-center font-medium text-slate-600 transition hover:bg-slate-200"
+          >
+            เรียน/ฝึกหมวดนี้ต่อ
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   // ---------- หน้าเริ่ม ----------
   if (stage === "intro") {

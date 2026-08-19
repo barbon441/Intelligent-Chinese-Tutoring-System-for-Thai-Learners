@@ -10,7 +10,7 @@ import { supabase } from "@/lib/supabase";
 import { Icon, type IconName } from "@/components/Icon";
 import { CATEGORIES } from "@/data/categories";
 import { loadCards } from "@/lib/fsrs";
-import { bestScore, catSkillScores } from "@/lib/quiz";
+import { bestScore, catSkillScores, quizUnlocked, QUIZ_PASS } from "@/lib/quiz";
 import { Center } from "@/components/Feedback";
 import { ProgressBar } from "@/components/ProgressBar";
 import { SkillBars } from "@/components/SkillPanel";
@@ -21,6 +21,7 @@ function CategoryMenuInner({ cat }: { cat: number | null }) {
   const [loading, setLoading] = useState(true);
   const [started, setStarted] = useState<Set<number>>(new Set());
   const [quizBest, setQuizBest] = useState<number | null>(null);
+  const [quizLocked, setQuizLocked] = useState(false);
 
   useEffect(() => {
     // อ่านของในเครื่องก่อน await จึงขึ้นจอทันที (อยู่ใน async function เพื่อไม่ setState ตรง ๆ ในตัว effect)
@@ -28,6 +29,7 @@ function CategoryMenuInner({ cat }: { cat: number | null }) {
       setStarted(new Set(Object.keys(loadCards()).map(Number)));
       if (!cat) { setLoading(false); return; }
       setQuizBest(bestScore(cat));
+      setQuizLocked(!quizUnlocked(cat));
       const { data } = await supabase.from("words").select("id").eq("hsk_level", 1).eq("category", cat);
       setIds((data ?? []).map((r) => r.id));
       setLoading(false);
@@ -133,8 +135,24 @@ function CategoryMenuInner({ cat }: { cat: number | null }) {
       />
       </>)}
 
-      {/* ควิซท้ายหมวด (โมดูล 3) — เปิดเฉพาะหมวดที่มีคำแล้ว */}
-      {ids.length > 0 && (
+      {/* ควิซท้ายหมวด (โมดูล 3) — เปิดเฉพาะหมวดที่มีคำแล้ว · QZ-12: ล็อกจนกว่าจะผ่านควิซหมวดก่อนหน้า */}
+      {ids.length > 0 && quizLocked && (
+        <div className="flex items-center gap-3 rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-4">
+          <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-slate-100 text-slate-400">
+            <Icon name="target" className="h-5 w-5" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2 font-medium text-slate-500">
+              ควิซท้ายหมวด
+              <span className="rounded-md bg-slate-200 px-1.5 py-0.5 text-[10px] font-bold text-slate-500">ยังไม่เปิด</span>
+            </div>
+            <div className="text-xs text-slate-400">
+              ผ่านควิซหมวด {(cat ?? 1) - 1} ให้ได้ {QUIZ_PASS}/10 ก่อน แล้วควิซหมวดนี้จะเปิดให้เอง — เรียน/ฝึกหมวดนี้ได้ตามปกติ
+            </div>
+          </div>
+        </div>
+      )}
+      {ids.length > 0 && !quizLocked && (
         <ActivityCard
           href={`/quiz?cat=${cat}`}
           icon="target"
