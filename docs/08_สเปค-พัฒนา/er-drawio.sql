@@ -17,6 +17,9 @@ CREATE TABLE words (
   hsk_level integer NOT NULL,
   category smallint,
   audio_path text,
+  image_path text,
+  etymology_image_path text,
+  etymology_story_th text,
   wordlist_version text NOT NULL,
   created_at timestamptz NOT NULL
 );
@@ -33,6 +36,9 @@ CREATE TABLE users (
   id uuid PRIMARY KEY,
   display_name text,
   pdpa_consent_at timestamptz,
+  target_level integer,
+  exam_date date,
+  audio_rate real,
   created_at timestamptz NOT NULL
 );
 
@@ -58,7 +64,10 @@ CREATE TABLE items (
   distractor_rationale jsonb,
   audio_path text,
   hsk_level integer NOT NULL,
-  reviewed_by_human boolean NOT NULL
+  status text NOT NULL,
+  reject_reason text,
+  approved_by uuid REFERENCES users(id),
+  approved_at timestamptz
 );
 
 CREATE TABLE item_skills (
@@ -124,4 +133,16 @@ CREATE TABLE thai_l1_catalog (
   remedy text,
   evidence text,
   skill_id bigint REFERENCES skills(id)
+);
+
+CREATE TABLE sentences (
+  id bigint PRIMARY KEY,
+  category smallint,
+  tokens jsonb NOT NULL,
+  pinyin text NOT NULL,
+  meaning_th text NOT NULL,
+  focus_th text,
+  kc_code text,
+  audio_path text,
+  status text NOT NULL
 );

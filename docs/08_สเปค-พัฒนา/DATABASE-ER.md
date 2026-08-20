@@ -68,11 +68,15 @@ erDiagram
     SKILLS ||--o{ MASTERY_SNAPSHOTS : tracked_as
     SKILLS ||--o{ THAI_L1_CATALOG : maps_to
     MOCK_EXAM_SESSIONS ||--o{ ATTEMPTS : groups
+    SENTENCES }o--|| WORDS : uses_learned_words_only
 
     USERS {
         uuid id PK "= auth.users.id"
         text display_name
         timestamptz pdpa_consent_at "ธง consent (ON-01)"
+        int target_level "คำตอบ onboarding ข้อ 1"
+        date exam_date "ข้อ 2 - เลือกจากปฏิทิน"
+        real audio_rate "ค่าตั้งเสียงช้า"
         timestamptz created_at
     }
     SKILLS {
@@ -96,7 +100,10 @@ erDiagram
         jsonb distractor_rationale "ตัวลวงสะท้อน Thai-L1 จุดไหน"
         text audio_path
         int hsk_level
-        boolean reviewed_by_human "ต้อง true ก่อนเสิร์ฟ (หฤทัยอนุมัติ)"
+        text status "draft|pending|approved|rejected|suspended (โฟลว์ 4.2)"
+        text reject_reason
+        uuid approved_by FK "หฤทัยเท่านั้น (RO-03)"
+        timestamptz approved_at
     }
     ITEM_SKILLS {
         bigint item_id PK "Q-matrix: ข้อ x ทักษะ"
@@ -143,6 +150,17 @@ erDiagram
         int score_total "สเกล 200"
         boolean passed "เกณฑ์ 120"
     }
+    SENTENCES {
+        bigint id PK
+        smallint category "หมวด 1-5 (null = ชุดรวม)"
+        jsonb tokens "ลำดับคำเฉลย"
+        text pinyin
+        text meaning_th
+        text focus_th "จุดไวยากรณ์ที่ฝึก"
+        text kc_code "โยง Thai-L1 KC ถ้ามี"
+        text audio_path
+        text status "ผ่านหฤทัยก่อนเสิร์ฟ (CG-01)"
+    }
     THAI_L1_CATALOG {
         bigint id PK
         text code UK "TL-TONE-23 ฯลฯ (15 KC)"
@@ -168,6 +186,12 @@ erDiagram
 - **`answer_key`:** ข้อฝึก/ทวนเสิร์ฟพร้อมเฉลยได้ (ตรวจออฟไลน์) · ข้อ **mock เสิร์ฟแบบตัดเฉลยออก** ตรวจฝั่ง server เท่านั้น — กัน pre/post ปนเปื้อน (PL-07)
 
 ---
+
+### ปรับ 14 ส.ค. (หลังไล่ตรวจเทียบมติล่าสุด — พิมพ์เขียวเดิมตามไม่ทัน 4 จุด)
+1. `items.reviewed_by_human (boolean)` → **`status` 5 สถานะ** ตามวงจรโฟลว์แอดมิน 4.2 (ร่าง→รออนุมัติ→อนุมัติ→ตีกลับ→ระงับ) + `approved_by` บังคับ RO-03 เชิงข้อมูล
+2. `users` เพิ่ม `target_level`, `exam_date` (เก็บคำตอบ onboarding ①②) + `audio_rate`
+3. `words` เพิ่ม `image_path` (รูปประกอบ — แผน C5) และ `etymology_*` (การ์ดที่มาอักษร m1-7)
+4. เพิ่มตาราง **`sentences`** — ประโยคตัวอย่าง/เรียงคำเป็น "เนื้อหาเรียน" คนละชนิดกับ `items` ที่เป็นข้อสอบ (ตอนนี้อยู่ใน sentences.ts — จะยกขึ้นตารางนี้)
 
 ## 3) ลำดับการเกิดของตาราง (ผูกกับ roadmap)
 
