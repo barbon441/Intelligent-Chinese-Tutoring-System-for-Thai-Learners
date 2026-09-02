@@ -1,5 +1,6 @@
 // ข้อมูลหน้า /roadmap — เมนู checklist โมดูล → ฟังก์ชัน (ติ๊กได้) → งานย่อย (details)
-// source of truth คู่กัน: docs/08_สเปค-พัฒนา/กรอบระบบ-CHECKLIST.md — อัปเดตที่นี่เมื่องานคืบ
+// ⭐ แหล่งจริงของสถานะงาน (มติทีม 2 ก.ย. 2026) — ไฟล์ .md ทุกฉบับเป็นรอง ถ้าขัดกันให้เชื่อไฟล์นี้
+// ไฟล์ที่เกี่ยวข้อง (ใช้เป็นแผนที่งาน/เอกสารอาจารย์ ไม่ใช่สถานะ): docs/08_สเปค-พัฒนา/กรอบระบบ-CHECKLIST.md · docs/03_บันทึก-แผนงาน/CHECKLIST-โปรเจกต์จบ.md
 import type { IconName } from "@/components/Icon";
 
 export type ItemStatus = "done" | "doing" | "aug" | "sep" | "hsk2" | "opt";
