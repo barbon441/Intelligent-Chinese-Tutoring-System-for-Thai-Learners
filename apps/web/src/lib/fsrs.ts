@@ -72,6 +72,10 @@ export function clearCards(): void {
   }
 }
 
+// FS-04 (บอลเคาะ 3 ก.ย.): เพดานคิวทวน 40 คำ/วัน — กลับมาหลังหายนานต้องไม่เจอคิวก้อนใหญ่จนท้อ
+// ที่เกินเพดานไม่หายไปไหน แค่ทยอยวันถัดไป (เรียงค้างนานสุดก่อนเสมอ)
+export const REVIEW_CAP_PER_DAY = 40;
+
 // คิว "ต้องทวนวันนี้": การ์ดที่มีแล้วและถึงกำหนด (due<=now) + คำใหม่จำกัดจำนวน
 export function buildQueue(
   allWordIds: number[],
@@ -90,7 +94,7 @@ export function buildQueue(
     }
   }
   due.sort((a, b) => map[a].due.getTime() - map[b].due.getTime()); // ค้างนานสุดก่อน
-  return { due, fresh };
+  return { due: due.slice(0, REVIEW_CAP_PER_DAY), fresh };
 }
 
 // จัดกำหนดใหม่หลังผู้เรียนให้เรตติ้ง แล้วบันทึก
