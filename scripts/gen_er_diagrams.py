@@ -167,7 +167,7 @@ if SLIM:
                 y += h + ROW_GAP
                 max_y = max(max_y, y)
 
-        edges_, seen = [], set()
+        edges_, seen, lane = [], set(), {}     # lane = นับเส้นที่อ้อมซ้ายในคอลัมน์เดียวกัน ให้เหลื่อมคนละร่อง
         for i, (child, parent, _c) in enumerate(links):
             if (child, parent) in seen:
                 continue
@@ -179,7 +179,8 @@ if SLIM:
             elif px > cx:                                 # ขวา → ซ้าย
                 ex, en, wx = 0, 1, (cx + SW + px) / 2
             else:                                         # คอลัมน์เดียวกัน — อ้อมทางซ้าย
-                ex, en, wx = 0, 0, px - CHAN / 2
+                lane[px] = lane.get(px, 0) + 1
+                ex, en, wx = 0, 0, px - 28 - 22 * lane[px]
             style = ("edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jumpStyle=arc;jumpSize=9;"
                      f"exitX={ex};exitY=0.5;exitDx=0;exitDy=0;entryX={en};entryY=0.5;entryDx=0;entryDy=0;"
                      "startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#93a3b5;")
@@ -273,7 +274,7 @@ if SLIM:
                 y += h + ROW_GAP
                 max_y = max(max_y, y)
 
-        edges_, seen = [], set()
+        edges_, seen, lane = [], set(), {}     # lane = นับเส้นที่อ้อมซ้ายในคอลัมน์เดียวกัน ให้เหลื่อมคนละร่อง
         for i, (child, parent, _c) in enumerate(links):
             if (child, parent) in seen:
                 continue
@@ -285,7 +286,8 @@ if SLIM:
             elif px > cx:
                 ex, en, wx = 0, 1, (cx + SW + px) / 2
             else:
-                ex, en, wx = 0, 0, px - CHAN / 2
+                lane[px] = lane.get(px, 0) + 1
+                ex, en, wx = 0, 0, px - 28 - 22 * lane[px]
             style = ("edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jumpStyle=arc;jumpSize=9;"
                      f"exitX={ex};exitY=0.5;exitDx=0;exitDy=0;entryX={en};entryY=0.5;entryDx=0;entryDy=0;"
                      "startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#93a3b5;")

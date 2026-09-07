@@ -29,7 +29,8 @@ CREATE TABLE words (
   reviewed_by uuid,                -- (แผน m7-2) CG-01 บังคับว่าคำแปลต้องผ่านหฤทัย — ต้องรู้ว่าใครตรวจ
   reviewed_at timestamptz,         -- (แผน m7-2)
   hsk_level integer NOT NULL,
-  category smallint,               -- วันนี้เป็นเลขลอย ๆ · จะกลายเป็น FK → categories(id) ตอน m7-2
+  category smallint REFERENCES categories(id),  -- (แผน m7-2) วันนี้ใน DB จริงยังเป็นเลขลอย ๆ 1-5 ไม่มี constraint ·
+                                   --   ประกาศ FK ไว้ในพิมพ์เขียวให้ผังมีเส้น "คำสังกัดหมวด" (บอลเคาะ 3 ก.ย.) · migration ต้อง ALTER ADD CONSTRAINT
   audio_path text,
   image_path text,                 -- (แผน C5)
   etymology_image_path text,       -- (แผน m1-7)

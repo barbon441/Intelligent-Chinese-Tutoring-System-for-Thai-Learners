@@ -69,6 +69,7 @@ erDiagram
 
 ```mermaid
 erDiagram
+    CATEGORIES ||--o{ WORDS : category
     BKT_TRAINING_RUNS ||--o{ SKILLS : bkt_run_id
     CATEGORIES ||--o{ ITEMS : category
     USERS ||--o{ ITEMS : created_by
@@ -117,7 +118,7 @@ erDiagram
         uuid reviewed_by "(แผน m7-2) CG-01 บังคับว่าคำแปลต้องผ่านหฤทัย — ต้องรู้ว่าใครตรวจ"
         timestamptz reviewed_at "(แผน m7-2)"
         integer hsk_level
-        smallint category "วันนี้เป็นเลขลอย ๆ · จะกลายเป็น FK → categories(id) ตอน m7-2"
+        smallint category FK "(แผน m7-2) วันนี้ใน DB จริงยังเป็นเลขลอย ๆ 1-5 ไม่มี constraint…"
         text audio_path
         text image_path "(แผน C5)"
         text etymology_image_path "(แผน m1-7)"
