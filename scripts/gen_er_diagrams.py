@@ -18,6 +18,32 @@ MD  = "docs/08_สเปค-พัฒนา/DATABASE-ER.md"
 
 LIVE = {"words", "roadmap_state"}          # ชั้น 1 = เขียว · ที่เหลือ = พิมพ์เขียว น้ำเงิน
 GREEN = "fillColor=#d5e8d4;strokeColor=#82b366;"
+
+# สีเส้นตาม "ตารางแม่" (ต้นทางของเส้น) — คำถามเวลาเส้นพันกันคือ "เส้นนี้ของใคร" = ของตารางแม่ (บอลขอ 3 ก.ย.)
+# เลือกสีให้ต่างกันชัดและไม่ฉูดฉาด · ตารางแม่ที่มีเส้นออกน้อยใช้เทากลาง
+EDGE_COLOR = {
+    "users": "#1f6f9f",             # น้ำเงิน — ยืม id ไปมากสุด
+    "skills": "#b85450",            # แดงอิฐ — แกนวิชาการ
+    "sessions": "#d79b00",          # ส้ม
+    "words": "#4a7d4a",             # เขียว (ตารางมีจริง)
+    "items": "#9673a6",             # ม่วง
+    "categories": "#0e8a8a",        # เขียวน้ำทะเล
+    "exam_forms": "#a0522d",        # น้ำตาลแดง
+    "sentences": "#7a7a2e",         # เขียวมะกอก
+    "foundation_stages": "#c2185b", # ชมพูเข้ม
+    "bkt_training_runs": "#5c6bc0", # คราม
+}
+EDGE_DEFAULT = "#93a3b5"
+
+def edge_legend_cell(cid, parents, x, y, width=1400):
+    """ป้ายสี: ตารางแม่ที่มีเส้นออกในหน้านี้ → สีของเส้น"""
+    parts = []
+    for p in parents:
+        c = EDGE_COLOR.get(p, EDGE_DEFAULT)
+        parts.append(f'&lt;span style=&quot;color:{c}&quot;&gt;━&lt;/span&gt; {p}')
+    txt = "เส้นสี = ออกจากตารางแม่: " + " &amp;nbsp;·&amp;nbsp; ".join(parts)
+    return (f'<mxCell id="{cid}" value="{txt}" style="text;html=1;align=left;fontSize=11;fontColor=#555555;whiteSpace=wrap;" '
+            f'vertex="1" parent="1"><mxGeometry x="{x}" y="{y}" width="{width}" height="22" as="geometry"/></mxCell>')
 BLUE  = "fillColor=#dae8fc;strokeColor=#6c8ebf;"
 
 # ---------- อ่าน SQL ----------
@@ -183,7 +209,8 @@ if SLIM:
                 ex, en, wx = 0, 0, px - 28 - 22 * lane[px]
             style = ("edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jumpStyle=arc;jumpSize=9;"
                      f"exitX={ex};exitY=0.5;exitDx=0;exitDy=0;entryX={en};entryY=0.5;entryDx=0;entryDy=0;"
-                     "startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#93a3b5;")
+                     f"startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;"
+                     f"strokeColor={EDGE_COLOR.get(parent, EDGE_DEFAULT)};strokeWidth=1.5;")
             edges_.append(
                 f'<mxCell id="{pid}_e{i}" style="{style}" edge="1" parent="1" '
                 f'source="{pid}_{parent}" target="{pid}_{child}">'
@@ -196,6 +223,9 @@ if SLIM:
                 'style="text;html=1;align=left;fontSize=15;fontColor=#333333;" vertex="1" parent="1">'
                 f'<mxGeometry x="{LEFT}" y="24" width="1200" height="30" as="geometry"/></mxCell>')
 
+        parents_here = sorted({p for _c, p, _ in links}, key=lambda p: (p not in EDGE_COLOR, p))
+        if parents_here:
+            cells_.append(edge_legend_cell(f"{pid}_lg", parents_here, LEFT, 56))
         w = LEFT + len(cols) * (SW + CHAN) + 40
         body = ('      <root>\n        <mxCell id="0"/>\n        <mxCell id="1" parent="0"/>\n        '
                 + head + "\n        " + "\n        ".join(cells_)
@@ -283,7 +313,7 @@ for i, (child, parent, _c) in enumerate(fks):
     seen.add((child, parent))
     edges.append(
         f'<mxCell id="e{i}" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;'
-        f'startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#666666;" '
+        f'startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;strokeColor={EDGE_COLOR.get(parent, EDGE_DEFAULT)};strokeWidth=1.5;" '
         f'edge="1" parent="1" source="t_{parent}" target="t_{child}"><mxGeometry relative="1" as="geometry"/></mxCell>'
     )
 
@@ -295,6 +325,9 @@ legend = (
     'style="text;html=1;align=left;fontSize=14;fontColor=#333333;" vertex="1" parent="1">'
     '<mxGeometry x="40" y="16" width="1700" height="30" as="geometry"/></mxCell>'
 )
+
+full_parents = sorted({p for _c, p, _ in fks}, key=lambda p: (p not in EDGE_COLOR, p))
+legend += "\n        " + edge_legend_cell("legend_edges", full_parents, 40, 46, 1700)
 
 xml = (
     '<mxfile host="app.diagrams.net">\n'
