@@ -61,7 +61,7 @@ for name, body in re.findall(r"CREATE TABLE (\w+)\s*\((.*?)\n\);", raw, re.S):
 # ---------- ③ โหมดฉบับย่อ: ผังหลายหน้า วางแบบลดเส้นตัดกัน ----------
 # ปัญหาที่แก้: ผังหน้าเดียว 23 ตาราง 35 เส้น ยังไงเส้นก็ตัดกันและพาดทับตัวหนังสือ
 # ทางแก้ 2 ชั้น
-#   ① ซอยเป็น 8 หน้า (แท็บล่างใน draw.io) — ภาพรวม 2 หน้า (เส้นน้อยสุด / เรียงตามเรื่อง) + เดินตามผู้ใช้ 6 ก้าว หน้าละ 3-7 กล่อง
+#   ① ซอยเป็น 7 หน้า (แท็บล่างใน draw.io) — ภาพรวม 1 หน้า + เดินตามผู้ใช้ 6 ก้าว หน้าละ 3-7 กล่อง
 #   ② หน้าไหนก็ตาม จัดคอลัมน์ตามลำดับการอ้างอิง (ตารางแม่อยู่ซ้าย ลูกอยู่ขวา) แล้วเรียงแถวด้วย
 #      barycenter sweep เพื่อลดจำนวนเส้นตัดกัน + เดินเส้นในช่องว่างระหว่างคอลัมน์ ไม่พาดทับกล่อง
 if SLIM:
@@ -208,117 +208,9 @@ if SLIM:
         return page, before, after, len(names), len(edges_)
 
 
-    # ---------- หน้า "ภาพรวม · เดินตามผู้ใช้" (บอลขอ 3 ก.ย.) ----------
-    # หน้าภาพรวมเดิมจัดให้เส้นตัดกันน้อยสุด แต่ "อ่านเป็นเรื่อง" ไม่ได้ — หน้านี้จัดคอลัมน์ตามลำดับที่อาจารย์สอนให้ไล่
-    # (คน → เนื้อหา → ข้อสอบ → การทำแต่ละครั้ง → สมอง) ยอมให้เส้นตัดกันเพิ่ม แลกกับการชี้เล่าซ้าย→ขวาได้ตอนสอบ
-    STORY = [
-        ("① คน", "สมัคร = 1 แถว · id ถูกยืมไปทุกตารางฝั่งประวัติ",
-         ["users", "#หลังบ้าน (นอกเรื่องเล่า)", "approval_transfers", "roadmap_state"]),
-        ("② เนื้อหาที่เรียน", "หมวด → คำ → ประโยค (+ส่วนผสม) · ด่านปูพื้นเสียง → บทเรียน / คู่เสียง",
-         ["categories", "words", "sentences", "sentence_words",
-          "foundation_stages", "foundation_lessons", "minimal_pairs"]),
-        ("③ ข้อสอบ", "ข้อ 1 ข้อวัดทักษะผ่าน item_skills · ถูกจัดเข้าชุดผ่าน form_items",
-         ["items", "item_skills", "exam_forms", "form_items"]),
-        ("④ การเรียน/สอบแต่ละครั้ง", "ทำ 1 รอบ = sessions · ตอบ 1 ข้อ = attempts · นัดทวน · ผ่านด่าน",
-         ["sessions", "attempts", "review_states", "foundation_progress"]),
-        ("⑤ สมอง (BKT)", "attempts → เทรน → ค่าประจำทักษะ → ความแม่นรายคน → คำแนะนำ",
-         ["skills", "thai_l1_catalog", "bkt_training_runs", "mastery_snapshots", "recommendations"]),
-    ]
-    _story_names = {n for _, _, ns in STORY for n in ns if not n.startswith("#")}
-    _missing = {n for n, _ in tables} - _story_names
-    if _missing:
-        print("⚠️ STORY ยังไม่ครอบตาราง:", _missing); sys.exit(1)
-
-    def render_story_page(title, zones, pid):
-        LEFT_S = 150                                  # เผื่อที่ให้เส้นอ้อมซ้ายของคอลัมน์แรก
-        names = [n for _, _, ns in zones for n in ns if not n.startswith("#")]
-        links = [(c, p, col) for c, p, col in fks if c in names and p in names and c != p]
-        cols = [[n for n in ns if not n.startswith("#")] for _, _, ns in zones]
-        xings = crossings(cols, None, links)
-
-        geo, cells_, max_y = {}, [], 0
-        for ci, (hdr, cap, ns) in enumerate(zones):
-            x = LEFT_S + ci * (SW + CHAN)
-            cells_.append(
-                f'<mxCell id="{pid}_z{ci}" value="&lt;b&gt;{html.escape(hdr)}&lt;/b&gt;&lt;br&gt;'
-                f'&lt;span style=&quot;font-size:11px;color:#555&quot;&gt;{html.escape(cap)}&lt;/span&gt;" '
-                'style="text;html=1;align=left;verticalAlign=top;fontSize=14;fontColor=#1f6f9f;whiteSpace=wrap;" '
-                f'vertex="1" parent="1"><mxGeometry x="{x}" y="{TOP2 - 30}" width="{SW}" height="66" as="geometry"/></mxCell>')
-            y = TOP2 + 50
-            for name in ns:
-                if name.startswith("#"):                  # ป้ายกลุ่มย่อยในคอลัมน์
-                    y += 30
-                    cells_.append(
-                        f'<mxCell id="{pid}_sub{ci}" value="{html.escape(name[1:])}" '
-                        'style="text;html=1;align=left;fontSize=11;fontColor=#888888;" vertex="1" parent="1">'
-                        f'<mxGeometry x="{x}" y="{y}" width="{SW}" height="22" as="geometry"/></mxCell>')
-                    y += 26
-                    continue
-                cs = by_name[name]
-                h = HDR2 + ROW_H * len(cs)
-                geo[name] = (x, y, h)
-                style = ("swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;"
-                         "startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;"
-                         "collapsible=0;rounded=1;arcSize=4;" + (GREEN if name in LIVE else BLUE))
-                cells_.append(
-                    f'<mxCell id="{pid}_{name}" value="{name}" style="{style}" vertex="1" parent="1">'
-                    f'<mxGeometry x="{x}" y="{y}" width="{SW}" height="{h}" as="geometry"/></mxCell>')
-                for ri, (col_, typ, tag, _n) in enumerate(cs):
-                    label = html.escape(f"{col_} : {typ}{tag}")
-                    cells_.append(
-                        f'<mxCell id="{pid}_{name}_r{ri}" value="{label}" style="text;strokeColor=none;'
-                        f'fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;'
-                        f'overflow=hidden;whiteSpace=wrap;html=1;fontSize=11;'
-                        f'{"fontStyle=1;" if tag else ""}" vertex="1" parent="{pid}_{name}">'
-                        f'<mxGeometry y="{HDR2 + ROW_H*ri}" width="{SW}" height="{ROW_H}" as="geometry"/></mxCell>')
-                y += h + ROW_GAP
-                max_y = max(max_y, y)
-
-        edges_, seen, lane = [], set(), {}     # lane = นับเส้นที่อ้อมซ้ายในคอลัมน์เดียวกัน ให้เหลื่อมคนละร่อง
-        for i, (child, parent, _c) in enumerate(links):
-            if (child, parent) in seen:
-                continue
-            seen.add((child, parent))
-            px, py, ph = geo[parent]
-            cx, cy, ch = geo[child]
-            if px < cx:
-                ex, en, wx = 1, 0, (px + SW + cx) / 2
-            elif px > cx:
-                ex, en, wx = 0, 1, (cx + SW + px) / 2
-            else:
-                lane[px] = lane.get(px, 0) + 1
-                ex, en, wx = 0, 0, px - 28 - 22 * lane[px]
-            style = ("edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jumpStyle=arc;jumpSize=9;"
-                     f"exitX={ex};exitY=0.5;exitDx=0;exitDy=0;entryX={en};entryY=0.5;entryDx=0;entryDy=0;"
-                     "startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#93a3b5;")
-            edges_.append(
-                f'<mxCell id="{pid}_e{i}" style="{style}" edge="1" parent="1" '
-                f'source="{pid}_{parent}" target="{pid}_{child}">'
-                f'<mxGeometry relative="1" as="geometry"><Array as="points">'
-                f'<mxPoint x="{int(wx)}" y="{int(py + ph/2)}"/></Array></mxGeometry></mxCell>')
-
-        head = (f'<mxCell id="{pid}_ttl" value="&lt;b&gt;{html.escape(title)}&lt;/b&gt;&amp;nbsp; '
-                f'&lt;span style=&quot;color:#777&quot;&gt;{len(names)} ตาราง · {len(edges_)} เส้น · '
-                f'จัดตามลำดับเล่า (คน → เนื้อหา → ข้อสอบ → การทำ → สมอง) ไม่ใช่ลำดับเส้นสวย&lt;/span&gt;" '
-                'style="text;html=1;align=left;fontSize=15;fontColor=#333333;" vertex="1" parent="1">'
-                f'<mxGeometry x="{LEFT_S}" y="18" width="1400" height="30" as="geometry"/></mxCell>')
-
-        w = LEFT_S + len(zones) * (SW + CHAN) + 40
-        body = ('      <root>\n        <mxCell id="0"/>\n        <mxCell id="1" parent="0"/>\n        '
-                + head + "\n        " + "\n        ".join(cells_)
-                + ("\n        " + "\n        ".join(edges_) if edges_ else "") + "\n      </root>\n")
-        page = (f'  <diagram name="{html.escape(title)}" id="{pid}">\n'
-                f'    <mxGraphModel dx="1018" dy="686" grid="1" gridSize="10" guides="1" tooltips="1" '
-                f'connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="{w}" '
-                f'pageHeight="{int(max_y)+40}" math="0" shadow="0">\n' + body
-                + "    </mxGraphModel>\n  </diagram>\n")
-        return page, xings, len(names), len(edges_)
-
     pages, report = [], []
     p, b, a, nt, ne = render_page("ภาพรวมทั้งระบบ", [n for n, _ in tables], "ov")
     pages.append(p); report.append(("ภาพรวมทั้งระบบ", nt, ne, b, a))
-    p, x_, nt, ne = render_story_page("ภาพรวม · เดินตามผู้ใช้", STORY, "story")
-    pages.append(p); report.append(("ภาพรวม · เดินตามผู้ใช้", nt, ne, "-", x_))
     for si, (t, names) in enumerate(JOURNEY):
         p, b, a, nt, ne = render_page(t, names, f"s{si}")
         pages.append(p); report.append((t, nt, ne, b, a))
