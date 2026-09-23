@@ -87,6 +87,8 @@ erDiagram
     USERS ||--o{ SESSIONS : user_id
     EXAM_FORMS ||--o{ SESSIONS : form_id
     CATEGORIES ||--o{ SESSIONS : category
+    USERS ||--o{ CATEGORY_PROGRESS : user_id
+    CATEGORIES ||--o{ CATEGORY_PROGRESS : category
     USERS ||--o{ ATTEMPTS : user_id
     SESSIONS ||--o{ ATTEMPTS : session_id
     ITEMS ||--o{ ATTEMPTS : item_id
@@ -95,15 +97,14 @@ erDiagram
     SKILLS ||--o{ ATTEMPTS : skill_id
     USERS ||--o{ REVIEW_STATES : user_id
     WORDS ||--o{ REVIEW_STATES : word_id
+    USERS ||--o{ SENTENCE_STATES : user_id
+    SENTENCES ||--o{ SENTENCE_STATES : sentence_id
     USERS ||--o{ MASTERY_SNAPSHOTS : user_id
     SKILLS ||--o{ MASTERY_SNAPSHOTS : skill_id
     BKT_TRAINING_RUNS ||--o{ MASTERY_SNAPSHOTS : bkt_run_id
     SKILLS ||--o{ THAI_L1_CATALOG : skill_id
     USERS ||--o{ FOUNDATION_PROGRESS : user_id
     FOUNDATION_STAGES ||--o{ FOUNDATION_PROGRESS : stage
-    USERS ||--o{ RECOMMENDATIONS : user_id
-    SKILLS ||--o{ RECOMMENDATIONS : skill_id
-    SESSIONS ||--o{ RECOMMENDATIONS : followed_session_id
     USERS ||--o{ APPROVAL_TRANSFERS : from_user_id
     WORDS {
         bigint id PK
@@ -295,17 +296,27 @@ erDiagram
         boolean passed "mock: เกณฑ์จริง >= 120"
         jsonb detail "ที่เหลือที่ไม่ต้อง query (เช่น เวลาที่ใช้ต่อพาร์ต)"
     }
+    CATEGORY_PROGRESS {
+        uuid user_id PK FK
+        smallint category PK FK
+        timestamptz started_at
+        smallint words_learned "[cache] นับจาก review_states"
+        smallint sentences_passed "[cache] นับจาก sentence_states"
+        smallint quiz_best_score "[cache] จาก sessions kind=quiz (QZ-08 ครั้งดีสุด)"
+        timestamptz quiz_passed_at "ผ่าน ≥7/10 ครั้งแรกเมื่อไหร่ (QZ-12 ปลดล็อกควิซหมวดถัดไป)"
+        text status "not_started | learning | quiz_passed"
+    }
     ATTEMPTS {
         bigint id PK
         text client_attempt_id UK "idempotent sync (OF-01) · nullable ไม่ได้ ไม่งั้นกันซ้ำไม่จริง"
         uuid user_id FK
         bigint session_id FK
-        text event_type "graded (ตอบข้อที่ตรวจได้) | exposure (เห็นคำ/พลิกบัตร)"
+        text event_type "graded (ตอบข้อที่ตรวจได้) | exposure (เห็นคำ/พลิกบัตร) |…"
         bigint item_id FK "ข้อสอบที่ผ่านการตรวจแล้ว"
         bigint word_id FK "ข้อที่ระบบปั้นสดจากคำ"
         bigint sentence_id FK "ข้อที่ปั้นจากประโยค"
         bigint skill_id FK "KC ณ เวลาตอบ (อาหารของ BKT)"
-        text generator "flashcard|listen_mc4|read_mc4|match|order|ear_game"
+        text generator "flashcard|listen_mc4|read_mc4|match|order|ear_game|speak_along…"
         jsonb answer
         boolean is_correct "NULL เมื่อ event_type='exposure'"
         timestamptz answered_at
@@ -326,6 +337,14 @@ erDiagram
         integer reps
         integer lapses
         text state "new | learning | review | relearning"
+    }
+    SENTENCE_STATES {
+        uuid user_id PK FK
+        bigint sentence_id PK FK
+        smallint tries "ลองเรียงกี่รอบ"
+        boolean best_correct "เคยเรียงถูกครบไหม"
+        timestamptz last_at
+        timestamptz passed_at "เรียงถูกครั้งแรกเมื่อไหร่ (ว่าง = ยังไม่ผ่าน)"
     }
     MASTERY_SNAPSHOTS {
         uuid user_id PK FK
@@ -351,15 +370,6 @@ erDiagram
         smallint tries
         real best_accuracy
         timestamptz passed_at
-    }
-    RECOMMENDATIONS {
-        bigint id PK
-        uuid user_id FK
-        bigint skill_id FK
-        text reason "low_mastery | quiz_fail | thai_l1_error"
-        real p_mastery_at_time "ค่าที่ trigger (เทียบ threshold BK-04)"
-        timestamptz created_at
-        bigint followed_session_id FK "null = ผู้เรียนไม่ได้ทำตาม"
     }
     APPROVAL_TRANSFERS {
         bigint id PK
@@ -506,6 +516,19 @@ erDiagram
 เหตุผล: มติ pre=post ชุดเดียว (PL-07) มีจุดอ่อนคือ **practice effect** — ถ้าข้อในชุดหลุดไปโผล่ตอนฝึกระหว่าง 10 วัน ผู้เรียนจะเจอข้อเดิมซ้ำ ๆ แล้วคะแนน post ขึ้นเพราะจำข้อ ไม่ใช่เพราะเก่งขึ้น · เดิม `locked_until` กันได้แค่ "ไม่ให้เห็นก่อนวันวัดผล" ซึ่งไม่ช่วยอะไรเลยเมื่อ pre กับ post เป็นชุดเดียวกัน
 
 **ตรวจการรั่วได้ด้วย query ⑦** ใน [`query-ตรวจสอบข้อมูล.sql`](query-ตรวจสอบข้อมูล.sql) — นับว่ามีข้อในชุดวิจัยหลุดไปโผล่ในรอบที่ไม่ใช่ pretest/mock กี่ครั้ง
+
+### ปรับ 23 ก.ย. — ตามอาจารย์นัดรอบ 6 (14 ก.ย.) · บอลเคาะ (23 → 24 ตาราง)
+
+| ทำอะไร | ตาราง | เหตุผล (คำอาจารย์) |
+|---|---|---|
+| เพิ่ม | **`category_progress`** (คน × หมวด) | *"ใครเรียน content ไหน ผ่านกี่คำ กี่ประโยค คะแนนเท่าไหร่ — ต้องเป็นตาราง ไม่ใช่โค้ด ไม่งั้นไล่ไม่ได้"* · คู่แฝด foundation_progress |
+| เพิ่ม | **`sentence_states`** (คน × ประโยค) | *"นาย A เรียนประโยคที่ 1 ผ่านไหม — รู้ทุกคำ ≠ เรียงประโยคถูก"* · คู่แฝด review_states |
+| ตัด | ~~`recommendations`~~ | *"แต่ละคนไม่เหมือนกัน เขียนคำแนะนำให้ครบทุกคนไม่ได้ — ให้ Gemini เขียนจาก SWOT ไม่ต้องเก็บ"* (BK-08) · คำอธิบายจุดผิดยังอยู่ที่ thai_l1_catalog |
+| คงไว้ + ต้องชี้แจง | `mastery_snapshots` | อาจารย์มองว่าซ้ำซ้อน query ได้ — **ไม่ใช่:** เป็นผล posterior ของโมเดล SQL รวมจากตารางหลักไม่ได้ + ต้องเก็บประวัติเพื่อกราฟพัฒนาการ |
+| เตรียม | `attempts.generator` +speak_along · `event_type` +asr_hint | ทักษะพูด (อาจารย์ยืนยันรอบ 6) — ผล ASR เบื้องต้นไม่ให้ BKT อ่าน |
+| ผังใหม่ | [`ER-เดินตามผู้ใช้-星航.drawio`](ER-เดินตามผู้ใช้-星航.drawio) (`--story`) | บอล: "แผ่นเดียว เรียงตามที่อาจารย์ไล่" — 7 คอลัมน์ สมัคร → pre-test → ตอบ → เรียนหมวด → ปูพื้น → สมอง → หลังบ้าน |
+
+ค้างเคาะ: PL-10 (post-test ปลดล็อกเมื่อไหร่ · 1 ครั้ง?) · วิธีทำทักษะพูด (ทาง A/B ใน `ทักษะพูด-วิเคราะห์ทางเลือก.md`)
 
 ---
 

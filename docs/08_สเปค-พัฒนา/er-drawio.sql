@@ -1,4 +1,6 @@
 -- ต้นทางจริงของ schema — แก้ที่ไฟล์นี้เสมอ แล้วรัน `python scripts/gen_er_diagrams.py` เพื่อสร้างผังใหม่
+--   เพิ่ม `--story` = ผังแผ่นเดียวเรียงตามที่อาจารย์ไล่ (สมัคร→pre-test→ตอบ→เรียนหมวด→ปูพื้น→สมอง) → ER-เดินตามผู้ใช้-星航.drawio
+-- 📝 23 ก.ย. (อาจารย์รอบ 6 + บอลเคาะ): +category_progress +sentence_states −recommendations · attempts รองรับพูดตาม (23 ตาราง → 24)
 --   เพิ่ม `--slim` = สร้างผังฉบับย่อ (หัวตาราง + คีย์) ลง ER-ฉบับย่อ-星航.drawio
 -- ที่มา: docs/08_สเปค-พัฒนา/DATABASE-ER.md (ขั้น 1-3) · อินพุตขั้น 0: ความต้องการข้อมูล-User-Journey.md
 --
@@ -288,6 +290,22 @@ CREATE TABLE sessions (
   detail jsonb                     -- ที่เหลือที่ไม่ต้อง query (เช่น เวลาที่ใช้ต่อพาร์ต)
 );
 
+-- ความคืบหน้า คน × หมวด — อาจารย์รอบ 6 (14 ก.ย.): "ใครเรียน content ไหน ผ่านกี่คำ กี่ประโยค คะแนนเท่าไหร่
+--   ต้องเป็นตาราง ไม่ใช่โค้ด ไม่งั้นไล่ไม่ได้" · คู่แฝดของ foundation_progress (คน × ด่าน) · บอลเคาะ 23 ก.ย.
+--   ตัวเลข [cache] คำนวณซ้ำได้จาก review_states / sentence_states / sessions — เก็บไว้ให้หน้าเลือกหมวดอ่านทีเดียว
+--   migration: UNIQUE (user_id, category) มาจาก PK แล้ว · status = not_started | learning | quiz_passed
+CREATE TABLE category_progress (
+  user_id uuid NOT NULL REFERENCES users(id),
+  category smallint NOT NULL REFERENCES categories(id),
+  started_at timestamptz,
+  words_learned smallint,          -- [cache] นับจาก review_states
+  sentences_passed smallint,       -- [cache] นับจาก sentence_states
+  quiz_best_score smallint,        -- [cache] จาก sessions kind=quiz (QZ-08 ครั้งดีสุด)
+  quiz_passed_at timestamptz,      -- ผ่าน ≥7/10 ครั้งแรกเมื่อไหร่ (QZ-12 ปลดล็อกควิซหมวดถัดไป)
+  status text NOT NULL,            -- not_started | learning | quiz_passed
+  PRIMARY KEY (user_id, category)
+);
+
 -- attempts — หัวใจของงานวิจัย (append-only ห้าม UPDATE/DELETE · BK-01)
 --
 -- ① event_type + is_correct nullable (แก้ 21 ส.ค.) — จุดที่จะพังจริงถ้าไม่แก้
@@ -305,12 +323,12 @@ CREATE TABLE attempts (
   client_attempt_id text NOT NULL UNIQUE,  -- idempotent sync (OF-01) · nullable ไม่ได้ ไม่งั้นกันซ้ำไม่จริง
   user_id uuid NOT NULL REFERENCES users(id),
   session_id bigint REFERENCES sessions(id),
-  event_type text NOT NULL,        -- graded (ตอบข้อที่ตรวจได้) | exposure (เห็นคำ/พลิกบัตร)
+  event_type text NOT NULL,        -- graded (ตอบข้อที่ตรวจได้) | exposure (เห็นคำ/พลิกบัตร) | asr_hint (แผน: พูดตาม — ผล ASR เบื้องต้น BKT ไม่อ่าน)
   item_id bigint REFERENCES items(id),          -- ข้อสอบที่ผ่านการตรวจแล้ว
   word_id bigint REFERENCES words(id),          -- ข้อที่ระบบปั้นสดจากคำ
   sentence_id bigint REFERENCES sentences(id),  -- ข้อที่ปั้นจากประโยค
   skill_id bigint REFERENCES skills(id),        -- KC ณ เวลาตอบ (อาหารของ BKT)
-  generator text,                  -- flashcard|listen_mc4|read_mc4|match|order|ear_game
+  generator text,                  -- flashcard|listen_mc4|read_mc4|match|order|ear_game|speak_along (แผน: ทักษะพูด — อาจารย์รอบ 6)
   answer jsonb,
   is_correct boolean,              -- NULL เมื่อ event_type='exposure'
   answered_at timestamptz NOT NULL,
@@ -341,6 +359,19 @@ CREATE TABLE review_states (
   lapses integer,
   state text,                      -- new | learning | review | relearning
   PRIMARY KEY (user_id, word_id)
+);
+
+-- สถานะ คน × ประโยค — อาจารย์รอบ 6 (14 ก.ย.): "นาย A เรียนประโยคที่ 1 ผ่านหรือไม่ผ่าน — รู้ทุกคำ ≠ เรียงประโยคถูก"
+--   คู่แฝดของ review_states (คน × คำ) · ข้อมูลดิบรายครั้งยังอยู่ใน attempts.sentence_id · บอลเคาะ 23 ก.ย.
+--   ประตูเปิดไว้: เพิ่มคอลัมน์ FSRS (due/stability) ทีหลังถ้าจะนัดทวน "ประโยค" แบบเดียวกับคำ
+CREATE TABLE sentence_states (
+  user_id uuid NOT NULL REFERENCES users(id),
+  sentence_id bigint NOT NULL REFERENCES sentences(id),
+  tries smallint NOT NULL,         -- ลองเรียงกี่รอบ
+  best_correct boolean NOT NULL,   -- เคยเรียงถูกครบไหม
+  last_at timestamptz,
+  passed_at timestamptz,           -- เรียงถูกครั้งแรกเมื่อไหร่ (ว่าง = ยังไม่ผ่าน)
+  PRIMARY KEY (user_id, sentence_id)
 );
 
 -- ผล BKT posterior + ประวัติไว้พล็อตพัฒนาการ
@@ -378,18 +409,9 @@ CREATE TABLE foundation_progress (
   PRIMARY KEY (user_id, stage)
 );
 
--- บันทึกสิ่งที่ระบบ "แนะนำให้ฝึกเจาะ" (BK-03)
--- เหตุผลที่ต้องมี ไม่ใช่แค่เรื่องฟีเจอร์: ablation พิสูจน์ว่า "โมเดลแม่นขึ้น"
--- แต่ไม่ได้พิสูจน์ว่า "การวินิจฉัย Thai-L1 เปลี่ยนพฤติกรรมผู้เรียนจริง"
-CREATE TABLE recommendations (
-  id bigint PRIMARY KEY,
-  user_id uuid NOT NULL REFERENCES users(id),
-  skill_id bigint NOT NULL REFERENCES skills(id),
-  reason text NOT NULL,            -- low_mastery | quiz_fail | thai_l1_error
-  p_mastery_at_time real,          -- ค่าที่ trigger (เทียบ threshold BK-04)
-  created_at timestamptz NOT NULL,
-  followed_session_id bigint REFERENCES sessions(id)  -- null = ผู้เรียนไม่ได้ทำตาม
-);
+-- ❌ ตาราง recommendations ถูกตัดออก 23 ก.ย. (อาจารย์รอบ 6 + บอลเคาะ — BK-08):
+--    คำแนะนำรายบุคคลให้ Gemini แต่งสด ๆ จากตัวเลข SWOT บน dashboard ไม่เก็บลง DB
+--    · คำอธิบายจุดผิด = thai_l1_catalog (คงไว้) · จุดแข็ง/อ่อน = query จาก mastery_snapshots (ไม่เก็บซ้ำ)
 
 -- บันทึกการโอนสิทธิ์อนุมัติ — โฟลว์ผู้ใช้ §7-6 "จดบันทึกการโอนทุกครั้ง"
 -- เคสจริง: บัญชีหฤทัยใช้ไม่ได้ (ลืมรหัส/หลุด) แล้วต้องให้บอลอนุมัติแทนชั่วคราว

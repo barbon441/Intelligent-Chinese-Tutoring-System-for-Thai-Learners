@@ -12,6 +12,9 @@ updated: 2026-09-02
 >
 > รายละเอียดเต็มทุกคอลัมน์อยู่ที่ [`DATABASE-ER.md`](DATABASE-ER.md) (แหล่งจริง) · ไฟล์นี้คือ **ฉบับพกไปคุย** ตัดคอลัมน์ออกหมด เหลือแต่ชื่อตารางกับคีย์
 >
+> 🆕 **23 ก.ย. — ผังแผ่นเดียวเรียงตามที่อาจารย์ไล่ (นัดรอบ 6):** [`ER-เดินตามผู้ใช้-星航.drawio`](ER-เดินตามผู้ใช้-星航.drawio) — 7 คอลัมน์ สมัคร → pre-test → ตอบ → เรียนหมวด → ปูพื้น → สมอง → หลังบ้าน · มี 2 ตารางใหม่ (`category_progress`, `sentence_states`) และตัด `recommendations` แล้ว · สร้างด้วย `python scripts/gen_er_diagrams.py --story`
+> ⚠️ ไฟล์ `ER-ฉบับย่อ-星航.drawio` ด้านล่างเป็น layout ที่บอลจัดมือ (ยังเป็นผัง 23 ตารางก่อน 23 ก.ย.) — จะ regenerate ต้องถามบอลก่อน
+>
 > 🖼️ **ต้องการรูปไปใส่เล่ม/โปสเตอร์ → เปิด [`ER-ฉบับย่อ-星航.drawio`](ER-ฉบับย่อ-星航.drawio) ใน draw.io** — มี **7 หน้า** ดูแท็บล่างจอ (ภาพรวม 1 + เดินตามผู้ใช้ 6 ก้าว ตรงกับหัวข้อในไฟล์นี้)
 > ไฟล์นั้นสร้างอัตโนมัติจาก `er-drawio.sql` ตัวเดียวกับผังเต็ม — ไม่มีทางขัดกันเอง
 > สร้างใหม่เมื่อ schema เปลี่ยน: `python scripts/gen_er_diagrams.py --slim`
@@ -157,21 +160,14 @@ erDiagram
         timestamptz computed_at PK
         bigint bkt_run_id FK
     }
-    RECOMMENDATIONS {
-        bigint id PK
-        uuid user_id FK
-        bigint skill_id FK
-        bigint followed_session_id FK
-    }
     BKT_TRAINING_RUNS ||--o{ SKILLS : "ให้ค่าพารามิเตอร์"
     SKILLS ||--o{ THAI_L1_CATALOG : "จุดผิดคนไทยผูกกับทักษะ"
     SKILLS ||--o{ MASTERY_SNAPSHOTS : "วัดความแม่นรายทักษะ"
-    SKILLS ||--o{ RECOMMENDATIONS : "แนะนำให้ฝึกทักษะนี้"
 ```
 
-เส้นทางข้อมูลอ่านว่า: `attempts` สะสม → **pyBKT** คำนวณ → `mastery_snapshots` เก็บค่าความแม่นรายทักษะ → ค่าต่ำ → `recommendations` จ่ายแบบฝึกเจาะ → มิ้นท์กดทำ → บันทึกกลับที่ `recommendations.followed_session_id`
+เส้นทางข้อมูลอ่านว่า: `attempts` สะสม → **pyBKT** คำนวณ → `mastery_snapshots` เก็บค่าความแม่นรายทักษะ → **dashboard** query จุดแข็ง/จุดอ่อน (เกณฑ์ตั้งต้น p ≥ 0.5 = แข็ง) → **Gemini** แต่งคำแนะนำจากตัวเลข (ไม่เก็บลง DB) + คำอธิบายจุดผิดจาก `thai_l1_catalog`
 
-> **ทำไมต้องมี `recommendations`:** ค่า AUC พิสูจน์ได้แค่ว่า *โมเดลทำนายแม่น* — ตารางนี้พิสูจน์ว่า **การวินิจฉัยทำให้ผู้เรียนเปลี่ยนพฤติกรรมจริงไหม** ซึ่งเป็นคนละคำถาม และเป็นคำถามที่เล่มต้องตอบ
+> **ทำไมไม่มีตาราง `recommendations` แล้ว (ตัด 23 ก.ย. ตามอาจารย์รอบ 6 — BK-08):** *"แต่ละคนไม่เหมือนกัน เขียนคำแนะนำให้ครบทุกคนไม่ได้"* → ข้อความแนะนำรายบุคคลให้ Gemini แต่งสดจากตัวเลขบน dashboard ไม่เก็บซ้ำ · ส่วน `mastery_snapshots` **คงไว้** เพราะเป็นผลคำนวณของโมเดล (posterior) ที่ SQL รวมจากตารางหลักไม่ได้ และต้องเก็บประวัติเพื่อกราฟพัฒนาการ — จุดที่ต้องชี้แจงอาจารย์นัดหน้า
 >
 > **ทำไมต้องมี `bkt_training_runs`:** ระหว่างทดลองเราเทรนหลายรอบ ถ้าเก็บแค่ค่าล่าสุดจะอ้างไม่ได้ว่าตัวเลขในเล่มมาจากรอบไหน ข้อมูลถึงวันไหน กี่คน
 
@@ -199,7 +195,17 @@ erDiagram
         uuid user_id PK
         bigint word_id PK
     }
+    CATEGORY_PROGRESS {
+        uuid user_id PK
+        smallint category PK
+    }
+    SENTENCE_STATES {
+        uuid user_id PK
+        bigint sentence_id PK
+    }
     CATEGORIES ||--o{ SENTENCES : "สังกัดหมวด"
+    CATEGORIES ||--o{ CATEGORY_PROGRESS : "คนนี้เรียนหมวดนี้ถึงไหน"
+    SENTENCES ||--o{ SENTENCE_STATES : "คนนี้เรียงประโยคนี้ผ่านยัง"
     SENTENCES ||--o{ SENTENCE_WORDS : "ประโยคใช้คำ"
     WORDS ||--o{ SENTENCE_WORDS : "คำอยู่ในประโยค"
     WORDS ||--o{ REVIEW_STATES : "คำนี้ถึงกำหนดทวนเมื่อไหร่"
@@ -207,6 +213,7 @@ erDiagram
 
 - `review_states` PK ผสม `(user_id, word_id)` = **"คนนี้ + คำนี้" มีได้แถวเดียว** เก็บวันนัดทวนถัดไปตามอัลกอริทึม FSRS
 - `sentence_words` PK ผสม 3 คอลัมน์ รวม `position` ด้วย — **`position` คือลำดับคำในประโยค และมันคือเฉลยของแบบฝึกเรียงประโยค**
+- 🆕 `category_progress` (คน × หมวด) และ `sentence_states` (คน × ประโยค) — เพิ่ม 23 ก.ย. ตามอาจารย์รอบ 6: **"อะไรที่ต้องไล่ดูย้อนหลังได้ ต้องอยู่ในตาราง ไม่ใช่โค้ด"** · sentence_words ตอบได้แค่ "เสิร์ฟได้ยัง" ส่วน sentence_states ตอบ "เขาเรียงประโยคนี้ผ่านยัง"
 
 > **การบ้านภาษาศาสตร์ข้อ 1 ที่อาจารย์สั่ง** (*"ตรวจการเรียงประโยคยังไง"*)
 > **ตอบ:** เทียบลำดับที่ผู้เรียนวางกับ `sentence_words.position` ตรง ๆ แบบ rule-based ไม่ใช้ AI เดา ครับ
@@ -241,7 +248,7 @@ erDiagram
 
 ---
 
-## 📋 ส่วนที่ 2 · ตารางทั้งหมด 23 ตัว — "หนึ่งแถว = อะไร"
+## 📋 ส่วนที่ 2 · ตารางทั้งหมด 24 ตัว — "หนึ่งแถว = อะไร" (ปรับ 23 ก.ย.: +2 −1)
 
 > วิธีท่องที่ได้ผลที่สุด: **อ่านคอลัมน์ "หนึ่งแถว = อะไร" ให้ขึ้นใจ** ถ้าตอบข้อนี้ได้ จะตอบได้ทุกคำถามที่ตามมา
 
@@ -280,7 +287,7 @@ erDiagram
 | `exam_forms` | ชุดข้อสอบ 1 ชุด | `id` | — |
 | `form_items` | ข้อนี้อยู่ในชุดนี้ | `(form_id, item_id)` | `exam_forms`, `items` |
 
-### 🟪 โซน 5 · ประวัติของผู้เรียน (6 ตาราง)
+### 🟪 โซน 5 · ประวัติของผู้เรียน (7 ตาราง)
 
 | ตาราง | หนึ่งแถว = | PK | FK ชี้ไปไหน |
 |---|---|---|---|
@@ -289,7 +296,8 @@ erDiagram
 | `review_states` | คนนี้ + คำนี้ ถึงกำหนดทวนเมื่อไหร่ | `(user_id, word_id)` | `users`, `words` |
 | `mastery_snapshots` | ความแม่นของคนนี้ ในทักษะนี้ ณ เวลานี้ | `(user_id, skill_id, computed_at)` | `users`, `skills`, `bkt_training_runs` |
 | `foundation_progress` | คนนี้ผ่านด่านปูพื้นด่านนี้ถึงไหน | `(user_id, stage)` | `users`, `foundation_stages` |
-| `recommendations` | คำแนะนำ 1 ชิ้นที่ระบบจ่ายให้คนนี้ | `id` | `users`, `skills`, `sessions` |
+| `category_progress` 🆕 | คนนี้ × หมวดนี้ เรียนถึงไหน (ผ่านกี่คำ กี่ประโยค ควิซดีสุด สถานะ) — อาจารย์รอบ 6: "ต้องเป็นตาราง ไม่ใช่โค้ด" | `(user_id, category)` | `users`, `categories` |
+| `sentence_states` 🆕 | คนนี้ × ประโยคนี้ เรียงผ่านหรือยัง กี่รอบ — อาจารย์รอบ 6: "รู้ทุกคำ ≠ เรียงถูก" | `(user_id, sentence_id)` | `users`, `sentences` |
 
 ### ⬜ โซน 6 · งานหลังบ้าน (2 ตาราง)
 

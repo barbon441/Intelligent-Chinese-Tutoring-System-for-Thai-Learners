@@ -2,6 +2,8 @@
 #   ① ER-星航.drawio            (เปิดใน draw.io / ใส่เล่ม)
 #   ② ผัง mermaid ใน DATABASE-ER.md §2 (เห็นบน GitHub/Obsidian)
 #   ③ ER-ฉบับย่อ-星航.drawio    (`--slim`) — หัวตาราง + คีย์เท่านั้น ตามที่อาจารย์สั่งนัดรอบ 5 (24 ส.ค.)
+#      ⚠️ ไฟล์นี้บอลจัด layout มือ — ห้ามรัน --slim ทับโดยไม่ถามบอล (สำรองก่อนเสมอ)
+#   ④ ER-เดินตามผู้ใช้-星航.drawio (`--story`) — แผ่นเดียว 7 คอลัมน์เรียงตามที่อาจารย์ไล่ (นัดรอบ 6 · บอลเคาะ 23 ก.ย.)
 #      ตัดคอลัมน์ที่ไม่ใช่ PK/FK/UK ออก → กล่องเตี้ยลงมาก เส้นไม่ก่ายกัน ใช้อธิบาย/ใส่โปสเตอร์ได้
 #      ไม่ได้แยกไฟล์ SQL ต่างหาก เพราะจะกลายเป็นแหล่งจริงแหล่งที่สองแล้วขัดกันเองในที่สุด
 # เหตุผล: ปัญหาที่กัดทีมมาตลอดคือ "ผังกับ DDL ไม่ตรงกัน" (20 ส.ค. ไล่ตรวจเจอไม่ตรง 6 จุด)
@@ -9,10 +11,12 @@
 # วิธีใช้:  python scripts/gen_er_diagrams.py
 import io, re, html, sys
 
-SLIM = "--slim" in sys.argv          # โหมดฉบับย่อ: เหลือแต่หัวตาราง + คีย์
+STORY = "--story" in sys.argv        # ผังแผ่นเดียวเรียงตามที่อาจารย์ไล่ (บอลเคาะ 23 ก.ย.) — คีย์อย่างเดียว ไฟล์แยก
+SLIM = ("--slim" in sys.argv) or STORY   # โหมดฉบับย่อ: เหลือแต่หัวตาราง + คีย์
 
 SQL = "docs/08_สเปค-พัฒนา/er-drawio.sql"
-OUT = ("docs/08_สเปค-พัฒนา/ER-ฉบับย่อ-星航.drawio" if SLIM
+OUT = ("docs/08_สเปค-พัฒนา/ER-เดินตามผู้ใช้-星航.drawio" if STORY
+       else "docs/08_สเปค-พัฒนา/ER-ฉบับย่อ-星航.drawio" if SLIM
        else "docs/08_สเปค-พัฒนา/ER-星航.drawio")
 MD  = "docs/08_สเปค-พัฒนา/DATABASE-ER.md"
 
@@ -98,9 +102,9 @@ if SLIM:
         ("② แบบทดสอบก่อนเรียน", ["users", "exam_forms", "items", "form_items", "sessions"]),
         ("③ ตอบทีละข้อ", ["users", "sessions", "items", "words", "sentences", "skills", "attempts"]),
         ("④ รู้ว่าอ่อนตรงไหน", ["attempts", "bkt_training_runs", "skills", "thai_l1_catalog",
-                                  "mastery_snapshots", "recommendations", "users", "sessions"]),
-        ("⑤ เรียนคำ + นัดทวน", ["categories", "words", "sentences", "sentence_words",
-                                   "review_states", "users", "skills"]),
+                                  "mastery_snapshots", "users", "sessions"]),
+        ("⑤ เรียนคำ + นัดทวน", ["categories", "category_progress", "words", "sentences", "sentence_words",
+                                   "review_states", "sentence_states", "users", "skills"]),
         ("⑥ บทปูพื้นฐานเสียง", ["foundation_stages", "foundation_lessons", "foundation_progress",
                                   "minimal_pairs", "users", "skills", "words"]),
     ]
@@ -238,6 +242,111 @@ if SLIM:
         return page, before, after, len(names), len(edges_)
 
 
+
+    # ---------- โหมด --story: ผังแผ่นเดียว เรียงตามที่อาจารย์ไล่ (บอลเคาะ 23 ก.ย. หลังนัดรอบ 6) ----------
+    # "สมัครใช่ไหม ก็เก็บตารางนี้ → ต่อไปสอบ pre-test ต้องมีตารางออกมาอีก สอบเสร็จเก็บไว้ไหน → หมวดหมู่..."
+    # คอลัมน์ = ก้าวของผู้ใช้ · หัวคอลัมน์มีบทพูด · ยอมให้เส้นตัดกันเพิ่ม แลกกับชี้เล่าซ้าย→ขวาได้ (สีเส้น = ตารางแม่)
+    STORY_ZONES = [
+        ("① สมัครใช้งาน", "โปรไฟล์ 1 แถว · id ถูกยืมไปทุกตารางฝั่งประวัติ",
+         ["users"]),
+        ("② ทำ pre-test", "ชุดข้อสอบ → สารบัญ → ข้อ · ผลการทำเก็บที่ sessions (ใคร ชุดไหน คะแนน)",
+         ["exam_forms", "form_items", "items", "item_skills", "sessions"]),
+        ("③ ตอบทีละข้อ", "1 คำตอบ = 1 แถว ชี้รอบ/ข้อ/คำ/ประโยค/ทักษะ · ห้ามแก้ห้ามลบ",
+         ["attempts"]),
+        ("④ เรียนตามหมวด", "คน×หมวด → คำ → นัดทวน · ประโยค → ส่วนผสม → คน×ประโยค",
+         ["categories", "category_progress", "words", "review_states",
+          "sentences", "sentence_words", "sentence_states"]),
+        ("⑤ ปูพื้นฐานเสียง", "หลักสูตร → บทเรียน / คู่เสียง · สมุดพกรายคน",
+         ["foundation_stages", "foundation_lessons", "minimal_pairs", "foundation_progress"]),
+        ("⑥ สมอง (BKT)", "เทรน → ค่ากลางประจำหน่วยความรู้ → ความแม่นรายคน · จุดผิดคนไทย",
+         ["bkt_training_runs", "skills", "thai_l1_catalog", "mastery_snapshots"]),
+        ("หลังบ้าน", "เครื่องมือทีม (นอกเรื่องเล่า)",
+         ["approval_transfers", "roadmap_state"]),
+    ]
+    _story_names = {n for _, _, ns in STORY_ZONES for n in ns}
+    _missing = {n for n, _ in tables} - _story_names
+    if STORY and _missing:
+        print("⚠️ STORY ยังไม่ครอบตาราง:", _missing); sys.exit(1)
+
+    def render_story_page(title, zones, pid):
+        LEFT_S = 150
+        names = [n for _, _, ns in zones for n in ns]
+        links = [(c, p, col) for c, p, col in fks if c in names and p in names and c != p]
+        geo, cells_, max_y = {}, [], 0
+        for ci, (hdr, cap, ns) in enumerate(zones):
+            x = LEFT_S + ci * (SW + CHAN)
+            cells_.append(
+                f'<mxCell id="{pid}_z{ci}" value="&lt;b&gt;{html.escape(hdr)}&lt;/b&gt;&lt;br&gt;'
+                f'&lt;span style=&quot;font-size:11px;color:#555&quot;&gt;{html.escape(cap)}&lt;/span&gt;" '
+                'style="text;html=1;align=left;verticalAlign=top;fontSize=14;fontColor=#1f6f9f;whiteSpace=wrap;" '
+                f'vertex="1" parent="1"><mxGeometry x="{x}" y="{TOP2 - 30}" width="{SW}" height="66" as="geometry"/></mxCell>')
+            y = TOP2 + 50
+            for name in ns:
+                cs = by_name[name]
+                h = HDR2 + ROW_H * len(cs)
+                geo[name] = (x, y, h)
+                style = ("swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;"
+                         "startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;"
+                         "collapsible=0;rounded=1;arcSize=4;" + (GREEN if name in LIVE else BLUE))
+                cells_.append(
+                    f'<mxCell id="{pid}_{name}" value="{name}" style="{style}" vertex="1" parent="1">'
+                    f'<mxGeometry x="{x}" y="{y}" width="{SW}" height="{h}" as="geometry"/></mxCell>')
+                for ri, (col_, typ, tag, _n) in enumerate(cs):
+                    label = html.escape(f"{col_} : {typ}{tag}")
+                    cells_.append(
+                        f'<mxCell id="{pid}_{name}_r{ri}" value="{label}" style="text;strokeColor=none;'
+                        f'fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;'
+                        f'overflow=hidden;whiteSpace=wrap;html=1;fontSize=11;'
+                        f'{"fontStyle=1;" if tag else ""}" vertex="1" parent="{pid}_{name}">'
+                        f'<mxGeometry y="{HDR2 + ROW_H*ri}" width="{SW}" height="{ROW_H}" as="geometry"/></mxCell>')
+                y += h + ROW_GAP
+                max_y = max(max_y, y)
+        edges_, seen, lane = [], set(), {}
+        for i, (child, parent, _c) in enumerate(links):
+            if (child, parent) in seen:
+                continue
+            seen.add((child, parent))
+            px, py, ph = geo[parent]; cx, cy, ch = geo[child]
+            if px < cx:
+                ex, en, wx = 1, 0, (px + SW + cx) / 2
+            elif px > cx:
+                ex, en, wx = 0, 1, (cx + SW + px) / 2
+            else:
+                lane[px] = lane.get(px, 0) + 1
+                ex, en, wx = 0, 0, px - 28 - 22 * lane[px]
+            style = ("edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jumpStyle=arc;jumpSize=9;"
+                     f"exitX={ex};exitY=0.5;exitDx=0;exitDy=0;entryX={en};entryY=0.5;entryDx=0;entryDy=0;"
+                     f"startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;"
+                     f"strokeColor={EDGE_COLOR.get(parent, EDGE_DEFAULT)};strokeWidth=1.5;")
+            edges_.append(
+                f'<mxCell id="{pid}_e{i}" style="{style}" edge="1" parent="1" '
+                f'source="{pid}_{parent}" target="{pid}_{child}">'
+                f'<mxGeometry relative="1" as="geometry"><Array as="points">'
+                f'<mxPoint x="{int(wx)}" y="{int(py + ph/2)}"/></Array></mxGeometry></mxCell>')
+        head = (f'<mxCell id="{pid}_ttl" value="&lt;b&gt;{html.escape(title)}&lt;/b&gt;&amp;nbsp; '
+                f'&lt;span style=&quot;color:#777&quot;&gt;{len(names)} ตาราง · {len(edges_)} เส้น · '
+                f'เรียงตามที่อาจารย์ไล่ (นัดรอบ 6) · สีเส้น = ตารางแม่ · เขียว = มีจริงใน Supabase แล้ว&lt;/span&gt;" '
+                'style="text;html=1;align=left;fontSize=15;fontColor=#333333;" vertex="1" parent="1">'
+                f'<mxGeometry x="{LEFT_S}" y="18" width="1600" height="30" as="geometry"/></mxCell>')
+        parents_here = sorted({p for _c, p, _ in links}, key=lambda p: (p not in EDGE_COLOR, p))
+        cells_.append(edge_legend_cell(f"{pid}_lg", parents_here, LEFT_S, 46, 1700))
+        w = LEFT_S + len(zones) * (SW + CHAN) + 40
+        body = ('      <root>\n        <mxCell id="0"/>\n        <mxCell id="1" parent="0"/>\n        '
+                + head + "\n        " + "\n        ".join(cells_)
+                + ("\n        " + "\n        ".join(edges_) if edges_ else "") + "\n      </root>\n")
+        page = (f'  <diagram name="{html.escape(title)}" id="{pid}">\n'
+                f'    <mxGraphModel dx="1018" dy="686" grid="1" gridSize="10" guides="1" tooltips="1" '
+                f'connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="{w}" '
+                f'pageHeight="{int(max_y)+40}" math="0" shadow="0">\n' + body
+                + "    </mxGraphModel>\n  </diagram>\n")
+        return page, len(names), len(edges_)
+
+    if STORY:
+        p, nt, ne = render_story_page("ER — เดินตามผู้ใช้ (แผ่นเดียว)", STORY_ZONES, "story")
+        io.open(OUT, "w", encoding="utf-8").write('<mxfile host="app.diagrams.net">\n' + p + "</mxfile>\n")
+        print(f"✅ เขียน {OUT}\n   1 หน้า · {nt} ตาราง · {ne} เส้น · 7 คอลัมน์ตามก้าวผู้ใช้")
+        sys.exit(0)
+
     pages, report = [], []
     p, b, a, nt, ne = render_page("ภาพรวมทั้งระบบ", [n for n, _ in tables], "ov")
     pages.append(p); report.append(("ภาพรวมทั้งระบบ", nt, ne, b, a))
@@ -263,8 +372,9 @@ COLUMNS = [
     ("โซน 3 · ทักษะ + โมเดล",            ["skills", "bkt_training_runs", "thai_l1_catalog"]),
     ("โซน 4 · คลังข้อสอบ",               ["exam_forms", "form_items", "items", "item_skills"]),
     ("โซน 5 · ผู้เรียน + การตอบ",        ["users", "sessions", "attempts"]),
-    ("โซน 6 · ผลและระบบ",                ["review_states", "mastery_snapshots", "foundation_progress",
-                                          "recommendations", "approval_transfers", "roadmap_state"]),
+    ("โซน 6 · ผลและระบบ",                ["review_states", "sentence_states", "category_progress",
+                                          "mastery_snapshots", "foundation_progress",
+                                          "approval_transfers", "roadmap_state"]),
 ]
 placed = {t for _, ts in COLUMNS for t in ts}
 missing = {n for n, _ in tables} - placed
