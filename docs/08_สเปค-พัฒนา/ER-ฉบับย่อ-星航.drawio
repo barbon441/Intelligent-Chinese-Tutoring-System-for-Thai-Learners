@@ -541,11 +541,11 @@
     </mxGraphModel>
   </diagram>
   <diagram name="2 ชุดข้อสอบ" id="s1">
-    <mxGraphModel dx="1035" dy="714" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1140" pageHeight="560" math="0" shadow="0">
+    <mxGraphModel dx="1221" dy="845" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1140" pageHeight="560" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="s1_ttl" parent="1" style="text;html=1;align=left;fontSize=15;fontColor=#333333;" value="&lt;b&gt;② ชุดข้อสอบ&lt;/b&gt;&amp;nbsp;" vertex="1">
+        <mxCell id="s1_ttl" parent="1" style="text;html=1;align=left;fontSize=15;fontColor=#333333;" value="&lt;b&gt;② ชุดข้อสอบ ก่อนเรียน&lt;/b&gt;" vertex="1">
           <mxGeometry height="30" width="1200" x="40" y="24" as="geometry" />
         </mxCell>
         <mxCell id="s1_exam_forms" parent="1" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;collapsible=0;rounded=1;arcSize=4;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="exam_forms" vertex="1">
@@ -801,7 +801,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="4 เทรนโมเดล + วัดความแม่นทักษะ" id="s3">
-    <mxGraphModel dx="1035" dy="714" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="882" math="0" shadow="0">
+    <mxGraphModel dx="1221" dy="845" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="882" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -952,7 +952,8 @@
         <mxCell id="s3_e4" edge="1" parent="1" source="s3_skills" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jumpStyle=arc;jumpSize=9;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#b85450;strokeWidth=1.5;" target="s3_attempts">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="825" y="310" />
+              <mxPoint x="810" y="310" />
+              <mxPoint x="810" y="194" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -1022,7 +1023,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="5 เรียนคำ + นัดทวน" id="s4">
-    <mxGraphModel dx="1035" dy="714" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="491" math="0" shadow="0">
+    <mxGraphModel dx="1221" dy="845" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="491" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1129,7 +1130,10 @@
         <mxCell id="s4_e4" edge="1" parent="1" source="s4_words" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jumpStyle=arc;jumpSize=9;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#4a7d4a;strokeWidth=1.5;" target="s4_sentence_words">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="825" y="288" />
+              <mxPoint x="750" y="288" />
+              <mxPoint x="750" y="250" />
+              <mxPoint x="800" y="250" />
+              <mxPoint x="800" y="139" />
             </Array>
           </mxGeometry>
         </mxCell>
