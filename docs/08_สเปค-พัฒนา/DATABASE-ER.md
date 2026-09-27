@@ -391,8 +391,10 @@ erDiagram
 - **`attempts` อ้างได้ทั้ง 3 ทาง** (`item_id` ข้อสอบที่ตรวจแล้ว · `word_id` ข้อที่ปั้นสดจากคำ · `sentence_id`) — เพราะบัตรคำ/ฝึก/เกมจับคู่/ควิซปั้นข้อสดจากคำ ไม่ได้อ้าง item bank
 - **`attempts.skill_id` จด KC ณ เวลาที่ตอบ** — ข้อที่ปั้นสดไม่มี `item_skills` ให้เดิน และทำให้ข้อมูลทดลองไม่เปลี่ยนความหมายย้อนหลังเมื่อแก้ Q-matrix
 - `foundation_progress` = ที่เก็บของโมดูล 0 (PA-01 ประตู 80% · PA-08 นับรอบที่ไม่ผ่าน)
-- `recommendations` = หลักฐานว่า **การวินิจฉัยเปลี่ยนพฤติกรรมผู้เรียนจริงไหม** — ablation พิสูจน์แค่ว่าโมเดลแม่นขึ้น ไม่ได้พิสูจน์ผลต่อผู้เรียน
-- `categories` = 5 หมวดที่ `words` / `sentences` / `sessions` ต่างชี้มาหา — ยกออกจาก `categories.ts` เพื่อให้แก้ชื่อ/ลำดับได้โดยไม่ต้อง deploy
+- **`category_progress` = คน × หมวด** (อาจารย์รอบ 6: "ใครเรียน content ไหน ผ่านกี่คำ กี่ประโยค คะแนนเท่าไหร่ — ต้องเป็นตาราง ไม่ใช่โค้ด") · คู่แฝด `foundation_progress` · ตัวเลข [cache] คำนวณซ้ำได้จาก `review_states` / `sentence_states` / `sessions` · `status` not_started→learning→quiz_passed คือตัวปลดล็อก QZ-12
+- **`sentence_states` = คน × ประโยค** ("นาย A เรียนประโยคที่ 1 ผ่านไหม — รู้ทุกคำ ≠ เรียงประโยคถูก") · คู่แฝด `review_states` · ข้อมูลดิบรายครั้งอยู่ `attempts.sentence_id` · เปิดประตูเพิ่มคอลัมน์ FSRS ทีหลังถ้าจะนัดทวนประโยค
+- ~~`recommendations`~~ **ตัดออก 23 ก.ย.** (อาจารย์รอบ 6 · BK-08) — คำแนะนำรายบุคคลให้ Gemini แต่งสดจาก SWOT บน dashboard ไม่เก็บลง DB · หลักฐานว่า "การวินิจฉัยเปลี่ยนพฤติกรรม" ใช้ `attempts`/`sessions` ของ KC ที่ dashboard ชี้ ซึ่งเกิดหลัง `mastery_snapshots.computed_at` แทน
+- `categories` = 5 หมวดที่ `words` / `items` / `sentences` / `sessions` / `category_progress` ต่างชี้มาหา — ยกออกจาก `categories.ts` เพื่อให้แก้ชื่อ/ลำดับได้โดยไม่ต้อง deploy
 - **`bkt_training_runs` = ที่มาของตัวเลขทุกตัวในบทที่ 4** · `skills.bkt_*` เก็บชุดที่ใช้งานอยู่ + `bkt_run_id` ชี้ว่ามาจากรอบไหน · `variant` รองรับ ablation ตรง ๆ (เทรน 2 รอบ มี/ไม่มี Thai-L1 KC แล้วเทียบ `auc` ตาม ME-03)
 - `minimal_pairs` เก็บ `hanzi/pinyin` ตรง ๆ **ไม่บังคับผูก `words`** เพราะบางคู่ (妈/马) ไม่ได้อยู่ในลิสต์ HSK1 300 คำทั้งคู่
 - ℹ️ `foundation_lessons` ไม่มีเส้นความสัมพันธ์ — **ตั้งใจ ไม่ใช่ลืม** · มันผูกกับ `foundation_progress` ผ่านค่า `stage` ที่ใช้ชุดเดียวกัน (intro/pinyin/tones/ear_game) ไม่ใช่ผ่าน FK เพราะ 1 ด่านมีได้หลายบทเรียน
@@ -400,7 +402,7 @@ erDiagram
 - `items.approved_by` → `users` = **หฤทัยคนเดียวที่กดอนุมัติได้ (RO-03)** เก็บเป็นข้อมูล ไม่ใช่แค่กฎในโค้ด
 
 ### นโยบายความปลอดภัย (RLS) — สรุป
-- ตารางรายผู้ใช้ (`attempts`, `sessions`, `review_states`, `mastery_snapshots`, `foundation_progress`, `recommendations`, `users`): เปิด RLS `user_id = auth.uid()` — เห็น/เพิ่มของตัวเองเท่านั้น · `attempts` ไม่ให้ UPDATE/DELETE เชิง policy
+- ตารางรายผู้ใช้ (`attempts`, `sessions`, `review_states`, `sentence_states`, `category_progress`, `mastery_snapshots`, `foundation_progress`, `users`): เปิด RLS `user_id = auth.uid()` — เห็น/เพิ่มของตัวเองเท่านั้น · `attempts` ไม่ให้ UPDATE/DELETE เชิง policy
 - ตารางเนื้อหา (`words`, `skills`, `items`, `item_skills`, `sentences`, `sentence_words`, `thai_l1_catalog`): อ่านสาธารณะ เขียนได้เฉพาะ service role (ผ่านหน้า Admin m7-2/7-3)
 - **`exam_forms` / `form_items` อ่านสาธารณะไม่ได้** — ถ้าเปิดอ่าน ผู้ทดลองจะรู้ว่าชุด post มีข้อไหน · เสิร์ฟผ่าน endpoint ที่เช็ก `locked_until` เท่านั้น
 - **ถอนความยินยอม (ON-05):** ไม่ลบแถว `attempts` (ขัด append-only + ทำลาย dataset) — ล้าง PII ใน `users` แล้วประทับ `anonymized_at` แทน · ต้องเขียนวิธีนี้ลงในข้อความ consent ตรง ๆ
@@ -550,7 +552,7 @@ erDiagram
 
 ---
 
-> ตรวจแล้ว: **23 ตาราง · 35 เส้น · 224 คอลัมน์** · ลำดับ FK ถูกต้องทั้งหมด (`er-drawio.sql` รันใน Postgres ได้ตรง ๆ) · ผัง mermaid ตรวจไวยากรณ์ผ่าน 100% · `.drawio` parse เป็น XML ได้ ไม่มีเส้นชี้ไป id ที่ไม่มีอยู่
+> ตรวจแล้ว (ปรับ 23 ก.ย.): **24 ตาราง · 37 เส้น · 231 คอลัมน์** · ลำดับ FK ถูกต้องทั้งหมด (`er-drawio.sql` รันใน Postgres ได้ตรง ๆ) · ผัง mermaid ตรวจไวยากรณ์ผ่าน 100% · `.drawio` parse เป็น XML ได้ ไม่มีเส้นชี้ไป id ที่ไม่มีอยู่
 
 ## 3) ลำดับการเกิดของตาราง (ผูกกับ roadmap)
 
@@ -561,8 +563,9 @@ erDiagram
 | m3-2 log ขึ้นฐาน | **`sessions` + `attempts`** + ย้ายข้อมูล localStorage ขึ้นบัญชี | ต่อจาก m7-1 ทันที — **ทั้งคู่ต้องเกิดพร้อมกัน** (attempts ที่ไม่มี session ประกอบ "ครั้งที่ N" ย้อนหลังไม่ได้) |
 | m0 บทปูพื้นฐานเสียง | `foundation_stages`, `foundation_lessons`, `foundation_progress` | พร้อม m7-1 (PA-01/PA-08 บังคับไม่ได้ถ้าไม่เก็บ) |
 | m7-2 คลังคำ/หมวด | `categories` (+ ผูก FK ให้ `words.category`) | ยกจาก `apps/web/src/data/categories.ts` |
+| m7-2 คลังคำ/หมวด (ต่อ) | **`category_progress`** (คน×หมวด — เพิ่ม 23 ก.ย. ตามอาจารย์รอบ 6) | เกิดพร้อม `categories` + ล็อกอิน · `quiz_best_score`/`quiz_passed_at` อ่านจาก `sessions` kind=quiz · หน้าเลือกหมวดอ่านตารางนี้ทีเดียว |
 | m7-3 item bank | `items`, `item_skills`, `skills` | ตะวันป้อนข้อสอบผ่านหน้า Admin |
 | m5 pre-test / mock | **`exam_forms`, `form_items`** (`sessions` มีอยู่แล้วจาก m3-2) | หลัง item bank มีข้อ — `locked_until` ต้องพร้อมก่อนเริ่มทดลอง |
-| m8 BKT | `mastery_snapshots`, `thai_l1_catalog` (ยกจาก catalog-v1.json ที่ร่างแล้ว), **`recommendations`** | ก.ย. |
+| m8 BKT | `mastery_snapshots`, `thai_l1_catalog` (ยกจาก catalog-v1.json ที่ร่างแล้ว) — ~~`recommendations`~~ ตัด 23 ก.ย. (BK-08) | ก.ย. |
 | m4-3 sync ทวน | `review_states` | พร้อม m7-1 |
-| m7-2 คลังประโยค | `sentences`, `sentence_words` | ยกจาก `apps/web/src/data/sentences.ts` ขึ้นตาราง (ตอนนี้ 10 ประโยคอยู่ในโค้ด) |
+| m7-2 คลังประโยค | `sentences`, `sentence_words`, **`sentence_states`** (คน×ประโยค — เพิ่ม 23 ก.ย. เกิดพร้อมโหมดเรียงประโยคที่เขียน `attempts.sentence_id`) | ยกจาก `apps/web/src/data/sentences.ts` ขึ้นตาราง (ตอนนี้ 10 ประโยคอยู่ในโค้ด) |
