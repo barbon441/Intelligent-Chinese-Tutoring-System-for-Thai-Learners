@@ -20,6 +20,7 @@
 -- ① Gain score รายคน — หลักฐานหลักของโครงงาน (ME-02)
 -- ────────────────────────────────────────────────────────────────────────────
 -- บรรทัด post.form_id = pre.form_id คือสิ่งที่บังคับมติ "pre = post ชุดเดียวกัน" (PL-07)
+-- 28 ก.ย.: post = kind='posttest' (แยกจาก mock ซ้อม) — บอลเคาะ · posttest แทน mock ในทุก query ของไฟล์นี้
 -- ในระดับข้อมูล ไม่ใช่แค่ความตั้งใจ — ถ้าใครเผลอใช้คนละชุด แถวนั้นจะหายไปจากผลเอง
 SELECT u.display_name,
        pre.score_total                     AS pre_score,
@@ -30,7 +31,7 @@ SELECT u.display_name,
        post.started_at::date - u.trial_started_at::date AS days_in_trial
 FROM users u
 JOIN sessions pre  ON pre.user_id  = u.id AND pre.kind  = 'pretest' AND pre.status = 'done'
-JOIN sessions post ON post.user_id = u.id AND post.kind = 'mock'    AND post.status = 'done'
+JOIN sessions post ON post.user_id = u.id AND post.kind = 'posttest' AND post.status = 'done'
                   AND post.form_id = pre.form_id
 JOIN exam_forms f  ON f.id = pre.form_id
 WHERE u.cohort = 'trial'
@@ -45,15 +46,15 @@ ORDER BY gain DESC;
 SELECT u.display_name,
        sk.name_th AS skill,
        ROUND(100.0 * AVG(CASE WHEN s.kind = 'pretest' THEN a.is_correct::int END), 1) AS pre_pct,
-       ROUND(100.0 * AVG(CASE WHEN s.kind = 'mock'    THEN a.is_correct::int END), 1) AS post_pct,
+       ROUND(100.0 * AVG(CASE WHEN s.kind = 'posttest' THEN a.is_correct::int END), 1) AS post_pct,
        COUNT(*) FILTER (WHERE s.kind = 'pretest') AS n_pre,
-       COUNT(*) FILTER (WHERE s.kind = 'mock')    AS n_post
+       COUNT(*) FILTER (WHERE s.kind = 'posttest') AS n_post
 FROM attempts a
 JOIN sessions s  ON s.id  = a.session_id
 JOIN skills   sk ON sk.id = a.skill_id
 JOIN users    u  ON u.id  = a.user_id
 WHERE a.event_type = 'graded'
-  AND s.kind IN ('pretest', 'mock')
+  AND s.kind IN ('pretest', 'posttest')
   AND s.status = 'done'
   AND u.cohort = 'trial'
 GROUP BY u.display_name, sk.name_th
@@ -161,7 +162,7 @@ FROM attempts a
 JOIN form_items fi ON fi.item_id = a.item_id
 JOIN exam_forms f  ON f.id = fi.form_id AND f.research_use_only
 JOIN sessions s    ON s.id = a.session_id
-WHERE s.kind NOT IN ('pretest', 'mock')
+WHERE s.kind NOT IN ('pretest', 'posttest')
 UNION ALL
 SELECT 'ผู้ใช้ที่ถอนความยินยอมแต่ยังมี PII ค้าง', COUNT(*)
 FROM users WHERE anonymized_at IS NOT NULL AND display_name IS NOT NULL;

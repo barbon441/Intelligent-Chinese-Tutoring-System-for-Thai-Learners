@@ -280,7 +280,7 @@ erDiagram
     SESSIONS {
         bigint id PK
         uuid user_id FK
-        text kind "micro_check|placement|pretest|quiz|practice|review|mock"
+        text kind "micro_check|placement|pretest|posttest|quiz|practice|review|mock"
         bigint form_id FK "null = ชุดที่ระบบสุ่มสด (quiz/practice)"
         smallint category FK "null สำหรับ pretest/mock/placement"
         text mode "โหมดฝึก: listen|read|order|match (null ถ้าเป็นโหมดสอบ)"
@@ -322,7 +322,7 @@ erDiagram
         timestamptz answered_at
         integer time_spent_ms "เก็บย้อนหลังไม่ได้ ต้องมีตั้งแต่แถวแรก (FS-04 + ablation)"
         text app_version "แก้บั๊กกลางการทดลอง = ต้องแยกข้อมูลก่อน/หลังแก้ได้"
-        text context "practice|review|quiz|pretest|placement|micro_check|mock"
+        text context "practice|review|quiz|pretest|posttest|placement|micro_check|mock"
     }
     REVIEW_STATES {
         uuid user_id PK FK

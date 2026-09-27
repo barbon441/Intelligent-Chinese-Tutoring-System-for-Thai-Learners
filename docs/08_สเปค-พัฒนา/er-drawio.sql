@@ -1,6 +1,8 @@
 -- ต้นทางจริงของ schema — แก้ที่ไฟล์นี้เสมอ แล้วรัน `python scripts/gen_er_diagrams.py` เพื่อสร้างผังใหม่
 --   เพิ่ม `--story` = ผังแผ่นเดียวเรียงตามที่อาจารย์ไล่ (สมัคร→pre-test→ตอบ→เรียนหมวด→ปูพื้น→สมอง) → ER-เดินตามผู้ใช้-星航.drawio
 -- 📝 23 ก.ย. (อาจารย์รอบ 6 + บอลเคาะ): +category_progress +sentence_states −recommendations · attempts รองรับพูดตาม (23 ตาราง → 24)
+-- 📝 28 ก.ย. (บอลเคาะ): sessions.kind + attempts.context เพิ่มค่า posttest — post ใช้ชุดเดียวกับ pre (PL-09) แต่แยก kind
+--    เพื่อให้ "คนนี้สอบ post แล้วหรือยัง" ตอบได้ช่องเดียว (อาจารย์รอบ 6 ถาม: "ตารางไหนบอกว่ารอบนี้คือ pre หรือ post")
 --   เพิ่ม `--slim` = สร้างผังฉบับย่อ (หัวตาราง + คีย์) ลง ER-ฉบับย่อ-星航.drawio
 -- ที่มา: docs/08_สเปค-พัฒนา/DATABASE-ER.md (ขั้น 1-3) · อินพุตขั้น 0: ความต้องการข้อมูล-User-Journey.md
 --
@@ -269,11 +271,15 @@ CREATE TABLE minimal_pairs (
 -- คะแนน mock ยกออกจาก detail jsonb มาเป็นคอลัมน์จริง (แก้ 21 ส.ค.)
 --   เหตุผล: score_listening/score_reading/passed คือตัวเลขที่ query บ่อยที่สุดตอนวิเคราะห์ gain score
 --   ฝังใน jsonb = index ไม่ได้ + เขียน query เทียบ pre/post ลำบาก ทั้งที่เป็นหัวใจของบทที่ 4
+-- ⚠️ posttest (เพิ่ม 28 ก.ย.) = รอบวัดหลังเรียน ใช้ form_id เดียวกับ pretest ของคนเดียวกัน (PL-09 ชุดเดียว)
+--    แยกจาก mock ซ้อมสนามที่ทำได้ไม่จำกัด · BKT/FSRS ไม่อ่านแถวที่ context IN ('pretest','posttest') (PL-10 §2.5)
 -- migration ต้องเพิ่ม: UNIQUE (user_id, kind, category, attempt_no)
+--   + UNIQUE (user_id) WHERE kind='pretest' AND status='done' · UNIQUE (user_id) WHERE kind='posttest' AND status='done'  (PL-10 §2.1: อย่างละ 1 รอบ)
+--   + trigger: แถว posttest ต้องมี form_id = ของ pretest คนเดียวกัน และ pretest ต้อง done ก่อน
 CREATE TABLE sessions (
   id bigint PRIMARY KEY,
   user_id uuid NOT NULL REFERENCES users(id),
-  kind text NOT NULL,              -- micro_check|placement|pretest|quiz|practice|review|mock
+  kind text NOT NULL,              -- micro_check|placement|pretest|posttest|quiz|practice|review|mock
   form_id bigint REFERENCES exam_forms(id),    -- null = ชุดที่ระบบสุ่มสด (quiz/practice)
   category smallint REFERENCES categories(id), -- null สำหรับ pretest/mock/placement
   mode text,                       -- โหมดฝึก: listen|read|order|match (null ถ้าเป็นโหมดสอบ)
@@ -334,7 +340,7 @@ CREATE TABLE attempts (
   answered_at timestamptz NOT NULL,
   time_spent_ms integer,           -- เก็บย้อนหลังไม่ได้ ต้องมีตั้งแต่แถวแรก (FS-04 + ablation)
   app_version text,                -- แก้บั๊กกลางการทดลอง = ต้องแยกข้อมูลก่อน/หลังแก้ได้
-  context text NOT NULL            -- practice|review|quiz|pretest|placement|micro_check|mock
+  context text NOT NULL            -- practice|review|quiz|pretest|posttest|placement|micro_check|mock
   -- migration จริงต้องเพิ่ม:
   --   CHECK (item_id IS NOT NULL OR word_id IS NOT NULL OR sentence_id IS NOT NULL)
   --   CHECK ((event_type='graded' AND is_correct IS NOT NULL)
