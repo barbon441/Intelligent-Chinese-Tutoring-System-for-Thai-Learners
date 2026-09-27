@@ -42,7 +42,7 @@ updated: 2026-09-27
 ### 2.1 รอบและวิธีบันทึก
 - pre 1 · post 1 ต่อคนต่อชุดวิจัย นับเฉพาะ `status='done'` · ไม่มี best-of / latest · delayed post (+1 สัปดาห์) = future work
 - **✅ บอลเคาะ 28 ก.ย.:** pre = `sessions.kind='pretest'` · post = `sessions.kind='posttest'` บน `form_id` เดียวกับ pre · `attempts.context` มีค่า posttest ด้วย — *(ข้อเสนอ 27 ก.ย. เดิมจะใช้ kind='mock' แถวที่ 2 เพื่อไม่แตะ query ①②⑦ — ยกเลิก เพราะอาจารย์รอบ 6 ถามตรง ๆ ว่า "ตารางไหนบอกว่ารอบนี้คือ pre หรือ post" คำตอบต้องเป็นช่องเดียว · query ①②⑦ ปรับแล้ว)*
-- แยก "วัดพัฒนาการ" (pretest / posttest) กับ "ซ้อมสนาม" (mock) ด้วย `kind` · `exam_forms.research_use_only` ยังทำหน้าที่เดิม: กันข้อชุดวิจัยหลุดเข้าควิซ/ฝึก/mock (PL-09 ①)
+- ไม่มี mock ซ้อมแยก (MK-02 ชุดเดียว — บอลยืนยัน 28 ก.ย.) ค่า kind='mock' สงวนไว้เฉย ๆ · `exam_forms.research_use_only` ยังทำหน้าที่เดิม: กันข้อชุดวิจัยหลุดเข้าควิซ/ฝึก (PL-09 ①)
 - **บังคับที่ชั้น DB** (partial unique index + trigger): `UNIQUE(user_id) WHERE kind='pretest' AND status='done'` · `UNIQUE(user_id) WHERE kind='posttest' AND status='done'` · `UNIQUE(user_id, kind) WHERE kind IN ('pretest','posttest') AND status='running'` (บังคับ resume) · trigger: แถว posttest ต้อง `form_id` = ของ pretest คนเดียวกัน และ pretest ต้อง done ก่อน · ไม่ต้องมีคอลัมน์ `research_form` แล้ว
 
 ### 2.2 ปลดล็อก (กลุ่มทดลอง cohort='trial')

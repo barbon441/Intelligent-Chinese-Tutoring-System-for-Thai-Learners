@@ -3,6 +3,8 @@
 -- 📝 23 ก.ย. (อาจารย์รอบ 6 + บอลเคาะ): +category_progress +sentence_states −recommendations · attempts รองรับพูดตาม (23 ตาราง → 24)
 -- 📝 28 ก.ย. (บอลเคาะ): sessions.kind + attempts.context เพิ่มค่า posttest — post ใช้ชุดเดียวกับ pre (PL-09) แต่แยก kind
 --    เพื่อให้ "คนนี้สอบ post แล้วหรือยัง" ตอบได้ช่องเดียว (อาจารย์รอบ 6 ถาม: "ตารางไหนบอกว่ารอบนี้คือ pre หรือ post")
+-- 📝 28 ก.ย. (บอลเคาะ): ตัดชุดวัดระดับ (PL-02) + แบบทดสอบสั้น 5 ข้อ (ON-09) → ทุกคนทำ pre แล้วใช้คะแนนตัดสินจุดเริ่ม (PL-05)
+--    +users.self_level (คำตอบ ③) · ไม่มี mock ซ้อมแยก (MK-02 ชุดเดียว) · exam_forms เหลือชุดวิจัยชุดเดียว
 --   เพิ่ม `--slim` = สร้างผังฉบับย่อ (หัวตาราง + คีย์) ลง ER-ฉบับย่อ-星航.drawio
 -- ที่มา: docs/08_สเปค-พัฒนา/DATABASE-ER.md (ขั้น 1-3) · อินพุตขั้น 0: ความต้องการข้อมูล-User-Journey.md
 --
@@ -79,6 +81,7 @@ CREATE TABLE users (
   consent_version text,            -- ฉบับของข้อความ consent ที่ยอมรับ (ON-05)
   target_level integer,
   exam_date date,
+  self_level text,                 -- ON-02 ③ อ่านตัวจีนออกไหม: cant_read | some_basics | unsure — ใช้คู่กับคะแนน pre ตัดสินจุดเริ่ม (PL-05 · เพิ่ม 28 ก.ย.)
   audio_rate real,
   pinyin_hidden boolean,           -- ค่าตั้งซ่อนพินอิน (m1-6 "จำค่าไว้")
   cohort text,                     -- 'trial' | 'team' | null — ME-02
@@ -143,10 +146,10 @@ CREATE TABLE foundation_stages (
 --   กติกา: published_at IS NOT NULL = ห้ามแก้ form_items ของชุดนี้เด็ดขาด ต้องออก version ใหม่แทน
 CREATE TABLE exam_forms (
   id bigint PRIMARY KEY,
-  code text NOT NULL UNIQUE,       -- 'HSK1-MOCK-A' | 'HSK1-MOCK-B' | 'PRETEST-A' ...
+  code text NOT NULL UNIQUE,       -- 'HSK1-PREPOST-A' — ชุดวิจัยชุดเดียว ใช้ทั้ง pre/post (28 ก.ย.: ไม่มีชุดวัดระดับ / micro-check / mock ซ้อมแยก)
   version smallint NOT NULL,
   name_th text NOT NULL,
-  kind text NOT NULL,              -- pretest | placement | micro_check | mock
+  kind text NOT NULL,              -- pretest (ชุดวิจัย pre=post) | mock (สงวนไว้ ยังไม่ใช้) · 28 ก.ย. ตัด placement/micro_check
   hsk_level integer NOT NULL,
   item_count integer,              -- [cache] นับจาก form_items ได้
   time_limit_s integer,
@@ -264,24 +267,24 @@ CREATE TABLE minimal_pairs (
 );
 
 -- "รอบการทำ" ตารางเดียวครอบทุกเครื่องมือวัด (แทน mock_exam_sessions เดิม)
--- ระบบมีเครื่องมือวัด 5 ชนิดที่รูปร่างเหมือนกันหมด (เริ่ม → ตอบหลายข้อ → จบ → ได้คะแนน):
---   micro_check 5 ข้อ (ON-09) · placement 10-15 ข้อ (PL-02) · pretest ครอบ 5 หมวด (PL-08)
---   quiz 10 ข้อ/หมวด (QZ-01) · mock 40 ข้อ (MK-01)  + practice/review ที่เป็นรอบฝึก
--- ⚠️ pretest แยกขาดจาก mock ตาม PL-03 ("pre-test แรกเข้า ≠ mock เต็ม 200") — คนละ kind
--- คะแนน mock ยกออกจาก detail jsonb มาเป็นคอลัมน์จริง (แก้ 21 ส.ค.)
+-- รอบมี 3 ชนิดที่รูปร่างเหมือนกันหมด (เริ่ม → ตอบหลายข้อ → จบ → ได้คะแนน) — ปรับ 28 ก.ย.:
+--   pretest / posttest = ข้อสอบจำลอง HSK1 ชุดเดียว (PL-08 ทุกคนทำ · PL-09 pre=post) · quiz 10 ข้อ/หมวด (QZ-01) · practice/review = รอบฝึก/ทวน
+--   ตัดแล้ว: micro_check 5 ข้อ (ON-09) · placement 10-15 ข้อ (PL-02) — ใช้คะแนน pre ตัดสินจุดเริ่มแทน (PL-05) · ไม่มี mock ซ้อมแยก (MK-02)
+-- ⚠️ pre = post = ชุดเดียว แยกรอบด้วย kind ไม่ใช่ด้วยชุด (คนศูนย์ทำ pre ได้ต่ำ = คะแนนฐาน ไม่ใช่ปัญหา)
+-- คะแนน pre/post ยกออกจาก detail jsonb มาเป็นคอลัมน์จริง (แก้ 21 ส.ค.)
 --   เหตุผล: score_listening/score_reading/passed คือตัวเลขที่ query บ่อยที่สุดตอนวิเคราะห์ gain score
 --   ฝังใน jsonb = index ไม่ได้ + เขียน query เทียบ pre/post ลำบาก ทั้งที่เป็นหัวใจของบทที่ 4
 -- ⚠️ posttest (เพิ่ม 28 ก.ย.) = รอบวัดหลังเรียน ใช้ form_id เดียวกับ pretest ของคนเดียวกัน (PL-09 ชุดเดียว)
---    แยกจาก mock ซ้อมสนามที่ทำได้ไม่จำกัด · BKT/FSRS ไม่อ่านแถวที่ context IN ('pretest','posttest') (PL-10 §2.5)
+--    ไม่มี mock ซ้อมแยก (MK-02 ชุดเดียว · ค่า 'mock' สงวนไว้) · BKT/FSRS ไม่อ่านแถวที่ context IN ('pretest','posttest') (PL-10 §2.5)
 -- migration ต้องเพิ่ม: UNIQUE (user_id, kind, category, attempt_no)
 --   + UNIQUE (user_id) WHERE kind='pretest' AND status='done' · UNIQUE (user_id) WHERE kind='posttest' AND status='done'  (PL-10 §2.1: อย่างละ 1 รอบ)
 --   + trigger: แถว posttest ต้องมี form_id = ของ pretest คนเดียวกัน และ pretest ต้อง done ก่อน
 CREATE TABLE sessions (
   id bigint PRIMARY KEY,
   user_id uuid NOT NULL REFERENCES users(id),
-  kind text NOT NULL,              -- micro_check|placement|pretest|posttest|quiz|practice|review|mock
+  kind text NOT NULL,              -- pretest|posttest|quiz|practice|review (mock = สงวนไว้) · 28 ก.ย. ตัด micro_check/placement
   form_id bigint REFERENCES exam_forms(id),    -- null = ชุดที่ระบบสุ่มสด (quiz/practice)
-  category smallint REFERENCES categories(id), -- null สำหรับ pretest/mock/placement
+  category smallint REFERENCES categories(id), -- null สำหรับ pretest/posttest
   mode text,                       -- โหมดฝึก: listen|read|order|match (null ถ้าเป็นโหมดสอบ)
   attempt_no smallint NOT NULL,    -- [cache] ครั้งที่เท่าไหร่ของ (user, kind, category) — QZ-09
   started_at timestamptz NOT NULL,
@@ -289,10 +292,10 @@ CREATE TABLE sessions (
   status text NOT NULL,            -- running | done | abandoned (โฟลว์ §7-2: ค้าง >10 นาที = ทิ้งรอบ)
   total integer,                   -- [cache] นับจาก attempts ได้
   score integer,                   -- [cache]
-  score_listening integer,         -- mock: ฟัง 100
-  score_reading integer,           -- mock: อ่าน 100
-  score_total integer,             -- mock: สเกล 200 (MK-01)
-  passed boolean,                  -- mock: เกณฑ์จริง >= 120
+  score_listening integer,         -- pre/post: ฟัง 100
+  score_reading integer,           -- pre/post: อ่าน 100
+  score_total integer,             -- pre/post: สเกล 200 (MK-01)
+  passed boolean,                  -- pre/post: เกณฑ์จริง >= 120
   detail jsonb                     -- ที่เหลือที่ไม่ต้อง query (เช่น เวลาที่ใช้ต่อพาร์ต)
 );
 
@@ -340,7 +343,7 @@ CREATE TABLE attempts (
   answered_at timestamptz NOT NULL,
   time_spent_ms integer,           -- เก็บย้อนหลังไม่ได้ ต้องมีตั้งแต่แถวแรก (FS-04 + ablation)
   app_version text,                -- แก้บั๊กกลางการทดลอง = ต้องแยกข้อมูลก่อน/หลังแก้ได้
-  context text NOT NULL            -- practice|review|quiz|pretest|posttest|placement|micro_check|mock
+  context text NOT NULL            -- practice|review|quiz|pretest|posttest (28 ก.ย. ตัด placement/micro_check · mock สงวนไว้)
   -- migration จริงต้องเพิ่ม:
   --   CHECK (item_id IS NOT NULL OR word_id IS NOT NULL OR sentence_id IS NOT NULL)
   --   CHECK ((event_type='graded' AND is_correct IS NOT NULL)

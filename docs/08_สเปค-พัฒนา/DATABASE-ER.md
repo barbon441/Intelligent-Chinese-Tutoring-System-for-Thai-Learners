@@ -145,6 +145,7 @@ erDiagram
         text consent_version "ฉบับของข้อความ consent ที่ยอมรับ (ON-05)"
         integer target_level
         date exam_date
+        text self_level "ON-02 ③ อ่านตัวจีนออกไหม: cant_read | some_basics | unsure…"
         real audio_rate
         boolean pinyin_hidden "ค่าตั้งซ่อนพินอิน (m1-6 จำค่าไว้)"
         text cohort "'trial' | 'team' | null — ME-02"
@@ -189,10 +190,10 @@ erDiagram
     }
     EXAM_FORMS {
         bigint id PK
-        text code UK "'HSK1-MOCK-A' | 'HSK1-MOCK-B' | 'PRETEST-A' ..."
+        text code UK "'HSK1-PREPOST-A' — ชุดวิจัยชุดเดียว ใช้ทั้ง pre/post (28 ก.ย.:…"
         smallint version
         text name_th
-        text kind "pretest | placement | micro_check | mock"
+        text kind "pretest (ชุดวิจัย pre=post) | mock (สงวนไว้ ยังไม่ใช้) · 28…"
         integer hsk_level
         integer item_count "[cache] นับจาก form_items ได้"
         integer time_limit_s
@@ -280,9 +281,9 @@ erDiagram
     SESSIONS {
         bigint id PK
         uuid user_id FK
-        text kind "micro_check|placement|pretest|posttest|quiz|practice|review|mock"
+        text kind "pretest|posttest|quiz|practice|review (mock = สงวนไว้) · 28…"
         bigint form_id FK "null = ชุดที่ระบบสุ่มสด (quiz/practice)"
-        smallint category FK "null สำหรับ pretest/mock/placement"
+        smallint category FK "null สำหรับ pretest/posttest"
         text mode "โหมดฝึก: listen|read|order|match (null ถ้าเป็นโหมดสอบ)"
         smallint attempt_no "[cache] ครั้งที่เท่าไหร่ของ (user, kind, category) — QZ-09"
         timestamptz started_at
@@ -290,10 +291,10 @@ erDiagram
         text status "running | done | abandoned (โฟลว์ §7-2: ค้าง >10 นาที = ทิ้งรอบ)"
         integer total "[cache] นับจาก attempts ได้"
         integer score "[cache]"
-        integer score_listening "mock: ฟัง 100"
-        integer score_reading "mock: อ่าน 100"
-        integer score_total "mock: สเกล 200 (MK-01)"
-        boolean passed "mock: เกณฑ์จริง >= 120"
+        integer score_listening "pre/post: ฟัง 100"
+        integer score_reading "pre/post: อ่าน 100"
+        integer score_total "pre/post: สเกล 200 (MK-01)"
+        boolean passed "pre/post: เกณฑ์จริง >= 120"
         jsonb detail "ที่เหลือที่ไม่ต้อง query (เช่น เวลาที่ใช้ต่อพาร์ต)"
     }
     CATEGORY_PROGRESS {
@@ -322,7 +323,7 @@ erDiagram
         timestamptz answered_at
         integer time_spent_ms "เก็บย้อนหลังไม่ได้ ต้องมีตั้งแต่แถวแรก (FS-04 + ablation)"
         text app_version "แก้บั๊กกลางการทดลอง = ต้องแยกข้อมูลก่อน/หลังแก้ได้"
-        text context "practice|review|quiz|pretest|posttest|placement|micro_check|mock"
+        text context "practice|review|quiz|pretest|posttest (28 ก.ย. ตัด…"
     }
     REVIEW_STATES {
         uuid user_id PK FK
@@ -385,7 +386,7 @@ erDiagram
 - ผู้เรียน 1 คน → ตอบได้หลาย `attempts` (ทุกการตอบ 1 ข้อ = 1 แถว — **append-only ห้ามแก้/ลบ** เพราะเป็น dataset เทรน pyBKT)
 - ข้อสอบ 1 ข้อ ↔ วัดได้หลายทักษะ ผ่าน `item_skills` = **Q-matrix** (ไม่มีตารางนี้ BKT ไม่รู้จะอัปเดตทักษะไหน)
 - `thai_l1_catalog` (จุดผิดคนไทย 15 KC) โยงเข้า `skills` → ตัวลวงข้อสอบอ้างอิงได้ว่าดักจุดผิดไหน
-- **ทุกกิจกรรมที่ "ทำเป็นรอบ" ลง `sessions` ตารางเดียว** (`kind` แยกชนิด) — micro-check · placement · pre-test · ควิซท้ายหมวด · รอบฝึก · mock · `attempts` แต่ละแถวสังกัดรอบผ่าน `session_id`
+- **ทุกกิจกรรมที่ "ทำเป็นรอบ" ลง `sessions` ตารางเดียว** (`kind` แยกชนิด) — pre-test / post-test · ควิซท้ายหมวด · รอบฝึก · ทวน *(28 ก.ย.: ตัด micro-check/placement · ไม่มี mock ซ้อมแยก)* · `attempts` แต่ละแถวสังกัดรอบผ่าน `session_id`
 - `sessions.attempt_no` + `status` = สิ่งที่ทำให้ QZ-08/09/12 ทำงานได้จริง (คะแนนครั้งที่ดีที่สุด · ทำซ้ำไม่จำกัด · ปลดล็อกควิซถัดไป) และแยก "รอบที่ทิ้งกลางคัน" ออกจากคะแนนทางการ
 - `exam_forms` + `form_items` = ชุดข้อสอบ — บังคับ MK-02 (2 ชุดกันจำข้อ) · PL-07 (pre=post ชุดเดียวกัน) · `locked_until` กันผู้ทดลองเห็นชุด post ก่อนวัดผล
 - **`attempts` อ้างได้ทั้ง 3 ทาง** (`item_id` ข้อสอบที่ตรวจแล้ว · `word_id` ข้อที่ปั้นสดจากคำ · `sentence_id`) — เพราะบัตรคำ/ฝึก/เกมจับคู่/ควิซปั้นข้อสดจากคำ ไม่ได้อ้าง item bank
@@ -432,7 +433,7 @@ erDiagram
 
 **เพิ่ม entity ใหม่ 4 ตัว**
 
-1. **`sessions`** (แทน `mock_exam_sessions`) — ระบบมีเครื่องมือวัด **5 ชนิด** ที่รูปร่างเหมือนกันหมด: micro-check 5 ข้อ (ON-09) · placement 10–15 ข้อ (PL-02) · pre-test ครอบ 5 หมวด (PL-08) · ควิซท้ายหมวด (QZ-01) · mock 40 ข้อ (MK-01) — แต่ผังเดิมสร้างที่เก็บให้ตัวเดียว · **⚠️ PL-03 ระบุชัดว่า "pre-test แรกเข้า ≠ mock เต็ม 200" แต่ผังเดิมจับ pre-test ยัดลง `mock_exam_sessions(kind=pre)`** — แยกเป็นคนละ `kind` แล้ว
+1. **`sessions`** (แทน `mock_exam_sessions`) — ระบบมีรอบ **3 ชนิด** ที่รูปร่างเหมือนกันหมด (ปรับ 28 ก.ย.): pre/post = ข้อสอบจำลอง HSK1 ชุดเดียว (PL-08/PL-09) · ควิซท้ายหมวด (QZ-01) · รอบฝึก/ทวน — ~~micro-check 5 ข้อ (ON-09) · placement 10–15 ข้อ (PL-02)~~ ตัด 28 ก.ย. ใช้คะแนน pre แทน — แต่ผังเดิมสร้างที่เก็บให้ตัวเดียว · **⚠️ PL-03 ระบุชัดว่า "pre-test แรกเข้า ≠ mock เต็ม 200" แต่ผังเดิมจับ pre-test ยัดลง `mock_exam_sessions(kind=pre)`** — แยกเป็นคนละ `kind` แล้ว
 2. **`exam_forms` + `form_items`** — MK-02 (mock 2 ชุด) · PL-07 (pre=post ชุดเดียวกัน) · โฟลว์ §7-3 ("ชุด post ล็อกจนถึงวันวัดผล") ทั้งสามกฎต้องรู้ว่าข้อไหนสังกัดชุดไหน ซึ่งเดิมบังคับไม่ได้เลย
 3. **`foundation_progress`** — โมดูล 0 ทั้งโมดูลไม่มี entity สักตัว ทั้งที่ PA-01 มีประตู 80% และ PA-08 นับ "ไม่ผ่านครบ 3 รอบ"
 4. **`recommendations`** — BK-03 จ่าย drill อัตโนมัติ · จำเป็นกับเล่ม เพราะ ablation พิสูจน์แค่ว่าโมเดลแม่นขึ้น ไม่ได้พิสูจน์ว่าการวินิจฉัย Thai-L1 เปลี่ยนพฤติกรรมผู้เรียนจริง
