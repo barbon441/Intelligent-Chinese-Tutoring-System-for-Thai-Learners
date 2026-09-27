@@ -4,6 +4,7 @@
 #   ③ ER-ฉบับย่อ-星航.drawio    (`--slim`) — หัวตาราง + คีย์เท่านั้น ตามที่อาจารย์สั่งนัดรอบ 5 (24 ส.ค.)
 #      ⚠️ ไฟล์นี้บอลจัด layout มือ — ห้ามรัน --slim ทับโดยไม่ถามบอล (สำรองก่อนเสมอ)
 #   ④ ER-เดินตามผู้ใช้-星航.drawio (`--story`) — แผ่นเดียว 7 คอลัมน์เรียงตามที่อาจารย์ไล่ (นัดรอบ 6 · บอลเคาะ 23 ก.ย.)
+#      v2 28 ก.ย.: 2 แถว (บน = ก้าวผู้ใช้ · ล่าง = สมอง BKT) + router เดินเส้นในร่อง/ราง ไม่พาดทับกล่อง — บอลสั่ง "วาดตามที่อาจารย์แนะนำ"
 #      ตัดคอลัมน์ที่ไม่ใช่ PK/FK/UK ออก → กล่องเตี้ยลงมาก เส้นไม่ก่ายกัน ใช้อธิบาย/ใส่โปสเตอร์ได้
 #      ไม่ได้แยกไฟล์ SQL ต่างหาก เพราะจะกลายเป็นแหล่งจริงแหล่งที่สองแล้วขัดกันเองในที่สุด
 # เหตุผล: ปัญหาที่กัดทีมมาตลอดคือ "ผังกับ DDL ไม่ตรงกัน" (20 ส.ค. ไล่ตรวจเจอไม่ตรง 6 จุด)
@@ -243,108 +244,284 @@ if SLIM:
 
 
 
-    # ---------- โหมด --story: ผังแผ่นเดียว เรียงตามที่อาจารย์ไล่ (บอลเคาะ 23 ก.ย. หลังนัดรอบ 6) ----------
-    # "สมัครใช่ไหม ก็เก็บตารางนี้ → ต่อไปสอบ pre-test ต้องมีตารางออกมาอีก สอบเสร็จเก็บไว้ไหน → หมวดหมู่..."
-    # คอลัมน์ = ก้าวของผู้ใช้ · หัวคอลัมน์มีบทพูด · ยอมให้เส้นตัดกันเพิ่ม แลกกับชี้เล่าซ้าย→ขวาได้ (สีเส้น = ตารางแม่)
-    STORY_ZONES = [
-        ("① สมัครใช้งาน", "โปรไฟล์ 1 แถว · id ถูกยืมไปทุกตารางฝั่งประวัติ",
-         ["users"]),
-        ("② ทำ pre-test", "ชุดข้อสอบ → สารบัญ → ข้อ · ผลการทำเก็บที่ sessions (ใคร ชุดไหน คะแนน)",
-         ["exam_forms", "form_items", "items", "item_skills", "sessions"]),
-        ("③ ตอบทีละข้อ", "1 คำตอบ = 1 แถว ชี้รอบ/ข้อ/คำ/ประโยค/ทักษะ · ห้ามแก้ห้ามลบ",
-         ["attempts"]),
-        ("④ เรียนตามหมวด", "คน×หมวด → คำ → นัดทวน · ประโยค → ส่วนผสม → คน×ประโยค",
-         ["categories", "category_progress", "words", "review_states",
-          "sentences", "sentence_words", "sentence_states"]),
-        ("⑤ ปูพื้นฐานเสียง", "หลักสูตร → บทเรียน / คู่เสียง · สมุดพกรายคน",
-         ["foundation_stages", "foundation_lessons", "minimal_pairs", "foundation_progress"]),
-        ("⑥ สมอง (BKT)", "เทรน → ค่ากลางประจำหน่วยความรู้ → ความแม่นรายคน · จุดผิดคนไทย",
-         ["bkt_training_runs", "skills", "thai_l1_catalog", "mastery_snapshots"]),
-        ("หลังบ้าน", "เครื่องมือทีม (นอกเรื่องเล่า)",
-         ["approval_transfers", "roadmap_state"]),
+    # ---------- โหมด --story (v2 · 28 ก.ย. บอลสั่ง "วาดตามที่อาจารย์แนะนำ") ----------
+    # อาจารย์: รอบ 5 "เหลือแต่หัวกับคีย์ · เส้นพันกันอ่านไม่รู้เรื่อง · เล่าตามที่ผู้ใช้ใช้จริง" · รอบ 6 "แผ่นเดียว ไล่ ①→⑥"
+    # แถวบน  = เส้นทางผู้ใช้ ①→⑤ + หลังบ้าน (คอลัมน์ = ก้าว · ④ แยกฝั่งคำ | ฝั่งประโยค)
+    # แถวล่าง = ⑥ สมอง (BKT) วางใต้ ②–④ → เส้นแดงจาก skills ชี้ขึ้นสั้น ๆ แทนที่จะลากย้อนข้ามทั้งแผ่น
+    # router: ทุกเส้นเดินในร่องว่างระหว่างคอลัมน์ + ราง 2 เส้น (บนสุด / ระหว่างแถว) เลือกทางที่ "ชนกล่อง 0" ก่อน แล้วค่อยสั้นสุด
+    #         เส้นไกลอยู่รางบน/ร่องด้านนอก เส้นใกล้อยู่ด้านใน → ลดจุดตัด
+    STORY_LAYOUT = [
+        # (หัวโซน, คำบรรยาย, แถว, [(ดัชนีคอลัมน์, [ตาราง…]), …])
+        ("① สมัครใช้งาน", "โปรไฟล์ 1 แถว · id ถูกยืมไปทุกตารางฝั่งประวัติ (เส้นน้ำเงินวิ่งบนราง)", "A",
+         [(0, ["users"])]),
+        ("② ทำ pre-test", "ชุดข้อสอบ → สารบัญ → ข้อ → Q-matrix · ผลการทำเก็บที่ sessions (ใคร ชุดไหน pre/post คะแนน)", "A",
+         [(1, ["exam_forms", "form_items", "items", "item_skills", "sessions"])]),
+        ("③ ตอบทีละข้อ", "1 คำตอบ = 1 แถว ชี้รอบ/ข้อ/คำ/ประโยค/ทักษะ · ห้ามแก้ห้ามลบ", "A",
+         [(2, ["attempts"])]),
+        ("④ เรียนตามหมวด", "ฝั่งคำ: หมวด → คน×หมวด → คำ → นัดทวน  |  ฝั่งประโยค: ประโยค → ส่วนผสม → คน×ประโยค", "A",
+         [(3, ["categories", "category_progress", "words", "review_states"]),
+          (4, ["sentences", "sentence_words", "sentence_states"])]),
+        ("⑤ ปูพื้นฐานเสียง", "หลักสูตร → บทเรียน / คู่เสียง · สมุดพกรายคน", "A",
+         [(5, ["foundation_stages", "foundation_lessons", "minimal_pairs", "foundation_progress"])]),
+        ("หลังบ้าน", "เครื่องมือทีม (นอกเรื่องเล่า)", "A",
+         [(6, ["approval_transfers", "roadmap_state"])]),
+        ("⑥ สมอง (BKT)", "เทรน → ค่ากลางประจำหน่วยความรู้ (skills = KC ~23 ตัว ไม่ใช่ ฟัง/พูด/อ่าน/เขียน) → ความแม่นรายคน · จุดผิดคนไทย", "B",
+         [(1, ["bkt_training_runs"]), (2, ["skills"]), (3, ["thai_l1_catalog", "mastery_snapshots"])]),
     ]
+    STORY_ZONES = [(h, c, [n for _, ns in cols for n in ns]) for h, c, _r, cols in STORY_LAYOUT]
     _story_names = {n for _, _, ns in STORY_ZONES for n in ns}
     _missing = {n for n, _ in tables} - _story_names
     if STORY and _missing:
         print("⚠️ STORY ยังไม่ครอบตาราง:", _missing); sys.exit(1)
 
-    def render_story_page(title, zones, pid):
-        LEFT_S = 150
-        names = [n for _, _, ns in zones for n in ns]
+    def render_story_page(title, layout, pid):
+        LEFT_S, TOP_A, BUS_TOP, BUS_GAP = 150, 214, 164, 130
+        colx = lambda i: LEFT_S + i * (SW + CHAN)
+        chx = lambda k: colx(k) - CHAN / 2               # กึ่งกลางร่องซ้ายของคอลัมน์ k
+        names = [n for _, _, _, cols in layout for _, ns in cols for n in ns]
         links = [(c, p, col) for c, p, col in fks if c in names and p in names and c != p]
-        geo, cells_, max_y = {}, [], 0
-        for ci, (hdr, cap, ns) in enumerate(zones):
-            x = LEFT_S + ci * (SW + CHAN)
+        geo, cells_ = {}, []
+
+        def place(row, y0):
+            maxy = y0
+            for _h, _c, r, cols in layout:
+                if r != row:
+                    continue
+                for ci, ns in cols:
+                    y = y0
+                    for name in ns:
+                        h = HDR2 + ROW_H * len(by_name[name])
+                        geo[name] = [colx(ci), y, SW, h, ci, row]
+                        y += h + ROW_GAP
+                    maxy = max(maxy, y - ROW_GAP)
+            return maxy
+
+        bottom_a = place("A", TOP_A)
+        TOP_B = bottom_a + BUS_GAP
+        BUS_MID = bottom_a + 22
+        bottom_b = place("B", TOP_B)
+
+        for name, (x, y, w, h, ci, row) in geo.items():
+            style = ("swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;"
+                     "startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;"
+                     "collapsible=0;rounded=1;arcSize=4;" + (GREEN if name in LIVE else BLUE))
+            cells_.append(f'<mxCell id="{pid}_{name}" value="{name}" style="{style}" vertex="1" parent="1">'
+                          f'<mxGeometry x="{int(x)}" y="{int(y)}" width="{SW}" height="{h}" as="geometry"/></mxCell>')
+            for ri, (col_, typ, tag, _n) in enumerate(by_name[name]):
+                label = html.escape(f"{col_} : {typ}{tag}")
+                cells_.append(
+                    f'<mxCell id="{pid}_{name}_r{ri}" value="{label}" style="text;strokeColor=none;'
+                    f'fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;'
+                    f'overflow=hidden;whiteSpace=wrap;html=1;fontSize=11;{"fontStyle=1;" if tag else ""}" '
+                    f'vertex="1" parent="{pid}_{name}">'
+                    f'<mxGeometry y="{HDR2 + ROW_H*ri}" width="{SW}" height="{ROW_H}" as="geometry"/></mxCell>')
+        for zi, (hdr, cap, row, cols) in enumerate(layout):
+            c0, c1 = cols[0][0], cols[-1][0]
+            x, wz = colx(c0), (c1 - c0 + 1) * (SW + CHAN) - CHAN
+            y = (TOP_A - 140) if row == "A" else (TOP_B - 74)
             cells_.append(
-                f'<mxCell id="{pid}_z{ci}" value="&lt;b&gt;{html.escape(hdr)}&lt;/b&gt;&lt;br&gt;'
+                f'<mxCell id="{pid}_z{zi}" value="&lt;b&gt;{html.escape(hdr)}&lt;/b&gt;&lt;br&gt;'
                 f'&lt;span style=&quot;font-size:11px;color:#555&quot;&gt;{html.escape(cap)}&lt;/span&gt;" '
                 'style="text;html=1;align=left;verticalAlign=top;fontSize=14;fontColor=#1f6f9f;whiteSpace=wrap;" '
-                f'vertex="1" parent="1"><mxGeometry x="{x}" y="{TOP2 - 30}" width="{SW}" height="66" as="geometry"/></mxCell>')
-            y = TOP2 + 50
-            for name in ns:
-                cs = by_name[name]
-                h = HDR2 + ROW_H * len(cs)
-                geo[name] = (x, y, h)
-                style = ("swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;"
-                         "startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;"
-                         "collapsible=0;rounded=1;arcSize=4;" + (GREEN if name in LIVE else BLUE))
-                cells_.append(
-                    f'<mxCell id="{pid}_{name}" value="{name}" style="{style}" vertex="1" parent="1">'
-                    f'<mxGeometry x="{x}" y="{y}" width="{SW}" height="{h}" as="geometry"/></mxCell>')
-                for ri, (col_, typ, tag, _n) in enumerate(cs):
-                    label = html.escape(f"{col_} : {typ}{tag}")
-                    cells_.append(
-                        f'<mxCell id="{pid}_{name}_r{ri}" value="{label}" style="text;strokeColor=none;'
-                        f'fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;'
-                        f'overflow=hidden;whiteSpace=wrap;html=1;fontSize=11;'
-                        f'{"fontStyle=1;" if tag else ""}" vertex="1" parent="{pid}_{name}">'
-                        f'<mxGeometry y="{HDR2 + ROW_H*ri}" width="{SW}" height="{ROW_H}" as="geometry"/></mxCell>')
-                y += h + ROW_GAP
-                max_y = max(max_y, y)
-        edges_, seen, lane = [], set(), {}
-        for i, (child, parent, _c) in enumerate(links):
-            if (child, parent) in seen:
-                continue
-            seen.add((child, parent))
-            px, py, ph = geo[parent]; cx, cy, ch = geo[child]
-            if px < cx:
-                ex, en, wx = 1, 0, (px + SW + cx) / 2
-            elif px > cx:
-                ex, en, wx = 0, 1, (cx + SW + px) / 2
+                f'vertex="1" parent="1"><mxGeometry x="{int(x)}" y="{int(y)}" width="{int(wz)}" height="62" as="geometry"/></mxCell>')
+
+        boxes = {n: g[:4] for n, g in geo.items()}
+
+        def hits(a, b, skip):
+            xa, xb = sorted((a[0], b[0])); ya, yb = sorted((a[1], b[1]))
+            return sum(1 for nm, (bx, by, bw, bh) in boxes.items()
+                       if nm not in skip and xa < bx + bw - 1 and xb > bx + 1 and ya < by + bh - 1 and yb > by + 1)
+
+        uniq, seen = [], set()
+        for child, parent, _c in links:
+            if (child, parent) not in seen:
+                seen.add((child, parent)); uniq.append((parent, child))
+        side, reach = {}, {}
+        for P, C in uniq:
+            pc, pr, cc, cr = geo[P][4], geo[P][5], geo[C][4], geo[C][5]
+            reach[(P, C)] = abs(cc - pc) + (0.5 if pr != cr else 0)
+            if pc == cc and pr != cr:
+                side[(P, C)] = ("top", "bottom") if geo[P][1] > geo[C][1] else ("bottom", "top")
+            elif pc == cc:
+                side[(P, C)] = ("left", "left")
+            elif cc > pc:
+                side[(P, C)] = ("right", "left")
             else:
-                lane[px] = lane.get(px, 0) + 1
-                ex, en, wx = 0, 0, px - 28 - 22 * lane[px]
+                side[(P, C)] = ("left", "right")
+        port, groups = {}, {}
+        for P, C in uniq:
+            es, en = side[(P, C)]
+            groups.setdefault((P, es), []).append(((P, C), geo[C][1] + geo[C][4] * 2000))
+            groups.setdefault((C, en), []).append(((P, C), geo[P][1] + geo[P][4] * 2000))
+        for (box, sd), lst in groups.items():
+            lst.sort(key=lambda t: t[1])
+            n = len(lst)
+            for i, (key, _y) in enumerate(lst):
+                port[(key, box)] = 0.5 if n == 1 else 0.22 + 0.56 * i / (n - 1)
+
+        def anchor(box, sd, f):
+            x, y, w, h = boxes[box]
+            if sd == "left":   return (x, y + f * h, 0.0, f)
+            if sd == "right":  return (x + w, y + f * h, 1.0, f)
+            if sd == "top":    return (x + f * w, y, f, 0.0)
+            return (x + f * w, y + h, f, 1.0)
+
+        # ผ่าน 3: เลือกทางเดินของแต่ละเส้น (ยังไม่เหลื่อมร่อง)
+        routed, box_hits = [], 0
+        for P, C in uniq:
+            es, en = side[(P, C)]
+            ax, ay, exX, exY = anchor(P, es, port[((P, C), P)])
+            bx_, by_, enX, enY = anchor(C, en, port[((P, C), C)])
+            pc, cc = geo[P][4], geo[C][4]
+            cands = []
+            if es in ("top", "bottom"):
+                bx_, enX = ax, (ax - boxes[C][0]) / boxes[C][2]
+                cands = [("V", [(ax, ay), (bx_, by_)], [])]
+            elif es == "left" and en == "left":                # คอลัมน์เดียวกัน → วนร่องแคบชิดคอลัมน์ (แยกจากร่องทางผ่าน)
+                x = colx(pc) - 16
+                cands.append(("L", [(ax, ay), (x, ay), (x, by_), (bx_, by_)], [("loop", pc, (1, 2))]))
+            else:
+                right = cc > pc
+                chP = pc + 1 if right else pc
+                chC = cc if right else cc + 1
+                cands.append(("A", [(ax, ay), (chx(chP), ay), (chx(chP), by_), (bx_, by_)], [("ch", chP, (1, 2))]))
+                cands.append(("B", [(ax, ay), (chx(chC), ay), (chx(chC), by_), (bx_, by_)], [("ch", chC, (1, 2))]))
+                for bus_name, bus_y in (("top", BUS_TOP), ("mid", BUS_MID)):
+                    cands.append((bus_name[0].upper(),
+                                  [(ax, ay), (chx(chP), ay), (chx(chP), bus_y), (chx(chC), bus_y), (chx(chC), by_), (bx_, by_)],
+                                  [("ch", chP, (1, 2)), ("bus", bus_name, (2, 3)), ("ch", chC, (3, 4))]))
+            best = None
+            for kind, pts, uses in cands:
+                coll = sum(hits(pts[j], pts[j + 1], {P, C}) for j in range(len(pts) - 1))
+                length = sum(abs(pts[j][0] - pts[j + 1][0]) + abs(pts[j][1] - pts[j + 1][1]) for j in range(len(pts) - 1))
+                score = (coll, 0 if kind in ("A", "B", "V", "L") else 1, length)
+                if best is None or score < best[0]:
+                    best = (score, kind, pts, uses)
+            score, kind, pts, uses = best
+            box_hits += score[0]
+            routed.append({"key": (P, C), "kind": kind, "pts": [list(p) for p in pts], "uses": uses,
+                           "ex": (exX, exY), "en": (enX, enY), "right": cc >= pc})
+
+        # ผ่าน 4: จัดร่อง/ราง — เริ่มจาก "เส้นไกลอยู่นอก/บน" แล้วสลับลำดับข้างเคียงไปเรื่อย ๆ จนจุดตัดรวมไม่ลดอีก
+        base = {ri_: [list(p) for p in r["pts"]] for ri_, r in enumerate(routed)}
+        usage = {}
+        for ri_, r in enumerate(routed):
+            for u in r["uses"]:
+                usage.setdefault((u[0], u[1]), []).append((ri_, u[2]))
+        for (ukind, ukey), lst in usage.items():
+            lst.sort(key=lambda t: -reach[routed[t[0]]["key"]])
+
+        def cross(s, t):
+            (x1, y1), (x2, y2) = s; (x3, y3), (x4, y4) = t
+            v1, v2 = abs(x1 - x2) < 0.5, abs(x3 - x4) < 0.5
+            if v1 == v2:
+                return False
+            if v2:
+                (x1, y1), (x2, y2), (x3, y3), (x4, y4) = (x3, y3), (x4, y4), (x1, y1), (x2, y2)
+            return min(x3, x4) < x1 < max(x3, x4) and min(y1, y2) < y3 < max(y1, y2)
+
+        def apply_offsets():
+            for ri_, r in enumerate(routed):
+                r["pts"] = [list(p) for p in base[ri_]]
+            for (ukind, ukey), lst in usage.items():
+                n = len(lst)
+                if ukind == "bus":
+                    step = 7
+                elif ukind == "loop":
+                    step = 9
+                else:
+                    step = min(11, 80 / max(n - 1, 1))
+                for li, (ri_, (i1, i2)) in enumerate(lst):
+                    pts = routed[ri_]["pts"]
+                    if ukind == "bus":
+                        off = step * (li - (n - 1) / 2); pts[i1][1] += off; pts[i2][1] += off
+                    elif ukind == "loop":
+                        off = -step * li; pts[i1][0] += off; pts[i2][0] += off
+                    else:
+                        off = step * (li - (n - 1) / 2); pts[i1][0] += off; pts[i2][0] += off
+
+        def total_crossings():
+            segs = [[(tuple(r["pts"][j]), tuple(r["pts"][j + 1])) for j in range(len(r["pts"]) - 1)] for r in routed]
+            n = 0
+            for a in range(len(segs)):
+                for b in range(a + 1, len(segs)):
+                    for s in segs[a]:
+                        for t in segs[b]:
+                            if cross(s, t):
+                                n += 1
+            return n
+
+        apply_offsets(); best_x = total_crossings()
+        for _sweep in range(6):
+            improved = False
+            for key_, lst in usage.items():
+                for i_ in range(len(lst) - 1):
+                    lst[i_], lst[i_ + 1] = lst[i_ + 1], lst[i_]
+                    apply_offsets(); x_ = total_crossings()
+                    if x_ < best_x:
+                        best_x, improved = x_, True
+                    else:
+                        lst[i_], lst[i_ + 1] = lst[i_ + 1], lst[i_]
+            if not improved:
+                break
+        apply_offsets()
+
+        edges_, all_segs, box_hits = [], [], 0          # นับใหม่หลังเหลื่อมร่อง (ต้องยังเป็น 0)
+        for i, r in enumerate(routed):
+            P, C = r["key"]; pts = [tuple(p) for p in r["pts"]]
+            box_hits += sum(hits(pts[j], pts[j + 1], {P, C}) for j in range(len(pts) - 1))
+            all_segs.append(pts)
+            exX, exY = r["ex"]; enX, enY = r["en"]
             style = ("edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;jumpStyle=arc;jumpSize=9;"
-                     f"exitX={ex};exitY=0.5;exitDx=0;exitDy=0;entryX={en};entryY=0.5;entryDx=0;entryDy=0;"
+                     f"exitX={exX:.3f};exitY={exY:.3f};exitDx=0;exitDy=0;entryX={enX:.3f};entryY={enY:.3f};entryDx=0;entryDy=0;"
                      f"startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;"
-                     f"strokeColor={EDGE_COLOR.get(parent, EDGE_DEFAULT)};strokeWidth=1.5;")
+                     f"strokeColor={EDGE_COLOR.get(P, EDGE_DEFAULT)};strokeWidth=1.5;")
+            pts_xml = "".join(f'<mxPoint x="{int(round(x))}" y="{int(round(y))}"/>' for x, y in pts[1:-1])
             edges_.append(
                 f'<mxCell id="{pid}_e{i}" style="{style}" edge="1" parent="1" '
-                f'source="{pid}_{parent}" target="{pid}_{child}">'
-                f'<mxGeometry relative="1" as="geometry"><Array as="points">'
-                f'<mxPoint x="{int(wx)}" y="{int(py + ph/2)}"/></Array></mxGeometry></mxCell>')
+                f'source="{pid}_{P}" target="{pid}_{C}">'
+                f'<mxGeometry relative="1" as="geometry"><Array as="points">{pts_xml}</Array></mxGeometry></mxCell>')
+
+        def cross(s, t):
+            (x1, y1), (x2, y2) = s; (x3, y3), (x4, y4) = t
+            v1, v2 = abs(x1 - x2) < 0.5, abs(x3 - x4) < 0.5
+            if v1 == v2:
+                return False
+            if v2:
+                (x1, y1), (x2, y2), (x3, y3), (x4, y4) = (x3, y3), (x4, y4), (x1, y1), (x2, y2)
+            return min(x3, x4) < x1 < max(x3, x4) and min(y1, y2) < y3 < max(y1, y2)
+        crossings = 0
+        for a in range(len(all_segs)):
+            for b in range(a + 1, len(all_segs)):
+                for j in range(len(all_segs[a]) - 1):
+                    for k in range(len(all_segs[b]) - 1):
+                        if cross((all_segs[a][j], all_segs[a][j + 1]), (all_segs[b][k], all_segs[b][k + 1])):
+                            crossings += 1
+
         head = (f'<mxCell id="{pid}_ttl" value="&lt;b&gt;{html.escape(title)}&lt;/b&gt;&amp;nbsp; '
                 f'&lt;span style=&quot;color:#777&quot;&gt;{len(names)} ตาราง · {len(edges_)} เส้น · '
-                f'เรียงตามที่อาจารย์ไล่ (นัดรอบ 6) · สีเส้น = ตารางแม่ · เขียว = มีจริงใน Supabase แล้ว&lt;/span&gt;" '
+                f'เส้นพาดทับกล่อง {box_hits} · จุดตัด {crossings} · เรียงตามที่อาจารย์ไล่ (นัดรอบ 6) · '
+                f'สีเส้น = ตารางแม่ · เขียว = มีจริงใน Supabase แล้ว&lt;/span&gt;" '
                 'style="text;html=1;align=left;fontSize=15;fontColor=#333333;" vertex="1" parent="1">'
-                f'<mxGeometry x="{LEFT_S}" y="18" width="1600" height="30" as="geometry"/></mxCell>')
+                f'<mxGeometry x="{LEFT_S}" y="18" width="1700" height="30" as="geometry"/></mxCell>')
         parents_here = sorted({p for _c, p, _ in links}, key=lambda p: (p not in EDGE_COLOR, p))
         cells_.append(edge_legend_cell(f"{pid}_lg", parents_here, LEFT_S, 46, 1700))
-        w = LEFT_S + len(zones) * (SW + CHAN) + 40
+        ncol = 1 + max(ci for _, _, _, cols in layout for ci, _ in cols)
+        w = LEFT_S + ncol * (SW + CHAN) + 40
         body = ('      <root>\n        <mxCell id="0"/>\n        <mxCell id="1" parent="0"/>\n        '
                 + head + "\n        " + "\n        ".join(cells_)
                 + ("\n        " + "\n        ".join(edges_) if edges_ else "") + "\n      </root>\n")
         page = (f'  <diagram name="{html.escape(title)}" id="{pid}">\n'
                 f'    <mxGraphModel dx="1018" dy="686" grid="1" gridSize="10" guides="1" tooltips="1" '
-                f'connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="{w}" '
-                f'pageHeight="{int(max_y)+40}" math="0" shadow="0">\n' + body
+                f'connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="{int(w)}" '
+                f'pageHeight="{int(bottom_b)+40}" math="0" shadow="0">\n' + body
                 + "    </mxGraphModel>\n  </diagram>\n")
-        return page, len(names), len(edges_)
+        return page, len(names), len(edges_), box_hits, crossings
 
     if STORY:
-        p, nt, ne = render_story_page("ER — เดินตามผู้ใช้ (แผ่นเดียว)", STORY_ZONES, "story")
+        p, nt, ne, bh, cr = render_story_page("ER — เดินตามผู้ใช้ (แผ่นเดียว)", STORY_LAYOUT, "story")
         io.open(OUT, "w", encoding="utf-8").write('<mxfile host="app.diagrams.net">\n' + p + "</mxfile>\n")
-        print(f"✅ เขียน {OUT}\n   1 หน้า · {nt} ตาราง · {ne} เส้น · 7 คอลัมน์ตามก้าวผู้ใช้")
+        print(f"✅ เขียน {OUT}\n   1 หน้า · {nt} ตาราง · {ne} เส้น · 2 แถว (บน = ก้าวผู้ใช้ · ล่าง = สมอง) · เส้นพาดทับกล่อง {bh} · จุดตัด {cr}")
         sys.exit(0)
 
     pages, report = [], []
