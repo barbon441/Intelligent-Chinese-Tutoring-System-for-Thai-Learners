@@ -3,6 +3,8 @@
 -- 📝 23 ก.ย. (อาจารย์รอบ 6 + บอลเคาะ): +category_progress +sentence_states −recommendations · attempts รองรับพูดตาม (23 ตาราง → 24)
 -- 📝 28 ก.ย. (บอลเคาะ): sessions.kind + attempts.context เพิ่มค่า posttest — post ใช้ชุดเดียวกับ pre (PL-09) แต่แยก kind
 --    เพื่อให้ "คนนี้สอบ post แล้วหรือยัง" ตอบได้ช่องเดียว (อาจารย์รอบ 6 ถาม: "ตารางไหนบอกว่ารอบนี้คือ pre หรือ post")
+-- 📝 8 ต.ค.: รีวิว migration แล้วปรับต้นทางให้ตรง — users ไม่ผูก FK auth.users · UNIQUE(code,version) · NOT NULL 4 ช่อง · numeric แทน real ที่เกณฑ์ผ่าน · CHECK asr_hint · target_level/self_level
+-- 📝 7 ต.ค.: มี migration รันได้จริงแล้วที่ supabase/migrations/ (สคริปต์ scripts/db_migrate.py) — แก้โครงที่นี่ก่อน แล้วค่อยออก migration ใหม่ให้ตรงกัน (อาจารย์รอบ 7)
 -- 📝 28 ก.ย. (บอลเคาะ): ตัดชุดวัดระดับ (PL-02) + แบบทดสอบสั้น 5 ข้อ (ON-09) → ทุกคนทำ pre แล้วใช้คะแนนตัดสินจุดเริ่ม (PL-05)
 --    +users.self_level (คำตอบ ③) · ไม่มี mock ซ้อมแยก (MK-02 ชุดเดียว) · exam_forms เหลือชุดวิจัยชุดเดียว
 --   เพิ่ม `--slim` = สร้างผังฉบับย่อ (หัวตาราง + คีย์) ลง ER-ฉบับย่อ-星航.drawio
@@ -32,7 +34,7 @@ CREATE TABLE words (
   meaning_th text,
   th_reviewed boolean NOT NULL,    -- มีจริงวันนี้ · เก็บไว้เพื่อ backward-compat
   review_status text,              -- (แผน m7-2) STATUS5 — boolean แทน "รอตรวจ" ของโฟลว์ 4.1 ไม่ได้
-  reviewed_by uuid,                -- (แผน m7-2) CG-01 บังคับว่าคำแปลต้องผ่านหฤทัย — ต้องรู้ว่าใครตรวจ
+  reviewed_by uuid REFERENCES users(id),  -- (แผน m7-2) CG-01 บังคับว่าคำแปลต้องผ่านหฤทัย — ต้องรู้ว่าใครตรวจ
   reviewed_at timestamptz,         -- (แผน m7-2)
   hsk_level integer NOT NULL,
   category smallint REFERENCES categories(id),  -- (แผน m7-2) วันนี้ใน DB จริงยังเป็นเลขลอย ๆ 1-5 ไม่มี constraint ·
@@ -49,7 +51,7 @@ CREATE TABLE words (
 CREATE TABLE roadmap_state (
   item_id text PRIMARY KEY,
   done boolean NOT NULL,
-  updated_by uuid,                 -- (แผน m7-1) RO-04 จะจำกัดสิทธิ์เขียนเฉพาะแอดมิน — ต้องรู้ว่าใครติ๊ก
+  updated_by uuid REFERENCES users(id),   -- (แผน m7-1) RO-04 จะจำกัดสิทธิ์เขียนเฉพาะแอดมิน — ต้องรู้ว่าใครติ๊ก
   updated_at timestamptz NOT NULL
 );
 
@@ -74,16 +76,16 @@ CREATE TABLE categories (
 -- anonymized_at   = ทางลงของ ON-05: ล้าง PII ในแถวนี้ แต่คง id ไว้ → attempts ยัง append-only ครบ FK ไม่พัง
 --   ⚠️ อีเมลอยู่ใน auth.users ของ Supabase (คนละตาราง) — ขั้นตอนลบต้องล้างทั้งสองที่
 CREATE TABLE users (
-  id uuid PRIMARY KEY,
+  id uuid PRIMARY KEY,             -- = auth.users.id · ไม่ผูก FK กับ auth.users: ON-05 ลบบัญชี auth ได้โดยคงแถวนี้แบบนิรนาม (attempts ไม่พัง)
   display_name text,
   role text NOT NULL,              -- learner | admin | approver  (RO-02/RO-03)
   pdpa_consent_at timestamptz,
   consent_version text,            -- ฉบับของข้อความ consent ที่ยอมรับ (ON-05)
-  target_level integer,
+  target_level integer,            -- ON-02 ①: 1=HSK1 · 2=HSK2 · 0=ยังไม่คิดเรื่องสอบ · null=ข้ามคำถาม
   exam_date date,
-  self_level text,                 -- ON-02 ③ อ่านตัวจีนออกไหม: cant_read | some_basics | unsure — ใช้คู่กับคะแนน pre ตัดสินจุดเริ่ม (PL-05 · เพิ่ม 28 ก.ย.)
+  self_level text,                 -- ON-02 ③ อ่านตัวจีนออกไหม: cant_read | some_basics | studied_before | unsure — ใช้คู่กับคะแนน pre ตัดสินจุดเริ่ม (PL-05 · เพิ่ม 28 ก.ย.) · studied_before = ตัวเลือกที่ 3 ของ ON-02 (❓ รอเคาะว่าคงไว้)
   audio_rate real,
-  pinyin_hidden boolean,           -- ค่าตั้งซ่อนพินอิน (m1-6 "จำค่าไว้")
+  pinyin_hidden boolean NOT NULL,  -- ค่าตั้งซ่อนพินอิน (m1-6 "จำค่าไว้") · default false
   cohort text,                     -- 'trial' | 'team' | null — ME-02
   trial_started_at timestamptz,
   anonymized_at timestamptz,       -- ถอนความยินยอมแล้ว (ON-05)
@@ -117,7 +119,7 @@ CREATE TABLE skills (
   id bigint PRIMARY KEY,
   code text NOT NULL UNIQUE,
   name_th text NOT NULL,
-  type text NOT NULL,              -- vocab | grammar | tone | consonant | thai_l1
+  type text NOT NULL,              -- thai_l1 (จุดผิดคนไทย 15) | vocab (ศัพท์รายหมวด 5) | skill (ฟัง/อ่าน/เรียงประโยค 3) · สำรอง: grammar | tone | consonant
   hsk_level integer NOT NULL,
   bkt_prior real,                  -- [cache]
   bkt_learn real,                  -- [cache]
@@ -135,8 +137,8 @@ CREATE TABLE foundation_stages (
   code text PRIMARY KEY,           -- intro | pinyin | tones | ear_game | reference
   name_th text NOT NULL,
   position smallint NOT NULL,
-  pass_threshold real,             -- PA-01: ด่าน ear_game ผ่านที่ ~0.80 · ด่านอ่านอย่างเดียว = null
-  soft_gate_after_tries smallint   -- PA-08: ไม่ผ่านครบกี่รอบถึงเปิด "ประตูนุ่ม" (ข้อเสนอ 3)
+  pass_threshold numeric,          -- PA-01: ด่าน ear_game ผ่านที่ 0.80 · ด่านอ่านอย่างเดียว = null · numeric ไม่ใช่ real (0.8 ต้องเท่ากับ 0.80 เป๊ะ)
+  soft_gate_after_tries smallint   -- PA-08: ไม่ผ่านครบกี่รอบถึงเปิด "ประตูนุ่ม" (ข้อเสนอ 3 — ยังไม่เคาะ · เป็น data แก้ได้ไม่ต้อง deploy)
 );
 
 -- ชุดข้อสอบ (MK-02 มี 2 ชุด · PL-07 pre=post ใช้ชุดเดียวกัน · โฟลว์ §7-3 ล็อกชุด post)
@@ -146,8 +148,8 @@ CREATE TABLE foundation_stages (
 --   กติกา: published_at IS NOT NULL = ห้ามแก้ form_items ของชุดนี้เด็ดขาด ต้องออก version ใหม่แทน
 CREATE TABLE exam_forms (
   id bigint PRIMARY KEY,
-  code text NOT NULL UNIQUE,       -- 'HSK1-PREPOST-A' — ชุดวิจัยชุดเดียว ใช้ทั้ง pre/post (28 ก.ย.: ไม่มีชุดวัดระดับ / micro-check / mock ซ้อมแยก)
-  version smallint NOT NULL,
+  code text NOT NULL,              -- 'HSK1-PREPOST-A' — ชุดวิจัยชุดเดียว ใช้ทั้ง pre/post (28 ก.ย.: ไม่มีชุดวัดระดับ / micro-check / mock ซ้อมแยก)
+  version smallint NOT NULL,       -- UNIQUE (code, version): ออกชุดใหม่ = code เดิม version +1 (กฎแช่แข็งบรรทัดบน)
   name_th text NOT NULL,
   kind text NOT NULL,              -- pretest (ชุดวิจัย pre=post) | mock (สงวนไว้ ยังไม่ใช้) · 28 ก.ย. ตัด placement/micro_check
   hsk_level integer NOT NULL,
@@ -155,14 +157,15 @@ CREATE TABLE exam_forms (
   time_limit_s integer,
   locked_until date,               -- ชุด post ห้ามเสิร์ฟจนถึงวันวัดผล
   published_at timestamptz,        -- แช่แข็งแล้ว ห้ามแก้เนื้อในอีก
-  research_use_only boolean,       -- true = ใช้ได้แค่ pre กับ post เท่านั้น (มติ pre=post ชุดเดียว)
+  research_use_only boolean NOT NULL,  -- true = ใช้ได้แค่ pre กับ post เท่านั้น (มติ pre=post ชุดเดียว) · migration: CHECK kind='pretest' → true เสมอ
                                    -- บังคับ 2 อย่าง: ห้ามเสิร์ฟชุดนี้ในโหมดฝึก
                                    -- และข้อใน form_items ของชุดนี้ห้ามถูกสุ่มเข้าควิซท้ายหมวด
                                    -- ไม่มีข้อนี้ = ผู้เรียนเจอข้อเดิมซ้ำตลอด 10 วันจากการฝึกปกติ
                                    -- → คะแนน post เฟ้อเพราะจำข้อ ไม่ใช่เพราะเก่งขึ้น (practice effect)
   status text NOT NULL,            -- STATUS5
   created_at timestamptz NOT NULL,
-  updated_at timestamptz
+  updated_at timestamptz,
+  UNIQUE (code, version)
 );
 
 -- category   = ต้องมี ไม่งั้น QZ-01 "สุ่ม 10 ข้อจาก item bank ของหมวดนั้น" ทำไม่ได้
@@ -193,7 +196,7 @@ CREATE TABLE items (
 
 -- Q-matrix — ไม่มีตารางนี้ BKT ไม่รู้จะอัปเดตทักษะไหน (BK-02)
 CREATE TABLE item_skills (
-  item_id bigint NOT NULL REFERENCES items(id),
+  item_id bigint NOT NULL REFERENCES items(id),   -- migration: ON DELETE CASCADE (ลบข้อแล้วแผนที่ทักษะหายตาม)
   skill_id bigint NOT NULL REFERENCES skills(id),
   PRIMARY KEY (item_id, skill_id)
 );
@@ -201,7 +204,7 @@ CREATE TABLE item_skills (
 -- ข้อไหนอยู่ชุดไหน + ลำดับข้อในชุด (M:N — ข้อเดียวอยู่ได้หลายชุด เช่น pre=post)
 -- migration ต้องเพิ่ม: UNIQUE (form_id, position)  ← กันข้อซ้ำตำแหน่งในชุดเดียวกัน
 CREATE TABLE form_items (
-  form_id bigint NOT NULL REFERENCES exam_forms(id),
+  form_id bigint NOT NULL REFERENCES exam_forms(id),   -- migration: ON DELETE CASCADE · trigger แช่แข็งเมื่อ published หรือมีคนทำแล้ว (MK-02)
   item_id bigint NOT NULL REFERENCES items(id),
   position smallint NOT NULL,
   PRIMARY KEY (form_id, item_id)
@@ -227,7 +230,7 @@ CREATE TABLE sentences (
 -- M:N ประโยค ↔ คำ — ตัวจริงของ "ประโยคนี้ใช้คำอะไร ลำดับไหน"
 -- บังคับกฎ PA-07 "ใช้เฉพาะคำที่เรียนแล้ว" + RO-02 (เตือนก่อนลบคำที่ถูกอ้างอยู่)
 CREATE TABLE sentence_words (
-  sentence_id bigint NOT NULL REFERENCES sentences(id),
+  sentence_id bigint NOT NULL REFERENCES sentences(id),   -- migration: ON DELETE CASCADE
   word_id bigint NOT NULL REFERENCES words(id),
   position smallint NOT NULL,
   PRIMARY KEY (sentence_id, word_id, position)
@@ -286,10 +289,10 @@ CREATE TABLE sessions (
   form_id bigint REFERENCES exam_forms(id),    -- null = ชุดที่ระบบสุ่มสด (quiz/practice)
   category smallint REFERENCES categories(id), -- null สำหรับ pretest/posttest
   mode text,                       -- โหมดฝึก: listen|read|order|match (null ถ้าเป็นโหมดสอบ)
-  attempt_no smallint NOT NULL,    -- [cache] ครั้งที่เท่าไหร่ของ (user, kind, category) — QZ-09
+  attempt_no smallint NOT NULL,    -- [cache] ครั้งที่เท่าไหร่ของ (user, kind, category) — QZ-09 · migration: trigger เติมเองตอน insert (client ไม่ต้องนับ)
   started_at timestamptz NOT NULL,
   finished_at timestamptz,
-  status text NOT NULL,            -- running | done | abandoned (โฟลว์ §7-2: ค้าง >10 นาที = ทิ้งรอบ)
+  status text NOT NULL,            -- running | done | abandoned (โฟลว์ §7-2: ค้าง >10 นาที = ทิ้งรอบ) · migration: done/abandoned = ปลายทาง แก้กลับไม่ได้ · finished_at เติมอัตโนมัติ
   total integer,                   -- [cache] นับจาก attempts ได้
   score integer,                   -- [cache]
   score_listening integer,         -- pre/post: ฟัง 100
@@ -346,9 +349,11 @@ CREATE TABLE attempts (
   context text NOT NULL            -- practice|review|quiz|pretest|posttest (28 ก.ย. ตัด placement/micro_check · mock สงวนไว้)
   -- migration จริงต้องเพิ่ม:
   --   CHECK (item_id IS NOT NULL OR word_id IS NOT NULL OR sentence_id IS NOT NULL)
-  --   CHECK ((event_type='graded' AND is_correct IS NOT NULL)
-  --       OR (event_type='exposure' AND is_correct IS NULL))
-  --   RLS: user_id = auth.uid() · อนุญาตแค่ SELECT/INSERT (ห้าม UPDATE/DELETE = append-only)
+  --   CHECK ((event_type='graded' AND is_correct IS NOT NULL AND generator <> 'speak_along')
+  --       OR (event_type='exposure' AND is_correct IS NULL)
+  --       OR (event_type='asr_hint' AND is_correct IS NULL AND generator = 'speak_along'))  -- ผล ASR ไม่ตัดสินถูก/ผิด
+  --   RLS: user_id = auth.uid() · อนุญาตแค่ SELECT/INSERT (ห้าม UPDATE/DELETE = append-only) · client จดได้เฉพาะ context practice/review/quiz — pre/post ผ่าน service role (PL-10 §2.7)
+  --   API ต้องใช้ INSERT … ON CONFLICT (client_attempt_id) DO NOTHING (DO UPDATE ชน trigger append-only)
   --   INDEX (user_id, skill_id, answered_at) WHERE event_type='graded'  ← query หลักของ pyBKT
 );
 
@@ -364,8 +369,8 @@ CREATE TABLE review_states (
   elapsed_days integer,
   scheduled_days integer,
   learning_steps smallint,
-  reps integer,
-  lapses integer,
+  reps integer NOT NULL,           -- default 0
+  lapses integer NOT NULL,         -- default 0
   state text,                      -- new | learning | review | relearning
   PRIMARY KEY (user_id, word_id)
 );
@@ -413,7 +418,7 @@ CREATE TABLE foundation_progress (
   user_id uuid NOT NULL REFERENCES users(id),
   stage text NOT NULL REFERENCES foundation_stages(code),
   tries smallint NOT NULL,
-  best_accuracy real,
+  best_accuracy numeric,           -- เทียบกับ foundation_stages.pass_threshold (numeric ทั้งคู่)
   passed_at timestamptz,
   PRIMARY KEY (user_id, stage)
 );

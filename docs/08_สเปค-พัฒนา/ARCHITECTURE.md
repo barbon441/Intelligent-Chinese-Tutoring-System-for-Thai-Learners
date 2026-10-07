@@ -123,7 +123,7 @@ db.version(1).stores({
 | ออนไลน์ | ตอบข้อสอบ → เขียน `pending_attempts` → push ไป `POST /attempts/batch` ทันที → สำเร็จแล้วลบออกจาก outbox |
 | ออฟไลน์ | เก็บลง `pending_attempts` อย่างเดียว · ทวน FSRS ต่อได้ด้วย ts-fsrs ในเครื่อง |
 | กลับมาออนไลน์ | trigger จาก `navigator.onLine` + เปิดแอป → flush outbox เป็น batch (เรียงตาม `answered_at`) |
-| ส่งซ้ำ (retry/หลุดกลางทาง) | server upsert ด้วย `client_attempt_id` เป็น unique key → **idempotent** ไม่เกิด log ซ้ำ |
+| ส่งซ้ำ (retry/หลุดกลางทาง) | server `INSERT … ON CONFLICT (client_attempt_id) DO NOTHING` → **idempotent** ไม่เกิด log ซ้ำ · **ห้าม DO UPDATE** (attempts มี trigger append-only BK-01 — ชนแล้วทั้ง batch ล้ม) |
 | ข้อมูลชนกัน | **attempts เป็น append-only log → ไม่มี conflict จริง** (ไม่มีการแก้แถวเก่า) · ข้อมูลที่คำนวณได้ (mastery, ตาราง FSRS) ใช้ **server-wins**: หลัง sync สำเร็จ ให้ดึงค่า server มาทับค่า local เสมอ |
 
 ---

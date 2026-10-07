@@ -69,7 +69,9 @@ erDiagram
 
 ```mermaid
 erDiagram
+    USERS ||--o{ WORDS : reviewed_by
     CATEGORIES ||--o{ WORDS : category
+    USERS ||--o{ ROADMAP_STATE : updated_by
     BKT_TRAINING_RUNS ||--o{ SKILLS : bkt_run_id
     CATEGORIES ||--o{ ITEMS : category
     USERS ||--o{ ITEMS : created_by
@@ -116,7 +118,7 @@ erDiagram
         text meaning_th
         boolean th_reviewed "มีจริงวันนี้ · เก็บไว้เพื่อ backward-compat"
         text review_status "(แผน m7-2) STATUS5 — boolean แทน รอตรวจ ของโฟลว์ 4.1 ไม่ได้"
-        uuid reviewed_by "(แผน m7-2) CG-01 บังคับว่าคำแปลต้องผ่านหฤทัย — ต้องรู้ว่าใครตรวจ"
+        uuid reviewed_by FK "(แผน m7-2) CG-01 บังคับว่าคำแปลต้องผ่านหฤทัย — ต้องรู้ว่าใครตรวจ"
         timestamptz reviewed_at "(แผน m7-2)"
         integer hsk_level
         smallint category FK "(แผน m7-2) วันนี้ใน DB จริงยังเป็นเลขลอย ๆ 1-5 ไม่มี constraint…"
@@ -138,16 +140,16 @@ erDiagram
         timestamptz updated_at
     }
     USERS {
-        uuid id PK
+        uuid id PK "= auth.users.id · ไม่ผูก FK กับ auth.users: ON-05 ลบบัญชี auth…"
         text display_name
         text role "learner | admin | approver (RO-02/RO-03)"
         timestamptz pdpa_consent_at
         text consent_version "ฉบับของข้อความ consent ที่ยอมรับ (ON-05)"
-        integer target_level
+        integer target_level "ON-02 ①: 1=HSK1 · 2=HSK2 · 0=ยังไม่คิดเรื่องสอบ · null=ข้ามคำถาม"
         date exam_date
-        text self_level "ON-02 ③ อ่านตัวจีนออกไหม: cant_read | some_basics | unsure…"
+        text self_level "ON-02 ③ อ่านตัวจีนออกไหม: cant_read | some_basics |…"
         real audio_rate
-        boolean pinyin_hidden "ค่าตั้งซ่อนพินอิน (m1-6 จำค่าไว้)"
+        boolean pinyin_hidden "ค่าตั้งซ่อนพินอิน (m1-6 จำค่าไว้) · default false"
         text cohort "'trial' | 'team' | null — ME-02"
         timestamptz trial_started_at
         timestamptz anonymized_at "ถอนความยินยอมแล้ว (ON-05)"
@@ -172,7 +174,7 @@ erDiagram
         bigint id PK
         text code UK
         text name_th
-        text type "vocab | grammar | tone | consonant | thai_l1"
+        text type "thai_l1 (จุดผิดคนไทย 15) | vocab (ศัพท์รายหมวด 5) | skill…"
         integer hsk_level
         real bkt_prior "[cache]"
         real bkt_learn "[cache]"
@@ -185,13 +187,13 @@ erDiagram
         text code PK "intro | pinyin | tones | ear_game | reference"
         text name_th
         smallint position
-        real pass_threshold "PA-01: ด่าน ear_game ผ่านที่ ~0.80 · ด่านอ่านอย่างเดียว = null"
-        smallint soft_gate_after_tries "PA-08: ไม่ผ่านครบกี่รอบถึงเปิด ประตูนุ่ม (ข้อเสนอ 3)"
+        numeric pass_threshold "PA-01: ด่าน ear_game ผ่านที่ 0.80 · ด่านอ่านอย่างเดียว = null…"
+        smallint soft_gate_after_tries "PA-08: ไม่ผ่านครบกี่รอบถึงเปิด ประตูนุ่ม (ข้อเสนอ 3…"
     }
     EXAM_FORMS {
         bigint id PK
-        text code UK "'HSK1-PREPOST-A' — ชุดวิจัยชุดเดียว ใช้ทั้ง pre/post (28 ก.ย.:…"
-        smallint version
+        text code "'HSK1-PREPOST-A' — ชุดวิจัยชุดเดียว ใช้ทั้ง pre/post (28 ก.ย.:…"
+        smallint version "UNIQUE (code, version): ออกชุดใหม่ = code เดิม version +1…"
         text name_th
         text kind "pretest (ชุดวิจัย pre=post) | mock (สงวนไว้ ยังไม่ใช้) · 28…"
         integer hsk_level
@@ -199,7 +201,7 @@ erDiagram
         integer time_limit_s
         date locked_until "ชุด post ห้ามเสิร์ฟจนถึงวันวัดผล"
         timestamptz published_at "แช่แข็งแล้ว ห้ามแก้เนื้อในอีก"
-        boolean research_use_only "true = ใช้ได้แค่ pre กับ post เท่านั้น (มติ pre=post ชุดเดียว)"
+        boolean research_use_only "true = ใช้ได้แค่ pre กับ post เท่านั้น (มติ pre=post ชุดเดียว)…"
         text status "STATUS5"
         timestamptz created_at
         timestamptz updated_at
@@ -224,11 +226,11 @@ erDiagram
         timestamptz updated_at
     }
     ITEM_SKILLS {
-        bigint item_id PK FK
+        bigint item_id PK FK "migration: ON DELETE CASCADE (ลบข้อแล้วแผนที่ทักษะหายตาม)"
         bigint skill_id PK FK
     }
     FORM_ITEMS {
-        bigint form_id PK FK
+        bigint form_id PK FK "migration: ON DELETE CASCADE · trigger แช่แข็งเมื่อ published…"
         bigint item_id PK FK
         smallint position
     }
@@ -247,7 +249,7 @@ erDiagram
         timestamptz updated_at
     }
     SENTENCE_WORDS {
-        bigint sentence_id PK FK
+        bigint sentence_id PK FK "migration: ON DELETE CASCADE"
         bigint word_id PK FK
         smallint position PK
     }
@@ -285,10 +287,10 @@ erDiagram
         bigint form_id FK "null = ชุดที่ระบบสุ่มสด (quiz/practice)"
         smallint category FK "null สำหรับ pretest/posttest"
         text mode "โหมดฝึก: listen|read|order|match (null ถ้าเป็นโหมดสอบ)"
-        smallint attempt_no "[cache] ครั้งที่เท่าไหร่ของ (user, kind, category) — QZ-09"
+        smallint attempt_no "[cache] ครั้งที่เท่าไหร่ของ (user, kind, category) — QZ-09…"
         timestamptz started_at
         timestamptz finished_at
-        text status "running | done | abandoned (โฟลว์ §7-2: ค้าง >10 นาที = ทิ้งรอบ)"
+        text status "running | done | abandoned (โฟลว์ §7-2: ค้าง >10 นาที =…"
         integer total "[cache] นับจาก attempts ได้"
         integer score "[cache]"
         integer score_listening "pre/post: ฟัง 100"
@@ -335,8 +337,8 @@ erDiagram
         integer elapsed_days
         integer scheduled_days
         smallint learning_steps
-        integer reps
-        integer lapses
+        integer reps "default 0"
+        integer lapses "default 0"
         text state "new | learning | review | relearning"
     }
     SENTENCE_STATES {
@@ -369,7 +371,7 @@ erDiagram
         uuid user_id PK FK
         text stage PK FK
         smallint tries
-        real best_accuracy
+        numeric best_accuracy "เทียบกับ foundation_stages.pass_threshold (numeric ทั้งคู่)"
         timestamptz passed_at
     }
     APPROVAL_TRANSFERS {
@@ -407,7 +409,7 @@ erDiagram
 - ตารางเนื้อหา (`words`, `skills`, `items`, `item_skills`, `sentences`, `sentence_words`, `thai_l1_catalog`): อ่านสาธารณะ เขียนได้เฉพาะ service role (ผ่านหน้า Admin m7-2/7-3)
 - **`exam_forms` / `form_items` อ่านสาธารณะไม่ได้** — ถ้าเปิดอ่าน ผู้ทดลองจะรู้ว่าชุด post มีข้อไหน · เสิร์ฟผ่าน endpoint ที่เช็ก `locked_until` เท่านั้น
 - **ถอนความยินยอม (ON-05):** ไม่ลบแถว `attempts` (ขัด append-only + ทำลาย dataset) — ล้าง PII ใน `users` แล้วประทับ `anonymized_at` แทน · ต้องเขียนวิธีนี้ลงในข้อความ consent ตรง ๆ
-- **`answer_key`:** ข้อฝึก/ทวนเสิร์ฟพร้อมเฉลยได้ (ตรวจออฟไลน์) · ข้อ **mock เสิร์ฟแบบตัดเฉลยออก** ตรวจฝั่ง server เท่านั้น — กัน pre/post ปนเปื้อน (PL-07)
+- **`answer_key`:** client **ไม่เห็นเฉลยของ items ทุกข้อ** (migration 0005: สิทธิ์ระดับคอลัมน์ + view `items_public`) — ข้อฝึกรายวันปั้นสดจาก `words` ตรวจในเครื่องได้เพราะเฉลยคือตัวคำเอง · ข้อจากคลัง (ควิซ/pre/post) ตรวจผ่าน API (MK-04) · ห้าม `select('*')` บน items
 
 ---
 
@@ -535,6 +537,12 @@ erDiagram
 
 ---
 
+### ปรับ 7 ต.ค. — มี migration รันได้จริง (อาจารย์นัดรอบ 7: "DB เป็นโค้ด ไม่ใช่รูป → สร้างตารางใน Supabase → แก้ด้วย migration")
+- `supabase/migrations/` — 0001–0004 = ของที่รันมือไปแล้ว (words · roadmap_state · 0004 ห่อ DO ให้รันซ้ำได้) · **0005 `schema_v1`** = 24 ตารางจาก `er-drawio.sql` + สิ่งที่ผังไม่โชว์: identity/default/CHECK ทุก enum/UNIQUE/INDEX/RLS/trigger (updated_at · attempts append-only · form_items แช่แข็งเมื่อ published · posttest ต้องใช้ form เดียวกับ pretest · สมัครแล้วสร้าง users อัตโนมัติ) · items ให้ client อ่านได้โดยไม่เห็น `answer_key` (column grant) · **0006** = seed skills 23 + thai_l1_catalog 15 (สร้างจาก catalog-v1.json — ร่างรอหฤทัย)
+- `scripts/db_migrate.py` — dry-run (BEGIN…ROLLBACK บน Supabase จริง) / `--apply` / `--status` / `--mark` · จดเวอร์ชันใน `public.schema_migrations` · dry-run 7 ต.ค. ผ่านบน Postgres 17.6 (25 ตาราง)
+- กติกาใหม่: **แก้โครงที่ `er-drawio.sql` ก่อน → ออก migration ใหม่ให้ตรง → ห้ามแก้ตารางมือใน SQL Editor อีก** · ตารางจริงใน Supabase วันนี้ยังเป็น words + roadmap_state (+ schema_migrations) จนกว่าจะรัน `--apply`
+- `skills.type` เพิ่มค่า `skill` (ทักษะฟัง/อ่าน/เรียงประโยค 3 ตัวตาม CG-08) · ผังเดิม regenerate แล้ว
+
 ## 2.1) ตรวจแบบด้วย query จริง (ขั้น 5)
 
 [`query-ตรวจสอบข้อมูล.sql`](query-ตรวจสอบข้อมูล.sql) — 7 query ที่เขียนจาก "คำถามที่ฐานข้อมูลต้องตอบได้" ใน [`ความต้องการข้อมูล-User-Journey.md`](ความต้องการข้อมูล-User-Journey.md) §4
@@ -553,7 +561,7 @@ erDiagram
 
 ---
 
-> ตรวจแล้ว (ปรับ 23 ก.ย.): **24 ตาราง · 37 เส้น · 231 คอลัมน์** · ลำดับ FK ถูกต้องทั้งหมด (`er-drawio.sql` รันใน Postgres ได้ตรง ๆ) · ผัง mermaid ตรวจไวยากรณ์ผ่าน 100% · `.drawio` parse เป็น XML ได้ ไม่มีเส้นชี้ไป id ที่ไม่มีอยู่
+> ตรวจแล้ว (ปรับ 8 ต.ค.): **24 ตาราง · 39 เส้น · 231 คอลัมน์** (เส้นเพิ่ม 2: words.reviewed_by → users · roadmap_state.updated_by → users — ประกาศ FK ให้ตรง migration) · ลำดับ FK ถูกต้องทั้งหมด (`er-drawio.sql` รันใน Postgres ได้ตรง ๆ) · ผัง mermaid ตรวจไวยากรณ์ผ่าน 100% · `.drawio` parse เป็น XML ได้ ไม่มีเส้นชี้ไป id ที่ไม่มีอยู่
 
 ## 3) ลำดับการเกิดของตาราง (ผูกกับ roadmap)
 
