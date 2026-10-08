@@ -16,11 +16,13 @@
 
 ---
 
-## 1) ที่ใช้จริงวันนี้ (production ณ 14 ส.ค.)
+## 1) ที่ใช้จริงวันนี้ (production ณ 14 ส.ค. → **อัปเดต 8 ต.ค.**)
 
-ยังไม่มีล็อกอิน → ฐานข้อมูลกลางเก็บเฉพาะ **เนื้อหา** ส่วน**ข้อมูลรายผู้เรียน**อยู่ในเครื่องของแต่ละคน (localStorage) ตามแผน แล้วค่อยยกขึ้น DB ตอน m7-1
+> **8 ต.ค. 2569 — migration 0005/0006 รันจริงบน Supabase แล้ว:** ทั้ง **24 ตารางในหัวข้อ 2 + view `items_public`** มีจริงใน DB (ดู `supabase/migrations/` · ตรวจด้วย `python scripts/db_migrate.py --status`) · เว็บที่ขึ้น Vercel ยังอ่าน `words`/`roadmap_state` ด้วย anon key ได้เหมือนเดิม (smoke test ผ่าน) · มีข้อมูลสาธิต 1 คน "มิ้นท์" (`supabase/seed/demo_mint.sql` · ลบก่อนทดลองจริง) · หัวข้อ 1.1 ข้างล่างคือสภาพ**ก่อน** 8 ต.ค. เก็บไว้เป็นประวัติ — ตั้งแต่วันนี้ "ใช้จริง" = หัวข้อ 2 ทั้งหมด
 
-### 1.1 Supabase (PostgreSQL) — 2 ตาราง + 1 storage bucket
+ยังไม่มีล็อกอิน → ฐานข้อมูลกลางเก็บเฉพาะ **เนื้อหา** ส่วน**ข้อมูลรายผู้เรียน**อยู่ในเครื่องของแต่ละคน (localStorage) ตามแผน แล้วค่อยยกขึ้น DB ตอน m7-1 *(ตารางฝั่งผู้เรียนมีแล้วตั้งแต่ 8 ต.ค. — แอปยังไม่เขียนลงจนกว่าจะมีล็อกอิน)*
+
+### 1.1 Supabase (PostgreSQL) — 2 ตาราง + 1 storage bucket *(สภาพก่อน 8 ต.ค.)*
 
 ```mermaid
 erDiagram
@@ -561,7 +563,7 @@ erDiagram
 
 ---
 
-> ตรวจแล้ว (ปรับ 8 ต.ค.): **24 ตาราง · 39 เส้น · 231 คอลัมน์** (เส้นเพิ่ม 2: words.reviewed_by → users · roadmap_state.updated_by → users — ประกาศ FK ให้ตรง migration) · ลำดับ FK ถูกต้องทั้งหมด (`er-drawio.sql` รันใน Postgres ได้ตรง ๆ) · ผัง mermaid ตรวจไวยากรณ์ผ่าน 100% · `.drawio` parse เป็น XML ได้ ไม่มีเส้นชี้ไป id ที่ไม่มีอยู่
+> **รันจริงบน Supabase แล้ว 8 ต.ค.** (migration 0005/0006 — 24 ตาราง + view `items_public` · seed skills 23 / thai_l1_catalog 15 / categories 5) · ตรวจแล้ว (ปรับ 8 ต.ค.): **24 ตาราง · 39 เส้น · 231 คอลัมน์** (เส้นเพิ่ม 2: words.reviewed_by → users · roadmap_state.updated_by → users — ประกาศ FK ให้ตรง migration) · ลำดับ FK ถูกต้องทั้งหมด (`er-drawio.sql` รันใน Postgres ได้ตรง ๆ) · ผัง mermaid ตรวจไวยากรณ์ผ่าน 100% · `.drawio` parse เป็น XML ได้ ไม่มีเส้นชี้ไป id ที่ไม่มีอยู่
 
 ## 3) ลำดับการเกิดของตาราง (ผูกกับ roadmap)
 
