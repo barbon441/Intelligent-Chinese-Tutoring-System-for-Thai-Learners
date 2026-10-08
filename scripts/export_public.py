@@ -24,7 +24,6 @@ DOCS_MAP = {
     D08 + "DATABASE-ER.md":                             "docs/db/DATABASE-ER.md",
     D08 + "ER-星航.drawio":                              "docs/db/ER-full.drawio",
     D08 + "ER-เดินตามผู้ใช้-星航.drawio":                 "docs/db/ER-walkthrough.drawio",
-    D08 + "ตารางแบบอาจารย์-หมวด1.md":                   "docs/db/ตารางหมวด1-ทักษะ-เนื้อหา-ข้อสอบ-ผล.md",
     D08 + "query-ตรวจสอบข้อมูล.sql":                    "docs/db/query-ตรวจสอบข้อมูล.sql",
     D08 + "ARCHITECTURE.md":                            "docs/spec/ARCHITECTURE.md",
     D08 + "PRD.md":                                     "docs/spec/PRD.md",
@@ -67,7 +66,7 @@ README = """# ระบบติวเตอร์ภาษาจีนอัจ
 | `apps/web/` | Next.js (PWA) — หน้าเรียน/ฝึก/ควิซ/pre-post · deploy บน Vercel |
 | `apps/api/` | FastAPI — pyBKT · FSRS · ตรวจข้อ · deploy บน Render |
 | `supabase/migrations/` | **ฐานข้อมูล 24 ตาราง เป็นโค้ด** (schema + RLS + trigger + seed) — รันด้วย `python scripts/db_migrate.py` |
-| `docs/db/` | ดีไซน์ฐานข้อมูล: `er-drawio.sql` (ต้นทางของผัง) · `ER-walkthrough.drawio` (ผังแผ่นเดียวเดินตามผู้ใช้) · `ER-full.drawio` · `DATABASE-ER.md` · ตารางหมวด 1 (หมวด → ทักษะ → เนื้อหา → ข้อสอบ → ผล) |
+| `docs/db/` | ดีไซน์ฐานข้อมูล: `er-drawio.sql` (ต้นทางของผัง) · `ER-walkthrough.drawio` (ผังแผ่นเดียวเดินตามผู้ใช้) · `ER-full.drawio` · `DATABASE-ER.md` |
 | `docs/spec/` | PRD · สถาปัตยกรรม · กฎการทำงานระบบ · โฟลว์ผู้ใช้ · โมดูล/ฟังก์ชัน |
 | `docs/content/` | แผนเนื้อหา/ทักษะ/ลำดับการสอน (อิงตำรา HSK) |
 | `data/` | คำศัพท์ HSK1 300 คำ (seed) · คลังจุดผิดคนไทย (`thai-l1/catalog-v1.json`) |
@@ -86,7 +85,7 @@ python scripts/db_migrate.py            # dry-run (rollback) · --apply รั�
 
 ## ฐานข้อมูล (สำหรับอาจารย์ที่ปรึกษา)
 เดินตามผู้ใช้: สมัคร (`users`) → pre-test (`exam_forms` → `form_items` → `items` · ผลรอบ `sessions` · คำตอบรายข้อ `attempts`) → เรียนตามหมวด (`categories` · `category_progress` · `words` · `review_states` · `sentences` · `sentence_words` · `sentence_states`) → ปูพื้นฐานเสียง (`foundation_*` · `minimal_pairs`) → สมอง (`bkt_training_runs` · `skills` · `mastery_snapshots` · `thai_l1_catalog`)
-- เริ่มอ่านที่ `docs/db/ตารางหมวด1-ทักษะ-เนื้อหา-ข้อสอบ-ผล.md` แล้วเปิด `docs/db/ER-walkthrough.drawio` ใน draw.io
+- เริ่มที่ `docs/db/er-drawio.sql` (ต้นทาง) แล้วเปิด `docs/db/ER-walkthrough.drawio` ใน draw.io
 - แก้โครง = แก้ `docs/db/er-drawio.sql` → ออกไฟล์ใหม่ใน `supabase/migrations/` (ไม่แก้ตารางมือ)
 
 ---
