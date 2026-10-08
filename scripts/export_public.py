@@ -3,6 +3,7 @@
 #   python scripts/export_public.py --out ../hsk-tutor-for-thai                 → คัดไฟล์ + เขียน README (ไม่แตะ git)
 #   python scripts/export_public.py --out ../hsk-tutor-for-thai --push https://github.com/<user>/hsk-tutor-for-thai.git
 #                                                                              → + git init/commit/push (สร้าง branch main)
+#   ถ้าอาจารย์ commit ใน repo สะอาดแล้วเรายังไม่ได้ดึงกลับ สคริปต์จะหยุดเอง (ไม่เขียนทับ) — cherry-pick กลับ workspace → pull --ff-only → รันใหม่
 #
 # หลักการ: เดินตาม `git ls-files` ของ repo หลักเท่านั้น (ไฟล์ที่ .gitignore กันไว้ เช่น .env จึงไม่มีทางหลุด)
 #          แล้วกรองด้วย INCLUDE/EXCLUDE ข้างล่าง · เอกสารส่วนตัวของทีม (docs/03 คลิป/วิเคราะห์ · docs/07 vault · .claude ฯลฯ) ไม่ไป
@@ -103,6 +104,16 @@ def main():
     ap.add_argument("--push", help="URL remote ของ repo สะอาด — ถ้าใส่จะ git init/commit/push ให้")
     args = ap.parse_args()
     out = os.path.abspath(args.out)
+
+    # กันเขียนทับงานของอาจารย์: ถ้า repo สะอาดบน GitHub มี commit ที่เครื่องนี้ยังไม่มี → หยุดก่อน ไม่แตะอะไร
+    if args.push and os.path.isdir(os.path.join(out, ".git")) and "origin" in sh(["git", "remote"], out).stdout.split():
+        sh(["git", "fetch", "-q", "origin", "main"], out)
+        behind = sh(["git", "rev-list", "--count", "HEAD..origin/main"], out).stdout.strip()
+        if behind.isdigit() and int(behind) > 0:
+            log = sh(["git", "log", "--oneline", "HEAD..origin/main"], out).stdout.strip()
+            print(f"❌ repo สะอาดบน GitHub มี {behind} commit ที่เครื่องนี้ยังไม่มี (อาจารย์แก้?) — หยุดก่อน ไม่เขียนทับ:\n{log}")
+            print(f'   ทำก่อน: 1) ดูว่าแกแก้อะไร → cherry-pick กลับ workspace  2) git -C "{out}" pull --ff-only origin main  3) รัน export ใหม่')
+            sys.exit(1)
 
     files = sh(["git", "ls-files", "-z"], ROOT).stdout.split("\0")
     files = [f for f in files if f]
